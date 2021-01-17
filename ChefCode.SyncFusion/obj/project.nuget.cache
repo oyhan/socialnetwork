@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "gKkIkoqzp07p6LIuGa5SanhGEmi49KWhR0DyODIYtrlyGcZyo+vnb+EtwgatYlUMbkxIMETuNY6RBMYO8IVXpA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Ali\\source\\repos\\MahoorGroup\\Mahoor\\ChefCode.SyncFusion\\ChefCode.SyncFusion.csproj",
+  "expectedPackageFiles": [
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

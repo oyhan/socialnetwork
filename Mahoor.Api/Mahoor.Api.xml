@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Mahoor.Api</name>
+    </assembly>
+    <members>
+        <member name="M:Mahoor.Api.Controllers.PostController.Like(System.Guid)">
+            <summary>
+            like a post
+            </summary>
+            <param name="postId">the id of the post</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mahoor.Api.Controllers.PostController.UnLike(System.Guid)">
+            <summary>
+            remove a like from a post
+            </summary>
+            <param name="id">post id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mahoor.Api.Controllers.PostController.Report(System.Guid)">
+            <summary>
+            report a post
+            </summary>
+            <param name="postId">the id of the post</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mahoor.Api.Controllers.ProfileController.Report(System.Guid)">
+            <summary>
+            report a profile
+            </summary>
+            <param name="id">the id of the profile</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mahoor.Api.Controllers.ProfileController.Block(System.Guid)">
+            <summary>
+            block a profile
+            </summary>
+            <param name="id">the id of the profile</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mahoor.Api.Controllers.UserController.Followers(System.String)">
+            <summary>
+            Lists list of usernames followers
+            </summary>
+            <param name="username">username to list it's followers</param>
+            <returns></returns>
+        </member>
+        <member name="M:Mahoor.Api.Controllers.UserController.Followings(System.String)">
+            <summary>
+            Lists users followings by username
+            </summary>
+            <param name="username">username to list it's followings</param>
+            <returns></returns>
+        </member>
+        <member name="T:Mahoor.Api.ViewModels.PostEditViewModel">
+            <summary>
+            edit view model
+            </summary>
+        </member>
+        <member name="P:Mahoor.Api.ViewModels.PostEditViewModel.Id">
+            <summary>
+            id of the post to be edited
+            </summary>
+        </member>
+        <member name="P:Mahoor.Api.ViewModels.PostEditViewModel.Text">
+            <summary>
+            text to edit
+            </summary>
+        </member>
+    </members>
+</doc>

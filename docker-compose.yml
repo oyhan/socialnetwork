@@ -1,0 +1,77 @@
+version: '3.1'
+
+services:
+
+  elasticsearch:
+   container_name: elasticsearch
+   image: docker.elastic.co/elasticsearch/elasticsearch:7.9.2
+   ports:
+    - 9200:9200
+   volumes:
+    - elasticsearch-data:/usr/share/elasticsearch/data
+   environment:
+    - xpack.monitoring.enabled=true
+    - xpack.watcher.enabled=false
+    - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    - discovery.type=single-node
+   networks:
+    - elastic
+
+  kibana:
+   container_name: kibana
+   image: docker.elastic.co/kibana/kibana:7.9.2
+   ports:
+    - 5601:5601
+   depends_on:
+    - elasticsearch
+   environment:
+    - ELASTICSEARCH_URL=elasticsearch
+   networks:
+    - elastic
+
+
+  
+  postgresql:
+   container_name: postgresql
+   image: rahighi/mahoor.postgresql.pgroonga.postgis
+   ports:
+    - 5432:5432
+   environment: 
+    - POSTGRES_PASSWORD=Al!429229
+   networks:
+    - elastic
+
+  redis:
+   container_name: redis
+   image: redis
+   ports:
+    - 6379:6379
+   networks:
+    - elastic
+
+
+
+  mahoorwebapi:
+   container_name : mahoorwebapi  
+   image : mahoorwebapi:debug
+   ports:
+    - 2020:80
+   depends_on:
+    - elasticsearch
+    - postgresql
+    - redis
+   environment:
+    - AppSettings__RedisUrl=redis
+    - ElasticConfiguration__Uri=http://elasticsearch:9200
+    - ConnectionStrings__PostgreSQL= server=postgresql;database=Mahoor.Database;username=postgres;password=Al!429229;
+   networks:
+    - elastic
+    
+  
+networks:
+  elastic:
+    driver: bridge
+  
+
+volumes:
+  elasticsearch-data:

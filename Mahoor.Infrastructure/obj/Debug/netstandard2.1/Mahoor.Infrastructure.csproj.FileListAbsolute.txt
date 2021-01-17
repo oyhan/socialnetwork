@@ -1,0 +1,9 @@
+C:\Users\Ali\source\repos\MahoorGroup\Mahoor\Mahoor.Infrastructure\bin\Debug\netstandard2.1\Mahoor.Infrastructure.deps.json
+C:\Users\Ali\source\repos\MahoorGroup\Mahoor\Mahoor.Infrastructure\bin\Debug\netstandard2.1\Mahoor.Infrastructure.dll
+C:\Users\Ali\source\repos\MahoorGroup\Mahoor\Mahoor.Infrastructure\bin\Debug\netstandard2.1\Mahoor.Infrastructure.pdb
+C:\Users\Ali\source\repos\MahoorGroup\Mahoor\Mahoor.Infrastructure\obj\Debug\netstandard2.1\Mahoor.Infrastructure.csprojAssemblyReference.cache
+C:\Users\Ali\source\repos\MahoorGroup\Mahoor\Mahoor.Infrastructure\obj\Debug\netstandard2.1\Mahoor.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\Ali\source\repos\MahoorGroup\Mahoor\Mahoor.Infrastructure\obj\Debug\netstandard2.1\Mahoor.Infrastructure.AssemblyInfo.cs
+C:\Users\Ali\source\repos\MahoorGroup\Mahoor\Mahoor.Infrastructure\obj\Debug\netstandard2.1\Mahoor.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\Ali\source\repos\MahoorGroup\Mahoor\Mahoor.Infrastructure\obj\Debug\netstandard2.1\Mahoor.Infrastructure.dll
+C:\Users\Ali\source\repos\MahoorGroup\Mahoor\Mahoor.Infrastructure\obj\Debug\netstandard2.1\Mahoor.Infrastructure.pdb

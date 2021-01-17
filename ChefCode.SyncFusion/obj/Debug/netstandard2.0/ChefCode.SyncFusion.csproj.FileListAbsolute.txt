@@ -1,0 +1,9 @@
+C:\Users\Ali\source\repos\MahoorGroup\Mahoor\ChefCode.SyncFusion\bin\Debug\netstandard2.0\ChefCode.SyncFusion.deps.json
+C:\Users\Ali\source\repos\MahoorGroup\Mahoor\ChefCode.SyncFusion\bin\Debug\netstandard2.0\ChefCode.SyncFusion.dll
+C:\Users\Ali\source\repos\MahoorGroup\Mahoor\ChefCode.SyncFusion\bin\Debug\netstandard2.0\ChefCode.SyncFusion.pdb
+C:\Users\Ali\source\repos\MahoorGroup\Mahoor\ChefCode.SyncFusion\obj\Debug\netstandard2.0\ChefCode.SyncFusion.csprojAssemblyReference.cache
+C:\Users\Ali\source\repos\MahoorGroup\Mahoor\ChefCode.SyncFusion\obj\Debug\netstandard2.0\ChefCode.SyncFusion.AssemblyInfoInputs.cache
+C:\Users\Ali\source\repos\MahoorGroup\Mahoor\ChefCode.SyncFusion\obj\Debug\netstandard2.0\ChefCode.SyncFusion.AssemblyInfo.cs
+C:\Users\Ali\source\repos\MahoorGroup\Mahoor\ChefCode.SyncFusion\obj\Debug\netstandard2.0\ChefCode.SyncFusion.csproj.CoreCompileInputs.cache
+C:\Users\Ali\source\repos\MahoorGroup\Mahoor\ChefCode.SyncFusion\obj\Debug\netstandard2.0\ChefCode.SyncFusion.dll
+C:\Users\Ali\source\repos\MahoorGroup\Mahoor\ChefCode.SyncFusion\obj\Debug\netstandard2.0\ChefCode.SyncFusion.pdb

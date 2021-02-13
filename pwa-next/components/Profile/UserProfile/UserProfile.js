@@ -13,6 +13,8 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 import LanguageIcon from '@material-ui/icons/Language';
 import InfoIcon from '@material-ui/icons/Info';
 import FullWidthTabs from '../../Navigation/Tab/FullWidthTab';
+import UserPosts from './UserPosts';
+import UserProfileAppBar from './UserProfileAppBar';
 // import ProfileAvatar from '../ProfileAvatar';
 
 const useStyle = makeStyles(() => ({
@@ -31,7 +33,7 @@ export default function UserProfile({ username }) {
     const [, dispatch] = useStateValue();
     const classes = useStyle()
     useEffect(() => {
-        // dispatch(<UserProfileAppBar />);
+        dispatch(<UserProfileAppBar />);
         return () => {
             dispatch(<AppBar />);
         }
@@ -73,41 +75,41 @@ export default function UserProfile({ username }) {
             </Grid>
         </Grid>
 
-        <Grid container>
-            <Grid container direction='row'>
-                <IconButton disableRipple color='inherit'>
+        <Grid spacing={1} container className={classes.div}>
+            <Grid container spacing={1}  direction='row'>
+                <IconButton size='small' disableRipple color='inherit'>
                     <LocationOnIcon />
                 </IconButton>
-                <Typography className={classes.text}>
+                <Typography variant='caption'  className={classes.text}>
                     شهر،ایران
                 </Typography>
             </Grid>
-            <Grid container direction='row'>
-                <IconButton disableRipple color='inherit'>
+            <Grid container spacing={1}  direction='row'>
+                <IconButton size='small'  disableRipple color='inherit'>
                     <FavoriteIcon />
                 </IconButton>
-                <Typography className={classes.text}>
+                <Typography  variant='caption' className={classes.text}>
                     علاقه‌مندی‌ها
                 </Typography>
             </Grid>
-            <Grid container direction='row'>
-                <IconButton disableRipple color='inherit'>
+            <Grid container spacing={1}  direction='row'>
+                <IconButton  size='small' disableRipple color='inherit'>
                     <LanguageIcon />
                 </IconButton>
-                <Typography className={classes.text}>
+                <Typography variant='caption' className={classes.text}>
                     وب‌سایت
                 </Typography>
             </Grid>
-            <Grid container direction='row'>
-                <IconButton disableRipple color='inherit'>
-                    <InfoIcon />
-                </IconButton>
-                <Typography variant='body1' className={classes.text}>
+            <Grid container  direction='row'>
+                
+                <Typography variant='caption' className={classes.text}>
                     یک آدم شوخ و بی مزه
                 </Typography>
             </Grid>
         </Grid>
 
-        <FullWidthTabs/>
+        <FullWidthTabs tabs={["فعالیت","عکس"]} tabsContent={[
+           <UserPosts/> 
+        ]}/>
     </>
 }

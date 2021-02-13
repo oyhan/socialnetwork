@@ -1,7 +1,6 @@
 import { Grid } from '@material-ui/core'
 import React from 'react'
-import Post from '../Post/Post'
-import PostSlider from '../Post/PostSlider'
+import Post from '../../Post/Post'
 
 const posts = [
     {
@@ -11,8 +10,7 @@ const posts = [
         year : "99",
         placeName : "طزرجان",
         likes : 24,
-        medias : [{"url":"https://i.pinimg.com/564x/d2/95/7d/d2957d2c23f34099351befadaedad30e.jpg"},
-        {"url":"https://4.img-dpreview.com/files/p/E~TS590x0~articles/3925134721/0266554465.jpeg"}]
+        medias : [{"url":"https://i.pinimg.com/564x/d2/95/7d/d2957d2c23f34099351befadaedad30e.jpg"}]
     },
     {
         text : "یک روز دل انگیز در یزد",

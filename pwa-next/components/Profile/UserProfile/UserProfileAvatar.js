@@ -1,6 +1,10 @@
 import { Avatar, Grid, IconButton, makeStyles, Typography } from "@material-ui/core";
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import { useState } from "react";
+import MoreDialog from "../../Dialog/Dialog";
+import ReportIcon from '@material-ui/icons/Report';
+import BlockIcon from '@material-ui/icons/Block';
 const useStyles = makeStyles((theme) => ({
     root: {
         position: 'absolute',
@@ -34,6 +38,23 @@ const useStyles = makeStyles((theme) => ({
 
 export default function UserProfileAvatar({ username }) {
     const classes = useStyles();
+    const [open, setOpen] = useState(false);
+    const handleUserMoreButton = () => {
+        setOpen(!open);
+    }
+
+    const moreBtnItems = [{
+        title: `بلاک کردن ${username}`,
+        action: () => { },
+        icon : <BlockIcon/>
+    },
+    {
+        title: `گزارش‌کردن این پروفایل`,
+        action: () => { },
+        icon : <ReportIcon/>
+    }
+]
+
     return (
         <Grid container className={classes.root}>
             <IconButton size='small' className={classes.avatorBtn}>
@@ -50,11 +71,11 @@ export default function UserProfileAvatar({ username }) {
                 </Typography>
             </Grid>
             <Grid item className={classes.more} >
-                <IconButton size='small' >
+                <IconButton onClick={handleUserMoreButton} size='small' >
                     <MoreHorizIcon />
                 </IconButton>
             </Grid>
-
+            <MoreDialog open={open} items={moreBtnItems} handleClose={handleUserMoreButton} />
         </Grid>
     )
 }

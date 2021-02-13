@@ -23,12 +23,26 @@ export default function MyBobo() {
     useEffect(() => {
         dispatch(<ProfileAppBar />);
         return () => {
-            
+
             dispatch(<AppBar />);
         }
     }, [])
 
-    const tabs=["فعالیت‌های شما","علاقه‌مندی‌های شما","عکس‌ها","Reviews"]
+    const tabs = ["فعالیت‌های شما", "علاقه‌مندی‌های شما", "عکس‌ها", "Reviews"]
+
+    const InfoItem = ({ title, icon }) => (
+        <Grid container spacing={1} direction='row'>
+            <Link href="/mybobo/editprofile" >
+                <IconButton disableRipple>
+                    <Add color='inherit' />
+                </IconButton>
+            </Link>
+            <Typography variant="caption" className={classes.text}>
+                {title}
+                </Typography>
+        </Grid>
+    )
+
 
     return <>
         <Link href="/mybobo/editprofile" >
@@ -65,48 +79,12 @@ export default function MyBobo() {
         </Grid>
 
         <Grid container>
-            <Grid container direction='row'>
-                <Link href="/mybobo/editprofile" >
-                    <IconButton disableRipple>
-                        <Add />
-                    </IconButton>
-                </Link>
-                <Typography className={classes.text}>
-                    شهر فعلی خود را اضافه کنید
-                </Typography>
-            </Grid>
-            <Grid container direction='row'>
-                <Link href="/mybobo/editprofile" >
-                    <IconButton disableRipple>
-                        <Add />
-                    </IconButton>
-                </Link>
-                <Typography className={classes.text}>
-                    علاقه‌مندی خود را اضافه کنید
-                </Typography>
-            </Grid>
-            <Grid container direction='row'>
-                <Link href="/mybobo/editprofile" >
-                    <IconButton disableRipple>
-                        <Add />
-                    </IconButton>
-                </Link>
-                <Typography className={classes.text}>
-                    یک وبسایت اضافه کنید
-                </Typography>
-            </Grid>
-            <Grid container direction='row'>
-                <Link href="/mybobo/editprofile" >
-                    <IconButton disableRipple>
-                        <Add />
-                    </IconButton>
-                </Link>
-                <Typography className={classes.text}>
-                    درباره خود جزئیاتی بنویسید
-                </Typography>
-            </Grid>
+            <InfoItem title="شهر فعلی خود را اضافه کنید"/>
+            <InfoItem title="علاقه‌مندی خود را اضافه کنید"/>
+            <InfoItem title="یک وبسایت اضافه کنید"/>
+            <InfoItem title="درباره خود جزئیاتی بنویسید"/>
         </Grid>
 
-        <FullWidthTabs tabs={tabs} />
+        <FullWidthTabs tabs={tabs} tabsContent={["activities", "favorites", "photos", "reviews"]} />
     </>
 }

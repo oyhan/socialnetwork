@@ -4,7 +4,7 @@ import { Button } from '@material-ui/core'
 export default function ButtonBobo({children,...props}){
 
     return (
-        <Button variant='outlined'  {...props} >
+        <Button disableElevation variant='outlined'  {...props} >
             {children}
         </Button>
     )

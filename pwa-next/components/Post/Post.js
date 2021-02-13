@@ -14,13 +14,18 @@ import { red } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreHorizIcon from '@material-ui/icons/MoreVert';
+import ReplyIcon from '@material-ui/icons/Reply';
 import PostSlider from './PostSlider';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import Dialog from '../Dialog/Dialog';
+import CallMissedIcon from '@material-ui/icons/CallMissed';
+import ReportIcon from '@material-ui/icons/Report';
 
 const useStyles = makeStyles((theme) => ({
     root: {
         maxWidth: '100%',
-        margin : "20px 0"
+        margin: "20px 0"
     },
     media: {
         height: 250,
@@ -42,21 +47,37 @@ const useStyles = makeStyles((theme) => ({
     sharebtn: {
         marginLeft: 'auto'
     },
-    text :{
+    text: {
         padding: theme.spacing(1)
     },
-    actions : {
-        padding : 0
+    actions: {
+        padding: 0
     }
 }));
 
 export default function Post({ username, month, year, placeName, text, likes, medias }) {
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
+    const [open, setOpen] = React.useState(false);
+
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
+    const handleMore  = ()=>{
+        setOpen(!open);
+
+    }
+    const moreBtnItems = [{
+        title: `انصراف از دنبال کردن`,
+        action: () => { },
+        icon : <CallMissedIcon/>
+    },
+    {
+        title: `گزارش کردن این عکس`,
+        action: () => { console.log("report picture") },
+        icon : <ReportIcon/>
+    }]
 
     return (
         <Card elevation={0} className={classes.root}>
@@ -67,7 +88,7 @@ export default function Post({ username, month, year, placeName, text, likes, me
           </Avatar>
                 }
                 action={
-                    <IconButton aria-label="settings">
+                    <IconButton onClick={handleMore} aria-label="more">
                         <MoreHorizIcon />
                     </IconButton>
                 }
@@ -87,7 +108,7 @@ export default function Post({ username, month, year, placeName, text, likes, me
             {/* </CardMedia> */}
             <CardContent classes={
                 {
-                    root : classes.text
+                    root: classes.text
                 }
             }>
                 <Typography variant="body2" color="textSecondary" component="p">
@@ -98,16 +119,17 @@ export default function Post({ username, month, year, placeName, text, likes, me
                 root: classes.actions
             }}>
                 <IconButton aria-label="add to favorites">
-                    <FavoriteIcon />
+                    <FavoriteBorderIcon />
                 </IconButton>
                 <Typography>
                     {likes}
                 </Typography>
                 <IconButton className={classes.sharebtn} aria-label="share">
-                    <ShareIcon />
+                    <ReplyIcon />
                 </IconButton>
-
             </CardActions>
+            
+            <Dialog open={open} items={moreBtnItems} handleClose={handleMore} />
 
         </Card>
     );

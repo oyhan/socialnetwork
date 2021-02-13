@@ -20,8 +20,8 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box p={3}>
-          <Typography>{children}</Typography>
+        <Box p={0}>
+          <Typography >{children}</Typography>
         </Box>
       )}
     </div>
@@ -80,7 +80,7 @@ export default function FullWidthTabs({ tabs, tabsContent }) {
       >
         {
           tabs && tabs.map((tab, i) =>
-            <Tab label={tab} {...a11yProps(i)} />
+            <Tab  label={tab} {...a11yProps(i)} />
 
           )
         }
@@ -99,16 +99,6 @@ export default function FullWidthTabs({ tabs, tabsContent }) {
             </TabPanel>
           )
         }
-
-        <TabPanel value={value} index={1} dir={theme.direction}>
-          Item Two
-        </TabPanel>
-        <TabPanel value={value} index={2} dir={theme.direction}>
-          Item Three
-        </TabPanel>
-        <TabPanel value={value} index={3} dir={theme.direction}>
-          Item four
-        </TabPanel>
       </SwipeableViews>
     </div>
   );

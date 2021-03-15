@@ -12,6 +12,7 @@ import { Avatar, Grid } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    marginBottom:50
   },
   rightIcon: {
     marginRight: theme.spacing(2),

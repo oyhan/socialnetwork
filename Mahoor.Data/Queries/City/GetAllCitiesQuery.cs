@@ -9,9 +9,11 @@ namespace Mahoor.Data.Queries.City
 {
     public sealed class GetAllCitiesQuery :BaseSpecification<CityModel,Guid>
     {
-        public GetAllCitiesQuery()
+        public GetAllCitiesQuery(string name)
         {
-            AddCriteria(c=>c.Geom.OgcGeometryType!=OgcGeometryType.Point);
+            name = name.ToLower();
+//            AddCriteria(c=>c.Geom.OgcGeometryType!=OgcGeometryType.Point);
+            AddCriteria(c=>c.City.ToLower().Contains(name)|| c.Province.ToLower().Contains(name));
 //            ApplyPaging(0,10);
         }
     }

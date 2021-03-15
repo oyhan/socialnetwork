@@ -28,11 +28,12 @@ namespace Mahoor.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddCors(o => o.AddDefaultPolicy(c => c.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().Build()));
+            services.AddControllers()
+                .AddNewtonsoftJson(s => s.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
             services.AddOptions();
             services.Configure<AppSettings>(Configuration.GetSection(
                 nameof(AppSettings)));
-            //                .AddNewtonsoftJson(s=>s.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
             services.CongfigureApp(Configuration); 
         }
 
@@ -44,6 +45,7 @@ namespace Mahoor.Api
                 app.UseDeveloperExceptionPage();
             }
             app.UseAppConfigs();
+            app.UseCors();
             app.UseRouting();
             app.UseStaticFiles();
             app.UseAuthorization();

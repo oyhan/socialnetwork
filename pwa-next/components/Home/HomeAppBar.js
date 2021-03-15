@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import MAppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -10,6 +10,7 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import { Chip, Fade, Slide, useScrollTrigger, Zoom } from '@material-ui/core';
 import HeaderTopChip from '../Header/HeaderTopChip';
 import HeaderLowerChip from '../Header/HeaderLowerChip';
+import WhereToGo from './WhereToGo';
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -52,8 +53,9 @@ function HideOnScroll(props) {
 }
 
 export default function HomeAppBar(props) {
+    const [open,setOpen]= useState();
     const handleClick = () => {
-
+        setOpen(true);
     }
 
     const classes = useStyles();
@@ -70,6 +72,7 @@ export default function HomeAppBar(props) {
                         <HeaderTopChip handleClick={handleClick} title="کجا می‌روید؟" />
                         <HeaderLowerChip handleClick={handleClick} title="ببین نزدیکت چیه" />
                     </Toolbar>
+                    <WhereToGo open={open}  handleWindow={setOpen}/>
                 </MAppBar>
             </HideOnScroll>
 

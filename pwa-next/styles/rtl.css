@@ -2,3 +2,7 @@
     font-family: "IranYekan";
     src: url("./fonts/iranYekan.woff");
    }
+
+   /* div[role='presentation']{
+       direction: rtl;
+   } */

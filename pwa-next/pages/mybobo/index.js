@@ -7,6 +7,8 @@ import { Add } from '@material-ui/icons';
 import Link from 'next/link'
 import FullWidthTabs from '../../components/Navigation/Tab/FullWidthTab';
 import AppBar from '../../components/AppBar/AppBar';
+import { actions } from '../../lib/reducer/actions';
+import httpClientBuilder from '../../lib/HttpClient';
 
 const useStyle = makeStyles((theme) => ({
     text: {
@@ -17,16 +19,12 @@ const useStyle = makeStyles((theme) => ({
     }
 }))
 
-export default function MyBobo() {
+export default function MyBobo(profileDto) {
+
     const [, dispatch] = useStateValue();
     const classes = useStyle()
-    useEffect(() => {
-        dispatch(<ProfileAppBar />);
-        return () => {
-
-            dispatch(<AppBar />);
-        }
-    }, [])
+    const { avatarURl, biography, city, favorites, noOfFollowers, noOfFollowings, noOfPosts, userName, website } = profileDto;
+    
 
     const tabs = ["فعالیت‌های شما", "علاقه‌مندی‌های شما", "عکس‌ها", "Reviews"]
 
@@ -39,12 +37,13 @@ export default function MyBobo() {
             </Link>
             <Typography variant="caption" className={classes.text}>
                 {title}
-                </Typography>
+            </Typography>
         </Grid>
     )
 
 
     return <>
+        <ProfileAppBar profileDto={profileDto} />
         <Link href="/mybobo/editprofile" >
             <ButtonBobo color="primary" fullWidth>
                 ویرایش پروفایل
@@ -57,7 +56,7 @@ export default function MyBobo() {
                     دنبال شوندگان
                 </Typography>
                 <Typography align='center'>
-                    1
+                    {noOfFollowings}
                 </Typography>
             </Grid>
             <Grid item direction='column'>
@@ -65,7 +64,7 @@ export default function MyBobo() {
                     دنبال کنندگان
                 </Typography>
                 <Typography align='center'>
-                    1
+                    {noOfFollowers}
                 </Typography>
             </Grid>
             <Grid item direction='column' >
@@ -73,18 +72,31 @@ export default function MyBobo() {
                     پست
                 </Typography>
                 <Typography align='center'>
-                    0
+                    {noOfPosts}
                 </Typography>
             </Grid>
         </Grid>
 
         <Grid container>
-            <InfoItem title="شهر فعلی خود را اضافه کنید"/>
-            <InfoItem title="علاقه‌مندی خود را اضافه کنید"/>
-            <InfoItem title="یک وبسایت اضافه کنید"/>
-            <InfoItem title="درباره خود جزئیاتی بنویسید"/>
+            <InfoItem title="شهر فعلی خود را اضافه کنید" />
+            <InfoItem title="علاقه‌مندی خود را اضافه کنید" />
+            <InfoItem title="یک وبسایت اضافه کنید" />
+            <InfoItem title="درباره خود جزئیاتی بنویسید" />
         </Grid>
 
         <FullWidthTabs tabs={tabs} tabsContent={["activities", "favorites", "photos", "reviews"]} />
     </>
+}
+
+export async function getServerSideProps(context) {
+
+    var httpClient = httpClientBuilder(context);
+    var result = await httpClient.Get(`http://localhost:12089/profile/me`);
+
+
+    return {
+        props: result.response
+    }
+
+
 }

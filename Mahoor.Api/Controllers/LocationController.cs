@@ -39,18 +39,17 @@ namespace Mahoor.Api.Controllers
 
         }
 
-        [HttpGet]
-        public async Task<ActionResult> Citys()
+        [HttpGet("{name}")]
+        public async Task<ActionResult> Citys(string name)
         {
-
-         
-
             var citys = await _cityRepository.ListAsync(c => new
             {
-                Geom = c.Geom.ToText(),
+                c.Id,
                 c.City,
+                c.Province
 
-            },new GetAllCitiesQuery());
+            },new GetAllCitiesQuery(name));
+            citys = citys.Where(c => c.City.Contains(name) || c.Province.Contains(name)).ToList();
             return Ok(citys);
         }
 

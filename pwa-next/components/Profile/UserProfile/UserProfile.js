@@ -15,6 +15,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import FullWidthTabs from '../../Navigation/Tab/FullWidthTab';
 import UserPosts from './UserPosts';
 import UserProfileAppBar from './UserProfileAppBar';
+import { actions } from '../../../lib/reducer/actions';
 // import ProfileAvatar from '../ProfileAvatar';
 
 const useStyle = makeStyles(() => ({
@@ -29,18 +30,24 @@ const useStyle = makeStyles(() => ({
     }
 }))
 
-export default function UserProfile({ username }) {
+export default function UserProfile({ user }) {
+    
     const [, dispatch] = useStateValue();
     const classes = useStyle()
     useEffect(() => {
-        dispatch(<UserProfileAppBar />);
+        dispatch({ type: actions.APPBAR, payload: <UserProfileAppBar /> });
         return () => {
-            dispatch(<AppBar />);
+            dispatch({ type: actions.APPBAR, payload: <AppBar /> });
         }
     }, [])
+    const {noOfFollowings,noOfFollowers,noOfPosts,userName,avatarURl,favorites,website,biography,city} = user;
+    
+    
+    
+
 
     return <>
-        <UserProfileAvatar username={username} />
+        <UserProfileAvatar username={userName} />
 
         <Grid container justify='center' className={classes.followerBtn}>
             <Link href="/mybobo/editprofile" >
@@ -54,7 +61,7 @@ export default function UserProfile({ username }) {
                     دنبال شوندگان
                 </Typography>
                 <Typography align='center'>
-                    1
+                    {noOfFollowers}
                 </Typography>
             </Grid>
             <Grid item direction='column'>
@@ -62,7 +69,7 @@ export default function UserProfile({ username }) {
                     دنبال کنندگان
                 </Typography>
                 <Typography align='center'>
-                    1
+                    {noOfFollowings}
                 </Typography>
             </Grid>
             <Grid item direction='column' >
@@ -70,46 +77,46 @@ export default function UserProfile({ username }) {
                     پست
                 </Typography>
                 <Typography align='center'>
-                    0
+                   {noOfPosts}
                 </Typography>
             </Grid>
         </Grid>
 
         <Grid spacing={1} container className={classes.div}>
-            <Grid container spacing={1}  direction='row'>
+            <Grid container spacing={1} direction='row'>
                 <IconButton size='small' disableRipple color='inherit'>
                     <LocationOnIcon />
                 </IconButton>
-                <Typography variant='caption'  className={classes.text}>
-                    شهر،ایران
+                <Typography variant='caption' className={classes.text}>
+                    {city}
                 </Typography>
             </Grid>
-            <Grid container spacing={1}  direction='row'>
-                <IconButton size='small'  disableRipple color='inherit'>
+            <Grid container spacing={1} direction='row'>
+                <IconButton size='small' disableRipple color='inherit'>
                     <FavoriteIcon />
                 </IconButton>
-                <Typography  variant='caption' className={classes.text}>
-                    علاقه‌مندی‌ها
+                <Typography variant='caption' className={classes.text}>
+                    {favorites}
                 </Typography>
             </Grid>
-            <Grid container spacing={1}  direction='row'>
-                <IconButton  size='small' disableRipple color='inherit'>
+            <Grid container spacing={1} direction='row'>
+                <IconButton size='small' disableRipple color='inherit'>
                     <LanguageIcon />
                 </IconButton>
                 <Typography variant='caption' className={classes.text}>
-                    وب‌سایت
+                    {website}
                 </Typography>
             </Grid>
-            <Grid container  direction='row'>
-                
+            <Grid container direction='row'>
+
                 <Typography variant='caption' className={classes.text}>
-                    یک آدم شوخ و بی مزه
+                   {biography}
                 </Typography>
             </Grid>
         </Grid>
 
-        <FullWidthTabs tabs={["فعالیت","عکس"]} tabsContent={[
-           <UserPosts/> 
-        ]}/>
+        <FullWidthTabs tabs={["فعالیت", "عکس"]} tabsContent={[
+            <UserPosts />
+        ]} />
     </>
 }

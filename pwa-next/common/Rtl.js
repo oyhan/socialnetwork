@@ -1,12 +1,14 @@
 import React from 'react'
 import { create } from 'jss';
 import rtl from 'jss-rtl';
+import { faIR } from '@material-ui/core/locale';
 import { StylesProvider, jssPreset } from '@material-ui/core/styles';
 import { makeStyles, MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 // import '../styles/rtl.css'
 // Configure JSS
 const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
 export const theme = createMuiTheme({
+    
     shape: {
         borderRadius : 0
     },
@@ -67,7 +69,7 @@ export const theme = createMuiTheme({
             '"Segoe UI Symbol"',
         ].join(',')
     }
-});
+},faIR);
 
 export default function RTL(props) {
 
@@ -76,9 +78,7 @@ export default function RTL(props) {
     return (
         <StylesProvider jss={jss}>
             <MuiThemeProvider theme={theme}>
-                <div dir="rtl">
                     {props.children}
-                </div>
             </MuiThemeProvider>
 
         </StylesProvider>

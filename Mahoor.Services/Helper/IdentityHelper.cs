@@ -12,7 +12,7 @@ namespace Mahoor.Services.Helper
         public static string Id(this ClaimsPrincipal user)
         {
 #if DEBUG
-//            return "a18be9c0-aa65-4af8-bd17-00bd9344e575"; //admin user
+            return "028dd260-e0b8-421c-83fb-a65e6e794cb6"; //admin user
 #endif
             return user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier).Value;
         }

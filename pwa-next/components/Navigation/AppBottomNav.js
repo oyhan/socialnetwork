@@ -21,7 +21,7 @@ export default function AppBottomNav() {
   const [value, setValue] = React.useState(0);
   const router = useRouter();
   const onclick = (route) => () => {
-    console.log('route: ', route);
+    
     
     router.push(route);
 

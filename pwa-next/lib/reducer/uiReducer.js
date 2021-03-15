@@ -1,9 +1,13 @@
 
 const uiReducer = (state, action) => {
-  
-  
-  return {
-    appbar:action
+  switch (action.type) {
+    case 'APPBAR':
+      return {
+        appbar: action.payload
+      }
+    default:
+      return state;
   }
+
 };
 export default uiReducer;

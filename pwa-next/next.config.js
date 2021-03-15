@@ -1,4 +1,14 @@
 const withImages = require('next-images')
+const withPWA = require('next-pwa')
+const runtimeCaching = require('next-pwa/cache')
+const { i18n } = require('./next-i18next.config')
+
+module.exports = withPWA({
+  pwa: {
+    dest: 'public',
+    runtimeCaching,
+  },
+})
 module.exports = withImages({
   webpack(config, options) {
     return config
@@ -29,5 +39,8 @@ module.exports = {
     return config
 
   }
+}
+module.exports = {
+  i18n,
 }
 

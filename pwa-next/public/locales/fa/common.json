@@ -1,0 +1,10 @@
+{
+    "mandatory":"اجباری",
+    "userName" :"نام کاربری",
+    "displayName": "نام نمایشی",
+    "displayNameMinLength" :"حداقل طول نام نمایشی {{length}} است",
+    "userNameMinLength" :"حداقل طول نام کاربری {{length}} است",
+    "displayNameMaxLength" :"حداکثر طول نام نمایشی {{length}} است",
+    "userNameMaxLength" :"حداکثر طول نام کاربری {{length}} است",
+    "bioPlaceHolder" : "درباره خود جزئیاتی بنویسید"
+}

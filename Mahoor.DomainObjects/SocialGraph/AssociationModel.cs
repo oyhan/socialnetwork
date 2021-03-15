@@ -27,6 +27,7 @@ namespace Mahoor.DomainObjects.SocialGraph
         FollowRequest =64, //user->user
         Blocked =128,      //user->user
         Reported=256,      // user-> user,post
-        Wrote=512          //user-> review 
+        Wrote=512,          //user-> review 
+        Faved=1024         //user->place 
     }
 }

@@ -56,6 +56,8 @@ export default function InputRenderer(props) {
         showPass: false
     })
     var { Name: name, Type: type, Required: required, DisplayName: displayName, DefaultValue: defaultValue, DataSource, Disabled, Controled, multiple, Hint, ...other } = props;
+    
+    
     var InputLabelRef = null;
     
     if (!displayName){
@@ -340,7 +342,7 @@ export default function InputRenderer(props) {
                     required={required}
                     defaultValue={defaultValue}
                     disabled={Disabled}
-                    coun
+                    
                 />
             )
         // case PropType.RichText:

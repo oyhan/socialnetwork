@@ -16,7 +16,7 @@ using MediatR;
 
 namespace Mahoor.Services.User.Handlers
 {
-    public class EditProfileCommandHandler : IRequestHandler<EditProfileCommand, BaseServiceResponse<bool>>
+    public class EditProfileCommandHandler : ServiceBase, IRequestHandler<EditProfileCommand, BaseServiceResponse<bool>>
 
     {
         private readonly AppUserManager _userManager;
@@ -52,7 +52,7 @@ namespace Mahoor.Services.User.Handlers
                 //                {
                 var media = request.Medias[0];
                 var relativePath = $"/user/{user.UserName}/avatar/";
-                var directory = $"{Directory.GetCurrentDirectory()}{relativePath}";
+                var directory = $"{ContentPath}{relativePath}";
                 var fileName = $"{Guid.NewGuid()}_{media.Name}";
                 var storagePath = $"{directory}/{fileName}";
                 if (!Directory.Exists(directory))

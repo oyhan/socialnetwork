@@ -50,9 +50,9 @@ namespace Mahoor.Api.Controllers
         }
 
         
-        [HttpPost("confirm")]
+        [HttpPost("{mobileNumber}/{token}")]
         [AllowAnonymous]
-        public async Task<ActionResult> ConfirmPhoneNumber(ConfirmPhoneNumberCommand command)
+        public async Task<ActionResult> ConfirmPhoneNumber([FromRoute]ConfirmPhoneNumberCommand command)
         {
             var result = await _userService.ConfirmPhoneNumber(command);
             if (result.SuccessFull)
@@ -91,6 +91,20 @@ namespace Mahoor.Api.Controllers
             setTokenCookie(response.RefreshToken);
 
             return Ok(response);
+        }
+
+        [AllowAnonymous]
+        [HttpPost("{mobileNumber}")]
+        public async Task<IActionResult> Login(string mobileNumber)
+        {
+            var response =await _userService.FindByPhoneNumberAsync(mobileNumber);
+
+            if (response == null)
+                return StatusCode(400, new { message = "invalid mobile number" });
+            var otp = await _userService.UserManager.GenerateChangePhoneNumberTokenAsync(response, response.PhoneNumber);
+            //todo send otp
+
+            return Ok();
         }
 
 

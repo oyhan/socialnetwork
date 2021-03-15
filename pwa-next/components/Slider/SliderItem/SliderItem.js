@@ -1,7 +1,5 @@
 import React from 'react';
 import { Card, CardActionArea, CardMedia, CardContent, Typography, CardActions, Button, makeStyles, IconButton } from '@material-ui/core';
-import dummyimage from './coffeeshop2.jpg'
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteTwoToneIcon from '@material-ui/icons/FavoriteTwoTone';
 import Rate from '../../Rate/Rate';
 import RoomIcon from '@material-ui/icons/Room';
@@ -73,7 +71,7 @@ export default function SliderItem({ image, title, rate, ratesCount, distance, f
                 <div className={classes.inline}>
                     <RoomIcon />
                     <Typography className={classes.distance} color='disabled'>
-                        {distance} کیلومتر
+                        {distance}
 
                     </Typography>
                 </div>

@@ -6,6 +6,7 @@ namespace Mahoor.Services.User.Profile.Dto
 {
     public class ProfileDto
     {
+        public string DisplayName { get; set; }
         public int NoOfFollowers { get; set; }
         public int NoOfFollowings { get; set; }
         public int NoOfPosts { get; set; }

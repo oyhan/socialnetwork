@@ -1,6 +1,7 @@
 import { makeStyles } from '@material-ui/core';
 import { Map, Marker, Overlay } from 'pigeon-maps'
 import { useEffect, useState } from 'react';
+import { useStateValue } from '../../lib/store/appState';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -15,10 +16,9 @@ const useStyles = makeStyles((theme) => ({
 export default function PigeonMap() {
     const classes = useStyles();
     const [width, setWidth] = useState(300);
-
-    useEffect(()=>{
-        setWidth(window.innerWidth-12);
-    })
+    const [{user},dispatch]= useStateValue();
+    console.log('user: ', user.location?.latitude);
+    
     const osm = (x, y, z) => {
         const s = String.fromCharCode(97 + ((x + y + z) % 3))
         return `https://${s}.tile.openstreetmap.org/${z}/${x}/${y}.png`
@@ -33,6 +33,16 @@ export default function PigeonMap() {
                 defaultCenter={[31.834989, 54.374296]}
                 defaultZoom={12}
                 height={150}>
+                <Marker
+                    anchor={[user.location?.latitude,user.location?.longitude]}
+                    color='black'
+                    payload={1}
+                    hover
+                    onClick={({ event, anchor, payload }) => {
+                        console.log('Clicked marker nr: ', payload)
+                    }}
+                />
+
 
             </Map>
         </div>

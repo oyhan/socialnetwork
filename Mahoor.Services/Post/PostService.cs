@@ -22,7 +22,7 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace Mahoor.Services.Post
 {
-    public class PostService : IPostService
+    public class PostService : ServiceBase,IPostService
     {
         private readonly IGraphService _graphService;
         private readonly IAppRepository<PostModel, Guid> _postRepository;
@@ -73,8 +73,8 @@ namespace Mahoor.Services.Post
 
                 foreach (var media in command.Medias)
                 {
-                    var relativePath = $"/user/{user.UserName}/pictures/";
-                    var directory = $"{Directory.GetCurrentDirectory()}{relativePath}";
+                    var relativePath = $"/wwwroot/user/{user.UserName}/pictures/";
+                    var directory = $"{ContentPath}{relativePath}";
                     var fileName = $"{Guid.NewGuid()}_{media.Name}";
                      var storagePath =    $"{directory}/{fileName}";
                     if (!Directory.Exists(directory))

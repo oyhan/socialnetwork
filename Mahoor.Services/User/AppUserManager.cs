@@ -72,7 +72,11 @@ namespace Mahoor.Services.User
             return (await UserManager.Users.FirstOrDefaultAsync(u => u.Id == userId)).ToProfileDtoModel();
 
         }
-
+        public async Task<UserModel> FindByUsername(string username)
+        {
+            var user = await UserManager.Users.FirstOrDefaultAsync(u => u.UserName == username);
+            return user;
+        }
 
         public async Task<UserModel> FindByPhoneNumberAsync(string phoneNumber)
         {
@@ -110,7 +114,7 @@ namespace Mahoor.Services.User
         public async Task<BaseServiceResponse<ConfirmPhoneNumberReponse>> ConfirmPhoneNumber(
             ConfirmPhoneNumberCommand command)
         {
-            var user =await  UserManager.FindByIdAsync(command.UserId);
+            var user =await  FindByPhoneNumberAsync(command.MobileNumber);
             if (user==null)
             {
                 return BaseServiceResponse<ConfirmPhoneNumberReponse>.FailedResponse("user not found");
@@ -132,7 +136,7 @@ namespace Mahoor.Services.User
                     var token = generateJwtToken(user);
                 
                     return BaseServiceResponse<ConfirmPhoneNumberReponse>.SuccessFullResponse
-                        (new ConfirmPhoneNumberReponse(){Token = token, RefreshToken=refreshToken.Token});
+                        (new ConfirmPhoneNumberReponse(){Token = token, RefreshToken=refreshToken.Token, User = ToUserDto(user)});
                 }
                 return BaseServiceResponse<ConfirmPhoneNumberReponse>.FailedResponse(updateResult.GetErrors());
             }
@@ -286,10 +290,13 @@ namespace Mahoor.Services.User
 
             return new UserDto()
             {
-                 Name = user.DisplayName,
+                 DisplayName = user.DisplayName,
                  Bio =  user.Bio,
                  BirthDay = user.BirthDay,
-                 City = $"{user.City.City},{user.City.Province}",
+                 City = $"{user.City?.City},{user.City?.Province}",
+                 Favorites = user.Favorites,
+                 UserName = user.UserName,
+                 Website = user.Website
                  
             };
         }

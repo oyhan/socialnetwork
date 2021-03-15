@@ -94,7 +94,8 @@ namespace Mahoor.Services.ExtentionMethods
                 AvatarURl = user.AvatarUrl,
                 Biography = user.Bio,
                 Favorites = user.Favorites,
-                Website =  user.Website
+                Website =  user.Website,
+                DisplayName = user.DisplayName,
             };
         }
 

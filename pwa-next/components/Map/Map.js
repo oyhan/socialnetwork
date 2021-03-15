@@ -1,5 +1,6 @@
 import * as React from 'react';
 import PigeonMap from './PigeonMap';
+import dynamic from 'next/dynamic'
 
 export default function Map() {
     const [viewport, setViewport] = React.useState({
@@ -7,8 +8,12 @@ export default function Map() {
         longitude: 54.374296,
         zoom: 15
     });
+    const LeafletMap = dynamic(
+        () => import('./Leaflet/LeafletMap'), // replace '@components/map' with your component's location
+        { ssr: false } // This line is important. It's what prevents server-side render
+      )
     return(
-        <PigeonMap />
+        <LeafletMap />
     )
     // return (
     //     <ReactMapGL

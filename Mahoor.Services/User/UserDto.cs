@@ -6,11 +6,12 @@ namespace Mahoor.Services.User
 {
    public class UserDto
     {
-        public string Name { get; set; }
-        public string Family { get; set; }
+        public string DisplayName { get; set; }
         public string City { get; set; }
         public string Bio { get; set; }
         public DateTime BirthDay { get; set; }
-
+        public string UserName { get; set; }
+        public string Favorites { get; set; }
+        public string Website { get; set; }
     }
 }

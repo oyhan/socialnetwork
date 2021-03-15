@@ -20,6 +20,21 @@ namespace Mahoor.Api.Controllers
 
 
 
+        [HttpGet("{username}")]
+        public async Task<ActionResult<BaseServiceResponse<ProfileDto>>> Get(string username)
+        {
+            var command = new GetUserProfileCommand(Guid.Parse(User.Id()));
+
+            var result = await Mediator.Send(command);
+
+            if (result.SuccessFull)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+
+        }
 
         [HttpGet]
         public async Task<ActionResult<BaseServiceResponse<ProfileDto>>>  Me()

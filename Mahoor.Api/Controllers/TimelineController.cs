@@ -71,20 +71,20 @@ namespace Mahoor.Api.Controllers
 //        }
 //
 //
-//        [HttpGet]
-//        public async Task<ActionResult> Citys()
-//        {
+        [HttpGet]
+        public async Task<ActionResult> Citys()
+        {
+
+            return Ok(AddGeoData.InsertCitys(_db));
+
+//            var citys = await _cityRepository.ListAsync(c => new
+//            {
+//                Geom = c.Geom.ToText(),
+//                c.City,
 //
-//            return Ok(AddGeoData.InsertCitys(_db));
-//
-////            var citys = await _cityRepository.ListAsync(c => new
-////            {
-////                Geom = c.Geom.ToText(),
-////                c.City,
-////
-////            },new GetAllCitiesQuery());
-////            return Ok(citys);
-//        }
+//            },new GetAllCitiesQuery());
+//            return Ok(citys);
+        }
 
     }
 }

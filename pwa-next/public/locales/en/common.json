@@ -1,0 +1,6 @@
+{
+    "mandatory":"Mandatory",
+    "userName" :"Username",
+    "displayName": "Display Name",
+    "displayNameMinLegth" :""
+}

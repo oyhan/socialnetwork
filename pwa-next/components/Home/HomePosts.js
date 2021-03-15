@@ -61,3 +61,10 @@ export default function HomePosts(){
         </Grid>
     )
 }
+
+export async function getServerSideProps(context) {
+    
+    return {
+      props: {}, // will be passed to the page component as props
+    }
+  }

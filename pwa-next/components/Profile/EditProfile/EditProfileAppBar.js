@@ -11,7 +11,7 @@ const extera = (
 
 
 
-export default function EditProfileAppBar(){
+export default function EditProfileAppBar({save}){
     const router = useRouter();
 
     const handleCancel = ()=>{
@@ -19,7 +19,7 @@ export default function EditProfileAppBar(){
     }
 
     const handleSave = ()=>{
-
+       save && save();
         console.log("saved");
     }
     const rightIcon = <ToolbarButton onClick={handleSave}>ذخیره</ToolbarButton>

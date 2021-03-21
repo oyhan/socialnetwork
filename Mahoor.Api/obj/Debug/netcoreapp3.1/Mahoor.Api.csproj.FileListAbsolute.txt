@@ -1,12 +1,12 @@
 C:\Users\Ali\source\repos\MahoorGroup\Mahoor\Mahoor.Api\bin\Debug\netcoreapp3.1\appsettings.Development.json
-C:\Users\Ali\source\repos\MahoorGroup\Mahoor\Mahoor.Api\bin\Debug\netcoreapp3.1\appsettings.json
 C:\Users\Ali\source\repos\MahoorGroup\Mahoor\Mahoor.Api\bin\Debug\netcoreapp3.1\Mahoor.Api.exe
+C:\Users\Ali\source\repos\MahoorGroup\Mahoor\Mahoor.Api\bin\Debug\netcoreapp3.1\appsettings.json
+C:\Users\Ali\source\repos\MahoorGroup\Mahoor\Mahoor.Api\bin\Debug\netcoreapp3.1\Mahoor.Api.xml
 C:\Users\Ali\source\repos\MahoorGroup\Mahoor\Mahoor.Api\bin\Debug\netcoreapp3.1\Mahoor.Api.deps.json
 C:\Users\Ali\source\repos\MahoorGroup\Mahoor\Mahoor.Api\bin\Debug\netcoreapp3.1\Mahoor.Api.runtimeconfig.json
 C:\Users\Ali\source\repos\MahoorGroup\Mahoor\Mahoor.Api\bin\Debug\netcoreapp3.1\Mahoor.Api.runtimeconfig.dev.json
 C:\Users\Ali\source\repos\MahoorGroup\Mahoor\Mahoor.Api\bin\Debug\netcoreapp3.1\Mahoor.Api.dll
 C:\Users\Ali\source\repos\MahoorGroup\Mahoor\Mahoor.Api\bin\Debug\netcoreapp3.1\Mahoor.Api.pdb
-C:\Users\Ali\source\repos\MahoorGroup\Mahoor\Mahoor.Api\bin\Debug\netcoreapp3.1\Mahoor.Api.xml
 C:\Users\Ali\source\repos\MahoorGroup\Mahoor\Mahoor.Api\bin\Debug\netcoreapp3.1\CacheManager.Core.dll
 C:\Users\Ali\source\repos\MahoorGroup\Mahoor\Mahoor.Api\bin\Debug\netcoreapp3.1\EasyCaching.Core.dll
 C:\Users\Ali\source\repos\MahoorGroup\Mahoor\Mahoor.Api\bin\Debug\netcoreapp3.1\EasyCaching.InMemory.dll
@@ -21,6 +21,8 @@ C:\Users\Ali\source\repos\MahoorGroup\Mahoor\Mahoor.Api\bin\Debug\netcoreapp3.1\
 C:\Users\Ali\source\repos\MahoorGroup\Mahoor\Mahoor.Api\bin\Debug\netcoreapp3.1\Hangfire.Core.dll
 C:\Users\Ali\source\repos\MahoorGroup\Mahoor\Mahoor.Api\bin\Debug\netcoreapp3.1\Hangfire.SqlServer.dll
 C:\Users\Ali\source\repos\MahoorGroup\Mahoor\Mahoor.Api\bin\Debug\netcoreapp3.1\Humanizer.dll
+C:\Users\Ali\source\repos\MahoorGroup\Mahoor\Mahoor.Api\bin\Debug\netcoreapp3.1\ImageProcessor.dll
+C:\Users\Ali\source\repos\MahoorGroup\Mahoor\Mahoor.Api\bin\Debug\netcoreapp3.1\ImageProcessor.Plugins.WebP.dll
 C:\Users\Ali\source\repos\MahoorGroup\Mahoor\Mahoor.Api\bin\Debug\netcoreapp3.1\JetBrains.Annotations.dll
 C:\Users\Ali\source\repos\MahoorGroup\Mahoor\Mahoor.Api\bin\Debug\netcoreapp3.1\MD.PersianDateTime.Standard.dll
 C:\Users\Ali\source\repos\MahoorGroup\Mahoor\Mahoor.Api\bin\Debug\netcoreapp3.1\MediatR.dll
@@ -180,5 +182,3 @@ C:\Users\Ali\source\repos\MahoorGroup\Mahoor\Mahoor.Api\obj\Debug\netcoreapp3.1\
 C:\Users\Ali\source\repos\MahoorGroup\Mahoor\Mahoor.Api\obj\Debug\netcoreapp3.1\Mahoor.Api.dll
 C:\Users\Ali\source\repos\MahoorGroup\Mahoor\Mahoor.Api\obj\Debug\netcoreapp3.1\Mahoor.Api.pdb
 C:\Users\Ali\source\repos\MahoorGroup\Mahoor\Mahoor.Api\obj\Debug\netcoreapp3.1\Mahoor.Api.genruntimeconfig.cache
-C:\Users\Ali\source\repos\MahoorGroup\Mahoor\Mahoor.Api\bin\Debug\netcoreapp3.1\ImageProcessor.dll
-C:\Users\Ali\source\repos\MahoorGroup\Mahoor\Mahoor.Api\bin\Debug\netcoreapp3.1\ImageProcessor.Plugins.WebP.dll

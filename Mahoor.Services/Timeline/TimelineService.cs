@@ -14,6 +14,7 @@ using Mahoor.Services.Post;
 using Mahoor.Services.Post.Dto;
 using Mahoor.Services.Redis;
 using Mahoor.Services.Timeline.Dtos;
+using SmartFormat.Utilities;
 using StackExchange.Redis;
 
 namespace Mahoor.Services.Timeline
@@ -47,13 +48,15 @@ namespace Mahoor.Services.Timeline
 //           var ass = _db.Associations.First();
            
             var followingsIds = (await _graphService.GetAssociationsFrom(userId, AType.Following));
-
+            followingsIds.Add(userId);
 //            var posts =await _postRepository.ListAsync(s=>s.ToTimelinePostDto(),new GetUserTimelinePosts(followingsIds,from , to));
+            
             var posts = await _associationRepository.ListAsync(s => s.Data.ToTimelinePostDto(),
                 new GetUserFollowingsPosts( followingsIds));
             foreach (var post in posts)
             {
                 post.Likes =await _graphService.GetAssociationCountTo(post.Id, AType.Likes);
+                post.Liked = await _graphService.HasAssociation(userId, post.Id, AType.Likes);
             }
 
             return posts;

@@ -27,19 +27,31 @@ module.exports = {
   },
 }
 module.exports = {
-  webpack: (config, options) => {
-    config.module.rules.push({
-      test: /\.(png|jpe?g|gif)$/i,
-      use: [
-        {
-          loader: 'file-loader',
-        },
-      ],
-    })
-    return config
+  webpack: (config, { isServer }) => {
+    // Fixes npm packages that depend on `fs` module
+    if (!isServer) {
+      config.node = {
+        fs: 'empty'
+      }
+    }
 
+    return config
   }
 }
+// module.exports = {
+//   webpack: (config, options) => {
+//     config.module.rules.push({
+//       test: /\.(png|jpe?g|gif)$/i,
+//       use: [
+//         {
+//           loader: 'file-loader',
+//         },
+//       ],
+//     })
+//     return config
+
+//   }
+// }
 module.exports = {
   i18n,
 }

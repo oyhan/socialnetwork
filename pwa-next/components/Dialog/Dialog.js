@@ -15,20 +15,20 @@ import CancelIcon from '@material-ui/icons/Cancel';
 const useStyles = makeStyles({
     list: {
         width: 250,
-        direction : 'ltr'
+        direction: 'ltr'
     },
     fullList: {
         width: 'auto',
     },
 });
 
-export default function Dialog({ open , items , handleClose }) {
+export default function Dialog({ open, items, handleClose }) {
     const classes = useStyles();
-   
-    const onclose = ()=>{
+
+    const onclose = () => {
         handleClose()
     }
-    
+
 
     const list = (anchor) => (
         <div
@@ -36,34 +36,34 @@ export default function Dialog({ open , items , handleClose }) {
                 [classes.fullList]: anchor === 'top' || anchor === 'bottom',
             })}
             role="presentation"
-            // onClick={toggleDrawer(anchor, false)}
-            // onKeyDown={toggleDrawer(anchor, false)}
+        // onClick={toggleDrawer(anchor, false)}
+        // onKeyDown={toggleDrawer(anchor, false)}
         >
-             <List>
+            <List>
                 {items.map((item, index) => (
-                    <ListItem button onClick={item.action} key={index}>
+                    item.visible ? <ListItem button onClick={item.action} key={index}>
                         <ListItemIcon>{item.icon}</ListItemIcon>
                         <ListItemText primary={item.title} />
-                    </ListItem>
+                    </ListItem> : ""
                 ))}
             </List>
             <Divider />
             <List>
-                    <ListItem button onClick={handleClose} >
-                        <ListItemIcon>
-                            <CancelIcon />
-                            </ListItemIcon>
-                        <ListItemText primary="بستن" />
-                    </ListItem>
+                <ListItem button onClick={handleClose} >
+                    <ListItemIcon>
+                        <CancelIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="بستن" />
+                </ListItem>
             </List>
         </div>
     );
 
     return (
         <div>
-                <Drawer anchor='bottom' open={open} onClose={onclose}>
-                    {list('bottom')}
-                </Drawer>
+            <Drawer anchor='bottom' open={open} onClose={onclose}>
+                {list('bottom')}
+            </Drawer>
         </div>
     );
 }

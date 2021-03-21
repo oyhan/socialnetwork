@@ -1,9 +1,12 @@
 import UserManager from './userManager';
 import axios from 'axios'
 import { toast } from 'react-toastify';
-const authentication = {};
+import cookieCutter from 'cookie-cutter'
+
+var authentication = {};
 if (typeof window !== 'undefined') {
-    const authentication = { Authorization: `Bearer ${document.cookie.jwt}` }
+    
+     authentication = { Authorization: `Bearer ${cookieCutter.get("jwt")}` }
 
 }
 export const BrowserHttpClient = {
@@ -15,7 +18,7 @@ export const BrowserHttpClient = {
 }
 
 async function MultiPartFormData(url, data) {
-    console.log('data: ', data);
+    
     
     const formData = new FormData();
 
@@ -27,7 +30,10 @@ async function MultiPartFormData(url, data) {
     try {
         const response = await fetch(url, {
             method: 'POST',
-            body: formData
+            body: formData,
+            headers: {
+                ...authentication
+            },
         });
         return handleResponse(response);
     } catch (error) {

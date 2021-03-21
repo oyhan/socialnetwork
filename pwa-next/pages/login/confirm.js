@@ -13,6 +13,8 @@ import OtpTimer from '../../components/OtpTimer/OtpTimer';
 import UserManagerBuilder from '../../lib/userManager';
 import cookieCutter from 'cookie-cutter'
 import { useCookies } from "react-cookie"
+import { useStateValue } from '../../lib/store/appState';
+import { actions } from '../../lib/reducer/actions';
 
  const useStyles = makeStyles({
     root: {
@@ -28,7 +30,7 @@ import { useCookies } from "react-cookie"
 export default function Confirm({ mobileNumber }) {
     const history = useRouter();
     const [cookie, setCookie] = useCookies(["user"])
-    
+    const [,dispatch]  = useStateValue();
     const classes = useStyles();
     const onSubmit = (e) => {
         formik.setSubmitting(true);
@@ -46,6 +48,12 @@ export default function Confirm({ mobileNumber }) {
                 setCookie("user",userCookie);
                 cookieCutter.set('refreshToken', response.refreshToken);
                 cookieCutter.set('jwt', response.token);
+
+                dispatch({
+                    type:actions.USER,
+                    payload : response.user
+                })
+
                 // document.cookie=`jwt=${response.token}`;
                 history.push("/")      
             }).catch(error => {

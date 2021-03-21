@@ -29,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function BaseLayout(props) {
     const [{ ui, user },dispatch] = useStateValue();
+    
     const getUser = () => {
         const user = JSON.parse(localStorage.getItem("user"));
         return user;
@@ -36,7 +37,7 @@ export default function BaseLayout(props) {
     useEffect(() => {
         var user = getUser();
         document.body.dir="rtl";
-        dispatch({ type: actions.USER, payload: { ...user, isAuthenticated: true, location: "" } })
+        // dispatch({ type: actions.USER, payload: { ...user, isAuthenticated: true, location: "" } })
         
         
       }, [])
@@ -61,7 +62,7 @@ export default function BaseLayout(props) {
             </Container>
 
             {
-                user.isAuthenticated && <AppBottomNav />
+                user  && <AppBottomNav />
             }
         </>
     )

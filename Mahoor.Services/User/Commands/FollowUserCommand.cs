@@ -10,12 +10,12 @@ namespace Mahoor.Services.User.Commands
     public class FollowUserCommand : IRequest<BaseServiceResponse<bool>>
     {
         public Guid FollowerUser { get; }
-        public Guid FollowedUser { get; }
+        public string FollowedUserName { get; }
 
-        public FollowUserCommand(Guid followerUser, Guid followedUser)
+        public FollowUserCommand(Guid followerUser, string followedUserName)
         {
             FollowerUser = followerUser;
-            FollowedUser = followedUser;
+            FollowedUserName = followedUserName;
         }
     }
 }

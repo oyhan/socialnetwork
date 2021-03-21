@@ -20,14 +20,17 @@ export const useStateValue = () => useContext(StateContext);
 //   }
 //   return false;
 // }
-
+const getUser = () => {
+  if (typeof window !== 'undefined') {
+    const user = JSON.parse(localStorage.getItem("user"));
+    return user;
+  }
+    return {};
+}
 
 export const initialState = {
   ui: {
     appbar: <AppBar />
   },
-  user: {
-    isAuthenticated: false,
-    location: ""
-  },
+  user: getUser(),
 }

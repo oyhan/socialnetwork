@@ -18,33 +18,34 @@ namespace Mahoor.Services.User.Handlers
     {
         private readonly IGraphService _graphService;
         private readonly IMediator _mediator;
+        private readonly AppUserManager _userManager;
 
-        public FollowUserCommandHandler(IGraphService graphService, IMediator mediator)
+        public FollowUserCommandHandler(IGraphService graphService, IMediator mediator, AppUserManager userManager)
         {
             _graphService = graphService;
             _mediator = mediator;
+            _userManager = userManager;
         }
         public async Task<BaseServiceResponse<bool>> Handle(FollowUserCommand request, CancellationToken cancellationToken)
         {
-
+            var followingUser = await _userManager.FindByUsername(request.FollowedUserName.ToString());
             var alreadyFollowed =
-                await _graphService.HasAssociation(request.FollowerUser, request.FollowedUser, AType.Following | AType.FollowRequest);
+                await _graphService.HasAssociation(request.FollowerUser, Guid.Parse(followingUser.Id), AType.Following | AType.FollowRequest);
+
             if (alreadyFollowed)
             {
                 return BaseServiceResponse<bool>.FailedResponse("you are already following the person");
-
-
             }
 
-            if (request.FollowedUser == request.FollowerUser)
+            if (Guid.Parse(followingUser.Id) == request.FollowerUser)
             {
                 return BaseServiceResponse<bool>.FailedResponse("you can not follow yourself");
             }
 
 
-            await _graphService.AddAssociation(request.FollowerUser, request.FollowedUser, AType.Following, null);
+            await _graphService.AddAssociation(request.FollowerUser, Guid.Parse(followingUser.Id), AType.Following, null);
 
-            await _mediator.Publish(new NewFollowerEvent(request.FollowerUser, request.FollowedUser), cancellationToken);
+            await _mediator.Publish(new NewFollowerEvent(request.FollowerUser, Guid.Parse(followingUser.Id)), cancellationToken);
             
             
             return BaseServiceResponse<bool>.SuccessFullResponse(true);

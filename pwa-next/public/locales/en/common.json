@@ -2,5 +2,6 @@
     "mandatory":"Mandatory",
     "userName" :"Username",
     "displayName": "Display Name",
-    "displayNameMinLegth" :""
+    "displayNameMinLegth" :"",
+    "userNameInUse" : "Username already in use"
 }

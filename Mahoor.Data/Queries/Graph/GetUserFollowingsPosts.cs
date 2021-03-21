@@ -13,6 +13,7 @@ namespace Mahoor.Data.Queries.Graph
         {
             //find posts authored by the users list
             AddCriteria(a => followingsIds.Contains(a.Id1) && a.AssociationType == AType.Authored );
+            ApplyOrderByDescending(p=>p.CreatedDate);
         }
     }
 }

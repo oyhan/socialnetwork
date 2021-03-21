@@ -14,7 +14,7 @@ namespace Mahoor.Api.Controllers
     public class BaseApiController : BaseController
     {
 
-
+        public string HostUrl => $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
         protected IMediator Mediator => (IMediator) HttpContext.RequestServices.GetService(typeof(IMediator));
 
         internal IReadOnlyList<MediaDto> ProcessFiles()

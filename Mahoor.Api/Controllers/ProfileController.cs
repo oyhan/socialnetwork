@@ -81,7 +81,8 @@ namespace Mahoor.Api.Controllers
                 Medias = medias,
                 Website = profile.Website,
                 Favorites = profile.Favorites,
-                UserId = User.Id()
+                UserId = User.Id(),
+                DisplayName = profile.DisplayName
 
             };
 

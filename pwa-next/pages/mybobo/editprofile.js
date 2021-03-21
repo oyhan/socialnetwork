@@ -23,38 +23,50 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import ValidationTextField from '../../lib/ValidationTextField';
 import AlternateEmailIcon from '@material-ui/icons/AlternateEmail';
+import httpClientBuilder from '../../lib/HttpClient';
 const useStyle = makeStyles((theme) => ({
     text: {
         color: theme.palette.primary.main
     }
 }))
-export default function EditProfile() {
-    const [{ user }, dispatch] = useStateValue();
+export default function EditProfile({user}) {
+    const [ dispatch] = useStateValue();
+    console.log('user11: ', user);
+
     const { t } = useTranslation('common');
     const router = useRouter();
-    const { avatarURl, bio, city, favorites, noOfFollowers,
+    const { avatarURl, biography, city, favorites, noOfFollowers,
+        
         noOfFollowings, noOfPosts, userName, website, displayName } = user;
-    var onsubmit = (formiks) => () => {
+        
+        var onsubmit = (formiks) => () => {
         formiks.setSubmitting(true);
+
         BrowserHttpClient.MultiPartFormData("http://localhost:12089/Profile/Edit", formiks.values)
             .then(response => {
                 if (response.successFull) {
+                    dispatch(formik.values);
                     router.back();
                 }
             }).catch(error => {
+
+
             });
     }
     const schema = useProfileModelValidationSchema();
     var formik = useFormik(formikObjectBuilder(user, schema, onsubmit))
+    
+
     useEffect(() => {
         formik.setValues(user);
+        formik.validateForm();
     }, [user])
     const avatarChanged = (file) => {
         formik.setFieldValue("files", file)
     }
     return <>
         <EditProfileAppBar save={onsubmit(formik)} />
-        <ProfileAvatar userName={userName} onAvatarSelected={avatarChanged} />
+        <ProfileAvatar userName={userName} avatarURl={avatarURl} onAvatarSelected={avatarChanged} />
         <InputRenderer
             key="displayName"
             error={formik.errors.displayName}
@@ -70,6 +82,7 @@ export default function EditProfile() {
             // Hint={formik.errors.displayName}
             value={formik.values.displayName}
             autoComplete="off" placeholder={t('displayName')} Type={PropType.Text} fullWidth />
+            
         <InputRenderer
             onChange={formik.handleChange}
             InputProps={{
@@ -83,22 +96,38 @@ export default function EditProfile() {
             key="userName"
             value={formik.values.userName}
             autoComplete="off" placeholder={t('userName')} Type={PropType.Text} Name="userName" fullWidth />
-        <AutoCompleteInput inputcomponent={
-            <InputRenderer
-                key="cityId"
-                onChange={formik.handleChange}
-                error={formik.errors?.cityId}
-                value={formik.values.cityId}
-                InputProps={{
-                    startAdornment: (
-                        <InputAdornment position="start">
-                            <LocationOnIcon />
-                        </InputAdornment>
-                    ),
-                }}
-                autoComplete="off" placeholder="شهر فعلی" Type={PropType.Text}
-                Name="cityId" fullWidth />
-        }
+
+        <InputRenderer
+            onChange={formik.handleChange}
+            InputProps={{
+                startAdornment: (
+                    <InputAdornment position="start">
+                        <AlternateEmailIcon />
+                    </InputAdornment>
+                ),
+            }}
+            error={formik.errors.cityId}
+            key="cityId"
+            value={formik.values.cityId}
+            autoComplete="off" placeholder={t('userName')} Type={PropType.Hidden} Name="cityId" fullWidth />
+        <AutoCompleteInput
+            defaultValue={formik.values.city}
+            inputcomponent={
+                <InputRenderer
+                    key="city"
+                    onChange={formik.handleChange}
+                    error={formik.errors?.city}
+                    value={formik.values.city}
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <LocationOnIcon />
+                            </InputAdornment>
+                        ),
+                    }}
+                    autoComplete="off" placeholder="شهر فعلی" Type={PropType.Text}
+                    Name="city" fullWidth />
+            }
             queryUrl={"http://localhost:12089/Location/Citys/{query}"}
             onSelected={(value) => { formik.setFieldValue("cityId", value?.id) }}
         />
@@ -126,12 +155,13 @@ export default function EditProfile() {
                     </InputAdornment>
                 ),
             }}
-            value={website}
+            value={formik.values.website}
             autoComplete="off" placeholder={t('website')} Type={PropType.Text} Name="website" fullWidth />
+
         <InputRenderer
-            key="bio"
+            key="biography"
             onChange={formik.handleChange}
-            error={formik.errors.bio}
+            error={formik.errors.biography}
             InputProps={{
                 startAdornment: (
                     <InputAdornment position="start">
@@ -139,15 +169,19 @@ export default function EditProfile() {
                     </InputAdornment>
                 ),
             }}
-            value={bio}
+            value={formik.values.biography}
             autoComplete="off" placeholder={t('bioPlaceHolder')}
-            Type={PropType.TextArea} Name="bio" fullWidth />
+            Type={PropType.TextArea} Name="biography" fullWidth />
     </>
 }
-export async function getServerSideProps({ locale }) {
+export async function getServerSideProps({ locale, ...context }) {
+    var httpClient = httpClientBuilder(context);
+    var result = await httpClient.Get(`http://localhost:12089/profile/me`);
+
     return {
         props: {
-            ...await serverSideTranslations(locale, ['common'])
+            ...await serverSideTranslations(locale, ['common']),
+            user : result.response
         }
     }
 }

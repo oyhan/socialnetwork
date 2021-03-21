@@ -54,6 +54,9 @@ namespace Mahoor.Services.ExtentionMethods
                 }).ToList(),
                 PlaceName = post.PlaceName,
                 Id = post.Id,
+                CreatedDate = post.CreatedDate,
+                Username =   post.User.UserName,
+                
             };
         }
 

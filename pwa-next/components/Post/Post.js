@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
@@ -21,6 +21,13 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import Dialog from '../Dialog/Dialog';
 import CallMissedIcon from '@material-ui/icons/CallMissed';
 import ReportIcon from '@material-ui/icons/Report';
+import { BrowserHttpClient } from '../../lib/BrowserHttpClient';
+import TrendingFlatIcon from '@material-ui/icons/TrendingFlat';
+import { useStateValue } from '../../lib/store/appState';
+require('moment/locale/fa');
+
+var moment = require('moment-jalaali')
+moment.loadPersian({ dialect: 'persian-modern' })
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -55,37 +62,84 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function Post({ username, month, year, placeName, text, likes, medias }) {
+export default function Post({ username, createdDate, placeName, text, likes, medias, id, liked }) {
+    const [{ user }] = useStateValue();
     const classes = useStyles();
+    const [innerLikes, setLikes] = useState(likes);
     const [expanded, setExpanded] = React.useState(false);
     const [open, setOpen] = React.useState(false);
+    var date = moment(createdDate);
+    const [userLiked, setLiked] = useState(liked);
+    const [unfollow, setUnfollow] = useState(false);
+    const datephrase = date.fromNow();
+    const avatar = `http://localhost:12089/user/${username}/avatar/avatar.webp`;
 
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
-    const handleMore  = ()=>{
+    const handleMore = () => {
         setOpen(!open);
-
     }
-    const moreBtnItems = [{
+    var moreBtnItems = [{
         title: `انصراف از دنبال کردن`,
-        action: () => { },
-        icon : <CallMissedIcon/>
+        action: () => {
+            BrowserHttpClient.Post(`http://localhost:12089/user/unfollow/${username}`).then(() => {
+                setUnfollow(!unfollow);
+                setOpen(false);
+            })
+        },
+        icon: <CallMissedIcon />,
+        //not unfollowed before and its not him/her self
+        visible: !unfollow || (user.userName != username)
     },
     {
         title: `گزارش کردن این عکس`,
-        action: () => { console.log("report picture") },
-        icon : <ReportIcon/>
-    }]
+        action: () => {
+            BrowserHttpClient.Post(`http://localhost:12089/post/report/${id}`).then(() => {
+                setLikes(innerLikes + 1);
+                setOpen(false);
+            })
+        },
+        icon: <ReportIcon />,
+        visible: true
+    },
+    {
+        title: `دنبال کردن`,
+        action: () => {
+            BrowserHttpClient.Post(`http://localhost:12089/user/follow/${id}`).then(() => {
+                setUnfollow(!unfollow);
+
+                setOpen(false);
+            })
+        },
+        icon: <TrendingFlatIcon />,
+        visible: unfollow || (user.userName != username)
+    },
+    ]
+
+    const handleLike = () => {
+        if (!userLiked) {
+            BrowserHttpClient.Post(`http://localhost:12089/like/${id}`).then(() => {
+                setLikes(innerLikes + 1);
+            })
+        } else {
+            BrowserHttpClient.Post(`http://localhost:12089/unlike/${id}`).then(() => {
+                setLikes(innerLikes - 1);
+            })
+        }
+        setLiked(!userLiked);
+
+
+    }
 
     return (
-        <Card elevation={0} className={classes.root}>
+        <Card elevation={0} id={id} className={classes.root}>
             <CardHeader
                 avatar={
-                    <Avatar aria-label="recipe" className={classes.avatar}>
-                        R
-          </Avatar>
+                    <Avatar aria-label="recipe" src={avatar} className={classes.avatar}>
+                        {username}
+                    </Avatar>
                 }
                 action={
                     <IconButton onClick={handleMore} aria-label="more">
@@ -93,19 +147,13 @@ export default function Post({ username, month, year, placeName, text, likes, me
                     </IconButton>
                 }
                 title={`${username} یک عکس اضافه کرد`}
-                subheader={`${month} ${year}/${placeName}`}
+                subheader={`${datephrase}/${placeName}`}
             />
-            {/* <CardMedia
-        className={classes.media}
-        image="/static/images/cards/paella.jpg"
-        title="Paella dish"
-      /> */}
 
             <PostSlider
                 className={classes.media}
                 medias={medias} />
 
-            {/* </CardMedia> */}
             <CardContent classes={
                 {
                     root: classes.text
@@ -118,17 +166,19 @@ export default function Post({ username, month, year, placeName, text, likes, me
             <CardActions disableSpacing classes={{
                 root: classes.actions
             }}>
-                <IconButton aria-label="add to favorites">
-                    <FavoriteBorderIcon />
+                <IconButton onClick={handleLike} aria-label="add to favorites">
+                    {
+                        userLiked ? <FavoriteIcon color='primary' /> : <FavoriteBorderIcon />
+                    }
                 </IconButton>
                 <Typography>
-                    {likes}
+                    {innerLikes}
                 </Typography>
                 <IconButton className={classes.sharebtn} aria-label="share">
                     <ReplyIcon />
                 </IconButton>
             </CardActions>
-            
+
             <Dialog open={open} items={moreBtnItems} handleClose={handleMore} />
 
         </Card>

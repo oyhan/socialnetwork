@@ -80,7 +80,7 @@ namespace Mahoor.Services.User
 
         public async Task<UserModel> FindByPhoneNumberAsync(string phoneNumber)
         {
-            var user =await UserManager.Users.FirstOrDefaultAsync(u => u.PhoneNumber == phoneNumber);
+            var user =await UserManager.Users.Include(u=>u.City).FirstOrDefaultAsync(u => u.PhoneNumber == phoneNumber);
             return user;
         }
 
@@ -296,8 +296,8 @@ namespace Mahoor.Services.User
                  City = $"{user.City?.City},{user.City?.Province}",
                  Favorites = user.Favorites,
                  UserName = user.UserName,
-                 Website = user.Website
-                 
+                 Website = user.Website,
+                 CityId=user.CityId,
             };
         }
         

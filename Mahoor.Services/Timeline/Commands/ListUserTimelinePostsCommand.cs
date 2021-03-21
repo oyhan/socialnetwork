@@ -12,7 +12,6 @@ namespace Mahoor.Services.Timeline.Commands
         public string UserId { get; }
         public int From { get; }
         public int To { get; }
-
         public ListUserTimelinePostsCommand(string userId, int from , int to)
         {
             UserId = userId;

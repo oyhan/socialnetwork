@@ -180,3 +180,5 @@ C:\Users\Ali\source\repos\MahoorGroup\Mahoor\Mahoor.Api\obj\Debug\netcoreapp3.1\
 C:\Users\Ali\source\repos\MahoorGroup\Mahoor\Mahoor.Api\obj\Debug\netcoreapp3.1\Mahoor.Api.dll
 C:\Users\Ali\source\repos\MahoorGroup\Mahoor\Mahoor.Api\obj\Debug\netcoreapp3.1\Mahoor.Api.pdb
 C:\Users\Ali\source\repos\MahoorGroup\Mahoor\Mahoor.Api\obj\Debug\netcoreapp3.1\Mahoor.Api.genruntimeconfig.cache
+C:\Users\Ali\source\repos\MahoorGroup\Mahoor\Mahoor.Api\bin\Debug\netcoreapp3.1\ImageProcessor.dll
+C:\Users\Ali\source\repos\MahoorGroup\Mahoor\Mahoor.Api\bin\Debug\netcoreapp3.1\ImageProcessor.Plugins.WebP.dll

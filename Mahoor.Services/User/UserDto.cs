@@ -13,5 +13,6 @@ namespace Mahoor.Services.User
         public string UserName { get; set; }
         public string Favorites { get; set; }
         public string Website { get; set; }
+        public Guid? CityId { get; internal set; }
     }
 }

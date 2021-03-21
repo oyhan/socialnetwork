@@ -15,6 +15,7 @@ namespace Mahoor.Api.ViewModels
         public Guid CityId { get; set; }
         public string Favorites { get; set; }
         public IFormFileCollection Files { get; set; }
+        public string DisplayName { get; set; }
 
     }
 }

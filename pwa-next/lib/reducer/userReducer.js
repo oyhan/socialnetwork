@@ -1,18 +1,24 @@
+import { actions } from "./actions";
 
 
 export const userReducer = (state, action) => {
   
+  action.type
+  
   switch (action.type) {
-    case 'USER':
-      const newState = { ...action.payload};
-       return newState;
+    case actions.USER:
+      const newState = { ...action.payload };
+      
+      localStorage.setItem("user", JSON.stringify(newState));
+      return newState;
+
     default:
       return state;
   }
 
-  
+
   const newState = { ...state, ...action };
-  
+
   return newState;
 
 

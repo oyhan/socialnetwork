@@ -4,6 +4,9 @@ using System.IO;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using ImageProcessor;
+using ImageProcessor.Imaging.Formats;
+using ImageProcessor.Plugins.WebP.Imaging.Formats;
 using Mahoor.Data;
 using Mahoor.DomainObjects.City;
 using Mahoor.DomainObjects.Post;
@@ -13,6 +16,7 @@ using Mahoor.Services.Post.Events;
 using Mahoor.Services.Response;
 using Mahoor.Services.User.Commands;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 
 namespace Mahoor.Services.User.Handlers
 {
@@ -27,6 +31,7 @@ namespace Mahoor.Services.User.Handlers
             _userManager = userManager;
             _cityRepository = cityRepository;
         }
+
         public async Task<BaseServiceResponse<bool>> Handle(EditProfileCommand request, CancellationToken cancellationToken)
         {
             try
@@ -36,45 +41,32 @@ namespace Mahoor.Services.User.Handlers
                 {
                     return BaseServiceResponse<bool>.FailedResponse("invalid user");
                 }
-
-
-
-                //                var place = await _placeRepository.GetByIdAsync(command.PlaceId);
-                ////                var place = await _db.Set<BasePlaceModel>().FindAsync(command.PlaceId);
-                //                if (place==null)
-                //                {
-                //                    return BaseServiceResponse<Guid>.FailedResponse("invalid place");
-                //
-                //                }
-                //save images 
-                //
-                //                foreach (var media in request.Medias)
-                //                {
-                var media = request.Medias[0];
-                var relativePath = $"/user/{user.UserName}/avatar/";
-                var directory = $"{ContentPath}{relativePath}";
-                var fileName = $"{Guid.NewGuid()}_{media.Name}";
-                var storagePath = $"{directory}/{fileName}";
-                if (!Directory.Exists(directory))
+                if (request.Medias.Count > 0)
                 {
-                    Directory.CreateDirectory(directory);
-                }
-                using (var fileStream = new FileStream(storagePath, FileMode.CreateNew))
-                {
-                    await media.File.CopyToAsync(fileStream);
+                    var media = request.Medias[0];
+                    var relativePath = $"/user/{user.UserName}/avatar/";
+                    var directory = $"{ContentPath}{relativePath}";
+                    var fileName = $"avatar.jpg";
+                    var jpg = $"{directory}/{fileName}";
+                    var mainAvatar = $"{directory}/avatar.webp";
+                    if (!Directory.Exists(directory))
+                    {
+                        Directory.CreateDirectory(directory);
+                    }
 
-                    fileStream.Close();
+                    SaveImage(media.File, jpg,new JpegFormat());
+                    SaveImage(media.File, mainAvatar, new WebPFormat());
+                    
+                    media.Path = $"{relativePath}avatar.webp";
+                    user.AvatarUrl = media.Path;
                 }
 
-                media.Path = $"{relativePath}{fileName}";
-                //                }
                 var city = await _cityRepository.GetByIdAsync(request.CityId);
-                if (city==null)
+                if (city == null)
                 {
                     return BaseServiceResponse<bool>.FailedResponse("invalid city");
                 }
-                
-                user.AvatarUrl = media.Path;
+
                 user.CityId = request.CityId;
                 user.Bio = request.Bio;
                 user.Favorites = request.Favorites;
@@ -104,6 +96,21 @@ namespace Mahoor.Services.User.Handlers
                 return BaseServiceResponse<bool>.FailedResponse("error", exception.ToString());
             }
 
+        }
+
+        private async void SaveImage(IFormFile file, string path, FormatBase format)
+        {
+            await using var fileStream= File.Create(path);
+//            await using var fileStream = new FileStream(path, FileMode.CreateNew);
+            await file.CopyToAsync(fileStream);
+            using (var imageFactory = new ImageFactory(preserveExifData: false))
+            {
+                imageFactory.Load(file.OpenReadStream())
+                    .Format(format)
+                    .Quality(100)
+                    .Save(fileStream);
+            }
+            fileStream.Close();
         }
     }
 }

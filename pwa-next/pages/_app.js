@@ -8,6 +8,7 @@ import 'leaflet/dist/leaflet.css';
 import "../lib/typings/yup/yup.nationalCode";
 import { CookiesProvider } from "react-cookie"
 import { ToastContainer } from 'react-toastify'
+
 import { appWithTranslation } from 'next-i18next'
 
 
@@ -21,7 +22,7 @@ function MyApp({ Component, pageProps }) {
           <BaseLayout >
             <Component {...pageProps} />
           </BaseLayout>
-          <ToastContainer />
+          {/* <ToastContainer /> */}
         </CookiesProvider>
       </RTL>
     </StateProvider>

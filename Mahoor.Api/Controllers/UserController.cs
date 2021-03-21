@@ -49,7 +49,19 @@ namespace Mahoor.Api.Controllers
             return BadRequest(result.Message);
         }
 
-        
+        [HttpGet("{username}")]
+        public async Task<ActionResult> UsernameAvailable(string username)
+        {
+            var result = await _userService.FindByUsername(username);
+            if (result==null)
+            {
+                return Ok();
+            }
+            
+            return BadRequest();
+        }
+
+
         [HttpPost("{mobileNumber}/{token}")]
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmPhoneNumber([FromRoute]ConfirmPhoneNumberCommand command)
@@ -152,10 +164,10 @@ namespace Mahoor.Api.Controllers
             return Ok(user.RefreshTokens);
         }
 
-        [HttpPost]
-        public async Task<ActionResult> Follow(string userid)
+        [HttpPost("{username}")]
+        public async Task<ActionResult> Follow(string username)
         {
-            var cmd = new FollowUserCommand(Guid.Parse(User.Id()),Guid.Parse(userid));
+            var cmd = new FollowUserCommand(Guid.Parse(User.Id()), username);
             var result = await _mediator.Send(cmd);
             if (result.Response)
             {
@@ -165,10 +177,10 @@ namespace Mahoor.Api.Controllers
             return BadRequest(result);
         }
 
-        [HttpPost]
-        public async Task<ActionResult> UnFollow(string userid)
+        [HttpPost("{username}")]
+        public async Task<ActionResult> UnFollow(string username)
         {
-            var cmd = new UnFollowUserCommand(User.Id(), userid);
+            var cmd = new UnFollowUserCommand(Guid.Parse(User.Id()), username);
             var result = await _mediator.Send(cmd);
             if (result.Response)
             {

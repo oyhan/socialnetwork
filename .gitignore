@@ -1,3 +1,10 @@
-Mahoor.Api/bin/*
+/Mahoor.Api/bin
 .vs/Mahoor/DesignTimeBuild/.dtbcache.v2
 Mahoor.Api/bin/Debug/netcoreapp3.1/Mahoor.Api.pdb
+/Mahoor.Api/wwwroot/wwwroot/user/rahiqi/pictures/335d6e26-80c0-4e1a-a246-11cec6a6663b_IMG_20180302_114627.jpg
+/Mahoor.Api/wwwroot/user/rahiqi/avatar/365e10db-049b-484f-8ad1-08169612c4d2_d8d097b8721034a109c906b422a457a0bb06b8f3f4290294ce81d567c4ccf525.0.jpg
+Mahoor.DomainObjects/bin/Debug/netcoreapp3.1/Mahoor.DomainObjects.pdb
+Mahoor.Api/bin/Debug/netcoreapp3.1/Mahoor.Data.pdb
+Mahoor.Services/bin/Debug/netcoreapp3.1/Mahoor.Services.pdb
+ChefCode.Common.Repository/bin/Debug/netstandard2.0/ChefCode.Common.Repository.pdb
+ChefCode.Common.Repository/bin/Debug/netstandard2.0/ChefCode.Common.Repository.pdb

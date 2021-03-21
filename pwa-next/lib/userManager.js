@@ -11,6 +11,7 @@ var UserManager = {
     },
 
     Load: function (cookies) {
+        console.log('cookies: ', cookies.user);
         if (!cookies.user) return null;
 
         var user = JSON.parse(cookies.user)

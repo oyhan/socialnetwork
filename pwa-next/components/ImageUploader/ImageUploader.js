@@ -62,7 +62,8 @@ function resizeWithPica(image, newWidth) {
 
 }
 
-export default function ImageUploader({ name, index, filesLimit, nothumbnail, receiveFiles, ...props }) {
+export default function ImageUploader({ name, index, filesLimit, nothumbnail, receiveFiles, defaultImage, ...props }) {
+    
 
     const [thumbs, setThumbs] = React.useState([]);
     const classes = useStyle();
@@ -74,6 +75,7 @@ export default function ImageUploader({ name, index, filesLimit, nothumbnail, re
         var thum = [];
 
         image.src = window.URL.createObjectURL(event.target.files[0]);
+        
 
         image.onload = function () {
             const f = event.target.files[0];
@@ -102,40 +104,79 @@ export default function ImageUploader({ name, index, filesLimit, nothumbnail, re
             <div
                 className={classes.wrapper}
             >
+                {
+                    !nothumbnail && thumbs.length > 0 ? thumbs.map((t, key) =>
+                        <Tooltip
+                            id="tooltip-top-start"
+                            title={`${t.size} کیلوبایت`}
+                            placement="top"
+                            classes={{ tooltip: classes.tooltip }}
+                            key={key}
+                        >
+                            <div className={classes.thumbBox}>
+                                <img src={t.src}
+                                    width={props.thumbnailSize === undefined ? 50 : props.thumbnailSize}
+                                    height={props.thumbnailSize === undefined ? 50 : props.thumbnailSize}
+                                    className="thumbnail"
+                                    alt={t.name} />
+                            </div>
+                        </Tooltip>) :
 
-                <Tooltip
-                    id="tooltip-top-start"
-                    title="اضافه کردن تصویر"
-                    placement="top"
-                >
-                    <Fab key={index}
-                        aria-label="save"
-                        color="primary"
-                        component='label'
-                        htmlFor={`input-file-${rand}`}
-                        
-                    >
-                        { 
-                            !nothumbnail && thumbs.length>0 ?  thumbs.map((t, key) =>
-                                <Tooltip
-                                    id="tooltip-top-start"
-                                    title={`${t.size} کیلوبایت`}
-                                    placement="top"
-                                    classes={{ tooltip: classes.tooltip }}
-                                    key={key}
+                        defaultImage ?
+                    //     <Tooltip
+                    //     id="tooltip-top-start"
+                    //     placement="top"
+                    //     classes={{ tooltip: classes.tooltip }}
+                    // >
+                    //     <div className={classes.thumbBox}>
+                    //         <img src={defaultImage}
+                    //             width={props.thumbnailSize === undefined ? 50 : props.thumbnailSize}
+                    //             height={props.thumbnailSize === undefined ? 50 : props.thumbnailSize}
+                    //             className="thumbnail"
+                               
+                    //              />
+                    //     </div>
+                    // </Tooltip>
+
+                            <div className={classes.thumbBox} >
+                                <Fab key={index}
+                                    aria-label="save"
+                                    color="primary"
+                                    component='label'
+                                    htmlFor={`input-file-${rand}`}
+
                                 >
-                                    <div className={classes.thumbBox}>
-                                        <img src={t.src}
-                                            width={props.thumbnailSize === undefined ? 50 : props.thumbnailSize}
-                                            height={props.thumbnailSize === undefined ? 50 : props.thumbnailSize}
-                                            className="thumbnail"
-                                            alt={t.name} />
-                                    </div>
-                                </Tooltip>) :<PhotoCamera />
-                        }
+                                    <img src={defaultImage}
 
-                    </Fab>
-                </Tooltip>
+                                        width={props.thumbnailSize === undefined ? 50 : props.thumbnailSize}
+                                        height={props.thumbnailSize === undefined ? 50 : props.thumbnailSize}
+                                        className="thumbnail"
+                                    />
+
+                                </Fab>
+
+                            </div> 
+                            :
+                            <Tooltip
+                                id="tooltip-top-start"
+                                title="اضافه کردن تصویر"
+                                placement="top"
+                            >
+                                <Fab key={index}
+                                    aria-label="save"
+                                    color="primary"
+                                    component='label'
+                                    htmlFor={`input-file-${rand}`}
+
+                                >
+                                    <PhotoCamera />
+
+                                </Fab>
+                            </Tooltip>
+
+                }
+
+
             </div>
             {/* <div className={classes.thumbnailContainer}> {
                 !nothumbnail && thumbs.map((t, key) =>

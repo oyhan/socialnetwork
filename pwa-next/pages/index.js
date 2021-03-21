@@ -21,7 +21,9 @@ import UserManagerBuilder from '../lib/userManager';
 
 
 
-export default function Home({ data }) {
+export default function Home({ data, posts }) {
+  console.log('posts: ', posts);
+  
 
   const [{ user }, dispatch] = useStateValue();
   const position = useLocation();
@@ -61,7 +63,7 @@ export default function Home({ data }) {
       <HomeMap points={data.map(p => p.latLon)} />
       <HorizontalSlider title="رستوران‌های برتر یزد" items={data} />
 
-      <HomePosts />
+      <HomePosts posts={posts} />
 
 
 
@@ -77,6 +79,7 @@ export async function getServerSideProps(context) {
   const { req, res } = context;
   const userManager = UserManagerBuilder(context);
   const user = userManager.Load(cookies);
+  
 
   if (!user) {
     return {
@@ -89,17 +92,20 @@ export async function getServerSideProps(context) {
 
   var userPosition = getCookieParser(context.req)().position;
 
-  if (!cookies)
-    if (process.env.NODE_ENV === "development")
-      userPosition = "lat=31.890638&lon=54.354945";
 
-  var posts = await httpClient.Get(`http://localhost:12089/Timeline/Get?${userPosition}`);
+  if (process.env.NODE_ENV === "development") {
+    userPosition = "lat=31.890638&lon=54.354945";
+
+  }
+  
+  
+  var timeLine = await httpClient.Get(`http://localhost:12089/Timeline/Get?${userPosition}`);
+  console.log('timeLine: ', timeLine);
+
+  // var posts = await httpClient.Get(`http://localhost:12089/Timeline/GetUserTimelinePosts?from=0&to=10`);
 
 
-
-
-
-  var cardPosts = posts.closestRestaurants.map(p => ({
+  var cardPosts = timeLine.closestRestaurants.map(p => ({
     image: '/coffeeshop2.jpg',
     title: p.name,
     rate: p.rate,
@@ -109,6 +115,6 @@ export async function getServerSideProps(context) {
     latLon: p.latLon
   }))
   return {
-    props: { data: cardPosts }, // will be passed to the page component as props
+    props: { data: cardPosts, posts : timeLine.followingsPosts }, // will be passed to the page component as props
   }
 }

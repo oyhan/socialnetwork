@@ -51,6 +51,7 @@ namespace Mahoor.Api.Controllers
         [HttpGet]
         public async Task<ActionResult> GetUserTimelinePosts(int from, int to)
         {
+            
             var cmd = new ListUserTimelinePostsCommand(User.Id(), from, to);
             var result = await _mediator.Send(cmd);
             if (result.SuccessFull)

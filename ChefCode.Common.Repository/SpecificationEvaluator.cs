@@ -38,7 +38,7 @@ namespace ChefCode.Common.Repository
                    
                     
                 else if (specification.OrderByDescending != null)
-                    queryable = (IQueryable<T>)queryable.OrderBy<T, object>(specification.OrderByDescending);
+                    queryable = (IQueryable<T>)queryable.OrderByDescending<T, object>(specification.OrderByDescending);
                 else if (specification.OrderByString.Count > 0)
                 {
 //                    queryable = (IQueryable<T>)DynamicQueryableExtensions.OrderBy<T>((IQueryable<M0>)queryable, specification.OrderByString[0], Array.Empty<object>());

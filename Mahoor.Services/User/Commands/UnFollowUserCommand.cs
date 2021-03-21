@@ -9,13 +9,13 @@ namespace Mahoor.Services.User.Commands
 {
     public class UnFollowUserCommand : IRequest<BaseServiceResponse<bool>>
     {
-        public string FollowerUser { get; }
-        public string FollowedUser { get; }
+        public Guid FollowerUser { get; }
+        public string FollowedUserName { get; }
 
-        public UnFollowUserCommand(string followerUser,string followedUser)
+        public UnFollowUserCommand(Guid followerUser,string followedUserName)
         {
             FollowerUser = followerUser;
-            FollowedUser = followedUser;
+            FollowedUserName = followedUserName;
         }
     }
 }

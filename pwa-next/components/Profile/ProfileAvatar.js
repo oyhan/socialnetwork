@@ -9,7 +9,18 @@ const useStyles = makeStyles((theme) => ({
     position: 'absolute',
     top: 104,
     width:145,
-    left:40,
+    left:'10vw',
+    
+    [theme.breakpoints.up('md')]: {
+      left:'25vw',
+    },
+    [theme.breakpoints.up('lg')]: {
+      left:'26vw',
+    },
+    [theme.breakpoints.up('xl')]: {
+      left:'34vw',
+    },
+   
   },
   avatar: {
     width: theme.spacing(9),
@@ -34,19 +45,21 @@ const useStyles = makeStyles((theme) => ({
 export default function ProfileAvatar({ userName, displayName, avatarURl, onAvatarSelected }) {
   
   
+  const avatarfullPath = `http://localhost:12089${avatarURl}`;
+  
   const classes = useStyles();
   return (
     <Grid container className={classes.root}>
       
       <IconButton size='small' className={classes.avatorBtn}>
 
-        {avatarURl ? <Avatar src={`http://localhost:12089${avatarURl}`} className={classes.avatar} sizes={classes.avatar} /> :
-          <div >
-            <ImageUploader receiveFiles={onAvatarSelected} />
+        {/* {avatarURl ? <Avatar src={avatarfullPath} className={classes.avatar} sizes={classes.avatar} /> :
+          <div > */}
+            <ImageUploader defaultImage={avatarfullPath} receiveFiles={onAvatarSelected} />
 
-          </div>
+          {/* </div> */}
 
-        }
+        
 
       </IconButton>
       <Grid item direction='column' className={classes.avatarTxt}>

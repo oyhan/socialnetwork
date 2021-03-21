@@ -29,9 +29,9 @@ namespace Mahoor.Services.Graph.Handlers
                 notification.Post.Medias,
                 notification.Post.PlaceId,
 //                PlaceName= notification.Post.Place.DisplayName,
-                notification.Post.Text
-                
-                
+                notification.Post.Text,
+                notification.Post.User.UserName,
+                notification.Post.CreatedDate,
             }.ToJsonDocument());
             await _graphService.AddObject(obj);
 

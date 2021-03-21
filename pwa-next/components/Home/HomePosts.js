@@ -1,8 +1,13 @@
-import { Grid } from '@material-ui/core'
+import { Grid, makeStyles } from '@material-ui/core'
 import React from 'react'
+// import httpClientBuilder from '../../lib/HttpClient'
 import Post from '../Post/Post'
 import PostSlider from '../Post/PostSlider'
-
+const useStyle = makeStyles(theme=>({
+    container :{
+        marginBottom : 50
+    }
+}))
 const posts = [
     {
         text : "یک روز دل انگیز در یزد",
@@ -47,10 +52,12 @@ const posts = [
     
 ]
 
-export default function HomePosts(){
+export default function HomePosts({posts}){
     
+    const classes = useStyle();
+
     return(
-        <Grid container direction='column' justify='center' alignContent='center' >
+        <Grid container direction='column' justify='center' className={classes.container} alignContent='center' >
             {
                 posts.map((p,index)=>{
                     return(
@@ -62,9 +69,12 @@ export default function HomePosts(){
     )
 }
 
-export async function getServerSideProps(context) {
+// export async function getServerSideProps(context) {
+// //   var httpClient = httpClientBuilder(context);
     
-    return {
-      props: {}, // will be passed to the page component as props
-    }
-  }
+// //     var posts = await httpClient.Get(`http://localhost:12089/Timeline/GetUserTimelinePosts?from=0&to=10`);
+// //     console.log('posts: ', posts);
+//     return {
+//       props: {}, // will be passed to the page component as props
+//     }
+//   }

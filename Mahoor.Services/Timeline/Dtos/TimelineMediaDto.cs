@@ -7,5 +7,6 @@ namespace Mahoor.Services.Timeline.Dtos
    public class TimelineMediaDto
     {
         public string Url { get; set; }
+
     }
 }

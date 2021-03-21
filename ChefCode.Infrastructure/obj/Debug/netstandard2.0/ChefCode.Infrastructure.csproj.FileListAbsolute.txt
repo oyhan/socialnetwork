@@ -1,9 +1,0 @@
-C:\Users\Ali\source\repos\MahoorGroup\Mahoor\ChefCode.Infrastructure\bin\Debug\netstandard2.0\ChefCode.Infrastructure.deps.json
-C:\Users\Ali\source\repos\MahoorGroup\Mahoor\ChefCode.Infrastructure\bin\Debug\netstandard2.0\ChefCode.Infrastructure.dll
-C:\Users\Ali\source\repos\MahoorGroup\Mahoor\ChefCode.Infrastructure\bin\Debug\netstandard2.0\ChefCode.Infrastructure.pdb
-C:\Users\Ali\source\repos\MahoorGroup\Mahoor\ChefCode.Infrastructure\obj\Debug\netstandard2.0\ChefCode.Infrastructure.csprojAssemblyReference.cache
-C:\Users\Ali\source\repos\MahoorGroup\Mahoor\ChefCode.Infrastructure\obj\Debug\netstandard2.0\ChefCode.Infrastructure.AssemblyInfoInputs.cache
-C:\Users\Ali\source\repos\MahoorGroup\Mahoor\ChefCode.Infrastructure\obj\Debug\netstandard2.0\ChefCode.Infrastructure.AssemblyInfo.cs
-C:\Users\Ali\source\repos\MahoorGroup\Mahoor\ChefCode.Infrastructure\obj\Debug\netstandard2.0\ChefCode.Infrastructure.csproj.CoreCompileInputs.cache
-C:\Users\Ali\source\repos\MahoorGroup\Mahoor\ChefCode.Infrastructure\obj\Debug\netstandard2.0\ChefCode.Infrastructure.dll
-C:\Users\Ali\source\repos\MahoorGroup\Mahoor\ChefCode.Infrastructure\obj\Debug\netstandard2.0\ChefCode.Infrastructure.pdb

@@ -63,6 +63,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Post({ username, createdDate, placeName, text, likes, medias, id, liked }) {
+    console.log('medias: ', medias);
     const [{ user }] = useStateValue();
     const classes = useStyles();
     const [innerLikes, setLikes] = useState(likes);

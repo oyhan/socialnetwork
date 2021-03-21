@@ -70,12 +70,12 @@ export default function SpeedDials({newPostClickHandler}) {
 
     const inputlClickHandler = (event)=>{
 
-        newPostClickHandler  && newPostClickHandler(event.target.files[0]) ;
+        newPostClickHandler  && newPostClickHandler(event.target.files) ;
     }
 
     return (
         <div className={classes.root}>
-            <input accept="image/*"  ref={ref} type='file' style={{ display: 'none' }} onChange={inputlClickHandler} id="postinput" />
+            <input accept="image/*" multiple ref={ref} type='file' style={{ display: 'none' }} onChange={inputlClickHandler} id="postinput" />
             <div className={classes.exampleWrapper}>
                 <SpeedDial
                     ariaLabel="SpeedDial example"

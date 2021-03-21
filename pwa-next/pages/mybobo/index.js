@@ -37,15 +37,16 @@ export default function MyBobo(profileDto) {
 
 
     const [newPost ,setNewPost]=useState(false);
-    const [photo,setPhoto] = useState(null);
+    const [photo,setPhoto] = useState([]);
     const [{ user }, dispatch] = useStateValue();
     const classes = useStyle()
     const { avatarURl, biography, city, favorites, noOfFollowers, noOfFollowings, noOfPosts, userName, website } = profileDto;
 
 
-    const handleNewPost = (file)=>{
+    const handleNewPost = (files)=>{
+        console.log('files: ', files);
         
-        setPhoto(file);
+        setPhoto(files);
         setNewPost(true);
     }
 
@@ -163,7 +164,7 @@ export default function MyBobo(profileDto) {
         </Grid>
         
         <SpeedDials newPostClickHandler={handleNewPost}/>
-         <PostNewDialog open={newPost} handleWindow={setNewPost} photo={photo}/>
+         <PostNewDialog open={newPost} handleWindow={setNewPost} photos={photo}/>
         <FullWidthTabs tabs={tabs} tabsContent={["activities", "favorites", "photos", "reviews"]} />
     </>
 }

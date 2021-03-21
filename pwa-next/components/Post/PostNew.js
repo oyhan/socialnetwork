@@ -23,7 +23,8 @@ import PostNewModel, { usePostNewModelValidationSchema } from '../../Models/Post
 import AutoCompleteInput from '../autoComplete/AutoCompleteInput';
 import { useTranslation } from 'next-i18next'
 import { BrowserHttpClient } from '../../lib/BrowserHttpClient';
-import {useRouter} from 'next/router'
+import { useRouter } from 'next/router'
+import { AvatarGroup } from '@material-ui/lab';
 
 const useStyles = makeStyles((theme) => ({
     toolBar: {
@@ -50,10 +51,13 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function PostNewDialog({ open, handleWindow, photo }) {
+export default function PostNewDialog({ open, handleWindow, photos }) {
+    
     const router = useRouter();
     const classes = useStyles();
-    const [url, setUrl] = useState("");
+    const [urls, setUrls] = useState([]);
+    console.log('urls: ', urls);
+    
 
 
 
@@ -65,28 +69,37 @@ export default function PostNewDialog({ open, handleWindow, photo }) {
     };
 
     useEffect(() => {
-        if (photo) {
-            const imageUrl = window.URL.createObjectURL(photo);
-            setUrl(imageUrl);
-            formik.setFieldValue('files', photo);
+        if (photos) {
+            for (const photo of photos) {
+                const imageUrl = window.URL.createObjectURL(photo);
+                console.log('imageUrl: ', imageUrl);
+                
+                setUrls((before)=>[...before, imageUrl]);
+                formik.setFieldValue('files', photos);
+            }
+
         }
 
         return () => {
+            for (const url of urls) {
+                URL.revokeObjectURL(url);
 
-            URL.revokeObjectURL(url);
+            }
         }
-    }, [photo])
+    }, [photos])
 
     const handleClose = () => {
 
+        for (const url of urls) {
+            URL.revokeObjectURL(url);
 
-        URL.revokeObjectURL(url);
-
+        }
+        setUrls([]);
         handleWindow(false);
     };
-    
+
     var onsubmit = () => {
-        console.log("Asdas");
+        
         formik.setSubmitting(true);
         BrowserHttpClient.MultiPartFormData("http://localhost:12089/post/new", formik.values)
             .then(response => {
@@ -95,7 +108,7 @@ export default function PostNewDialog({ open, handleWindow, photo }) {
                     router.push(`/#${response.response}`)
                 }
             }).catch(error => {
-                console.log('error: ', error);
+                
                 formik.setSubmitting(false);
 
 
@@ -105,12 +118,12 @@ export default function PostNewDialog({ open, handleWindow, photo }) {
     const schema = usePostNewModelValidationSchema();
     var formik = useFormik(useFormikObjectBuilder({
         text: "",
-        files: photo,
+        files: photos[0],
         placeId: "",
 
 
     }, schema, onsubmit))
-    console.log('formiks: ', formik);
+    
 
     return (
 
@@ -135,7 +148,20 @@ export default function PostNewDialog({ open, handleWindow, photo }) {
 
                         <Grid item xs={4}>
                             <Grid justify="center"  >
-                                <Avatar variant='square' alt="post image" src={url} className={classes.large} />
+                                {
+                                    urls.length > 1 ?
+                                        <AvatarGroup max={3}>
+                                            {
+                                                urls.map((i, key) =>
+                                                    <Avatar  alt="post image" src={i} className={classes.large} />
+
+                                                )
+                                            }
+                                        </AvatarGroup>
+                                        :
+                                        <Avatar variant='square' alt="post image" src={urls[0]} className={classes.large} />
+
+                                }
 
                             </Grid>
                         </Grid>

@@ -1,5 +1,0 @@
-C:\Users\Ali\source\repos\MahoorGroup\Mahoor\Mahoor.Api\obj\Debug\netstandard2.1\Mahoor.Api.csprojAssemblyReference.cache
-C:\Users\Ali\source\repos\MahoorGroup\Mahoor\Mahoor.Api\obj\Debug\netstandard2.1\Mahoor.Api.AssemblyInfoInputs.cache
-C:\Users\Ali\source\repos\MahoorGroup\Mahoor\Mahoor.Api\obj\Debug\netstandard2.1\Mahoor.Api.AssemblyInfo.cs
-C:\Users\Ali\source\repos\MahoorGroup\Mahoor\Mahoor.Api\obj\Debug\netstandard2.1\Mahoor.Api.csproj.CoreCompileInputs.cache
-C:\Users\Ali\source\repos\MahoorGroup\Mahoor\Mahoor.Api\obj\Debug\netstandard2.1\EFCoreSqlServerNetTopologySuite.cs

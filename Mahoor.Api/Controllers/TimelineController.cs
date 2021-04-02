@@ -12,6 +12,7 @@ using Mahoor.Services.Timeline.Dtos;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using NetTopologySuite.IO;
 using OsmSharp.Geo;
 //using OsmSharp.Geo;
@@ -48,12 +49,11 @@ namespace Mahoor.Api.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet]
-        public async Task<ActionResult> GetUserTimelinePosts(int from, int to)
+        [HttpGet("{username}/{from}/{to}")]
+        public async Task<ActionResult> GetUserTimelinePosts(string username, int from, int to)
         {
-            
-            var cmd = new ListUserTimelinePostsCommand(User.Id(), from, to);
-            var result = await _mediator.Send(cmd);
+            var cmd = new ListUserTimelinePostsCommand(username, User.Id(), from, to);
+            var result = await Mediator.Send(cmd);
             if (result.SuccessFull)
             {
                 return Ok(result.Response);
@@ -63,15 +63,15 @@ namespace Mahoor.Api.Controllers
         }
 
 
-//        [HttpGet]
-//        public async Task<ActionResult> Insert()
-//        {
-//            var rows = AddGeoData.AddYazdRestaurants(_db);
-//
-//            return Ok(rows);
-//        }
-//
-//
+        [HttpGet]
+        public async Task<ActionResult> Insert()
+        {
+            var rows = AddGeoData.AddYazdRestaurants(_db);
+            
+            return Ok(rows);
+        }
+        
+        
         [HttpGet]
         public async Task<ActionResult> Citys()
         {

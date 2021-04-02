@@ -16,14 +16,16 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import EditIcon from '@material-ui/icons/Edit';
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 import { PhotoCamera } from '@material-ui/icons';
+import HideOnScroll from '../HideOnScroll/HideOnScroll';
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
     },
     exampleWrapper: {
-        position: 'absolute',
+        position: 'fixed',
         bottom: theme.spacing(8),
         right: theme.spacing(3),
+        zIndex :1000
 
     },
 
@@ -42,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function SpeedDials({newPostClickHandler}) {
+export default function SpeedDials({ newPostClickHandler }) {
     const classes = useStyles();
     const [direction, setDirection] = React.useState('up');
     const [open, setOpen] = React.useState(false);
@@ -53,8 +55,8 @@ export default function SpeedDials({newPostClickHandler}) {
     };
     const actions = [
         { icon: <EditIcon />, name: 'دیدگاه جدید' },
-        { icon: <PhotoCameraIcon />, name: 'پست جدید', htmlFor: "postinput" ,handleClick :()=>{ref.current.click(); console.log('ref.current: ', ref.current);}},
-        
+        { icon: <PhotoCameraIcon />, name: 'پست جدید', htmlFor: "postinput", handleClick: () => { ref.current.click(); console.log('ref.current: ', ref.current); } },
+
     ];
     const handleHiddenChange = (event) => {
         setHidden(event.target.checked);
@@ -68,36 +70,38 @@ export default function SpeedDials({newPostClickHandler}) {
         setOpen(true);
     };
 
-    const inputlClickHandler = (event)=>{
+    const inputlClickHandler = (event) => {
 
-        newPostClickHandler  && newPostClickHandler(event.target.files) ;
+        newPostClickHandler && newPostClickHandler(event.target.files);
     }
 
     return (
-        <div className={classes.root}>
-            <input accept="image/*" multiple ref={ref} type='file' style={{ display: 'none' }} onChange={inputlClickHandler} id="postinput" />
-            <div className={classes.exampleWrapper}>
-                <SpeedDial
-                    ariaLabel="SpeedDial example"
-                    className={classes.speedDial}
-                    hidden={hidden}
-                    icon={<SpeedDialIcon />}
-                    onClose={handleClose}
-                    onOpen={handleOpen}
-                    open={open}
-                    direction={direction}
-                >
-                    {actions.map((action) => (
-                        <SpeedDialAction
-                            key={action.name}
-                            icon={action.icon}
-                            tooltipTitle={action.name}
-                            htmlFor={"postinput"}
-                            onClick={action.handleClick}
-                        />
-                    ))}
-                </SpeedDial>
+        <HideOnScroll>
+            <div className={classes.root}>
+                <input accept="image/*" multiple ref={ref} type='file' style={{ display: 'none' }} onChange={inputlClickHandler} id="postinput" />
+                <div className={classes.exampleWrapper}>
+                    <SpeedDial
+                        ariaLabel="SpeedDial example"
+                        className={classes.speedDial}
+                        hidden={hidden}
+                        icon={<SpeedDialIcon />}
+                        onClose={handleClose}
+                        onOpen={handleOpen}
+                        open={open}
+                        direction={direction}
+                    >
+                        {actions.map((action) => (
+                            <SpeedDialAction
+                                key={action.name}
+                                icon={action.icon}
+                                tooltipTitle={action.name}
+                                htmlFor={"postinput"}
+                                onClick={action.handleClick}
+                            />
+                        ))}
+                    </SpeedDial>
+                </div>
             </div>
-        </div>
+        </HideOnScroll>
     );
 }

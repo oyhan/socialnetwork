@@ -49,6 +49,7 @@ const useStyle = makeStyles((theme) => ({
 }))
 
 function resizeWithPica(image, newWidth) {
+    console.log('image: ', image);
     var offScreenCanvas = document.createElement("canvas")
     offScreenCanvas.width = newWidth;
     offScreenCanvas.height = image.height * newWidth / image.width;
@@ -57,42 +58,76 @@ function resizeWithPica(image, newWidth) {
         quality: 3,
         transferable: true
     }).then(() => {
-        return offScreenCanvas.toDataURL();
+        const dataUrl = offScreenCanvas.toDataURL();
+        return dataUrl;
     })
 
 }
 
-export default function ImageUploader({ name, index, filesLimit, nothumbnail, receiveFiles, defaultImage, ...props }) {
-    
+export default function ImageUploader({ name, index, filesLimit, nothumbnail, receiveFiles, defaultImage, multiple, ...props }) {
+
 
     const [thumbs, setThumbs] = React.useState([]);
     const classes = useStyle();
     const rand = Math.round(Math.random() * 10000);
 
     const createThumbnails = (event) => {
-        var image = new Image();
         const files = [...event.target.files];
-        var thum = [];
+        var selectedFiles = [];
+        const prepareFiles = () => {
+            return new Promise((resolve, reject) => {
+                let i = 0;
+                for (const file of files) {
+                    console.log('file: ', file);
+                    let image = new Image();
+                    console.log('image: ', image);
+                    var thum = [];
 
-        image.src = window.URL.createObjectURL(event.target.files[0]);
-        
+                    image.src = window.URL.createObjectURL(file);
 
-        image.onload = function () {
-            const f = event.target.files[0];
-            resizeWithPica(image, 200).then((result) => {
 
-                thum.push({
-                    filename: f.name,
-                    value: result.split(',')[1].toString(),
-                    mimetype: f.type,
-                    src: result
-                });
-                setThumbs(thum);
-                receiveFiles && receiveFiles(f);
-            })
+                    image.onload = function () {
+                        const f = file;
+                        console.log('i: ', i);
+                        resizeWithPica(image, 200).then((result) => {
+
+                            thum.push({
+                                filename: f.name,
+                                value: result.split(',')[1].toString(),
+                                mimetype: f.type,
+                                src: result
+                            });
+                            setThumbs(thum);
+                            fetch(result)
+                                .then(res => res.blob())
+                                .then(blob => {
+                                    console.log("there");
+                                    selectedFiles = [...selectedFiles, blob];
+                                    i++;
+                                    if (i == files.length){
+                                        console.log('selectedFiles: ', selectedFiles);
+                                        resolve(selectedFiles);
+                                        
+
+                                    }
+                                })
+                        })
+                    }
+                }
+
+            }
+            )
 
 
         }
+
+        prepareFiles().then(prepared => {
+            console.log("here");
+            receiveFiles && receiveFiles(prepared);
+        })
+
+
+
     }
 
 
@@ -100,7 +135,7 @@ export default function ImageUploader({ name, index, filesLimit, nothumbnail, re
 
         <div key={index} className={classes.root}>
 
-            <input accept="image/*" key={index} onChange={createThumbnails} style={{ display: 'none' }} id={`input-file-${rand}`} type="file" />
+            <input accept="image/*" key={index} multiple={multiple} onChange={createThumbnails} style={{ display: 'none' }} id={`input-file-${rand}`} type="file" />
             <div
                 className={classes.wrapper}
             >
@@ -123,20 +158,20 @@ export default function ImageUploader({ name, index, filesLimit, nothumbnail, re
                         </Tooltip>) :
 
                         defaultImage ?
-                    //     <Tooltip
-                    //     id="tooltip-top-start"
-                    //     placement="top"
-                    //     classes={{ tooltip: classes.tooltip }}
-                    // >
-                    //     <div className={classes.thumbBox}>
-                    //         <img src={defaultImage}
-                    //             width={props.thumbnailSize === undefined ? 50 : props.thumbnailSize}
-                    //             height={props.thumbnailSize === undefined ? 50 : props.thumbnailSize}
-                    //             className="thumbnail"
-                               
-                    //              />
-                    //     </div>
-                    // </Tooltip>
+                            //     <Tooltip
+                            //     id="tooltip-top-start"
+                            //     placement="top"
+                            //     classes={{ tooltip: classes.tooltip }}
+                            // >
+                            //     <div className={classes.thumbBox}>
+                            //         <img src={defaultImage}
+                            //             width={props.thumbnailSize === undefined ? 50 : props.thumbnailSize}
+                            //             height={props.thumbnailSize === undefined ? 50 : props.thumbnailSize}
+                            //             className="thumbnail"
+
+                            //              />
+                            //     </div>
+                            // </Tooltip>
 
                             <div className={classes.thumbBox} >
                                 <Fab key={index}
@@ -155,7 +190,7 @@ export default function ImageUploader({ name, index, filesLimit, nothumbnail, re
 
                                 </Fab>
 
-                            </div> 
+                            </div>
                             :
                             <Tooltip
                                 id="tooltip-top-start"

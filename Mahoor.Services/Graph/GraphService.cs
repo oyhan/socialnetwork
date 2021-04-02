@@ -36,6 +36,11 @@ namespace Mahoor.Services.Graph
                    .FirstOrDefault() != null;
         }
 
+        public Task<bool> HasAssociation(string id1, string id2, AType aType)
+        {
+            return HasAssociation(Guid.Parse(id1), Guid.Parse(id2), aType);
+        }
+
         public async Task AddObject(ObjectModel model)
         {
             await _objectRepository.AddAsync(model);

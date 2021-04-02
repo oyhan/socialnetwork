@@ -6,6 +6,6 @@ namespace Mahoor.Infrastructure
 {
     public interface IAppBaseRequest
     { 
-        string Requester { get; set; }
+        string Requester { get; }
     }
 }

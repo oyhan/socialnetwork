@@ -9,6 +9,7 @@ namespace Mahoor.Services.Graph
     public interface IGraphService
     {
         Task<bool> HasAssociation(Guid id1, Guid id2, AType aType);
+        Task<bool> HasAssociation(string id1, string id2, AType aType);
         Task AddObject(ObjectModel model);
         Task RemoveObject(Guid objectId);
         Task UpdateObject(ObjectModel model);

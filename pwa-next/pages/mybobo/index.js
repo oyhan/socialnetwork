@@ -17,6 +17,7 @@ import AddIcon from '@material-ui/icons/Add';
 import AlternateEmailIcon from '@material-ui/icons/AlternateEmail';
 import SpeedDials from '../../components/SpeedDial/SpeedDial';
 import PostNewDialog from '../../components/Post/PostNew';
+import UserPosts from '../../components/Profile/UserProfile/UserPosts';
 
 const useStyle = makeStyles((theme) => ({
     text: {
@@ -40,7 +41,7 @@ export default function MyBobo(profileDto) {
     const [photo,setPhoto] = useState([]);
     const [{ user }, dispatch] = useStateValue();
     const classes = useStyle()
-    const { avatarURl, biography, city, favorites, noOfFollowers, noOfFollowings, noOfPosts, userName, website } = profileDto;
+    const { avatarURl, bio, city, favorites, noOfFollowers, noOfFollowings, noOfPosts, userName, website } = profileDto;
 
 
     const handleNewPost = (files)=>{
@@ -165,7 +166,8 @@ export default function MyBobo(profileDto) {
         
         <SpeedDials newPostClickHandler={handleNewPost}/>
          <PostNewDialog open={newPost} handleWindow={setNewPost} photos={photo}/>
-        <FullWidthTabs tabs={tabs} tabsContent={["activities", "favorites", "photos", "reviews"]} />
+            
+        <FullWidthTabs tabs={tabs} tabsContent={[<UserPosts userName={userName} />, "favorites", "photos", "reviews"]} />
     </>
 }
 

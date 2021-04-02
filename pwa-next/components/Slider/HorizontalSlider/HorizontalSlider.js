@@ -25,7 +25,8 @@ const useStyle = makeStyles((theme) => ({
 }))
 
 
-export default function HorizontalSlider({ items ,title }) {
+export default function HorizontalSlider({ items ,title , Component }) {
+    
 
     const classes = useStyle();
 
@@ -47,7 +48,7 @@ export default function HorizontalSlider({ items ,title }) {
                 <div className={classes.root} >
                     {
                         items.map((i, index) =>
-                            <SliderItem cl {...i} key={index} />
+                            <Component  {...i} key={index} />
                         )
                     }
 

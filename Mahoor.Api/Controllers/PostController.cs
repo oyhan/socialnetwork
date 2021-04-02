@@ -46,6 +46,10 @@ namespace Mahoor.Api.Controllers
 
 
             var medias = ProcessFiles();
+            if (medias == null || medias.Count == 0)
+            {
+                return BadRequest("you have to select atleast one photo");
+            }
 
             var cmd = new CreatePostCommand()
             {

@@ -6,6 +6,7 @@ using Mahoor.Api.ViewModels;
 using Mahoor.Services.Helper;
 using Mahoor.Services.Response;
 using Mahoor.Services.Timeline.Commands;
+using Mahoor.Services.User;
 using Mahoor.Services.User.Commands;
 using Mahoor.Services.User.Profile.Dto;
 using Microsoft.AspNetCore.Mvc;
@@ -14,16 +15,25 @@ namespace Mahoor.Api.Controllers
 {
     public class ProfileController:BaseApiController
     {
+        private readonly AppUserManager _userManager;
 
 
-
+        public ProfileController(AppUserManager userManager)
+        {
+            _userManager = userManager;
+        }
 
 
 
         [HttpGet("{username}")]
         public async Task<ActionResult<BaseServiceResponse<ProfileDto>>> Get(string username)
         {
-            var command = new GetUserProfileCommand(Guid.Parse(User.Id()));
+            var user  = await _userManager.FindByUsername(username);
+            if (user == null)
+            {
+                return BadRequestApiResult<ProfileDto>("invalid username");
+            }
+            var command = new GetUserProfileCommand(Guid.Parse(user.Id),User.Id());
 
             var result = await Mediator.Send(command);
 
@@ -39,7 +49,7 @@ namespace Mahoor.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<BaseServiceResponse<ProfileDto>>>  Me()
         {
-            var command = new GetUserProfileCommand(Guid.Parse(User.Id()));
+            var command = new GetUserProfileCommand(Guid.Parse(User.Id()),User.Id());
 
             var result = await Mediator.Send(command);
 
@@ -52,10 +62,10 @@ namespace Mahoor.Api.Controllers
 
         }
 
-        [HttpGet]
-        public async Task<ActionResult> GetUserTimelinePosts(string userId,int from, int to)
+        [HttpGet("{username}/{from}/{to}")]
+        public async Task<ActionResult> GetUserTimelinePosts(string username,int from, int to)
         {
-            var cmd = new ListUserTimelinePostsCommand(userId, from, to);
+            var cmd = new ListUserTimelinePostsCommand(username, User.Id(),from, to);
             var result = await Mediator.Send(cmd);
             if (result.SuccessFull)
             {

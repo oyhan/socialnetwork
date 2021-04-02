@@ -8,6 +8,7 @@
     "userNameMaxLength" :"حداکثر طول نام کاربری {{length}} است",
     "bioPlaceHolder" : "درباره خود جزئیاتی بنویسید",
     "userNameInUse" : "نام کاربری تکراریست",
-    "postNewTextMaxLength" : "حداکثر طول متن {{length}} است"
-
+    "postNewTextMaxLength" : "حداکثر طول متن {{length}} است",
+    "reviewNewDescritionMaxLength" :"حداکثر {{length}} حرف",
+    "descriptionReviewPlaceHolder" : "نظر شما به دیگران برای انتخاب بهتر کمک خواهد کرد"
 }

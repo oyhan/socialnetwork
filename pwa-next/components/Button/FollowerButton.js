@@ -3,9 +3,9 @@ import React from 'react';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 
 
-export default function FollowerButton() {
+export default function FollowerButton(props) {
     return (
-        <ButtonBobo variant="contained" color="primary">
+        <ButtonBobo {...props} variant="contained" color="primary">
             دنبال شونده
             <PersonAddIcon />
         </ButtonBobo>

@@ -73,7 +73,7 @@ namespace Mahoor.Services.Post
 
                 foreach (var media in command.Medias)
                 {
-                    var relativePath = $"/wwwroot/user/{user.UserName}/pictures/";
+                    var relativePath = $"/user/{user.UserName}/post/";
                     var directory = $"{ContentPath}{relativePath}";
                     var fileName = $"{Guid.NewGuid()}_{media.Name}";
                      var storagePath =    $"{directory}/{fileName}";

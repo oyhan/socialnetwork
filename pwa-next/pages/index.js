@@ -16,13 +16,14 @@ import { actions } from '../lib/reducer/actions';
 import Cookies from 'cookies'
 import httpClientBuilder from '../lib/HttpClient';
 import UserManagerBuilder from '../lib/userManager';
+import SliderItem from '../components/Slider/SliderItem/SliderItem';
 
 
 
 
 
 export default function Home({ data, posts }) {
-  console.log('posts: ', posts);
+  
   
 
   const [{ user }, dispatch] = useStateValue();
@@ -59,9 +60,9 @@ export default function Home({ data, posts }) {
         <link rel="icon" href="/favicon.ico" />
         {/* <link rel="stylesheet" href="leaflet/dist/leaflet.css" /> */}
       </Head>
-      <HorizontalSlider title="نزدیک‌ترین کافه‌ها و رستوران‌ها" items={data} />
+      <HorizontalSlider Component={SliderItem} title="نزدیک‌ترین کافه‌ها و رستوران‌ها" items={data} />
       <HomeMap points={data.map(p => p.latLon)} />
-      <HorizontalSlider title="رستوران‌های برتر یزد" items={data} />
+      <HorizontalSlider Component={SliderItem} title="رستوران‌های برتر یزد" items={data} />
 
       <HomePosts posts={posts} />
 
@@ -94,13 +95,13 @@ export async function getServerSideProps(context) {
 
 
   if (process.env.NODE_ENV === "development") {
-    userPosition = "lat=31.890638&lon=54.354945";
-
+    userPosition = "lat=31.834989&lon=54.374296";
+    
   }
   
   
   var timeLine = await httpClient.Get(`http://localhost:12089/Timeline/Get?${userPosition}`);
-  console.log('timeLine: ', timeLine);
+  
 
   // var posts = await httpClient.Get(`http://localhost:12089/Timeline/GetUserTimelinePosts?from=0&to=10`);
 
@@ -112,7 +113,8 @@ export async function getServerSideProps(context) {
     ratesCount: p.noOfReviews,
     distance: p.distanceString,
     favorite: p.favorite,
-    latLon: p.latLon
+    latLon: p.latLon,
+    id  : p.id
   }))
   return {
     props: { data: cardPosts, posts : timeLine.followingsPosts }, // will be passed to the page component as props

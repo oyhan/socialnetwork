@@ -34,6 +34,13 @@ namespace Mahoor.Services.User.Handlers
                 dto.NoOfFollowers = noOfFollowers;
                 dto.NoOfFollowings = noOfFollwings;
                 dto.NoOfPosts = noOfPosts;
+                if (request.Requester == request.UserId.ToString())
+                {
+                    dto.IsOwner = true;
+                }
+
+                dto.IsFollowing =
+                    await _graphService.HasAssociation(request.Requester, request.UserId.ToString(), AType.Following);
 
                 return BaseServiceResponse<ProfileDto>.SuccessFullResponse(dto);
             }

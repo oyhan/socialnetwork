@@ -7,6 +7,7 @@ using System.Security.AccessControl;
 using System.Text;
 using System.Text.Json;
 using ChefCode.Common.BaseModels;
+using Mahoor.DomainObjects.Post;
 using Mahoor.DomainObjects.Review;
 using NetTopologySuite.Geometries;
 using Newtonsoft.Json.Serialization;
@@ -27,7 +28,7 @@ namespace Mahoor.DomainObjects.Place
         [Column(TypeName = "jsonb")]
         public JsonDocument Attributes { get; set; }
         public List<ReviewModel> Reviews { get; set; }
-
+        public ICollection<Media> Medias { get; set; }
 
         public string this[string attrName] => Attributes.RootElement.EnumerateObject().Any(c=>c.Name==attrName)? Attributes.RootElement.GetProperty(attrName).GetString() : "";
 

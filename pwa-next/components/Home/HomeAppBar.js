@@ -3,7 +3,7 @@ import MAppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import MoreIcon from '@material-ui/icons/MoreVert';
@@ -11,6 +11,7 @@ import { Chip, Fade, Slide, useScrollTrigger, Zoom } from '@material-ui/core';
 import HeaderTopChip from '../Header/HeaderTopChip';
 import HeaderLowerChip from '../Header/HeaderLowerChip';
 import WhereToGo from './WhereToGo';
+import { useScrollData } from 'scroll-data-hook';
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -34,47 +35,80 @@ const useStyles = makeStyles((theme) => ({
         alignSelf: 'flex-end',
     },
     offset: {
-        minHeight: 150
+        minHeight: 215
     },
+    btnHolder: {
+        justifySelf: 'center',
+        alignSelf: 'center',
+        display :'flex',
+        flexDirection : 'column'
+    },
+    searchIcon :{
+        position : 'fixed',
+        top :10,
+        left :10,
+        zIndex :10,
+    }
 
 }));
-function HideOnScroll(props) {
-    const { children, window } = props;
-    // Note that you normally won't need to set the window ref as useScrollTrigger
-    // will default to window.
-    // This is only being set here because the demo is in an iframe.
-    const trigger = useScrollTrigger();
 
-    return (
-        <Slide appear={false} direction="down" in={!trigger}>
-            {children}
-        </Slide>
-    );
-}
 
 export default function HomeAppBar(props) {
-    const [open,setOpen]= useState();
+    const [open, setOpen] = useState();
     const handleClick = () => {
         setOpen(true);
     }
 
     const classes = useStyles();
+    var { position, direction } = useScrollData();
+
+
+    const theme = useTheme();
+
+    const calcToolbarStyle = () => {
+        var style = {
+            backgroundImage: `url(/home/header/bg.jpg)`,
+            height: 200,
+            alignItems: 'flex-start',
+            paddingTop: theme.spacing(1),
+            display: 'grid',
+            flexDirection: 'column',
+            paddingBottom: theme.spacing(2),
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+        }
+
+        if ((200 - position.y) >= 70) {
+            style.height = 200 - position.y;
+            style.backgroundImage = `url(/home/header/bg.jpg)`;
+        } else {
+            style.height = 70;
+            style.backgroundImage = 'unset';
+
+        }
+
+        return style;
+    }
 
     return (
         <div className={classes.root}>
-            <HideOnScroll {...props}>
+            {/* <HideOnScroll {...props}> */}
 
-                <MAppBar elevation={0} position="fixed">
-                    <Toolbar className={classes.toolbar} >
-                        <IconButton aria-label="search" edge='start' color="inherit">
-                            <SearchIcon />
-                        </IconButton>
+            <MAppBar elevation={0} position="fixed">
+                <IconButton className={classes.searchIcon} aria-label="search" edge='start' color="inherit">
+                    <SearchIcon />
+                </IconButton>
+                <Toolbar style={calcToolbarStyle()}>
+
+                    <div className={classes.btnHolder}>
                         <HeaderTopChip handleClick={handleClick} title="کجا می‌روید؟" />
                         <HeaderLowerChip handleClick={handleClick} title="ببین نزدیکت چیه" />
-                    </Toolbar>
-                    <WhereToGo open={open}  handleWindow={setOpen}/>
-                </MAppBar>
-            </HideOnScroll>
+                    </div>
+
+                </Toolbar>
+                <WhereToGo open={open} handleWindow={setOpen} />
+            </MAppBar>
+            {/* </HideOnScroll> */}
 
             <div className={classes.offset} />
         </div>

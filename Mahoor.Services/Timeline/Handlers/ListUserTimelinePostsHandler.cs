@@ -3,9 +3,15 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Mahoor.Data;
+using Mahoor.Data.Queries.Graph;
+using Mahoor.DomainObjects.SocialGraph;
+using Mahoor.Services.ExtentionMethods;
+using Mahoor.Services.Graph;
 using Mahoor.Services.Response;
 using Mahoor.Services.Timeline.Commands;
 using Mahoor.Services.Timeline.Dtos;
+using Mahoor.Services.User;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Serilog;
@@ -14,22 +20,39 @@ namespace Mahoor.Services.Timeline.Handlers
 {
     class ListUserTimelinePostsHandler:IRequestHandler<ListUserTimelinePostsCommand,BaseServiceResponse<IReadOnlyList<TimelinePostDto>>>
     {
-        private readonly ITimelineService _timelineService;
+        private readonly IGraphService _graphService;
+        private readonly AppUserManager _userManager;
+        private readonly IAppRepository<AssociationModel, Guid> _associationRepository;
 
-        public ListUserTimelinePostsHandler(ITimelineService timelineService)
+        public ListUserTimelinePostsHandler(IGraphService graphService,AppUserManager userManager ,IAppRepository<AssociationModel,Guid> associationRepository)
         {
-            _timelineService = timelineService;
+            _graphService = graphService;
+            _userManager = userManager;
+            _associationRepository = associationRepository;
         }
         public async Task<BaseServiceResponse<IReadOnlyList<TimelinePostDto>>> Handle(ListUserTimelinePostsCommand request, CancellationToken cancellationToken)
         {
             try
             {
-                return BaseServiceResponse<IReadOnlyList<TimelinePostDto>>.SuccessFullResponse(await _timelineService.ListFollowingsPosts(Guid.Parse(request.UserId), request.From, request.To));
+                var user = await _userManager.FindByUsername(request.UserName);
+                if (user==null)
+                {
+                    return  BaseServiceResponse<IReadOnlyList<TimelinePostDto>>.FailedResponse("Invalid username");
+                }
+                var userId =Guid.Parse(user.Id); 
+                var posts = await _associationRepository.ListAsync(s => s.Data.ToTimelinePostDto(),
+                    new UsersPostsQuery(userId, request.From,request.To));
+                foreach (var post in posts)
+                {
+                    post.Likes = await _graphService.GetAssociationCountTo(post.Id, AType.Likes);
+                    post.Liked = await _graphService.HasAssociation(Guid.Parse(request.Requester), post.Id, AType.Likes);
+                }
+                return BaseServiceResponse<IReadOnlyList<TimelinePostDto>>.SuccessFullResponse(posts);
             }
             catch (Exception exeption)
 
             {
-                Log.Logger.Fatal("exception in fetching timeline {user} with {error}",request.UserId ,exeption);
+                Log.Logger.Fatal("exception in fetching timeline {user} with {error}",request.UserName ,exeption);
                return BaseServiceResponse<IReadOnlyList<TimelinePostDto>>.FailedResponse("error in fetching timeline");
             }
         }

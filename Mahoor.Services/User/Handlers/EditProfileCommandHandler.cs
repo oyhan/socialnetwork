@@ -54,7 +54,7 @@ namespace Mahoor.Services.User.Handlers
                         Directory.CreateDirectory(directory);
                     }
 
-                    SaveImage(media.File, jpg,new JpegFormat());
+                    //SaveImage(media.File, jpg,new JpegFormat());
                     SaveImage(media.File, mainAvatar, new WebPFormat());
                     
                     media.Path = $"{relativePath}avatar.webp";

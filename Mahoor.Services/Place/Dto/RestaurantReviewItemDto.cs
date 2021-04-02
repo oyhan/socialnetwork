@@ -16,5 +16,6 @@ namespace Mahoor.Services.Place.Dto
         public string DateWrittenString=> DateWritten.Humanize();
         public string UserAvatar { get; set; }
         public string Writer { get; set; }
+        public string WriterUserName { get; set; }
     }
 }

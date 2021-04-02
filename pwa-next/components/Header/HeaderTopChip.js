@@ -14,10 +14,11 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-export default function HeaderTopChip({title , handleClick}) {
+export default function HeaderTopChip({title , handleClick,...other}) {
     const classes = useStyles();
     return (
         <Chip
+            {...other}
             icon={<KeyboardArrowDownOutlinedIcon  color='primary' />}
             onClick={handleClick}
             label={title}

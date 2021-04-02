@@ -1,14 +1,9 @@
-import { Grid, makeStyles, Typography } from '@material-ui/core';
+import { ButtonBase, Grid, makeStyles, Typography } from '@material-ui/core';
 import React from 'react'
 import Link from 'next/link'
 import Map from './Map';
 import { useRouter } from 'next/router'
 
-export const MapContext = React.createContext(null);
-const MapDataProvider = ({ data, children }) =>
-    <MapContext.Provider value={data}>
-        {children}
-    </MapContext.Provider>
 
 const useStyle = makeStyles((theme) => ({
     root: {
@@ -27,7 +22,7 @@ const useStyle = makeStyles((theme) => ({
 
 
 export default function HomeMap({ items, title, points }) {
-    
+
 
     const classes = useStyle();
 
@@ -41,20 +36,18 @@ export default function HomeMap({ items, title, points }) {
 
     return (
         <>
-            <MapDataProvider data={points}>
-                <Grid justify='space-between' direction='row' spacing={0}
-                    container className={classes.title} >
-                    <Typography component='h3'>
-                        مکان‌های اطراف  را جستجو کنید
+            <Grid justify='space-between' direction='row' spacing={0}
+                container className={classes.title} >
+                <Typography component='h3'>
+                    مکان‌های اطراف  را جستجو کنید
                  </Typography>
 
-                </Grid>
-                <Grid onClick={onclick} container >
-                    <div className={classes.root} >
-                        <Map />
-                    </div>
-                </Grid>
-            </MapDataProvider>
+            </Grid>
+            <Grid onClick={onclick} container >
+                <div className={classes.root} >
+                    <Map points={points} />
+                </div>
+            </Grid>
         </>
     )
 

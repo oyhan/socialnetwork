@@ -1,8 +1,8 @@
+import React ,{ useEffect, useState } from 'react';
 import UserManager from './userManager';
 import axios from 'axios'
 import { toast } from 'react-toastify';
 import cookieCutter from 'cookie-cutter'
-
 var authentication = {};
 if (typeof window !== 'undefined') {
     
@@ -15,6 +15,36 @@ export const BrowserHttpClient = {
     Put,
     MultiPartFormData,
     GetModel
+}
+
+
+
+export  function useHttpClient(url, method, getResult,body){
+
+
+    const [loading, setLoading] = useState(true);
+    const [data, setData] = useState([]);
+    const [error, setError] = useState();
+
+    useEffect(() => {
+
+        BrowserHttpClient[method](url, JSON.stringify(body))
+            .then(result => {
+                if (getResult)
+                    result = getResult(result);
+                
+                setLoading(false);
+                setData(result);
+            })
+            .catch(error => {
+                setLoading(false);
+                setError(error);
+            })
+
+    },[])
+
+    return [loading,data,error]
+
 }
 
 async function MultiPartFormData(url, data) {

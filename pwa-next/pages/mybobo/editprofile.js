@@ -30,12 +30,12 @@ const useStyle = makeStyles((theme) => ({
     }
 }))
 export default function EditProfile({user}) {
-    const [ dispatch] = useStateValue();
-    console.log('user11: ', user);
+    const [, dispatch] = useStateValue();
+    
 
     const { t } = useTranslation('common');
     const router = useRouter();
-    const { avatarURl, biography, city, favorites, noOfFollowers,
+    const { avatarURl, bio, city, favorites, noOfFollowers,
         
         noOfFollowings, noOfPosts, userName, website, displayName } = user;
         
@@ -45,16 +45,18 @@ export default function EditProfile({user}) {
         BrowserHttpClient.MultiPartFormData("http://localhost:12089/Profile/Edit", formiks.values)
             .then(response => {
                 if (response.successFull) {
-                    dispatch(formik.values);
+                    dispatch({ type: actions.USER, payload: formik.values });
                     router.back();
                 }
             }).catch(error => {
+                
 
 
             });
     }
     const schema = useProfileModelValidationSchema();
     var formik = useFormik(formikObjectBuilder(user, schema, onsubmit))
+    
     
 
     useEffect(() => {
@@ -82,7 +84,7 @@ export default function EditProfile({user}) {
             // Hint={formik.errors.displayName}
             value={formik.values.displayName}
             autoComplete="off" placeholder={t('displayName')} Type={PropType.Text} fullWidth />
-            
+
         <InputRenderer
             onChange={formik.handleChange}
             InputProps={{
@@ -159,9 +161,9 @@ export default function EditProfile({user}) {
             autoComplete="off" placeholder={t('website')} Type={PropType.Text} Name="website" fullWidth />
 
         <InputRenderer
-            key="biography"
+            key="bio"
             onChange={formik.handleChange}
-            error={formik.errors.biography}
+            error={formik.errors.bio}
             InputProps={{
                 startAdornment: (
                     <InputAdornment position="start">
@@ -169,9 +171,9 @@ export default function EditProfile({user}) {
                     </InputAdornment>
                 ),
             }}
-            value={formik.values.biography}
+            value={formik.values.bio}
             autoComplete="off" placeholder={t('bioPlaceHolder')}
-            Type={PropType.TextArea} Name="biography" fullWidth />
+            Type={PropType.TextArea} Name="bio" fullWidth />
     </>
 }
 export async function getServerSideProps({ locale, ...context }) {

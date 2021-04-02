@@ -24,6 +24,8 @@ const useStyles = makeStyles((theme) => ({
         overflowY: 'hidden',
         height: '100%',
         // padding: '5rem 10px',
+        padding : 0,
+        marginBottom : 100
     }
 }));
 
@@ -48,8 +50,7 @@ export default function BaseLayout(props) {
         <>
            
             <Container className={classes.appBackground}  >
-                <Grid container justify='center'
-                    spacing={1}>
+                <Grid container justify='center'>
                     <Grid item xs={12} md={7} >
                         {props.children}
                     </Grid>

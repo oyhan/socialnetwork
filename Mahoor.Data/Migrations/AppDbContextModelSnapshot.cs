@@ -508,6 +508,42 @@ namespace Mahoor.Data.Migrations
                     b.HasDiscriminator().HasValue("RestaurantModel");
                 });
 
+            modelBuilder.Entity("Mahoor.DomainObjects.Place.BasePlaceModel", b =>
+                {
+                    b.OwnsMany("Mahoor.DomainObjects.Post.Media", "Medias", b1 =>
+                        {
+                            b1.Property<Guid>("BasePlaceModelId")
+                                .HasColumnType("uuid");
+
+                            b1.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("integer")
+                                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                            b1.Property<int>("MediaType")
+                                .HasColumnType("integer");
+
+                            b1.Property<string>("MimeType")
+                                .HasColumnType("text");
+
+                            b1.Property<string>("Name")
+                                .HasColumnType("text");
+
+                            b1.Property<string>("Path")
+                                .HasColumnType("text");
+
+                            b1.Property<int>("Size")
+                                .HasColumnType("integer");
+
+                            b1.HasKey("BasePlaceModelId", "Id");
+
+                            b1.ToTable("Places_Medias");
+
+                            b1.WithOwner()
+                                .HasForeignKey("BasePlaceModelId");
+                        });
+                });
+
             modelBuilder.Entity("Mahoor.DomainObjects.Post.PostModel", b =>
                 {
                     b.HasOne("Mahoor.DomainObjects.Place.BasePlaceModel", "Place")

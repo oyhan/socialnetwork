@@ -23,7 +23,7 @@ namespace Mahoor.Data.Queries.Timeline
             var userLocation = new Point(lon, lat);
             var buffer = userLocation.Buffer(500);
             AddCriteria(r=>r.Location.Distance(userLocation) <= distance);
-            ApplyOrderBy(x=>x.Rate);
+            ApplyOrderByDescending(x=>x.Rate);
             ApplyOrderBy(x => x.Location.Distance(userLocation));
             ApplyPaging(from, to);
         }

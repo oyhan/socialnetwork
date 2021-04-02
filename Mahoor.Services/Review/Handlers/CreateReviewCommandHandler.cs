@@ -21,7 +21,7 @@ using MediatR;
 
 namespace Mahoor.Services.Review.Handlers
 {
-    class CreateReviewCommandHandler :IRequestHandler<CreateReviewCommand,BaseServiceResponse<Guid>>
+    class CreateReviewCommandHandler : ServiceBase, IRequestHandler<CreateReviewCommand,BaseServiceResponse<Guid>>
     {
         private readonly IAppRepository<BasePlaceModel, Guid> _placeRepository;
         private readonly IGraphService _graphService;
@@ -61,9 +61,9 @@ namespace Mahoor.Services.Review.Handlers
 
                 foreach (var media in request.Dto.Medias)
                 {
-                    var relativePath = $"/user/{user.UserName}/pictures/";
-                    var directory = $"{Directory.GetCurrentDirectory()}{relativePath}";
-                    var fileName = $"{Guid.NewGuid()}_{media.Name}";
+                    var relativePath = $"/user/{user.UserName}/review/";
+                    var directory = $"{ContentPath}{relativePath}";
+                    var fileName = $"{Guid.NewGuid()}_{media.Name}.{media.MimeType.Split('/')[1]}";
                     var storagePath = $"{directory}/{fileName}";
                     if (!Directory.Exists(directory))
                     {
@@ -84,6 +84,7 @@ namespace Mahoor.Services.Review.Handlers
                     Description = request.Dto.Description,
                     UserId = request.Requester,
                     PlaceId = request.Dto.PlaceId,
+                    Place = place,
                     Rate = request.Dto.Rate,
                     Title = request.Dto.Title,
                     DateVisited = request.Dto.DateVisited,
@@ -91,11 +92,8 @@ namespace Mahoor.Services.Review.Handlers
                      
                 };
 
-
                 var reviewModel = await _reviewRepository.AddAsync(review);
-
-
-
+               var rowsEffected= await _reviewRepository.ApplyChangesAsync();
 
                 await _graphService.AddAssociation(Guid.Parse(request.Requester), reviewModel.Id, AType.Wrote
                     , reviewModel.ToReviewDto());

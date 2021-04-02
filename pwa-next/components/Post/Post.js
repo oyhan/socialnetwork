@@ -24,6 +24,8 @@ import ReportIcon from '@material-ui/icons/Report';
 import { BrowserHttpClient } from '../../lib/BrowserHttpClient';
 import TrendingFlatIcon from '@material-ui/icons/TrendingFlat';
 import { useStateValue } from '../../lib/store/appState';
+import {useRouter, userRouter} from 'next/router'
+import { route } from 'next/dist/next-server/server/router';
 require('moment/locale/fa');
 
 var moment = require('moment-jalaali')
@@ -63,7 +65,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Post({ username, createdDate, placeName, text, likes, medias, id, liked }) {
-    console.log('medias: ', medias);
+    const router = useRouter();
+    
     const [{ user }] = useStateValue();
     const classes = useStyles();
     const [innerLikes, setLikes] = useState(likes);
@@ -134,11 +137,15 @@ export default function Post({ username, createdDate, placeName, text, likes, me
 
     }
 
+    const handleGotoProfile=()=>{
+        router.push(`profile/${username}`);
+    }
+
     return (
         <Card elevation={0} id={id} className={classes.root}>
             <CardHeader
                 avatar={
-                    <Avatar aria-label="recipe" src={avatar} className={classes.avatar}>
+                    <Avatar aria-label="recipe" src={avatar} onClick={handleGotoProfile} className={classes.avatar}>
                         {username}
                     </Avatar>
                 }

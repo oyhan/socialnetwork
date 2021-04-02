@@ -95,10 +95,11 @@ namespace Mahoor.Services.ExtentionMethods
                 UserName = user.UserName,
                 City =  user.CurrentCity,
                 AvatarURl = user.AvatarUrl,
-                Biography = user.Bio,
+                Bio = user.Bio,
                 Favorites = user.Favorites,
                 Website =  user.Website,
                 DisplayName = user.DisplayName,
+                CityId =  user.CityId
             };
         }
 
@@ -140,6 +141,16 @@ namespace Mahoor.Services.ExtentionMethods
                 Path = dto.Path,
                 Name = dto.Name,
 
+            };
+        }
+
+        public static MediaDto ToMediaDto(this Media model)
+        {
+            return new MediaDto()
+            {
+                Name=model.Name,
+                MimeType = model.MimeType,
+                Path = model.Path
             };
         }
 

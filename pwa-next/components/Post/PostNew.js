@@ -6,7 +6,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
-import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
@@ -25,18 +24,20 @@ import { useTranslation } from 'next-i18next'
 import { BrowserHttpClient } from '../../lib/BrowserHttpClient';
 import { useRouter } from 'next/router'
 import { AvatarGroup } from '@material-ui/lab';
+import AppBar from '../AppBar/AppBar';
 
 const useStyles = makeStyles((theme) => ({
     toolBar: {
         direction: 'rtl'
+
     },
     title: {
         marginLeft: theme.spacing(2),
         flex: 1,
     },
     large: {
-        width: theme.spacing(15),
-        height: theme.spacing(15),
+        width: theme.spacing(12),
+        height: theme.spacing(12),
         margin: 'auto'
     },
     divider: {
@@ -52,12 +53,12 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function PostNewDialog({ open, handleWindow, photos }) {
-    
+
     const router = useRouter();
     const classes = useStyles();
     const [urls, setUrls] = useState([]);
-    console.log('urls: ', urls);
     
+
 
 
 
@@ -69,14 +70,17 @@ export default function PostNewDialog({ open, handleWindow, photos }) {
     };
 
     useEffect(() => {
+        var i = 0;
         if (photos) {
             for (const photo of photos) {
                 const imageUrl = window.URL.createObjectURL(photo);
-                console.log('imageUrl: ', imageUrl);
                 
-                setUrls((before)=>[...before, imageUrl]);
-                formik.setFieldValue('files', photos);
+                formik.setFieldValue(`file${i}`, photos[i]);
+
+                setUrls((before) => [...before, imageUrl]);
+                i++;
             }
+            // formik.setFieldValue('files', [...photos]);
 
         }
 
@@ -97,9 +101,8 @@ export default function PostNewDialog({ open, handleWindow, photos }) {
         setUrls([]);
         handleWindow(false);
     };
-
     var onsubmit = () => {
-        
+
         formik.setSubmitting(true);
         BrowserHttpClient.MultiPartFormData("http://localhost:12089/post/new", formik.values)
             .then(response => {
@@ -108,8 +111,9 @@ export default function PostNewDialog({ open, handleWindow, photos }) {
                     router.push(`/#${response.response}`)
                 }
             }).catch(error => {
-                
+
                 formik.setSubmitting(false);
+
 
 
             });
@@ -125,23 +129,24 @@ export default function PostNewDialog({ open, handleWindow, photos }) {
     }, schema, onsubmit))
     
 
+    const rightIcon = <ToolbarButton color='primary' disabled={formik.isSubmitting} onClick={formik.handleSubmit} >
+        <Typography color='primary' >
+            پست
+   </Typography>
+    </ToolbarButton>
+
+    const leftIcon = [<ToolbarButton  onClick={handleClose} >
+        <Typography color='primary' >
+            انصراف
+   </Typography>
+    </ToolbarButton>]
+
     return (
 
         <div  >
             <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
-                <Toolbar className={classes.toolBar}>
-                    <ToolbarButton color='primary' disabled={formik.isSubmitting} onClick={formik.handleSubmit} >
-                        <Typography color='primary'>
-                            پست
-                       </Typography>
-                    </ToolbarButton>
+                <AppBar leftIcons={leftIcon} appBarColor='transparent' title="پست جدید" rightIcon={rightIcon} />
 
-                    <ToolbarButton color='primary' onClick={handleClose} >
-                        <Typography color='primary'>
-                            انصراف
-                       </Typography>
-                    </ToolbarButton>
-                </Toolbar>
                 <Container>
 
                     <Grid container className={classes.row1} >
@@ -153,7 +158,7 @@ export default function PostNewDialog({ open, handleWindow, photos }) {
                                         <AvatarGroup max={3}>
                                             {
                                                 urls.map((i, key) =>
-                                                    <Avatar  alt="post image" src={i} className={classes.large} />
+                                                    <Avatar alt="post image" src={i} />
 
                                                 )
                                             }

@@ -29,6 +29,7 @@ namespace Mahoor.Api.Controllers
             _accessor = accessor;
             _mediator = mediator;
             _userService.IpAddress = ipAddress();
+            
         }
 
 

@@ -15,7 +15,9 @@ namespace Mahoor.Services.User.Profile.Dto
         public string City { get; set; }
         public string Favorites { get; set; }
         public string Website { get; set; }
-        public string Biography { get; set; }
-
+        public string Bio { get; set; }
+        public Guid? CityId { get; set; }
+        public bool IsOwner { get; set; }
+        public bool IsFollowing { get; set; }
     }
 }

@@ -9,8 +9,21 @@ const useStyles = makeStyles((theme) => ({
     root: {
         position: 'absolute',
         top: 104,
-        left: 34,
-    },
+        width:200,
+        left:'10vw',
+        zIndex :10000,
+        
+        [theme.breakpoints.up('md')]: {
+          left:'25vw',
+        },
+        [theme.breakpoints.up('lg')]: {
+          left:'26vw',
+        },
+        [theme.breakpoints.up('xl')]: {
+          left:'34vw',
+        },
+       
+      },
     avatar: {
         width: theme.spacing(9),
         height: theme.spacing(9),
@@ -36,15 +49,16 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function UserProfileAvatar({ username }) {
+export default function UserProfileAvatar({ userName,displayName }) {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
     const handleUserMoreButton = () => {
         setOpen(!open);
     }
+    const avatarfullPath = `http://localhost:12089/user/${userName}/avatar/avatar.webp`;
 
     const moreBtnItems = [{
-        title: `بلاک کردن ${username}`,
+        title: `بلاک کردن ${userName}`,
         action: () => { },
         icon : <BlockIcon/>
     },
@@ -58,7 +72,7 @@ export default function UserProfileAvatar({ username }) {
     return (
         <Grid container className={classes.root}>
             <IconButton size='small' className={classes.avatorBtn}>
-                <Avatar className={classes.avatar} sizes={classes.avatar}>
+                <Avatar className={classes.avatar} src={avatarfullPath} sizes={classes.avatar}>
                     <AddAPhotoIcon />
                 </Avatar>
             </IconButton>
@@ -67,7 +81,7 @@ export default function UserProfileAvatar({ username }) {
                     نام نمایشی
               </Typography>
                 <Typography color='primary' variant='caption'>
-                    {username && `@${username}` || '@نام کاربری'}
+                    {userName && `@${userName}` || '@نام کاربری'}
                 </Typography>
             </Grid>
             <Grid item className={classes.more} >

@@ -44,9 +44,16 @@ function a11yProps(index) {
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.default,
-    height: '100%'
+    height: '100%',
+    position:'sticky',
+    top:150
+    
     // width: 500,
   },
+  sticky : {
+    position :'sticky',
+    top : 150
+  }
   //   tabRoot : {
   //       width : 
   //   }
@@ -77,29 +84,34 @@ export default function FullWidthTabs({ tabs, tabsContent }) {
         centered
         variant="fullWidth"
         aria-label="full width tabs example"
+        classes={
+          {
+            root : classes.sticky
+          }
+        }
       >
         {
           tabs && tabs.map((tab, i) =>
-            <Tab  label={tab} {...a11yProps(i)} />
+            <Tab  label={tab} key={i} {...a11yProps(i)} />
 
           )
         }
 
       </Tabs>
       {/* </AppBar> */}
-      <SwipeableViews
+      {/* <SwipeableViews
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
         index={value}
         onChangeIndex={handleChangeIndex}
-      >
+      > */}
         {
           tabsContent && tabsContent.map((content, i) =>
-            <TabPanel value={value} index={i} dir={theme.direction}>
+            <TabPanel value={value} key={i} index={i} dir={theme.direction}>
               {content}
             </TabPanel>
           )
         }
-      </SwipeableViews>
+      {/* </SwipeableViews> */}
     </div>
   );
 }

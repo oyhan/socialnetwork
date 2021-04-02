@@ -14,6 +14,7 @@ namespace Mahoor.Data.Queries.Review
             AddCriteria(r=>r.PlaceId == restaurantId);
             ApplyPaging(from , to);
             ApplyOrderByDescending(r=>r.DateVisited);
+            AddInclude(r=>r.Medias);
             
         }
         public GetRestaurantReviewsOrderedByDateVisitedDescQuery(Guid restaurantId, int from, int to , string textSearch)

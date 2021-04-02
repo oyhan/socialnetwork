@@ -1,8 +1,14 @@
 import * as React from 'react';
 import PigeonMap from './PigeonMap';
 import dynamic from 'next/dynamic'
+import { classnames } from '@material-ui/data-grid';
+export const MapContext = React.createContext(null);
+const MapDataProvider = ({ data, children }) =>
+    <MapContext.Provider value={data}>
+        {children}
+    </MapContext.Provider>
 
-export default function Map() {
+export default function Map({ points }) {
     const [viewport, setViewport] = React.useState({
         latitude: 31.834989,
         longitude: 54.374296,
@@ -11,9 +17,11 @@ export default function Map() {
     const LeafletMap = dynamic(
         () => import('./Leaflet/LeafletMap'), // replace '@components/map' with your component's location
         { ssr: false } // This line is important. It's what prevents server-side render
-      )
-    return(
-        <LeafletMap />
+    )
+    return (
+        <MapDataProvider data={points}>
+            <LeafletMap />
+        </MapDataProvider>
     )
     // return (
     //     <ReactMapGL

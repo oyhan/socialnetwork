@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 using ChefCode.Common.WebFamework;
 using Mahoor.DomainObjects.Post;
 using Mahoor.Services.Dtos;
+using Mahoor.Services.Response;
 using MediatR;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Mahoor.Api.Controllers
 {
@@ -16,6 +18,12 @@ namespace Mahoor.Api.Controllers
 
         public string HostUrl => $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
         protected IMediator Mediator => (IMediator) HttpContext.RequestServices.GetService(typeof(IMediator));
+
+        protected ActionResult<BaseServiceResponse<T>> BadRequestApiResult<T>(string errorMessage)
+        {
+            return BadRequest(BaseServiceResponse<T>.FailedResponse(errorMessage));
+            
+        }
 
         internal IReadOnlyList<MediaDto> ProcessFiles()
         {

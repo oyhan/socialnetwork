@@ -10,7 +10,9 @@ namespace Mahoor.Services.Helper
     {
         public static string GetDistance(this Geometry geom, Geometry geom2)
         {
-           return geom.Distance(geom2).ToMetric();
+           var distance = geom.Distance(geom2);
+          var humanizedDistance =  distance > 1000 ? $"{(distance / 1000):F2} کیلومتر" : $"{distance:F0} متر";
+          return humanizedDistance;
         }
     }
 }

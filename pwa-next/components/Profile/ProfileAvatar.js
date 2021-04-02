@@ -8,8 +8,9 @@ const useStyles = makeStyles((theme) => ({
   root: {
     position: 'absolute',
     top: 104,
-    width:145,
+    width:200,
     left:'10vw',
+    zIndex :1000,
     
     [theme.breakpoints.up('md')]: {
       left:'25vw',
@@ -45,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
 export default function ProfileAvatar({ userName, displayName, avatarURl, onAvatarSelected }) {
   
   
-  const avatarfullPath = `http://localhost:12089${avatarURl}`;
+  const avatarfullPath = `http://localhost:12089/user/${userName}/avatar/avatar.webp`;
   
   const classes = useStyles();
   return (

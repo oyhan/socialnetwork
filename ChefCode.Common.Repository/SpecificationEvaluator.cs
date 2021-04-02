@@ -52,8 +52,10 @@ namespace ChefCode.Common.Repository
                     foreach (string str in specification.OrderByDescendingString.Skip<string>(1))
                         queryable = ((IOrderedQueryable<T>) queryable).ThenBy(str + " descending");
                 }
+
                 if (specification.GroupBy != null)
-                    queryable = queryable.GroupBy<T, object>(specification.GroupBy).Select<IGrouping<object, T>, T>((Expression<Func<IGrouping<object, T>, T>>)(x => x.First<T>()));
+                    queryable = (IQueryable<T>) queryable.GroupBy(specification.GroupBy);
+//                    queryable = queryable.GroupBy<T, object>(specification.GroupBy).Select<IGrouping<object, T>, T>((Expression<Func<IGrouping<object, T>, T>>)(x => x.First<T>()));
                 else if (specification.GroupByString != null)
                     queryable = (IQueryable<T>)DynamicQueryableExtensions.Select(DynamicQueryableExtensions.GroupBy((IQueryable)queryable, specification.GroupByString, Array.Empty<object>()), "first()", Array.Empty<object>());
                 if (specification.IsPagingEnabled && !counting)

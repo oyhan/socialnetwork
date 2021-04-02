@@ -46,7 +46,7 @@ namespace Mahoor.Api.Controllers
 
             var result = await Mediator.Send(cmd);
             if (result.SuccessFull)
-            {
+             {
                 return Ok(result);
             }
 

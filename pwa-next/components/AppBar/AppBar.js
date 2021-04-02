@@ -11,7 +11,6 @@ import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import { Avatar, Grid } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1,
     marginBottom:50
   },
   rightIcon: {
@@ -47,18 +46,18 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function AppBar({ rightIcon, title, leftIcons, middleCenterElement,extera }) {
+export default function AppBar({ rightIcon, title, leftIcons, middleCenterElement,extera , appBarColor }) {
 
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <MAppBar elevation={0} position="static">
+      <MAppBar color={appBarColor ? appBarColor : 'primary'} elevation={0} position="static">
         <Toolbar className={classes.toolbar}>
           <div className={classes.rightIcon}>
             {rightIcon}
           </div>
-          <Typography className={classes.title} variant="button" noWrap>
+          <Typography className={classes.title} variant="h6" noWrap>
             {title}
           </Typography>
           {
@@ -74,6 +73,8 @@ export default function AppBar({ rightIcon, title, leftIcons, middleCenterElemen
     </div>
   );
 }
+
+
 
 {/* <>
 <IconButton aria-label="search" color="inherit">

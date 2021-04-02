@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Typography, makeStyles, Grid, IconButton } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
 import Link from 'next/link'
@@ -16,8 +16,9 @@ import FullWidthTabs from '../../Navigation/Tab/FullWidthTab';
 import UserPosts from './UserPosts';
 import UserProfileAppBar from './UserProfileAppBar';
 import { actions } from '../../../lib/reducer/actions';
+import { BrowserHttpClient } from '../../../lib/BrowserHttpClient';
+import FollowButton from '../../Button/FollowButton';
 // import ProfileAvatar from '../ProfileAvatar';
-
 const useStyle = makeStyles(() => ({
     text: {
         marginTop: 12
@@ -31,30 +32,33 @@ const useStyle = makeStyles(() => ({
 }))
 
 export default function UserProfile({ user }) {
-    
+
     const [, dispatch] = useStateValue();
     const classes = useStyle()
-    useEffect(() => {
-        dispatch({ type: actions.APPBAR, payload: <UserProfileAppBar /> });
-        return () => {
-            dispatch({ type: actions.APPBAR, payload: <AppBar /> });
-        }
-    }, [])
-    const {noOfFollowings,noOfFollowers,noOfPosts,userName,avatarURl,favorites,website,biography,city} = user;
-    
-    
-    
+    const { noOfFollowings, noOfFollowers, noOfPosts, userName, avatarURl, favorites, website, bio, city, id, isOwner, isFollowing } = user;
+    const [following, setFollowing] = useState(isFollowing);
 
+
+    const handleUnFollow = () => {
+        BrowserHttpClient.Post(`http://localhost:12089/user/unfollow/${id}`).then(() => {
+            setFollowing(false);
+        })
+    }
+    const handleFollow = () => {
+        BrowserHttpClient.Post(`http://localhost:12089/user/follow/${id}`).then(() => {
+            setFollowing(true);
+        })
+    }
 
     return <>
-        <UserProfileAvatar username={userName} />
-
+        <UserProfileAppBar />
+        <UserProfileAvatar {...user} />
         <Grid container justify='center' className={classes.followerBtn}>
-            <Link href="/mybobo/editprofile" >
-                <FollowerButton />
-            </Link>
-        </Grid>
+            {following ? <FollowerButton onClick={handleUnFollow} /> :
+                <FollowButton onClick={handleFollow} />
+            }
 
+        </Grid>
         <Grid className={classes.div} container direction='row' justify='space-around' >
             <Grid item direction='column'>
                 <Typography>
@@ -77,12 +81,11 @@ export default function UserProfile({ user }) {
                     پست
                 </Typography>
                 <Typography align='center'>
-                   {noOfPosts}
+                    {noOfPosts}
                 </Typography>
             </Grid>
         </Grid>
-
-        <Grid spacing={1} container className={classes.div}>
+        <Grid spacing={1} className={classes.div} container direction='row' justify='space-around'>
             <Grid container spacing={1} direction='row'>
                 <IconButton size='small' disableRipple color='inherit'>
                     <LocationOnIcon />
@@ -108,15 +111,13 @@ export default function UserProfile({ user }) {
                 </Typography>
             </Grid>
             <Grid container direction='row'>
-
                 <Typography variant='caption' className={classes.text}>
-                   {biography}
+                    {bio}
                 </Typography>
             </Grid>
         </Grid>
-
         <FullWidthTabs tabs={["فعالیت", "عکس"]} tabsContent={[
-            <UserPosts />
+            <UserPosts userName={userName} />
         ]} />
     </>
 }

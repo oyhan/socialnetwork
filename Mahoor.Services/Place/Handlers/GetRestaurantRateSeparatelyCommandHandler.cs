@@ -27,14 +27,14 @@ namespace Mahoor.Services.Place.Handlers
         {
             var rates = await _reviewRepository.ListAsync(new GetPlaceReviewRatesSeparatelyQuery(request.PlaceId)
             );
-            var grouped = rates.GroupBy(r => r.Rate).ToList();
+            var grouped = rates.ToList();
             var dto =  new PlaceRateDto()
             {
-                Horrible = grouped.Count(c=>c.Key==1),
-                Weak = grouped.Count(c=>c.Key==2),
-                Normal = grouped.Count(c=>c.Key==3),
-                VeryGood = grouped.Count(c=>c.Key==4),
-                Excellent = grouped.Count(c=>c.Key==5),
+                Horrible = grouped.Count(c=>c.Rate==1),
+                Weak = grouped.Count(c=>c.Rate == 2),
+                Normal = grouped.Count(c=>c.Rate == 3),
+                VeryGood = grouped.Count(c=>c.Rate == 4),
+                Excellent = grouped.Count(c=>c.Rate == 5),
             };
          return BaseServiceResponse<PlaceRateDto>.SuccessFullResponse(dto);
 

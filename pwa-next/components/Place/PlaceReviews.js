@@ -16,10 +16,23 @@ export default function PlaceReviews({ restaurantDetail, placeId }) {
     const { reviews, name, noOfReviews, cuisine, distanceToUser, website, telephone, rate, isOpenNow, services,
         address, location } = restaurantDetail;
 
+    const [reviewSearchText, setSearchText] = useState("");
     const [loading, data, error] = useHttpClient(`http://localhost:12089/place/rate/${placeId}`, "Get", r => r.response);
 
-    const { excellent, veryGood, normal, weak, horrible } = data || {};
+    const [reviewsSearched, setReviewsSearched] = useState();
 
+    const onSearchSubmit = (e) => {
+        e.preventDefault();
+        BrowserHttpClient.Get(`http://localhost:12089/review/search/${placeId}/${reviewSearchText}`)
+            .then(result => {
+                if (result.successFull) {
+                    setReviewsSearched(result.response);
+                }
+            })
+    }
+
+    const { excellent, veryGood, normal, weak, horrible } = data || {};
+    const total =excellent + veryGood+normal+ weak+ horrible;
     const [openNewReviewDialog, openDialog] = useState(false);
 
     const handleNewReview = () => {
@@ -33,7 +46,7 @@ export default function PlaceReviews({ restaurantDetail, placeId }) {
                     <Typography variant='h6'>
                         <Box fontWeight='fontWeightBold'>
                             نظرات
-                    </Box>
+                        </Box>
                     </Typography>
                 </Grid>
 
@@ -59,26 +72,14 @@ export default function PlaceReviews({ restaurantDetail, placeId }) {
                     {
                         loading ? <CircularProgress /> :
                             <>
-                                <ReviewBarChartItem total={noOfReviews} title="عالی" count={excellent} />
-                                <ReviewBarChartItem total={noOfReviews} title="خیلی خوب" count={veryGood} />
-                                <ReviewBarChartItem total={noOfReviews} title="معمولی" count={normal} />
-                                <ReviewBarChartItem total={noOfReviews} title="ضعیف" count={weak} />
-                                <ReviewBarChartItem total={noOfReviews} title="وحشتناک" count={horrible} />
+                                <ReviewBarChartItem total={total} title="عالی" count={excellent} />
+                                <ReviewBarChartItem total={total} title="خیلی خوب" count={veryGood} />
+                                <ReviewBarChartItem total={total} title="معمولی" count={normal} />
+                                <ReviewBarChartItem total={total} title="ضعیف" count={weak} />
+                                <ReviewBarChartItem total={total} title="وحشتناک" count={horrible} />
                             </>
                     }
 
-                </Grid>
-                <Grid container>
-                    <SearchInput />
-                </Grid>
-                <Grid className={classes.row}>
-                    {
-                        reviews && reviews.map((r, i) =>
-                            <div className={classes.row}>
-                                <ReviewItem {...r} key={i} />
-                            </div>
-                        )
-                    }
                 </Grid>
 
                 <Divider />
@@ -93,8 +94,35 @@ export default function PlaceReviews({ restaurantDetail, placeId }) {
                         </Grid>
                     </Grid>
                 </Grid>
+
+                <Grid container className={classes.row}>
+                    <form onSubmit={onSearchSubmit}>
+                        <SearchInput onChange={(event) => {
+
+
+                            setSearchText(event.target.value)
+                        }} />
+                    </form>
+                </Grid>
+                <Grid className={classes.row}>
+                    {
+                        reviewsSearched ?
+                            reviewsSearched.map((r, i) =>
+                                <div className={classes.row}>
+                                    <ReviewItem {...r} key={i} />
+                                </div>)
+                            :
+                            reviews && reviews.map((r, i) =>
+                                <div className={classes.row}>
+                                    <ReviewItem {...r} key={i} />
+                                </div>
+                            )
+                    }
+                </Grid>
+
+
             </Container>
-            <ReviewNewDialog placeId={placeId} handleWindow={openDialog} place={restaurantDetail}  open={openNewReviewDialog} />
+            <ReviewNewDialog placeId={placeId} handleWindow={openDialog} place={restaurantDetail} open={openNewReviewDialog} />
         </>
     )
 }

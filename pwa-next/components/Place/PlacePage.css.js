@@ -8,7 +8,8 @@ const usePlacePageStyles = makeStyles(theme => ({
         alignSelf: 'center'
     },
     row: {
-        margin: '10px 0'
+        margin: '10px 0',
+        width : '100%'
     },
     map: {
         height: 100

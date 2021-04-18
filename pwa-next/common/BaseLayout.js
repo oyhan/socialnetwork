@@ -5,6 +5,7 @@ import AppBottomNav from '../components/Navigation/AppBottomNav';
 import { initialState, StateProvider, useStateValue } from '../lib/store/appState';
 import mainReducer from '../lib/reducer';
 import { actions } from '../lib/reducer/actions';
+import 'react-toastify/dist/ReactToastify.css';
 
 const useStyles = makeStyles((theme) => ({
     root: {

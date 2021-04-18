@@ -55,6 +55,7 @@ export default function SearchInput({ ...props }) {
                 <SearchIcon />
             </div>
             <InputBase
+                {...props}
                 placeholder="جستجوی نظرات"
                 classes={{
                     root: classes.inputRoot,

@@ -2,3 +2,5 @@
 **/obj/Debug/
 **/obj/**
 ChefCode.Common.Repository/obj/Debug/netstandard2.0/ChefCode.Common.Repository.assets.cache
+Mahoor.Api/appsettings.Development.json
+.vs

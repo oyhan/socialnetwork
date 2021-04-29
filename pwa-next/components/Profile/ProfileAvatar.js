@@ -1,5 +1,6 @@
 import { Avatar, Grid, IconButton, makeStyles, Typography } from "@material-ui/core";
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
+import GetAvatarUrl from "../../helper/AvatarHelper";
 import ImageUploader from "../ImageUploader/ImageUploader";
 
 
@@ -46,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
 export default function ProfileAvatar({ userName, displayName, avatarURl, onAvatarSelected }) {
   
   
-  const avatarfullPath = `http://localhost:12089/user/${userName}/avatar/avatar.webp`;
+  const avatarfullPath = GetAvatarUrl(userName);
   
   const classes = useStyles();
   return (

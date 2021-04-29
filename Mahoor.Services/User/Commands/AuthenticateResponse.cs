@@ -6,7 +6,7 @@ namespace Mahoor.Services.User.Commands
     {
         public string Id { get; set; }
         public string DisplayName { get; set; }
-        public string Username { get; set; }
+        public string UserName { get; set; }
         public string JwtToken { get; set; }
 
         [JsonIgnore] // refresh token is returned in http only cookie
@@ -16,7 +16,7 @@ namespace Mahoor.Services.User.Commands
         {
             Id = user.Id;
             DisplayName = user.DisplayName;
-            Username = user.UserName;
+            UserName = user.UserName;
             JwtToken = jwtToken;
             RefreshToken = refreshToken;
         }

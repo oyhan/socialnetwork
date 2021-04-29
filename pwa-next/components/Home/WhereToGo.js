@@ -16,56 +16,23 @@ import InputRenderer from '../../lib/InputRenderer';
 import { Container, Grid, InputAdornment } from '@material-ui/core';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import { PropType } from '../../lib/proptypes';
+import SearchDialog from '../Dialog/SearchDialog';
 
-const useStyles = makeStyles((theme) => ({
-    toolBar: {
-        direction: 'rtl'
-    },
-    title: {
-        marginLeft: theme.spacing(2),
-        flex: 1,
-    },
-}));
-
-const Transition = React.forwardRef(function Transition(props, ref) {
-    return <Slide direction="up" ref={ref} {...props} />;
-});
 
 export default function WhereToGo({ open, handleWindow }) {
-    const classes = useStyles();
 
-    const handleClickOpen = () => {
-
-    };
-
-    const handleClose = () => {
-        handleWindow(false);
-    };
+    const dialogContent = <InputRenderer
+        InputProps={{
+            startAdornment: (
+                <InputAdornment position="start">
+                    <LocationOnIcon color="disabled" />
+                </InputAdornment>
+            ),
+        }}
+        autocomplete="off" placeholder="کجا می‌روید؟" Type={PropType.Text}
+        Name="currentCity" fullWidth />;
 
     return (
-
-        <div  >
-            <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
-                <Toolbar className={classes.toolBar}>
-                    <IconButton edge="start" color="primary" onClick={handleClose} aria-label="close">
-                        <CloseIcon />
-                    </IconButton>
-
-                </Toolbar>
-                <Container>
-                    <InputRenderer
-                        InputProps={{
-                            startAdornment: (
-                                <InputAdornment  position="start">
-                                    <LocationOnIcon color="disabled" />
-                                </InputAdornment>
-                            ),
-                        }}
-                        autocomplete="off" placeholder="کجا می‌روید؟" Type={PropType.Text}
-                        Name="currentCity" fullWidth />
-                </Container>
-
-            </Dialog>
-        </div>
+        <SearchDialog content={dialogContent} handleWindow={handleWindow} open={open}/>
     );
 }

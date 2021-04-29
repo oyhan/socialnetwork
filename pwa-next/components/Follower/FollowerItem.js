@@ -1,23 +1,18 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { LocationOn } from '@material-ui/icons';
-import ButtonBobo from '../Button/ButtonBobo';
 import FollowerButton from '../Button/FollowerButton';
+import FollowButton from '../Button/FollowButton';
+import { BrowserHttpClient } from '../../lib/BrowserHttpClient';
+import GetAvatarUrl from '../../helper/AvatarHelper';
+import { useStateValue } from '../../lib/store/appState';
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
@@ -39,42 +34,52 @@ const useStyles = makeStyles((theme) => ({
   avatar: {
     backgroundColor: red[500],
   },
-  indented :{
-      marginLeft : 60
+  indented: {
+    marginLeft: 60
   }
 }));
 
-export default function FollowerItem() {
+export default function FollowerItem({ fullName, userName, id, location }) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
-
+  const [following, setFollowing] = React.useState(true);
+  const [{ user }] = useStateValue();
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-
+  const handleUnFollow = () => {
+    BrowserHttpClient.Post(`http://localhost:12089/user/unfollow/${userName}`).then(() => {
+      setFollowing(false);
+    })
+  }
+  const handleFollow = () => {
+    BrowserHttpClient.Post(`http://localhost:12089/user/follow/${userName}`).then(() => {
+      setFollowing(true);
+    })
+  }
+  const mySelf = user.userName == userName;
   return (
     <Card elevation={0} className={classes.root}>
       <CardHeader
         avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            R
-          </Avatar>
+          <Avatar src={GetAvatarUrl(userName)} aria-label="avatar" className={classes.avatar} />
         }
-        
-        title="نام‌ نمایشی1"
-        subheader="@نام کاربری"
+        title={`${fullName}`}
+        subheader={userName}
       />
-      
+
       <CardContent className={classes.indented}>
         <Typography variant="body2" color="textSecondary" component="p">
-            <LocationOn/>
-            شهر،ایران
-          </Typography>
+          <LocationOn />
+          {location}
+        </Typography>
       </CardContent>
       <CardActions className={classes.indented} disableSpacing>
-        <FollowerButton/>
+        {mySelf ? "" : following ? <FollowerButton onClick={handleUnFollow} /> :
+          <FollowButton onClick={handleFollow} />
+        }
       </CardActions>
-      
+
     </Card>
   );
 }

@@ -26,6 +26,7 @@ import TrendingFlatIcon from '@material-ui/icons/TrendingFlat';
 import { useStateValue } from '../../lib/store/appState';
 import {useRouter, userRouter} from 'next/router'
 import { route } from 'next/dist/next-server/server/router';
+import GetAvatarUrl from '../../helper/AvatarHelper';
 require('moment/locale/fa');
 
 var moment = require('moment-jalaali')
@@ -64,10 +65,11 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function Post({ username, createdDate, placeName, text, likes, medias, id, liked }) {
+export default function Post({ userName, createdDate, placeName, text, likes, medias, id, liked }) {
     const router = useRouter();
     
     const [{ user }] = useStateValue();
+    console.log('user: ', user);
     const classes = useStyles();
     const [innerLikes, setLikes] = useState(likes);
     const [expanded, setExpanded] = React.useState(false);
@@ -76,7 +78,7 @@ export default function Post({ username, createdDate, placeName, text, likes, me
     const [userLiked, setLiked] = useState(liked);
     const [unfollow, setUnfollow] = useState(false);
     const datephrase = date.fromNow();
-    const avatar = `http://localhost:12089/user/${username}/avatar/avatar.webp`;
+    const avatar = GetAvatarUrl(userName);
 
 
     const handleExpandClick = () => {
@@ -88,14 +90,14 @@ export default function Post({ username, createdDate, placeName, text, likes, me
     var moreBtnItems = [{
         title: `انصراف از دنبال کردن`,
         action: () => {
-            BrowserHttpClient.Post(`http://localhost:12089/user/unfollow/${username}`).then(() => {
+            BrowserHttpClient.Post(`http://localhost:12089/user/unfollow/${userName}`).then(() => {
                 setUnfollow(!unfollow);
                 setOpen(false);
             })
         },
         icon: <CallMissedIcon />,
         //not unfollowed before and its not him/her self
-        visible: !unfollow || (user.userName != username)
+        visible: !unfollow || (user.userName != userName)
     },
     {
         title: `گزارش کردن این عکس`,
@@ -118,7 +120,7 @@ export default function Post({ username, createdDate, placeName, text, likes, me
             })
         },
         icon: <TrendingFlatIcon />,
-        visible: unfollow || (user.userName != username)
+        visible: unfollow || (user.userName != userName)
     },
     ]
 
@@ -138,7 +140,7 @@ export default function Post({ username, createdDate, placeName, text, likes, me
     }
 
     const handleGotoProfile=()=>{
-        router.push(`profile/${username}`);
+        router.push(`profile/${userName}`);
     }
 
     return (
@@ -146,7 +148,7 @@ export default function Post({ username, createdDate, placeName, text, likes, me
             <CardHeader
                 avatar={
                     <Avatar aria-label="recipe" src={avatar} onClick={handleGotoProfile} className={classes.avatar}>
-                        {username}
+                        {userName}
                     </Avatar>
                 }
                 action={
@@ -154,7 +156,7 @@ export default function Post({ username, createdDate, placeName, text, likes, me
                         <MoreHorizIcon />
                     </IconButton>
                 }
-                title={`${username} یک عکس اضافه کرد`}
+                title={`${userName} یک عکس اضافه کرد`}
                 subheader={`${datephrase}/${placeName}`}
             />
 

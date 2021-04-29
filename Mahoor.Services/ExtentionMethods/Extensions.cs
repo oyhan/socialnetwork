@@ -7,6 +7,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using ChefCode.Common.BaseModels;
 using Mahoor.DomainObjects.City;
+using Mahoor.DomainObjects.Place;
 using Mahoor.DomainObjects.Post;
 using Mahoor.DomainObjects.Review;
 using Mahoor.DomainObjects.User;
@@ -16,10 +17,12 @@ using Mahoor.Services.Follow.Dto;
 using Mahoor.Services.Review.Dto;
 using Mahoor.Services.Timeline;
 using Mahoor.Services.Timeline.Dtos;
+using Mahoor.Services.User.Dto;
 using Mahoor.Services.User.Follower.Dto;
 using Mahoor.Services.User.Profile.Dto;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Formatters.Internal;
+using NetTopologySuite.Geometries;
 using Newtonsoft.Json;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
@@ -30,7 +33,7 @@ namespace Mahoor.Services.ExtentionMethods
         public static JsonDocument ToJsonDocument<TId>(this BaseModel<TId> obj)
         {
             var jsonSettings = new JsonSerializerSettings();
-            jsonSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore; 
+            jsonSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             return JsonDocument.Parse(JsonConvert.SerializeObject(obj, jsonSettings));
         }
         public static JsonDocument ToJsonDocument(this object obj)
@@ -47,16 +50,16 @@ namespace Mahoor.Services.ExtentionMethods
         {
             return new TimelinePostDto()
             {
-                Text =  post.Text,
-                Medias = post.Medias.Select(m=> new TimelineMediaDto()
+                Text = post.Text,
+                Medias = post.Medias.Select(m => new TimelineMediaDto()
                 {
                     Url = m.Path
                 }).ToList(),
                 PlaceName = post.PlaceName,
                 Id = post.Id,
                 CreatedDate = post.CreatedDate,
-                Username =   post.User.UserName,
-                
+                UserName = post.User.UserName,
+
             };
         }
 
@@ -68,11 +71,13 @@ namespace Mahoor.Services.ExtentionMethods
                 var jr = new Utf8JsonWriter(memoryStream);
                 data.WriteTo(jr);
                 jr.Flush();
-               return   JsonSerializer.Deserialize<TimelinePostDto>(memoryStream.ToArray()); 
-               
+                return JsonSerializer.Deserialize<TimelinePostDto>(memoryStream.ToArray());
+
             }
-           
+
         }
+
+
 
 
         public static FollowRequestDto ToFollowRequestModel(this UserModel user)
@@ -81,9 +86,22 @@ namespace Mahoor.Services.ExtentionMethods
             return new FollowRequestDto()
             {
                 UserId = user.Id,
-                Name =  $"{user.DisplayName}",
+                Name = $"{user.DisplayName}",
                 AvatarUrl = user.AvatarUrl,
-                Username = user.UserName
+                UserName = user.UserName
+            };
+        }
+
+        public static UserSearchResultDto ToSearchDto(this UserModel user)
+        {
+
+            return new UserSearchResultDto()
+            {
+                UserName=user.UserName,
+                DisplayName=user.DisplayName,
+                NumberOfFollowers = user.NumberOfFollowers,
+                Id=user.Id
+
             };
         }
 
@@ -93,13 +111,13 @@ namespace Mahoor.Services.ExtentionMethods
             return new ProfileDto()
             {
                 UserName = user.UserName,
-                City =  user.CurrentCity,
+                City = user.CurrentCity,
                 AvatarURl = user.AvatarUrl,
                 Bio = user.Bio,
                 Favorites = user.Favorites,
-                Website =  user.Website,
+                Website = user.Website,
                 DisplayName = user.DisplayName,
-                CityId =  user.CityId
+                CityId = user.CityId
             };
         }
 
@@ -109,9 +127,11 @@ namespace Mahoor.Services.ExtentionMethods
         {
             return new FollowerItemDto()
             {
-                Location = $"{s.City.City},{s.City.Province}",
+                //Location = $"{s.City.City},{s.City.Province}",
+                City = s.City.City,
+                Province = s.City.Province,
                 AvatarUrl = s.AvatarUrl,
-                Username = s.UserName,
+                UserName = s.UserName,
                 FullName = $"{s.DisplayName}"
 
             };
@@ -148,7 +168,7 @@ namespace Mahoor.Services.ExtentionMethods
         {
             return new MediaDto()
             {
-                Name=model.Name,
+                Name = model.Name,
                 MimeType = model.MimeType,
                 Path = model.Path
             };
@@ -172,6 +192,21 @@ namespace Mahoor.Services.ExtentionMethods
                 Rate = review.Rate,
                 DateVisited = review.DateVisited,
                 Title = review.Title
+            };
+        }
+
+        public static RestaurantDto ToDto(this RestaurantModel r, Func<bool> hasFaved, Geometry userLocation)
+        {
+            return new RestaurantDto()
+            {
+                Name = r.Name,
+                DistanceInMeter = r.Location.Distance(userLocation),
+                Avatar = r.Avatar,
+                Rate = r.Rate,
+                Location = r.Location,
+                Id = r.Id,
+                NoOfReviews = r.Reviews.Count,
+                Favorite = hasFaved()
             };
         }
     }

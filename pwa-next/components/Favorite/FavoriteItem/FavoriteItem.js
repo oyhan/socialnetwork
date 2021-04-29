@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -11,20 +11,31 @@ import SkipNextIcon from '@material-ui/icons/SkipNext';
 import Rate from '../../Rate/Rate';
 import { Chip } from '@material-ui/core';
 import BoboChip from '../../Chip/Chip';
+import AppBar from '../../AppBar/AppBar';
+import { Search } from '@material-ui/icons';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import { BrowserHttpClient } from '../../../lib/BrowserHttpClient';
 
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
+        alignItems: 'center',
+        width: '100%',
+        margin : '0 10px'
     },
     details: {
         display: 'flex',
         flexDirection: 'column',
+        width: '73%'
     },
     content: {
         flex: '1 0 auto',
+        width: '100%'
     },
     cover: {
-        width: 151,
+        width: 100,
+        height: 100
     },
     controls: {
         display: 'flex',
@@ -39,49 +50,82 @@ const useStyles = makeStyles((theme) => ({
     inline: {
         margin: '10px 0 7px 0',
         display: 'flex',
-        width: 200,
         justifyContent: 'space-between'
     },
 }));
 
-export default function FavoriteItem({ rate,placeType,title,commentsCount,distance }) {
+export default function FavoriteItem({ rate, placeType, name, noOfReviews, distanceString, isOpen ,id}) {
     const classes = useStyles();
     const theme = useTheme();
+    const [faved, setFaved] = useState(true);
+
+
+    
+    const handlFave = () => {
+
+        if (faved) {
+            BrowserHttpClient.Post(`http://localhost:12089/place/unfave/${id}`).then(result => {
+                setFaved(false)
+            }).catch(error => {
+                alert(error);
+            })
+        } else {
+            BrowserHttpClient.Post(`http://localhost:12089/place/fave/${id}`).then(result => {
+                setFaved(true)
+            }).catch(error => {
+                alert(error);
+            })
+        }
+    }
+
 
     return (
-        <Card elevation={0} className={classes.root}>
-            <CardMedia
-                className={classes.cover}
-                image="https://miro.medium.com/max/3000/1*MI686k5sDQrISBM6L8pf5A.jpeg"
-                title="Live from space album cover"
-            />
-            <div className={classes.details}>
+        <>
+            <Card elevation={0} className={classes.root}>
+                <CardMedia
+                    className={classes.cover}
+                    image="https://miro.medium.com/max/3000/1*MI686k5sDQrISBM6L8pf5A.jpeg"
+                    title="Live from space album cover"
+                />
+                <div className={classes.details}>
 
-                <CardContent className={classes.content}>
-                    <Typography component="h5" variant="h5">
-                    {title}
-                    </Typography>
-                    <Typography className={classes.inline}>
-                        <Rate value={rate} />
-                        <Typography variant='caption' className={classes.ratesCount} color='disabled'>
-                            <span>{commentsCount} نظر</span>
+                    <CardContent className={classes.content}>
+                        <div className={classes.inline}>
+                            <Typography component="h6" variant="h6">
+                                {name}
+                            </Typography>
+                            <span>
+                                <IconButton onClick={handlFave} aria-label="add to favorites">
+                                    {
+                                        faved ? <FavoriteIcon color='primary' /> : <FavoriteBorderIcon />
+                                    }
+                                </IconButton>
+                            </span>
+                        </div>
+                        <Typography className={classes.inline}>
+                            <Rate value={rate} />
+                            <Typography variant='caption' className={classes.ratesCount} color='disabled'>
+                                <span>{noOfReviews} نظر</span>
+                                <span>{isOpen ? "باز است" : ""}</span>
 
+                            </Typography>
                         </Typography>
-                    </Typography>
 
-                    <Typography variant="subtitle1" className={classes.inline} color="textSecondary">
-                        <BoboChip  size="small" label={`${distance} کیلومتر`} />
+                        <Typography variant="caption" className={classes.inline} color="textSecondary">
+                            <BoboChip size="small" label={`${distanceString}`} />
+                            <Typography variant='caption'>
+                                فاصله از موقعیت کنونی
+                        </Typography>
+                        </Typography>
                         <Typography variant='caption'>
-                            فاصله از موقعیت کنونی
+                            {placeType}
                         </Typography>
-                    </Typography>
-                    <Typography variant='subtitle1'>
-                        {placeType}
-                    </Typography>
-                </CardContent>
-                
-            </div>
+                    </CardContent>
 
-        </Card>
+                </div>
+
+            </Card>
+        </>
+
     );
 }

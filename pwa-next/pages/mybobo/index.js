@@ -34,19 +34,20 @@ const useStyle = makeStyles((theme) => ({
 }))
 
 export default function MyBobo(profileDto) {
-    
 
 
-    const [newPost ,setNewPost]=useState(false);
-    const [photo,setPhoto] = useState([]);
+
+    const [newPost, setNewPost] = useState(false);
+    const [photo, setPhoto] = useState([]);
     const [{ user }, dispatch] = useStateValue();
+    
     const classes = useStyle()
     const { avatarURl, bio, city, favorites, noOfFollowers, noOfFollowings, noOfPosts, userName, website } = profileDto;
 
 
-    const handleNewPost = (files)=>{
-        console.log('files: ', files);
+    const handleNewPost = (files) => {
         
+
         setPhoto(files);
         setNewPost(true);
     }
@@ -62,7 +63,7 @@ export default function MyBobo(profileDto) {
     const tabs = ["فعالیت‌های شما", "علاقه‌مندی‌های شما", "عکس‌ها", "Reviews"]
 
     const InfoItem = ({ title, icon, item, user }) => {
-        
+
 
         const getIcon = (item) => {
             switch (item) {
@@ -132,20 +133,25 @@ export default function MyBobo(profileDto) {
 
         <Grid className={classes.div} container direction='row' justify='space-around' >
             <Grid item direction='column'>
-                <Typography>
+                <Typography >
                     دنبال شوندگان
                 </Typography>
-                <Typography align='center'>
-                    {noOfFollowings}
-                </Typography>
+                <Link href={`/${user.userName}/followings`}>
+                    <Typography align='center'>
+                        {noOfFollowings}
+                    </Typography>
+                </Link>
             </Grid>
             <Grid item direction='column'>
                 <Typography>
                     دنبال کنندگان
                 </Typography>
+                <Link href={`/${user.userName}/followers`}>
                 <Typography align='center'>
                     {noOfFollowers}
                 </Typography>
+                </Link>
+               
             </Grid>
             <Grid item direction='column' >
                 <Typography>
@@ -163,10 +169,10 @@ export default function MyBobo(profileDto) {
             <InfoItem title="یک وبسایت اضافه کنید" item="website" user={user} />
             <InfoItem title="درباره خود جزئیاتی بنویسید" item="bio" user={user} />
         </Grid>
-        
-        <SpeedDials newPostClickHandler={handleNewPost}/>
-         <PostNewDialog open={newPost} handleWindow={setNewPost} photos={photo}/>
-            
+
+        <SpeedDials newPostClickHandler={handleNewPost} />
+        <PostNewDialog open={newPost} handleWindow={setNewPost} photos={photo} />
+
         <FullWidthTabs tabs={tabs} tabsContent={[<UserPosts userName={userName} />, "favorites", "photos", "reviews"]} />
     </>
 }

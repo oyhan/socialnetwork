@@ -27,7 +27,8 @@ namespace Mahoor.DomainObjects.User
         public DateTime BirthDay { get; set; }
         public List<PostModel> Posts { get; set; }
         public string AvatarUrl { get; set; }
-
+        public int NumberOfFollowers { get; set; }
+        public int NumberOfFollowings { get; set; }
     }
 
     [Owned]

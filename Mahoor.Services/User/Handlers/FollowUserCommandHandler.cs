@@ -29,6 +29,8 @@ namespace Mahoor.Services.User.Handlers
         public async Task<BaseServiceResponse<bool>> Handle(FollowUserCommand request, CancellationToken cancellationToken)
         {
             var followingUser = await _userManager.FindByUsername(request.FollowedUserName.ToString());
+            var followerUser = await _userManager.UserManager.FindByIdAsync(request.FollowerUser.ToString());
+
             var alreadyFollowed =
                 await _graphService.HasAssociation(request.FollowerUser, Guid.Parse(followingUser.Id), AType.Following | AType.FollowRequest);
 
@@ -42,6 +44,10 @@ namespace Mahoor.Services.User.Handlers
                 return BaseServiceResponse<bool>.FailedResponse("you can not follow yourself");
             }
 
+            followingUser.NumberOfFollowers++;
+            followerUser.NumberOfFollowings++;
+            await _userManager.UserManager.UpdateAsync(followingUser);
+            await _userManager.UserManager.UpdateAsync(followerUser);
 
             await _graphService.AddAssociation(request.FollowerUser, Guid.Parse(followingUser.Id), AType.Following, null);
 

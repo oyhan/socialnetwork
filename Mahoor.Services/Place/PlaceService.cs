@@ -44,7 +44,7 @@ namespace Mahoor.Services.Place
         public async Task<IReadOnlyList<RestaurantDto>> GetClosestRestaurants(double lat, double lon, double radius, int from, int to, Guid userId)
         {   
             
-            var userLocation = new Point(lon, lat);
+            var userLocation = new Point(lon, lat) { SRID = 4326 };
             var favoritePlaces = await _graphService.GetAssociationsFrom(userId, AType.Faved);
             var closestRestaurants = await _placeRepository.ListAsync(r => new RestaurantDto()
             {

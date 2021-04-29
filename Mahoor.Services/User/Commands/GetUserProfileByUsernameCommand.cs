@@ -9,12 +9,12 @@ namespace Mahoor.Services.User.Commands
 {
     public class GetUserProfileByUsernameCommand : IRequest<BaseServiceResponse<ProfileDto>>
     {
-        public string Username { get; }
+        public string UserName { get; }
 
 
         public GetUserProfileByUsernameCommand(string username)
         {
-            Username = username;
+            UserName = username;
         }
     }
 }

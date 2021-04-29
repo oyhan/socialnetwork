@@ -11,7 +11,7 @@ namespace Mahoor.Services.Timeline.Dtos
         public string Text { get; set; }
         public string PlaceName { get; set; }
         public Guid Id { get; set; }
-        public string Username { get; set; }
+        public string UserName { get; set; }
         public DateTime CreatedDate { get; set; }
         public bool  Liked { get; set; }
     }

@@ -57,9 +57,7 @@ export default function Login() {
     });
      return (
         <div className={classes.root} >
-            {/* <div>
-                <img className="logo" src={omranLogo} />  <img className="logo" src={freeZoneLogo} />
-            </div> */}
+           
             <form onSubmit={formik.handleSubmit}>
                 <InputRenderer fullWidth autoComplete="off" disabled={formik.isSubmitting} 
                 onChange={formik.handleChange}

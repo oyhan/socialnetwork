@@ -12,6 +12,7 @@ import HeaderTopChip from '../Header/HeaderTopChip';
 import HeaderLowerChip from '../Header/HeaderLowerChip';
 import WhereToGo from './WhereToGo';
 import { useScrollData } from 'scroll-data-hook';
+import SearchBobo from './SearchBobo';
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -58,7 +59,7 @@ export default function HomeAppBar(props) {
     const handleClick = () => {
         setOpen(true);
     }
-
+    const [openSeachBobo, setOpenSeachBobo] = useState(false);
     const classes = useStyles();
     var { position, direction } = useScrollData();
 
@@ -90,23 +91,27 @@ export default function HomeAppBar(props) {
         return style;
     }
 
+    const handleOpenSearchBobo = ()=>{
+        setOpenSeachBobo(true);
+    }
+
     return (
         <div className={classes.root}>
             {/* <HideOnScroll {...props}> */}
 
             <MAppBar elevation={0} position="fixed">
-                <IconButton className={classes.searchIcon} aria-label="search" edge='start' color="inherit">
+                <IconButton onClick={handleOpenSearchBobo} className={classes.searchIcon} aria-label="search" edge='start' color="inherit">
                     <SearchIcon />
                 </IconButton>
                 <Toolbar style={calcToolbarStyle()}>
-
                     <div className={classes.btnHolder}>
                         <HeaderTopChip handleClick={handleClick} title="کجا می‌روید؟" />
                         <HeaderLowerChip handleClick={handleClick} title="ببین نزدیکت چیه" />
                     </div>
-
                 </Toolbar>
+
                 <WhereToGo open={open} handleWindow={setOpen} />
+                <SearchBobo open={openSeachBobo} handleWindow={setOpenSeachBobo} />
             </MAppBar>
             {/* </HideOnScroll> */}
 

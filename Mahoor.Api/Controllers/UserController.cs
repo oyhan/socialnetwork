@@ -13,6 +13,8 @@ using Mahoor.Services.User;
 using Mahoor.Services.User.Commands;
 using Mahoor.Services.User.Follower.Dto;
 using MediatR;
+using Mahoor.Services.Search.Commands;
+using Mahoor.Services.ExtentionMethods;
 
 namespace Mahoor.Api.Controllers
 {
@@ -23,18 +25,31 @@ namespace Mahoor.Api.Controllers
         private readonly IHttpContextAccessor _accessor;
         private readonly IMediator _mediator;
 
-        public UserController(AppUserManager userService,IHttpContextAccessor accessor,IMediator mediator)
+        public UserController(AppUserManager userService, IHttpContextAccessor accessor, IMediator mediator)
         {
             _userService = userService;
             _accessor = accessor;
             _mediator = mediator;
             _userService.IpAddress = ipAddress();
-            
+
         }
 
 
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<ActionResult> Search(string username)
+        {
+            var userModel = await _userService.FindByUsername(username);
+            if (userModel != null)
+            {
+                var dto = userModel.ToProfileDtoModel();
 
-        
+                return Ok(dto);
+            }
+
+            return NotFound();
+        }
+
 
         [HttpPost]
         [AllowAnonymous]
@@ -51,21 +66,22 @@ namespace Mahoor.Api.Controllers
         }
 
         [HttpGet("{username}")]
+        [AllowAnonymous]
         public async Task<ActionResult> UsernameAvailable(string username)
         {
             var result = await _userService.FindByUsername(username);
-            if (result==null)
+            if (result == null)
             {
                 return Ok();
             }
-            
+
             return BadRequest();
         }
 
 
         [HttpPost("{mobileNumber}/{token}")]
         [AllowAnonymous]
-        public async Task<ActionResult> ConfirmPhoneNumber([FromRoute]ConfirmPhoneNumberCommand command)
+        public async Task<ActionResult> ConfirmPhoneNumber([FromRoute] ConfirmPhoneNumberCommand command)
         {
             var result = await _userService.ConfirmPhoneNumber(command);
             if (result.SuccessFull)
@@ -79,7 +95,7 @@ namespace Mahoor.Api.Controllers
 
         [AllowAnonymous]
         [HttpPost("authenticate")]
-        public async Task<IActionResult > Authenticate([FromBody] AuthenticateRequest model)
+        public async Task<IActionResult> Authenticate([FromBody] AuthenticateRequest model)
         {
             var response = await _userService.Authenticate(model, ipAddress());
 
@@ -99,7 +115,7 @@ namespace Mahoor.Api.Controllers
             var response = _userService.RefreshToken(refreshToken, ipAddress());
 
             if (response == null)
-                return StatusCode(401,new { message = "Invalid token" });
+                return StatusCode(401, new { message = "Invalid token" });
 
             setTokenCookie(response.RefreshToken);
 
@@ -110,7 +126,7 @@ namespace Mahoor.Api.Controllers
         [HttpPost("{mobileNumber}")]
         public async Task<IActionResult> Login(string mobileNumber)
         {
-            var response =await _userService.FindByPhoneNumberAsync(mobileNumber);
+            var response = await _userService.FindByPhoneNumberAsync(mobileNumber);
 
             if (response == null)
                 return StatusCode(400, new { message = "invalid mobile number" });
@@ -196,11 +212,12 @@ namespace Mahoor.Api.Controllers
         /// <param name="username">username to list it's followers</param>
         /// <returns></returns>
         [HttpGet("/{username}/followers")]
+        [AllowAnonymous]
         public async Task<ActionResult<BaseServiceResponse<List<FollowerItemDto>>>> Followers(string username)
         {
             var command = new GetUserFollowersCommand(username);
 
-            var result =await _mediator.Send(command);
+            var result = await _mediator.Send(command);
             if (result.SuccessFull)
             {
                 return Ok(result);
@@ -216,6 +233,7 @@ namespace Mahoor.Api.Controllers
         /// <param name="username">username to list it's followings</param>
         /// <returns></returns>
         [HttpGet("/{username}/followings")]
+        [AllowAnonymous]
         public async Task<ActionResult<BaseServiceResponse<List<FollowerItemDto>>>> Followings(string username)
         {
             var command = new GetUserFollowingsCommand(username);

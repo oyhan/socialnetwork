@@ -5,11 +5,12 @@ import { useState } from "react";
 import MoreDialog from "../../Dialog/Dialog";
 import ReportIcon from '@material-ui/icons/Report';
 import BlockIcon from '@material-ui/icons/Block';
+import GetAvatarUrl from "../../../helper/AvatarHelper";
 const useStyles = makeStyles((theme) => ({
     root: {
         position: 'absolute',
         top: 104,
-        width:200,
+        width:320,
         left:'10vw',
         zIndex :10000,
         
@@ -55,7 +56,7 @@ export default function UserProfileAvatar({ userName,displayName }) {
     const handleUserMoreButton = () => {
         setOpen(!open);
     }
-    const avatarfullPath = `http://localhost:12089/user/${userName}/avatar/avatar.webp`;
+    const avatarfullPath = GetAvatarUrl(userName);
 
     const moreBtnItems = [{
         title: `بلاک کردن ${userName}`,

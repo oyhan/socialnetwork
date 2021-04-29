@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Mahoor.Api.ViewModels;
+using Mahoor.Services.ExtentionMethods;
 using Mahoor.Services.Helper;
 using Mahoor.Services.Response;
+using Mahoor.Services.Search.Commands;
+using Mahoor.Services.Search.Dto;
 using Mahoor.Services.Timeline.Commands;
 using Mahoor.Services.User;
 using Mahoor.Services.User.Commands;
+using Mahoor.Services.User.Dto;
 using Mahoor.Services.User.Profile.Dto;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,7 +27,13 @@ namespace Mahoor.Api.Controllers
             _userManager = userManager;
         }
 
-
+        [HttpGet("{query}")]
+        public async Task<ActionResult<BaseServiceResponse<SearchBoboDto>>> Search(string query)
+        {
+            var command = new SearchBoboCommand(query,User.Id());
+            var result = await Mediator.Send(command);
+            return Ok(result);
+        }
 
         [HttpGet("{username}")]
         public async Task<ActionResult<BaseServiceResponse<ProfileDto>>> Get(string username)

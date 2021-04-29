@@ -30,12 +30,21 @@ namespace Mahoor.Services.User.Handlers
         {
             try
             {
-                var user = await _userManager.UserManager.FindByNameAsync(request.Username);
+                var user = await _userManager.UserManager.FindByNameAsync(request.UserName);
                 var userId = Guid.Parse(user.Id);
                 var followers =
                     (await _graphService.GetAssociationsTo(userId, AType.Following)).Select(s => s.ToString());
                 var followerItems = _userManager.UserManager.Users.Where(u => followers.Contains(u.Id))
-                    .Select(s => s.ToFollowerItemDto()).ToList();
+                    .Select(s =>  new FollowerItemDto()
+                    {
+                        Location = $"{s.City.City},{s.City.Province}",
+                        City = s.City.City,
+                        Province = s.City.Province,
+                        AvatarUrl = s.AvatarUrl,
+                        UserName = s.UserName,
+                        FullName = $"{s.DisplayName}"
+
+                    }).ToList();
 
                 return BaseServiceResponse<List<FollowerItemDto>>.SuccessFullResponse(followerItems);
             }

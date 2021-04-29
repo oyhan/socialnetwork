@@ -6,7 +6,7 @@ import Post from '../../Post/Post'
 const posts = [
     {
         text: "یک روز دل انگیز در یزد",
-        username: "rahiqi",
+        userName: "rahiqi",
         month: "فروردین",
         year: "99",
         placeName: "طزرجان",
@@ -15,7 +15,7 @@ const posts = [
     },
     {
         text: "یک روز دل انگیز در یزد",
-        username: "Fateme",
+        userName: "Fateme",
         month: "اردیبهشت",
         year: "85",
         placeName: "ده بالا",
@@ -25,7 +25,7 @@ const posts = [
     },
     {
         text: "یک روز دل انگیز در یزد",
-        username: "Soosan",
+        userName: "Soosan",
         month: "فروردین",
         year: "99",
         placeName: "طزرجان",
@@ -35,7 +35,7 @@ const posts = [
     },
     {
         text: "یک روز دل انگیز در یزد",
-        username: "shashaie",
+        userName: "shashaie",
         month: "فروردین",
         year: "99",
         placeName: "طزرجان",

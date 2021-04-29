@@ -14,11 +14,11 @@ export default function Place({ placeDetail ,placeId }) {
 
 export async function getServerSideProps(context) {
     const placeId = context.params.placeId;
-    console.log('placeId: ', placeId);
+    
     var httpClient = httpClientBuilder(context);
 
     var result = await httpClient.Get(`http://localhost:12089/restaurant/${placeId}/31.834989/54.374296`);
-    console.log('result: ', result);
+    
     return {
         props: {
             placeDetail: result.response,

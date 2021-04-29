@@ -19,6 +19,9 @@ namespace Mahoor.DomainObjects.Place
     {
         public string EnglishName { get; set; }
 //        public PlaceType Type { get; set; }
+        /// <summary>
+        /// We have defined the sql side type(on db context model builder) to be geography in order to return the distances in meters and not in degrees.
+        /// </summary>
         public Geometry Location{ get; set; }
         public string Name { get; set; }
         public string Address { get; set; }

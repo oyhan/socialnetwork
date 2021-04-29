@@ -6,7 +6,7 @@ import httpClientBuilder from '../../lib/HttpClient';
 
 export default function Profile({ user }) {
     const router = useRouter();
-    const { username } = router.query;
+    const { userName } = router.query;
 
     return (
         <UserProfile user={user} />
@@ -14,7 +14,7 @@ export default function Profile({ user }) {
 }
 
 export async function getServerSideProps(context) {
-    const userName = context.params.username;
+    const userName = context.params.userName;
     var httpClient = httpClientBuilder(context);
 
     var result = await httpClient.Get(`http://localhost:12089/profile/get/${userName}`);

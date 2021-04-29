@@ -43,7 +43,7 @@ using Serilog.Events;
 using Serilog.Sinks.MSSqlServer;
 using Serilog.Sinks.PostgreSQL;
 using ConfigurationBuilder = Microsoft.Extensions.Configuration.ConfigurationBuilder;
-
+using Mahoor.Services.Helper;
 
 namespace Mahoor.Api.Helper
 {
@@ -111,6 +111,7 @@ namespace Mahoor.Api.Helper
             services.AddScoped(typeof(IAppRepository<,>), typeof(AppRepository<,>));
             services.AddTransient<IGraphService, GraphService>();
             services.AddTransient<IPostService, PostService>();
+            services.AddTransient<ILocationService, LocationService>();
             services.AddTransient(typeof(AppUserManager));
 
 

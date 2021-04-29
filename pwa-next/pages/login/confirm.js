@@ -55,7 +55,7 @@ export default function Confirm({ mobileNumber }) {
                 })
 
                 // document.cookie=`jwt=${response.token}`;
-                history.push("/")      
+                location.href="/"     
             }).catch(error => {
                 
                 formik.setSubmitting(false);
@@ -88,16 +88,6 @@ export default function Confirm({ mobileNumber }) {
     const [timer, setTimer] = useState(120)
     const retry = () => {
         setTimer(120);
-        // BrowserHttpClient.Post(`${trackerUrl}/account/login/${location.state.mobileNumber}`).
-        //     then((respons) => {
-        //         formik.setSubmitting(false);
-        //         if (respons.isSuccess) {
-        //             toast.success(respons.message);
-        //         }
-        //     }).catch(error => {
-        //         formik.setSubmitting(false);
-        //         toast.error(error);
-        //     })
     }
 
    

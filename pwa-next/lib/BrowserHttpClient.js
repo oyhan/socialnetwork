@@ -1,12 +1,12 @@
-import React ,{ useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import UserManager from './userManager';
 import axios from 'axios'
 import { toast } from 'react-toastify';
 import cookieCutter from 'cookie-cutter'
 var authentication = {};
 if (typeof window !== 'undefined') {
-    
-     authentication = { Authorization: `Bearer ${cookieCutter.get("jwt")}` }
+
+    authentication = { Authorization: `Bearer ${cookieCutter.get("jwt")}`, Latitude: cookieCutter.get("latitude"), Longitude: cookieCutter.get("longitude") }
 
 }
 export const BrowserHttpClient = {
@@ -19,37 +19,64 @@ export const BrowserHttpClient = {
 
 
 
-export  function useHttpClient(url, method, getResult,body){
+
+export function useHttpClient(url, method, getResult, body) {
+
+
 
 
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState([]);
     const [error, setError] = useState();
 
-    useEffect(() => {
+    var timerId = undefined;
+    function throttle(func, delay) {
+        
+    
+        //currently there is a func scheduled.
+    
+        if (timerId) return;
+    
+    
+        //no funciton scheduled create one...
+        timerId = setTimeout(() => {
+            func();
+            timerId = undefined;
+        }, delay)
+    
+    }
+    let fetchFunction = (url2) => () => {
+        
 
-        BrowserHttpClient[method](url, JSON.stringify(body))
+
+        BrowserHttpClient[method](url2, JSON.stringify(body))
+
             .then(result => {
                 if (getResult)
                     result = getResult(result);
-                
+
                 setLoading(false);
                 setData(result);
             })
             .catch(error => {
+                setData([]);
                 setLoading(false);
                 setError(error);
             })
 
-    },[])
+    }
 
-    return [loading,data,error]
+    useEffect(() => {
+        throttle(fetchFunction(url), 150)
+    }, [url])
+
+    return [loading, data, error]
 
 }
 
 async function MultiPartFormData(url, data) {
-    
-    
+
+
     const formData = new FormData();
 
     for (const name in data) {
@@ -81,7 +108,7 @@ function GetModel(url) {
         },
     }
     return axios.get(url, {
-        auth: { username: 'demo', password: "demo" }
+        auth: { userName: 'demo', password: "demo" }
     }).then(handleResponse, handleError)
     return fetch(url, request).then(handleResponse, handleError)
 }
@@ -120,6 +147,7 @@ async function Put(url, model) {
     }
 }
 function Get(url) {
+
     const request = {
         method: "GET",
         headers: {
@@ -128,7 +156,7 @@ function Get(url) {
         },
     }
     // return axios.get(url, {
-    //     auth: { username: 'demo', password: "demo" }
+    //     auth: { userName: 'demo', password: "demo" }
     // }).then(handleResponse, handleError)
     return fetch(url, request).then(handleResponse, handleError);
 }

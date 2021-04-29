@@ -29,7 +29,7 @@ namespace Mahoor.Services.User.Handlers
         {
             try
             {
-                var user = await _userManager.UserManager.FindByNameAsync(request.Username);
+                var user = await _userManager.UserManager.FindByNameAsync(request.UserName);
                 var userId = Guid.Parse(user.Id);
                 var followers =
                     (await _graphService.GetAssociationsFrom(userId, AType.Following)).Select(s => s.ToString());
@@ -38,7 +38,7 @@ namespace Mahoor.Services.User.Handlers
                     {
                         Location = $"{s.City.City},{s.City.Province}",
                         AvatarUrl = s.AvatarUrl,
-                        Username = s.UserName,
+                        UserName = s.UserName,
                         FullName = $"{s.DisplayName}"
 
                     }).ToList();

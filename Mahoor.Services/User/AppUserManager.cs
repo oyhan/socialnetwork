@@ -88,7 +88,7 @@ namespace Mahoor.Services.User
         {
             var user = new UserModel()
             {
-                UserName = command.Username,
+                UserName = command.UserName,
                 PhoneNumber =  command.PhoneNumber
             };
             var duplicateUser = await FindByPhoneNumberAsync(command.PhoneNumber);
@@ -145,7 +145,7 @@ namespace Mahoor.Services.User
 
         public async Task<BaseServiceResponse<AuthenticateResponse>> Authenticate(AuthenticateRequest model, string ipAddress)
         {
-            var user = await UserManager.FindByNameAsync(model.Username);
+            var user = await UserManager.FindByNameAsync(model.UserName);
 
             // return null if user not found
             if (user == null) return BaseServiceResponse<AuthenticateResponse>.FailedResponse("user not found.");

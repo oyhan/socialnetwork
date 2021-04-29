@@ -49,11 +49,19 @@ namespace Mahoor.Api
             app.UseRouting();
             app.UseStaticFiles();
             app.UseAuthorization();
-            app.EnsureLastMigrationApplyed<AppDbContext>();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+            app.UseSpa(spa =>
+            {
+                if (env.IsDevelopment())
+                {
+                    spa.UseProxyToSpaDevelopmentServer("http://localhost:3000");
+                }
+            });
+            app.EnsureLastMigrationApplyed<AppDbContext>();
+           
         }
     }
 }

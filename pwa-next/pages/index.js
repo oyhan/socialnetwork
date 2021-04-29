@@ -13,10 +13,10 @@ import useLocation from '../lib/hooks/location/useLocation';
 import { getCookieParser } from 'next/dist/next-server/server/api-utils';
 import { env } from 'process';
 import { actions } from '../lib/reducer/actions';
-import Cookies from 'cookies'
 import httpClientBuilder from '../lib/HttpClient';
 import UserManagerBuilder from '../lib/userManager';
 import SliderItem from '../components/Slider/SliderItem/SliderItem';
+import cookieCutter from 'cookie-cutter'
 
 
 
@@ -36,8 +36,11 @@ export default function Home({ data, posts }) {
 
   useEffect(() => {
 
-    if (position)
+    if (position){
+      cookieCutter.set("latitude",position.latitude);
+      cookieCutter.set("longitude",position.longitude);
       document.cookie = `position=lat=${position.latitude}&lon=${position.longitude}`;
+    }
     dispatch({ type: actions.USER, payload: { ...user, location: position } });
   }, [position])
 
@@ -85,7 +88,7 @@ export async function getServerSideProps(context) {
   if (!user) {
     return {
       redirect: {
-        destination: '/login',
+        destination: '/start',
         permanent: false,
       }
     }

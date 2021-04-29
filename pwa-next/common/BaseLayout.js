@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
         // height: '100vh',
         width: '100%',
         overflowY: 'hidden',
-        height: '100%',
+        // height: '100%',
         // padding: '5rem 10px',
         padding : 0,
         marginBottom : 100

@@ -305,6 +305,12 @@ namespace Mahoor.Data.Migrations
                         .HasColumnType("character varying(256)")
                         .HasMaxLength(256);
 
+                    b.Property<int>("NumberOfFollowers")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("NumberOfFollowings")
+                        .HasColumnType("integer");
+
                     b.Property<string>("PasswordHash")
                         .HasColumnType("text");
 

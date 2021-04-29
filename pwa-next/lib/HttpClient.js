@@ -48,9 +48,9 @@ export const HttpClient = {
     GetModel
 }
 
-function authentication (){
-  var cookies = getCookieParser(httpContext.req)();
-    return { Authorization: `Bearer ${cookies.jwt}`};
+function authentication() {
+    var cookies = getCookieParser(httpContext.req)();
+    return { Authorization: `Bearer ${cookies.jwt}`, Latitude: cookies.latitude, Longitude: cookies.longitude };
 }
 
 export default function httpClientBuilder(httpContext) {
@@ -67,11 +67,11 @@ function GetModel(url) {
         },
     }
     return axios.get(url, {
-        auth: { username: 'demo', password: "demo" }
+        auth: { userName: 'demo', password: "demo" }
     }).then(handleResponse, handleError)
     return fetch(url, request).then(handleResponse, handleError)
 }
-async function Post(url, model,header) {
+async function Post(url, model, header) {
     const request = {
         method: "POST",
         headers: {
@@ -116,7 +116,7 @@ function Get(url) {
         },
     }
     // return axios.get(url, {
-    //     auth: { username: 'demo', password: "demo" }
+    //     auth: { userName: 'demo', password: "demo" }
     // }).then(handleResponse, handleError)
     return fetch(url, request).then(handleResponse, handleError);
 }
@@ -137,9 +137,9 @@ function handleResponse(response) {
 
 
     if (response.status == 401) {
-        var userManager = UserManagerBuilder(httpContext,HttpClient);
+        var userManager = UserManagerBuilder(httpContext, HttpClient);
         userManager.
-        Post("http://localhost:12089/User/RefreshToken/refresh-token",)
+            Post("http://localhost:12089/User/RefreshToken/refresh-token",)
         setTimeout(() => {
             window.location = "/";
         }, 3000)

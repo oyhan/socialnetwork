@@ -14,7 +14,7 @@ const Template = (args) => (
 
 export const Primary = Template.bind({});
 Primary.args = {
-  username : "نام نمایشی1",
+  userName : "نام نمایشی1",
   month :"ماه",
   year:"سال",
   placeName : "لوکیشن",

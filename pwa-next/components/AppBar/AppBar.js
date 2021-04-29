@@ -9,12 +9,13 @@ import SearchIcon from '@material-ui/icons/Search';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import { Avatar, Grid } from '@material-ui/core';
+import ToolbarBackButton from '../Button/ToolbarBackButton';
 const useStyles = makeStyles((theme) => ({
   root: {
-    marginBottom:50
+    marginBottom: 50
   },
   rightIcon: {
-    marginRight: theme.spacing(2),
+    // marginRight: theme.spacing(2),
   },
   toolbar: {
     minHeight: 128,
@@ -40,13 +41,13 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: '-43px',
     marginLeft: '43px',
   },
-  avatarTxt : {
+  avatarTxt: {
     marginBottom: '-59px',
     marginLeft: 119,
   }
 }));
 
-export default function AppBar({ rightIcon, title, leftIcons, middleCenterElement,extera , appBarColor }) {
+export default function AppBar({ rightIcon, title, leftIcons, middleCenterElement, extera, appBarColor, back }) {
 
   const classes = useStyles();
 
@@ -55,7 +56,10 @@ export default function AppBar({ rightIcon, title, leftIcons, middleCenterElemen
       <MAppBar color={appBarColor ? appBarColor : 'primary'} elevation={0} position="static">
         <Toolbar className={classes.toolbar}>
           <div className={classes.rightIcon}>
-            {rightIcon}
+            { back ?
+              <ToolbarBackButton /> :
+              rightIcon
+            }
           </div>
           <Typography className={classes.title} variant="h6" noWrap>
             {title}
@@ -66,7 +70,7 @@ export default function AppBar({ rightIcon, title, leftIcons, middleCenterElemen
 
         </Toolbar>
 
-       {extera}
+        {extera}
 
       </MAppBar>
 

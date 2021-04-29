@@ -24,7 +24,19 @@ namespace Mahoor.Services.User.Handlers
         public async Task<BaseServiceResponse<bool>> Handle(UnFollowUserCommand request, CancellationToken cancellationToken)
         {
             var followingUser =await _userManager.FindByUsername(request.FollowedUserName.ToString());
+            var followerUser = await _userManager.FindByUsername(request.FollowerUser.ToString());
+            
+            var alreadyFollowed =
+                await _graphService.HasAssociation(request.FollowerUser, Guid.Parse(followingUser.Id), AType.Following | AType.FollowRequest);
             await _graphService.DeleteAssociation(request.FollowerUser, Guid.Parse(followingUser.Id), AType.Following);
+
+            if (alreadyFollowed)
+            {
+                followingUser.NumberOfFollowers--;
+                followerUser.NumberOfFollowings--;
+                await _userManager.UserManager.UpdateAsync(followingUser);
+                await _userManager.UserManager.UpdateAsync(followerUser);
+            }
 
             return BaseServiceResponse<bool>.SuccessFullResponse(true); 
         }

@@ -7,6 +7,6 @@ namespace Mahoor.Services.Request
 {
     public abstract class BaseRequest :IAppBaseRequest
     {
-        public string Requester { get; }
+        public string Requester { get; protected set; }
     }
 }

@@ -40,12 +40,12 @@ export default function UserProfile({ user }) {
 
 
     const handleUnFollow = () => {
-        BrowserHttpClient.Post(`http://localhost:12089/user/unfollow/${id}`).then(() => {
+        BrowserHttpClient.Post(`http://localhost:12089/user/unfollow/${userName}`).then(() => {
             setFollowing(false);
         })
     }
     const handleFollow = () => {
-        BrowserHttpClient.Post(`http://localhost:12089/user/follow/${id}`).then(() => {
+        BrowserHttpClient.Post(`http://localhost:12089/user/follow/${userName}`).then(() => {
             setFollowing(true);
         })
     }
@@ -64,17 +64,21 @@ export default function UserProfile({ user }) {
                 <Typography>
                     دنبال شوندگان
                 </Typography>
-                <Typography align='center'>
-                    {noOfFollowers}
-                </Typography>
+                <Link href={`/${user.userName}/followings`}>
+                    <Typography align='center'>
+                        {noOfFollowings}
+                    </Typography>
+                </Link>
             </Grid>
             <Grid item direction='column'>
                 <Typography>
                     دنبال کنندگان
                 </Typography>
-                <Typography align='center'>
-                    {noOfFollowings}
-                </Typography>
+                <Link href={`/${user.userName}/followers`}>
+                    <Typography align='center'>
+                        {noOfFollowers}
+                    </Typography>
+                </Link>
             </Grid>
             <Grid item direction='column' >
                 <Typography>

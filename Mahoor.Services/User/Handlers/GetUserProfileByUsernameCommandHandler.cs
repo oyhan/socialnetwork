@@ -28,7 +28,7 @@ namespace Mahoor.Services.User.Handlers
         {
             try
             {
-                var userModel = (await _userManager.FindByUsername(request.Username));
+                var userModel = (await _userManager.FindByUsername(request.UserName));
                 var profileDto = userModel.ToProfileDtoModel();
                 var noOfFollowers = await _graphService.GetAssociationCountTo(Guid.Parse(userModel.Id), AType.Following);
                 var noOfFollwings = await _graphService.GetAssociationCountFrom(Guid.Parse(userModel.Id), AType.Following);

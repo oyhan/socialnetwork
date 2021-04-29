@@ -9,11 +9,11 @@ namespace Mahoor.Services.User.Commands
 {
     public class GetUserFollowingsCommand : IRequest<BaseServiceResponse<List<FollowerItemDto>>>
     {
-        public string Username { get; }
+        public string UserName { get; }
 
         public GetUserFollowingsCommand(string username)
         {
-            Username = username;
+            UserName = username;
         }
     }
 }

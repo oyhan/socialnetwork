@@ -9,6 +9,7 @@ using Mahoor.Data.Queries.City;
 using Mahoor.DomainObjects.City;
 using Mahoor.Services.City.Commands;
 using Mahoor.Services.City.Dto;
+using Mahoor.Services.Helper;
 using Microsoft.AspNetCore.Mvc;
 using PSYCO.Common.BaseModels;
 
@@ -52,10 +53,5 @@ namespace Mahoor.Api.Controllers
             citys = citys.Where(c => c.City.Contains(name) || c.Province.Contains(name)).ToList();
             return Ok(citys);
         }
-
-
-
-
-      
     }
 }

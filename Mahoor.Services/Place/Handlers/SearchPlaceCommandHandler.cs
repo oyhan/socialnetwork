@@ -30,7 +30,7 @@ namespace Mahoor.Services.Place.Handlers
                 var response = await _placeRepository.ListAsync(p => new PlaceSearchDto()
                 {
                     Id = p.Id,
-                    Name = p.Name
+                    Name = p.Name,
                 }, new SearchPlaceQuery(request.Name));
 
                 return BaseServiceResponse<List<PlaceSearchDto>>.SuccessFullResponse(response.ToList());

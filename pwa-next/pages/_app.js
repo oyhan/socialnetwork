@@ -20,7 +20,7 @@ function MyApp({ Component, pageProps }) {
         <CookiesProvider>
           <BaseLayout >
             <Component {...pageProps} />
-            <ToastContainer />
+            <ToastContainer rtl />
           </BaseLayout>
         </CookiesProvider>
       </RTL>

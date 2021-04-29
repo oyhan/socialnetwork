@@ -49,7 +49,7 @@ namespace Mahoor.Services.Place.Handlers
             var favorite =
              await   _graphService.HasAssociation(_httpContextAccessor.HttpContext.User.Id(), request.RestaurantId.ToString(), AType.Faved);
 
-            var userLocation = new Point(request.Lon, request.Lat);
+            var userLocation = new Point(request.Lon, request.Lat) { SRID = 4326 };
             var tenFirstReviews =await _reviewRepository.ListAsync(r => new RestaurantReviewItemDto()
             {
                 Rate = r.Rate,

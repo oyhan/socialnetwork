@@ -99,5 +99,19 @@ namespace Mahoor.Api.Controllers
             return BadRequest(result);
         }
 
+        [HttpGet]
+        public async Task<ActionResult> Favorites()
+        {
+            var command = new GetFavoritesByUserIdCommand(User.IdGuid());
+
+            var result = await Mediator.Send(command);
+
+            if (result.SuccessFull)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
     }
 }

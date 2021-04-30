@@ -13,6 +13,7 @@ using Mahoor.Api.Helper;
 using Mahoor.Data;
 using Mahoor.Infrastructure;
 using Newtonsoft.Json;
+using Microsoft.Extensions.Options;
 
 namespace Mahoor.Api
 {
@@ -25,6 +26,7 @@ namespace Mahoor.Api
 
         public IConfiguration Configuration { get; }
 
+        public AppSettings Settings { get; set; }
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -34,12 +36,14 @@ namespace Mahoor.Api
             services.AddOptions();
             services.Configure<AppSettings>(Configuration.GetSection(
                 nameof(AppSettings)));
-            services.CongfigureApp(Configuration); 
+            services.CongfigureApp(Configuration);
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,IOptionsSnapshot<AppSettings> options)
         {
+            Settings = options.Value;
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -55,10 +59,7 @@ namespace Mahoor.Api
             });
             app.UseSpa(spa =>
             {
-                if (env.IsDevelopment())
-                {
-                    spa.UseProxyToSpaDevelopmentServer("http://localhost:3000");
-                }
+                spa.UseProxyToSpaDevelopmentServer(Settings.UiUrl);
             });
             app.EnsureLastMigrationApplyed<AppDbContext>();
            

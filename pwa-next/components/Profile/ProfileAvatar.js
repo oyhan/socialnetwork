@@ -1,5 +1,4 @@
-import { Avatar, Grid, IconButton, makeStyles, Typography } from "@material-ui/core";
-import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
+import { Grid, IconButton, makeStyles, Typography } from "@material-ui/core";
 import GetAvatarUrl from "../../helper/AvatarHelper";
 import ImageUploader from "../ImageUploader/ImageUploader";
 

@@ -22,7 +22,7 @@ export async function getServerSideProps(context) {
     
 
     var httpClient = httpClientBuilder(context);
-    var result = await httpClient.Get(`http://localhost:12089/${userName}/followers`);
+    var result = await httpClient.Get(`/${userName}/followers`);
     
     
     return {

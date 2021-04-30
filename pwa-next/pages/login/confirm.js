@@ -34,7 +34,7 @@ export default function Confirm({ mobileNumber }) {
     const classes = useStyles();
     const onSubmit = (e) => {
         formik.setSubmitting(true);
-        const baseUrl = "http://localhost:12089";
+        const baseUrl = "";
         const otp = formik.values.otp;
         BrowserHttpClient.Post(`${baseUrl}/User/ConfirmPhoneNumber/${mobileNumber}/${otp}`).
             then((response) => {
@@ -97,7 +97,7 @@ export default function Confirm({ mobileNumber }) {
             <form onSubmit={formik.handleSubmit}>
                 <InputRenderer fullWidth autoComplete="off" disabled={formik.isSubmitting} onChange={formik.handleChange}
                     error={formik.errors.otp}
-                    Type={PropType.Text} Name="otp"
+                    Type={PropType.Number} Name="otp"
                     DisplayName="کد تایید"
                     placeholder="کد تایید" />
                 <ButtonBobo color='primary' variant='contained' type="submit" disabled={formik.isSubmitting}>

@@ -1,18 +1,18 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
 import Avatar from '@material-ui/core/Avatar';
-import Typography from '@material-ui/core/Typography';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
 import { red } from '@material-ui/core/colors';
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 import { LocationOn } from '@material-ui/icons';
-import FollowerButton from '../Button/FollowerButton';
-import FollowButton from '../Button/FollowButton';
-import { BrowserHttpClient } from '../../lib/BrowserHttpClient';
+import React from 'react';
 import GetAvatarUrl from '../../helper/AvatarHelper';
+import { BrowserHttpClient } from '../../lib/BrowserHttpClient';
 import { useStateValue } from '../../lib/store/appState';
+import FollowButton from '../Button/FollowButton';
+import FollowerButton from '../Button/FollowerButton';
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
@@ -48,12 +48,12 @@ export default function FollowerItem({ fullName, userName, id, location }) {
     setExpanded(!expanded);
   };
   const handleUnFollow = () => {
-    BrowserHttpClient.Post(`http://localhost:12089/user/unfollow/${userName}`).then(() => {
+    BrowserHttpClient.Post(`/user/unfollow/${userName}`).then(() => {
       setFollowing(false);
     })
   }
   const handleFollow = () => {
-    BrowserHttpClient.Post(`http://localhost:12089/user/follow/${userName}`).then(() => {
+    BrowserHttpClient.Post(`/user/follow/${userName}`).then(() => {
       setFollowing(true);
     })
   }

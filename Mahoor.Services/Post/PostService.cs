@@ -75,7 +75,7 @@ namespace Mahoor.Services.Post
                 {
                     var relativePath = $"/user/{user.UserName}/post/";
                     var directory = $"{ContentPath}{relativePath}";
-                    var fileName = $"{Guid.NewGuid()}_{media.Name}";
+                    var fileName = GetImageName(media);
                      var storagePath =    $"{directory}/{fileName}";
                     if (!Directory.Exists(directory))
                     {
@@ -118,6 +118,11 @@ namespace Mahoor.Services.Post
 
 
            
+        }
+
+        private string GetImageName(MediaDto media)
+        {
+            return $"{Guid.NewGuid()}_{media.Name}.{media.MimeType.Split('/')[1]}";
         }
 
         public async Task<BaseServiceResponse<bool>> EditPost(EditPostCommand command)

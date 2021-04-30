@@ -64,7 +64,7 @@ namespace Mahoor.Services.Timeline
 
         public Task AddPostToTimeline(string userId, PostModel post)
         {
-            throw new NotImplementedException();
+            return null;
         }
 
 

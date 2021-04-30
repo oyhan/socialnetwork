@@ -1,23 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import { Typography, makeStyles, Grid, Button, IconButton, Fab } from '@material-ui/core';
-import ProfileAppBar from '../../components/Profile/ProfileAppBar';
-import { useStateValue } from '../../lib/store/appState';
-import ButtonBobo from '../../components/Button/ButtonBobo';
+import { Grid, IconButton, makeStyles, Typography } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
-import Link from 'next/link'
-import FullWidthTabs from '../../components/Navigation/Tab/FullWidthTab';
-import AppBar from '../../components/AppBar/AppBar';
-import { actions } from '../../lib/reducer/actions';
-import httpClientBuilder from '../../lib/HttpClient';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
-import LanguageIcon from '@material-ui/icons/Language';
 import InfoIcon from '@material-ui/icons/Info';
-import AddIcon from '@material-ui/icons/Add';
-import AlternateEmailIcon from '@material-ui/icons/AlternateEmail';
-import SpeedDials from '../../components/SpeedDial/SpeedDial';
+import LanguageIcon from '@material-ui/icons/Language';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+import Link from 'next/link';
+import React, { useEffect, useState } from 'react';
+import ButtonBobo from '../../components/Button/ButtonBobo';
+import { resizeWithPica } from '../../components/ImageUploader/ImageUploader';
+import FullWidthTabs from '../../components/Navigation/Tab/FullWidthTab';
 import PostNewDialog from '../../components/Post/PostNew';
+import ProfileAppBar from '../../components/Profile/ProfileAppBar';
 import UserPosts from '../../components/Profile/UserProfile/UserPosts';
+import SpeedDials from '../../components/SpeedDial/SpeedDial';
+import httpClientBuilder from '../../lib/HttpClient';
+import { actions } from '../../lib/reducer/actions';
+import { useStateValue } from '../../lib/store/appState';
 
 const useStyle = makeStyles((theme) => ({
     text: {
@@ -32,6 +30,35 @@ const useStyle = makeStyles((theme) => ({
         right: theme.spacing(3),
     },
 }))
+const resizePhotos = (files) => {
+    return new Promise((resolve, reject) => {
+        let i = 0;
+        let selectedFiles = [];
+        for (const file of files) {
+
+            let image = new Image();
+
+            image.src = window.URL.createObjectURL(file);
+
+            image.onload = function () {
+                resizeWithPica(image, 400).then((result) => {
+                    fetch(result)
+                        .then(res => res.blob())
+                        .then(blob => {
+                            
+
+                            selectedFiles = [...selectedFiles, blob];
+                            i++;
+                            if (i == files.length) {
+                                resolve(selectedFiles);
+                            }
+                        })
+                })
+            }
+        }
+    }
+    )
+}
 
 export default function MyBobo(profileDto) {
 
@@ -40,16 +67,18 @@ export default function MyBobo(profileDto) {
     const [newPost, setNewPost] = useState(false);
     const [photo, setPhoto] = useState([]);
     const [{ user }, dispatch] = useStateValue();
-    
+
     const classes = useStyle()
     const { avatarURl, bio, city, favorites, noOfFollowers, noOfFollowings, noOfPosts, userName, website } = profileDto;
 
 
     const handleNewPost = (files) => {
-        
+        resizePhotos(files).then(prepared => {
+            setPhoto(prepared);
+            setNewPost(true);
+        })
 
-        setPhoto(files);
-        setNewPost(true);
+
     }
 
     useEffect(() => {
@@ -147,11 +176,11 @@ export default function MyBobo(profileDto) {
                     دنبال کنندگان
                 </Typography>
                 <Link href={`/${user.userName}/followers`}>
-                <Typography align='center'>
-                    {noOfFollowers}
-                </Typography>
+                    <Typography align='center'>
+                        {noOfFollowers}
+                    </Typography>
                 </Link>
-               
+
             </Grid>
             <Grid item direction='column' >
                 <Typography>
@@ -180,7 +209,7 @@ export default function MyBobo(profileDto) {
 export async function getServerSideProps(context) {
 
     var httpClient = httpClientBuilder(context);
-    var result = await httpClient.Get(`http://localhost:12089/profile/me`);
+    var result = await httpClient.Get(`/profile/me`);
 
 
 

@@ -1,19 +1,18 @@
-import React, { useState } from 'react';
-import { Typography, makeStyles, CircularProgress } from '@material-ui/core';
-import InputRenderer from '../../lib/InputRenderer';
+import { CircularProgress, makeStyles, Typography } from '@material-ui/core';
+import cookieCutter from 'cookie-cutter';
 import { useFormik } from 'formik';
-import useFormikObjectBuilder from '../../lib/formik/formikObjectBuilder';
-import { PropType } from '../../lib/proptypes';
-import { Container } from 'next/app';
+import { useRouter } from 'next/router';
+import React, { useState } from 'react';
+import { useCookies } from "react-cookie";
 import ButtonBobo from '../../components/Button/ButtonBobo';
 import ToolbarBackButton from '../../components/Button/ToolbarBackButton';
 import { BrowserHttpClient } from '../../lib/BrowserHttpClient';
-import { useSignupConfirmModelValidationSchema } from '../../Models/SignupConfirm';
-import cookieCutter from 'cookie-cutter'
-import { useCookies } from "react-cookie"
-import { useStateValue } from '../../lib/store/appState';
+import useFormikObjectBuilder from '../../lib/formik/formikObjectBuilder';
+import InputRenderer from '../../lib/InputRenderer';
+import { PropType } from '../../lib/proptypes';
 import { actions } from '../../lib/reducer/actions';
-import { useRouter } from 'next/router';
+import { useStateValue } from '../../lib/store/appState';
+import { useSignupConfirmModelValidationSchema } from '../../Models/SignupConfirm';
 
 const useStyle = makeStyles((theme) => ({
     text: {
@@ -38,7 +37,7 @@ export default function Confirm({ phoneNumber }) {
     const onsubmit = () => {
         formik.setSubmitting(true);
         if (formik.isValid) {
-            BrowserHttpClient.Post(`http://localhost:12089/User/ConfirmPhoneNumber/${phoneNumber}/${formik.values.token}`)
+            BrowserHttpClient.Post(`/User/ConfirmPhoneNumber/${phoneNumber}/${formik.values.token}`)
                 .then(response => {
                     const userCookie = JSON.stringify(response.user);
                     localStorage.setItem("user", userCookie);
@@ -69,8 +68,9 @@ export default function Confirm({ phoneNumber }) {
             onChange={formik.handleChange}
             error={formik.errors.token}
             key="token"
+            
             value={formik.values.token}
-            autoComplete="off" placeholder={'کد تایید'} Type={PropType.Text} Name="token" />
+            autoComplete="off" placeholder={'کد تایید'} Type={PropType.Number} Name="token" />
     </>;
 
 

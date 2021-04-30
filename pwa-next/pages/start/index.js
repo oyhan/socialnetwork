@@ -1,5 +1,4 @@
-import { Grid, Link, makeStyles } from '@material-ui/core';
-import { Container } from 'next/app';
+import { Container, Grid, Link, makeStyles } from '@material-ui/core';
 import React from 'react';
 import ButtonBobo from '../../components/Button/ButtonBobo';
 

@@ -1,13 +1,12 @@
 import { makeStyles } from '@material-ui/core';
-import React, { PureComponent, useState, useEffect, useContext } from 'react'
-import { TileLayer, Popup, Marker, MapContainer, FeatureGroup, useMap } from 'react-leaflet';
-import LocateControl from './LocateControl';
-import 'leaflet/dist/leaflet.css';
-import 'leaflet.locatecontrol/dist/L.Control.Locate.min.css'
-import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css'
 import "leaflet-defaulticon-compatibility";
-import LeafletMapController from './LeafletController';
+import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css';
+import 'leaflet.locatecontrol/dist/L.Control.Locate.min.css';
+import 'leaflet/dist/leaflet.css';
+import React, { useContext } from 'react';
+import { FeatureGroup, MapContainer, Marker, TileLayer } from 'react-leaflet';
 import { MapContext } from '../Map';
+import LeafletMapController from './LeafletController';
 const L = require("leaflet");
 const useStyle = makeStyles({
     mapContainer: {

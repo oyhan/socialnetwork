@@ -7,7 +7,7 @@ export default function ReviewItem(review) {
     const { writerUserName,rate,description,
         dateWrittenString,dateWritten,writer,title} =review;
     
-    const avatarUrl = `http://localhost:12089/user/${writerUserName}/avatar/avatar.webp`;
+    const avatarUrl = `/user/${writerUserName}/avatar/avatar.webp`;
 
     return (
         <Grid container>

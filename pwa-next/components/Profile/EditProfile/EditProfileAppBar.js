@@ -1,33 +1,32 @@
-import { Button } from '@material-ui/core';
+import { useRouter } from 'next/router';
 import React from 'react';
 import AppBar from '../../AppBar/AppBar';
 import ToolbarButton from '../../Button/ToolBarButton';
 import ProfileAvatar from '../ProfileAvatar';
-import { useRouter } from 'next/router'
 
 const extera = (
-  <ProfileAvatar />
+    <ProfileAvatar />
 )
 
 
 
-export default function EditProfileAppBar({save}){
+export default function EditProfileAppBar({ save, submiting }) {
     const router = useRouter();
 
-    const handleCancel = ()=>{
+    const handleCancel = () => {
         router.back();
     }
 
-    const handleSave = ()=>{
-       save && save();
-        console.log("saved");
+    const handleSave = () => {
+        save && save();
+
     }
-    const rightIcon = <ToolbarButton onClick={handleSave}>ذخیره</ToolbarButton>
+    const rightIcon = <ToolbarButton disabled={submiting} onClick={handleSave}>ذخیره</ToolbarButton>
     const leftIcon = [
         <ToolbarButton onClick={handleCancel} >انصراف</ToolbarButton>
     ]
     return (
-        <AppBar leftIcons={leftIcon} rightIcon={rightIcon} /*extera={extera}*/  title="ویرایش پروفایل"/>
+        <AppBar leftIcons={leftIcon} rightIcon={rightIcon} /*extera={extera}*/ title="ویرایش پروفایل" />
     )
 }
 

@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core';
-import { Map, Marker, Overlay } from 'pigeon-maps'
-import { useEffect, useState } from 'react';
+import { Map, Marker } from 'pigeon-maps';
+import { useState } from 'react';
 import { useStateValue } from '../../lib/store/appState';
 
 
@@ -17,7 +17,7 @@ export default function PigeonMap() {
     const classes = useStyles();
     const [width, setWidth] = useState(300);
     const [{user},dispatch]= useStateValue();
-    console.log('user: ', user.location?.latitude);
+    
     
     const osm = (x, y, z) => {
         const s = String.fromCharCode(97 + ((x + y + z) % 3))
@@ -39,7 +39,7 @@ export default function PigeonMap() {
                     payload={1}
                     hover
                     onClick={({ event, anchor, payload }) => {
-                        console.log('Clicked marker nr: ', payload)
+                        
                     }}
                 />
 

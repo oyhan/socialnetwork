@@ -2,14 +2,13 @@ import React from 'react';
 import { Fab, makeStyles, Tooltip } from '@material-ui/core';
 import { green } from '@material-ui/core/colors';
 import { PhotoCamera } from '@material-ui/icons';
-
 const pica = require('pica')();
+
 const useStyle = makeStyles((theme) => ({
     root: {
         display: 'flex',
         alignItems: 'center',
         margin: '15px 0',
-
     },
     wrapper: {
         margin: theme.spacing(1),
@@ -43,34 +42,29 @@ const useStyle = makeStyles((theme) => ({
         }
     },
     thumbnailContainer: {
-
         display: 'flex'
     }
 }))
+export function resizeWithPica(image, newWidth) {
+    
+    
 
-function resizeWithPica(image, newWidth) {
-    console.log('image: ', image);
     var offScreenCanvas = document.createElement("canvas")
     offScreenCanvas.width = newWidth;
     offScreenCanvas.height = image.height * newWidth / image.width;
-
     return pica.resize(image, offScreenCanvas, {
         quality: 3,
         transferable: true
     }).then(() => {
         const dataUrl = offScreenCanvas.toDataURL();
+        
         return dataUrl;
     })
-
 }
-
 export default function ImageUploader({ name, index, filesLimit, nothumbnail, receiveFiles, defaultImage, multiple, ...props }) {
-
-
     const [thumbs, setThumbs] = React.useState([]);
     const classes = useStyle();
     const rand = Math.round(Math.random() * 10000);
-
     const createThumbnails = (event) => {
         const files = [...event.target.files];
         var selectedFiles = [];
@@ -78,19 +72,15 @@ export default function ImageUploader({ name, index, filesLimit, nothumbnail, re
             return new Promise((resolve, reject) => {
                 let i = 0;
                 for (const file of files) {
-                    console.log('file: ', file);
+
                     let image = new Image();
-                    console.log('image: ', image);
+
                     var thum = [];
-
                     image.src = window.URL.createObjectURL(file);
-
-
                     image.onload = function () {
                         const f = file;
-                        console.log('i: ', i);
-                        resizeWithPica(image, 200).then((result) => {
 
+                        resizeWithPica(image, 200).then((result) => {
                             thum.push({
                                 filename: f.name,
                                 value: result.split(',')[1].toString(),
@@ -101,40 +91,27 @@ export default function ImageUploader({ name, index, filesLimit, nothumbnail, re
                             fetch(result)
                                 .then(res => res.blob())
                                 .then(blob => {
-                                    console.log("there");
+
                                     selectedFiles = [...selectedFiles, blob];
                                     i++;
-                                    if (i == files.length){
-                                        console.log('selectedFiles: ', selectedFiles);
-                                        resolve(selectedFiles);
-                                        
+                                    if (i == files.length) {
 
+                                        resolve(selectedFiles);
                                     }
                                 })
                         })
                     }
                 }
-
             }
             )
-
-
         }
-
         prepareFiles().then(prepared => {
-            console.log("here");
+
             receiveFiles && receiveFiles(prepared);
         })
-
-
-
     }
-
-
     return (
-
         <div key={index} className={classes.root}>
-
             <input accept="image/*" key={index} multiple={multiple} onChange={createThumbnails} style={{ display: 'none' }} id={`input-file-${rand}`} type="file" />
             <div
                 className={classes.wrapper}
@@ -156,7 +133,6 @@ export default function ImageUploader({ name, index, filesLimit, nothumbnail, re
                                     alt={t.name} />
                             </div>
                         </Tooltip>) :
-
                         defaultImage ?
                             //     <Tooltip
                             //     id="tooltip-top-start"
@@ -168,28 +144,22 @@ export default function ImageUploader({ name, index, filesLimit, nothumbnail, re
                             //             width={props.thumbnailSize === undefined ? 50 : props.thumbnailSize}
                             //             height={props.thumbnailSize === undefined ? 50 : props.thumbnailSize}
                             //             className="thumbnail"
-
                             //              />
                             //     </div>
                             // </Tooltip>
-
                             <div className={classes.thumbBox} >
                                 <Fab key={index}
                                     aria-label="save"
                                     color="primary"
                                     component='label'
                                     htmlFor={`input-file-${rand}`}
-
                                 >
                                     <img src={defaultImage}
-
                                         width={props.thumbnailSize === undefined ? 50 : props.thumbnailSize}
                                         height={props.thumbnailSize === undefined ? 50 : props.thumbnailSize}
                                         className="thumbnail"
                                     />
-
                                 </Fab>
-
                             </div>
                             :
                             <Tooltip
@@ -202,16 +172,11 @@ export default function ImageUploader({ name, index, filesLimit, nothumbnail, re
                                     color="primary"
                                     component='label'
                                     htmlFor={`input-file-${rand}`}
-
                                 >
                                     <PhotoCamera />
-
                                 </Fab>
                             </Tooltip>
-
                 }
-
-
             </div>
             {/* <div className={classes.thumbnailContainer}> {
                 !nothumbnail && thumbs.map((t, key) =>
@@ -230,15 +195,9 @@ export default function ImageUploader({ name, index, filesLimit, nothumbnail, re
                                 alt={t.name} />
                         </div>
                     </Tooltip>
-
                 )
-
-
             }
             </div> */}
-
         </div>
     )
 }
-
-

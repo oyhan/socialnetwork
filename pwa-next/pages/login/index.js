@@ -1,16 +1,16 @@
-import React from 'react';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import { toast } from 'react-toastify';
 import { CircularProgress, makeStyles } from '@material-ui/core';
-import { useRouter } from 'next/router'
-import InputRenderer from '../../lib/InputRenderer';
-import ButtonBobo from '../../components/Button/ButtonBobo';
-import { PropType } from '../../lib/proptypes';
-import { BrowserHttpClient } from '../../lib/BrowserHttpClient';
+import { useFormik } from 'formik';
 import { getCookieParser } from 'next/dist/next-server/server/api-utils';
-
+import { useRouter } from 'next/router';
+import React from 'react';
+import { toast } from 'react-toastify';
+import * as Yup from 'yup';
+import ButtonBobo from '../../components/Button/ButtonBobo';
+import { BrowserHttpClient } from '../../lib/BrowserHttpClient';
+import InputRenderer from '../../lib/InputRenderer';
+import { PropType } from '../../lib/proptypes';
 import UserManagerBuilder from '../../lib/userManager';
+
 
 const useStyles = makeStyles({
     root: {
@@ -27,7 +27,7 @@ export default function Login() {
 
     const classes = useStyles();
     const history = useRouter();
-    const baseUrl = "http://localhost:12089";
+    const baseUrl = "";
     const onSubmit = () => {
         
         formik.setSubmitting(true);
@@ -62,7 +62,7 @@ export default function Login() {
                 <InputRenderer fullWidth autoComplete="off" disabled={formik.isSubmitting} 
                 onChange={formik.handleChange}
                     error={formik.errors.mobilenumber}
-                    Type={PropType.Text} Name="mobilenumber"
+                    Type={PropType.Number} Name="mobilenumber"
                     DisplayName="شماره موبایل"
                     placeholder="شماره موبایل" />
                 <ButtonBobo color='primary' variant='contained' type="submit" disabled={formik.isSubmitting}>

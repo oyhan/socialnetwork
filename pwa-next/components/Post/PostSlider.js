@@ -15,7 +15,7 @@ ImageEditor
 export default function PostSlider({ medias }) {
     const classes = useStyle();
     const slides = medias.map(m => <ImageEditor>
-        <img src={`http://localhost:12089${m.url}`} draggable="false" className={classes.image} />
+        <img src={`${m.url}`} draggable="false" className={classes.image} />
     </ImageEditor>)
 
     return (

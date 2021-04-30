@@ -1,5 +1,5 @@
-import React from 'react'
-import { Button, makeStyles } from '@material-ui/core'
+import { Button, makeStyles } from '@material-ui/core';
+import React from 'react';
 
 const useStyles = makeStyles((theme) => ({
     btn: {
@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
 export default function ToolbarButton({children,...props}){
     const classes = useStyles();
     return (
-        <Button {...props} className={classes.btn} >
+        <Button  {...props} className={classes.btn} >
             {children}
         </Button>
     )

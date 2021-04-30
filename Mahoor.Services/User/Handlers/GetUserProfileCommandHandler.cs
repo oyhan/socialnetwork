@@ -30,7 +30,7 @@ namespace Mahoor.Services.User.Handlers
                 var dto = await _userManager.GetUserProfile(request.UserId.ToString());
                 var noOfFollowers = await _graphService.GetAssociationCountTo(request.UserId, AType.Following);
                 var noOfFollwings = await _graphService.GetAssociationCountFrom(request.UserId, AType.Following);
-                var noOfPosts = await _graphService.GetAssociationCountTo(request.UserId, AType.Authored);
+                var noOfPosts = await _graphService.GetAssociationCountFrom(request.UserId, AType.Authored);
                 dto.NoOfFollowers = noOfFollowers;
                 dto.NoOfFollowings = noOfFollwings;
                 dto.NoOfPosts = noOfPosts;

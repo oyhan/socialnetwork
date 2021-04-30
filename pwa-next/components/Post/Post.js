@@ -1,32 +1,26 @@
-import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
 import { red } from '@material-ui/core/colors';
+import IconButton from '@material-ui/core/IconButton';
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import CallMissedIcon from '@material-ui/icons/CallMissed';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import ReplyIcon from '@material-ui/icons/Reply';
-import PostSlider from './PostSlider';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import Dialog from '../Dialog/Dialog';
-import CallMissedIcon from '@material-ui/icons/CallMissed';
+import ReplyIcon from '@material-ui/icons/Reply';
 import ReportIcon from '@material-ui/icons/Report';
-import { BrowserHttpClient } from '../../lib/BrowserHttpClient';
 import TrendingFlatIcon from '@material-ui/icons/TrendingFlat';
-import { useStateValue } from '../../lib/store/appState';
-import {useRouter, userRouter} from 'next/router'
-import { route } from 'next/dist/next-server/server/router';
+import { useRouter } from 'next/router';
+import React, { useState } from 'react';
 import GetAvatarUrl from '../../helper/AvatarHelper';
+import { BrowserHttpClient } from '../../lib/BrowserHttpClient';
+import { useStateValue } from '../../lib/store/appState';
+import Dialog from '../Dialog/Dialog';
+import PostSlider from './PostSlider';
 require('moment/locale/fa');
 
 var moment = require('moment-jalaali')
@@ -69,7 +63,7 @@ export default function Post({ userName, createdDate, placeName, text, likes, me
     const router = useRouter();
     
     const [{ user }] = useStateValue();
-    console.log('user: ', user);
+    
     const classes = useStyles();
     const [innerLikes, setLikes] = useState(likes);
     const [expanded, setExpanded] = React.useState(false);
@@ -90,7 +84,7 @@ export default function Post({ userName, createdDate, placeName, text, likes, me
     var moreBtnItems = [{
         title: `انصراف از دنبال کردن`,
         action: () => {
-            BrowserHttpClient.Post(`http://localhost:12089/user/unfollow/${userName}`).then(() => {
+            BrowserHttpClient.Post(`/user/unfollow/${userName}`).then(() => {
                 setUnfollow(!unfollow);
                 setOpen(false);
             })
@@ -102,7 +96,7 @@ export default function Post({ userName, createdDate, placeName, text, likes, me
     {
         title: `گزارش کردن این عکس`,
         action: () => {
-            BrowserHttpClient.Post(`http://localhost:12089/post/report/${id}`).then(() => {
+            BrowserHttpClient.Post(`/post/report/${id}`).then(() => {
                 setLikes(innerLikes + 1);
                 setOpen(false);
             })
@@ -113,7 +107,7 @@ export default function Post({ userName, createdDate, placeName, text, likes, me
     {
         title: `دنبال کردن`,
         action: () => {
-            BrowserHttpClient.Post(`http://localhost:12089/user/follow/${id}`).then(() => {
+            BrowserHttpClient.Post(`/user/follow/${id}`).then(() => {
                 setUnfollow(!unfollow);
 
                 setOpen(false);
@@ -126,11 +120,11 @@ export default function Post({ userName, createdDate, placeName, text, likes, me
 
     const handleLike = () => {
         if (!userLiked) {
-            BrowserHttpClient.Post(`http://localhost:12089/like/${id}`).then(() => {
+            BrowserHttpClient.Post(`/like/${id}`).then(() => {
                 setLikes(innerLikes + 1);
             })
         } else {
-            BrowserHttpClient.Post(`http://localhost:12089/unlike/${id}`).then(() => {
+            BrowserHttpClient.Post(`/unlike/${id}`).then(() => {
                 setLikes(innerLikes - 1);
             })
         }

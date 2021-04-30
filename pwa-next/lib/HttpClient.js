@@ -12,7 +12,7 @@ import { getCookieParser } from 'next/dist/next-server/server/api-utils';
 //     }
 // }
 var httpContext;
-
+var baseUrl ;
 // export default function useHttpClient(url, method, body){
 
 
@@ -38,14 +38,14 @@ var httpContext;
 
 // }
 export const HttpClient = {
-    SetContext: function (context) {
-        httpContext = context;
-    },
+        SetContext: function (context) {
+            httpContext = context;
+            baseUrl= "http://localhost:12089"
+        },
     Post,
     Get,
     Put,
     GetAll,
-    GetModel
 }
 
 function authentication() {
@@ -58,19 +58,7 @@ export default function httpClientBuilder(httpContext) {
     return HttpClient;
 }
 
-function GetModel(url) {
-    const request = {
-        method: "GET",
-        headers: {
-            'Content-Type': 'application/json',
-            ...authentication()
-        },
-    }
-    return axios.get(url, {
-        auth: { userName: 'demo', password: "demo" }
-    }).then(handleResponse, handleError)
-    return fetch(url, request).then(handleResponse, handleError)
-}
+
 async function Post(url, model, header) {
     const request = {
         method: "POST",
@@ -82,7 +70,7 @@ async function Post(url, model, header) {
         body: model
     }
     try {
-        const response = await fetch(url, request);
+        const response = await fetch(baseUrl+url, request);
         return handleResponse(response);
     }
     catch (error) {
@@ -118,7 +106,7 @@ function Get(url) {
     // return axios.get(url, {
     //     auth: { userName: 'demo', password: "demo" }
     // }).then(handleResponse, handleError)
-    return fetch(url, request).then(handleResponse, handleError);
+    return fetch(baseUrl+url, request).then(handleResponse, handleError);
 }
 
 
@@ -139,7 +127,7 @@ function handleResponse(response) {
     if (response.status == 401) {
         var userManager = UserManagerBuilder(httpContext, HttpClient);
         userManager.
-            Post("http://localhost:12089/User/RefreshToken/refresh-token",)
+            Post("/User/RefreshToken/refresh-token",)
         setTimeout(() => {
             window.location = "/";
         }, 3000)

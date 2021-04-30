@@ -1,21 +1,15 @@
-import React, { useState } from 'react';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import IconButton from '@material-ui/core/IconButton';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import SkipNextIcon from '@material-ui/icons/SkipNext';
-import Rate from '../../Rate/Rate';
-import { Chip } from '@material-ui/core';
-import BoboChip from '../../Chip/Chip';
-import AppBar from '../../AppBar/AppBar';
-import { Search } from '@material-ui/icons';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import React, { useState } from 'react';
 import { BrowserHttpClient } from '../../../lib/BrowserHttpClient';
+import BoboChip from '../../Chip/Chip';
+import Rate from '../../Rate/Rate';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -64,13 +58,13 @@ export default function FavoriteItem({ rate, placeType, name, noOfReviews, dista
     const handlFave = () => {
 
         if (faved) {
-            BrowserHttpClient.Post(`http://localhost:12089/place/unfave/${id}`).then(result => {
+            BrowserHttpClient.Post(`/place/unfave/${id}`).then(result => {
                 setFaved(false)
             }).catch(error => {
                 alert(error);
             })
         } else {
-            BrowserHttpClient.Post(`http://localhost:12089/place/fave/${id}`).then(result => {
+            BrowserHttpClient.Post(`/place/fave/${id}`).then(result => {
                 setFaved(true)
             }).catch(error => {
                 alert(error);

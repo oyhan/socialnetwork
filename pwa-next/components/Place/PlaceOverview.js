@@ -1,18 +1,18 @@
-import RoomIcon from '@material-ui/icons/Room';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import { Box, Container, Divider, Grid, IconButton, Typography } from "@material-ui/core";
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import LaptopIcon from '@material-ui/icons/Laptop';
 import PhoneEnabledIcon from '@material-ui/icons/PhoneEnabled';
-import QueryBuilderIcon from '@material-ui/icons/QueryBuilder';
-import RoomServiceIcon from '@material-ui/icons/RoomService';
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import PinDropOutlinedIcon from '@material-ui/icons/PinDropOutlined';
-import Rate from "../Rate/Rate";
-import { Box, Container, Divider, Grid, IconButton, makeStyles, Typography } from "@material-ui/core";
-import Map from "../Map/Map";
+import QueryBuilderIcon from '@material-ui/icons/QueryBuilder';
+import RoomIcon from '@material-ui/icons/Room';
+import RoomServiceIcon from '@material-ui/icons/RoomService';
 import clsx from 'clsx';
-import usePlacePageStyles from './PlacePage.css';
 import Link from 'next/link';
+import Map from "../Map/Map";
+import Rate from "../Rate/Rate";
+import usePlacePageStyles from './PlacePage.css';
 
 
 export default function PlaceOverview(props) {

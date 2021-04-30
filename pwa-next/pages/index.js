@@ -23,8 +23,8 @@ import cookieCutter from 'cookie-cutter'
 
 
 export default function Home({ data, posts }) {
-  
-  
+
+
 
   const [{ user }, dispatch] = useStateValue();
   const position = useLocation();
@@ -36,9 +36,9 @@ export default function Home({ data, posts }) {
 
   useEffect(() => {
 
-    if (position){
-      cookieCutter.set("latitude",position.latitude);
-      cookieCutter.set("longitude",position.longitude);
+    if (position) {
+      cookieCutter.set("latitude", position.latitude);
+      cookieCutter.set("longitude", position.longitude);
       document.cookie = `position=lat=${position.latitude}&lon=${position.longitude}`;
     }
     dispatch({ type: actions.USER, payload: { ...user, location: position } });
@@ -59,9 +59,7 @@ export default function Home({ data, posts }) {
     <>
       <HomeAppBar />
       <Head>
-        <title>خانه</title>
-        <link rel="icon" href="/favicon.ico" />
-        {/* <link rel="stylesheet" href="leaflet/dist/leaflet.css" /> */}
+        <title>بوبو</title>
       </Head>
       <HorizontalSlider Component={SliderItem} title="نزدیک‌ترین کافه‌ها و رستوران‌ها" items={data} />
       <HomeMap points={data.map(p => p.latLon)} />
@@ -83,7 +81,7 @@ export async function getServerSideProps(context) {
   const { req, res } = context;
   const userManager = UserManagerBuilder(context);
   const user = userManager.Load(cookies);
-  
+
 
   if (!user) {
     return {
@@ -99,27 +97,35 @@ export async function getServerSideProps(context) {
 
   if (process.env.NODE_ENV === "development") {
     userPosition = "lat=31.834989&lon=54.374296";
+
+  }
+
+
+  try {
+    var timeLine = await httpClient.Get(`/Timeline/Get?${userPosition}`);
+    var cardPosts = timeLine.closestRestaurants.map(p => ({
+      image: '/coffeeshop2.jpg',
+      title: p.name,
+      rate: p.rate,
+      ratesCount: p.noOfReviews,
+      distance: p.distanceString,
+      favorite: p.favorite,
+      latLon: p.latLon,
+      id: p.id
+    }))
+    return {
+      props: { data: cardPosts, posts: timeLine.followingsPosts }, // will be passed to the page component as props
+    }
+  } catch (error) {
     
+    return {
+      props: { data: [], posts: []}, // will be passed to the page component as props
+    }
   }
-  
-  
-  var timeLine = await httpClient.Get(`http://localhost:12089/Timeline/Get?${userPosition}`);
-  
-
-  // var posts = await httpClient.Get(`http://localhost:12089/Timeline/GetUserTimelinePosts?from=0&to=10`);
 
 
-  var cardPosts = timeLine.closestRestaurants.map(p => ({
-    image: '/coffeeshop2.jpg',
-    title: p.name,
-    rate: p.rate,
-    ratesCount: p.noOfReviews,
-    distance: p.distanceString,
-    favorite: p.favorite,
-    latLon: p.latLon,
-    id  : p.id
-  }))
-  return {
-    props: { data: cardPosts, posts : timeLine.followingsPosts }, // will be passed to the page component as props
-  }
+  // var posts = await httpClient.Get(`/Timeline/GetUserTimelinePosts?from=0&to=10`);
+
+
+
 }

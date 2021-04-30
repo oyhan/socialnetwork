@@ -1,6 +1,6 @@
 import { IconButton } from '@material-ui/core';
-import React from 'react';
 import LaunchIcon from '@material-ui/icons/Launch';
+import React from 'react';
 import AppBar from '../../AppBar/AppBar';
 
 const leftIcon = [

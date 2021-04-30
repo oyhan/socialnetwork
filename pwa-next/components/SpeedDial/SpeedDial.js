@@ -1,21 +1,10 @@
-import React, { useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormLabel from '@material-ui/core/FormLabel';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import Switch from '@material-ui/core/Switch';
-import SpeedDial from '@material-ui/lab/SpeedDial';
-import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon';
-import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
-import FileCopyIcon from '@material-ui/icons/FileCopyOutlined';
-import SaveIcon from '@material-ui/icons/Save';
-import PrintIcon from '@material-ui/icons/Print';
-import ShareIcon from '@material-ui/icons/Share';
-import FavoriteIcon from '@material-ui/icons/Favorite';
 import EditIcon from '@material-ui/icons/Edit';
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
-import { PhotoCamera } from '@material-ui/icons';
+import SpeedDial from '@material-ui/lab/SpeedDial';
+import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
+import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon';
+import React, { useRef } from 'react';
 import HideOnScroll from '../HideOnScroll/HideOnScroll';
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -54,8 +43,8 @@ export default function SpeedDials({ newPostClickHandler }) {
         setDirection(event.target.value);
     };
     const actions = [
-        { icon: <EditIcon />, name: 'دیدگاه جدید' },
-        { icon: <PhotoCameraIcon />, name: 'پست جدید', htmlFor: "postinput", handleClick: () => { ref.current.click(); console.log('ref.current: ', ref.current); } },
+        // { icon: <EditIcon />, name: 'دیدگاه جدید' },
+        { icon: <PhotoCameraIcon />, name: 'پست جدید', htmlFor: "postinput", handleClick: () => { ref.current.click();  } },
 
     ];
     const handleHiddenChange = (event) => {

@@ -23,7 +23,7 @@ export const useStateValue = () => useContext(StateContext);
 const getUser = () => {
   if (typeof window !== 'undefined') {
     const user = JSON.parse(localStorage.getItem("user"));
-    console.log('user: ', user);
+    
     return user;
   }
     return {};

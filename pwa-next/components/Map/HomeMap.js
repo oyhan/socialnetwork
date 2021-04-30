@@ -1,8 +1,6 @@
-import { ButtonBase, Grid, makeStyles, Typography } from '@material-ui/core';
-import React from 'react'
-import Link from 'next/link'
+import { Grid, makeStyles, Typography } from '@material-ui/core';
+import React from 'react';
 import Map from './Map';
-import { useRouter } from 'next/router'
 
 
 const useStyle = makeStyles((theme) => ({

@@ -1,13 +1,12 @@
 import { Box, ButtonBase, CircularProgress, Container, Divider, Grid, Typography } from "@material-ui/core";
-import { useEffect, useState } from "react";
+import CreateIcon from '@material-ui/icons/Create';
+import { useState } from "react";
 import { BrowserHttpClient, useHttpClient } from "../../lib/BrowserHttpClient";
 import SearchInput from "../Input/SearchInput";
 import Rate from "../Rate/Rate";
 import usePlacePageStyles from "./PlacePage.css";
 import ReviewBarChartItem from "./Review/ReviewBarChartItem";
 import ReviewItem from "./Review/ReviewItem";
-import CreateIcon from '@material-ui/icons/Create';
-import Link from "next/link";
 import ReviewNewDialog from "./Review/ReviewNewDialog";
 
 export default function PlaceReviews({ restaurantDetail, placeId }) {
@@ -17,13 +16,13 @@ export default function PlaceReviews({ restaurantDetail, placeId }) {
         address, location } = restaurantDetail;
 
     const [reviewSearchText, setSearchText] = useState("");
-    const [loading, data, error] = useHttpClient(`http://localhost:12089/place/rate/${placeId}`, "Get", r => r.response);
+    const [loading, data, error] = useHttpClient(`/place/rate/${placeId}`, "Get", r => r.response);
 
     const [reviewsSearched, setReviewsSearched] = useState();
 
     const onSearchSubmit = (e) => {
         e.preventDefault();
-        BrowserHttpClient.Get(`http://localhost:12089/review/search/${placeId}/${reviewSearchText}`)
+        BrowserHttpClient.Get(`/review/search/${placeId}/${reviewSearchText}`)
             .then(result => {
                 if (result.successFull) {
                     setReviewsSearched(result.response);

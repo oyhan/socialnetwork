@@ -1,16 +1,15 @@
-import React, { useState } from 'react';
-import { Typography, makeStyles, CircularProgress } from '@material-ui/core';
-import InputRenderer from '../../lib/InputRenderer';
+import { CircularProgress, makeStyles, Typography } from '@material-ui/core';
 import { useFormik } from 'formik';
-import useFormikObjectBuilder from '../../lib/formik/formikObjectBuilder';
-import { useSignUpModelValidationSchema } from '../../Models/SignupModel';
-import { PropType } from '../../lib/proptypes';
-import { Container } from 'next/app';
+import { useRouter } from 'next/router';
+import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 import ButtonBobo from '../../components/Button/ButtonBobo';
 import ToolbarBackButton from '../../components/Button/ToolbarBackButton';
 import { BrowserHttpClient } from '../../lib/BrowserHttpClient';
-import { toast } from 'react-toastify';
-import { useRouter } from 'next/router';
+import useFormikObjectBuilder from '../../lib/formik/formikObjectBuilder';
+import InputRenderer from '../../lib/InputRenderer';
+import { PropType } from '../../lib/proptypes';
+import { useSignUpModelValidationSchema } from '../../Models/SignupModel';
 
 const useStyle = makeStyles((theme) => ({
     text: {
@@ -32,7 +31,7 @@ export default function Signup() {
     const onsubmit = () => {
         formik.setSubmitting(true);
         if (formik.isValid) {
-            BrowserHttpClient.Post("http://localhost:12089/User/Register", JSON.stringify(formik.values))
+            BrowserHttpClient.Post("/User/Register", JSON.stringify(formik.values))
                 .then(response => {
                     formik.setSubmitting(false);
                     history.push({ pathname: "/signup/confirm", query: { phoneNumber: formik.values.phoneNumber } })
@@ -54,7 +53,7 @@ export default function Signup() {
             error={formik.errors.phoneNumber}
             key="phoneNumber"
             value={formik.values.phoneNumber}
-            autoComplete="off" placeholder={'شماره موبایل'} Type={PropType.Text} Name="phoneNumber" />
+            autoComplete="off" placeholder={'شماره موبایل'} Type={PropType.Number} Name="phoneNumber" />
     </>;
     const Step2 = <>
         <InputRenderer

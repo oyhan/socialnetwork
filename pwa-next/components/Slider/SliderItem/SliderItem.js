@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { Card, CardActionArea, CardMedia, CardContent, Typography, CardActions, Button, makeStyles, IconButton, ButtonBase } from '@material-ui/core';
-import FavoriteTwoToneIcon from '@material-ui/icons/FavoriteTwoTone';
-import Rate from '../../Rate/Rate';
-import RoomIcon from '@material-ui/icons/Room';
+import { Card, CardActions, CardContent, CardMedia, IconButton, makeStyles, Typography } from '@material-ui/core';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import FavoriteTwoToneIcon from '@material-ui/icons/FavoriteTwoTone';
+import RoomIcon from '@material-ui/icons/Room';
 import Link from 'next/link';
+import React, { useState } from 'react';
 import { BrowserHttpClient } from '../../../lib/BrowserHttpClient';
+import Rate from '../../Rate/Rate';
 const useStyles = makeStyles(theme => ({
     root: {
         position: 'relative',
@@ -49,13 +49,13 @@ export default function SliderItem({ image, title, rate, ratesCount, distance, f
     const handlFave = () => {
 
         if (faved) {
-            BrowserHttpClient.Post(`http://localhost:12089/place/unfave/${id}`).then(result => {
+            BrowserHttpClient.Post(`/place/unfave/${id}`).then(result => {
                 setFaved(false)
             }).catch(error => {
                 alert(error);
             })
         } else {
-            BrowserHttpClient.Post(`http://localhost:12089/place/fave/${id}`).then(result => {
+            BrowserHttpClient.Post(`/place/fave/${id}`).then(result => {
                 setFaved(true)
             }).catch(error => {
                 alert(error);

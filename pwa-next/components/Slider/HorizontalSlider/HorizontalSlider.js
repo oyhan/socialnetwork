@@ -1,7 +1,6 @@
 import { Grid, makeStyles, Typography } from '@material-ui/core';
-import React from 'react'
-import SliderItem from '../SliderItem/SliderItem';
-import Link from 'next/link'
+import Link from 'next/link';
+import React from 'react';
 
 
 const useStyle = makeStyles((theme) => ({

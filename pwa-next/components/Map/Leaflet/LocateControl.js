@@ -1,7 +1,6 @@
-import React, { Component, useEffect } from "react";
 import Locate from "leaflet.locatecontrol";
+import { useEffect } from "react";
 import { useMap } from "react-leaflet";
-import dynamic from 'next/dynamic'
 
 
 

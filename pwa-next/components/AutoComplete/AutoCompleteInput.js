@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import { Chip, makeStyles } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import { Chip, Grid, makeStyles, TextField, Typography } from '@material-ui/core';
 import throttle from 'lodash/throttle';
+import React, { useEffect, useState } from 'react';
 import { BrowserHttpClient } from '../../lib/BrowserHttpClient';
 import { normalizenumber } from '../../lib/normalizations';
 const useStyles = makeStyles(() => (

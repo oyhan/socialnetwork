@@ -1,7 +1,5 @@
+import dynamic from 'next/dynamic';
 import * as React from 'react';
-import PigeonMap from './PigeonMap';
-import dynamic from 'next/dynamic'
-import { classnames } from '@material-ui/data-grid';
 export const MapContext = React.createContext(null);
 const MapDataProvider = ({ data, children }) =>
     <MapContext.Provider value={data}>

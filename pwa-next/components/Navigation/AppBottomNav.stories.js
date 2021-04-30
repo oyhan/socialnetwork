@@ -1,7 +1,7 @@
 import React from 'react';
+import Rtl from '../../common/Rtl';
 // also exported from '@storybook/react' if you can deal with breaking changes in 6.1
-import AppBottomNav from './AppBottomNav'
-import Rtl from '../../common/Rtl'
+import AppBottomNav from './AppBottomNav';
 export default {
   title: 'AppBottomNav',
   component: AppBottomNav,

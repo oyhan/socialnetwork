@@ -17,7 +17,7 @@ export function useSignUpModelValidationSchema() {
         userName: Yup.string().required(t("mandatory")).min(6, t('userNameMinLength', { length: 6 })).max(20, t('userNameMaxLength', { length: 20 }))
             .test('Unique Email', t('UserNameInUse'),
                 (value) => {
-                     return BrowserHttpClient.Get(`http://localhost:12089/user/UsernameAvailable/${value}`)
+                     return BrowserHttpClient.Get(`/user/UsernameAvailable/${value}`)
                         .then(() => true).catch(() => false)
                 })
 

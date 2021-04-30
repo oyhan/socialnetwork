@@ -1,5 +1,5 @@
 
-import Cookies from 'cookies'
+import Cookies from 'cookies';
 
 
 var UserManager = {
@@ -11,7 +11,7 @@ var UserManager = {
     },
 
     Load: function (cookies) {
-        console.log('cookies: ', cookies.user);
+        
         if (!cookies.user) return null;
 
         var user = JSON.parse(cookies.user)
@@ -37,7 +37,7 @@ var UserManager = {
         var refreshTokenHeader =
             { Cookie: refreshTokenHeader };
         httpClient.header = refreshTokenHeader;
-        var response = await httpClient.Post("http://localhost:12089/User/RefreshToken/refresh-token", null, refreshTokenHeader)
+        var response = await httpClient.Post("/User/RefreshToken/refresh-token", null, refreshTokenHeader)
         
 
     }

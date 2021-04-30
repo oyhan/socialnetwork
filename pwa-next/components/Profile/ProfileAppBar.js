@@ -1,9 +1,8 @@
-import { Avatar, Button, Grid, IconButton, makeStyles, Typography } from '@material-ui/core';
+import { IconButton, makeStyles } from '@material-ui/core';
 import { Settings } from '@material-ui/icons';
-import React from 'react';
 import LaunchIcon from '@material-ui/icons/Launch';
+import React from 'react';
 import AppBar from '../AppBar/AppBar';
-import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import ProfileAvatar from './ProfileAvatar';
 
 const useStyles = makeStyles((theme) => ({

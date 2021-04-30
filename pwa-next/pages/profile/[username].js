@@ -1,5 +1,5 @@
+import { useRouter } from 'next/router';
 import React from 'react';
-import { useRouter } from 'next/router'
 import UserProfile from '../../components/Profile/UserProfile/UserProfile';
 import httpClientBuilder from '../../lib/HttpClient';
 
@@ -17,8 +17,8 @@ export async function getServerSideProps(context) {
     const userName = context.params.userName;
     var httpClient = httpClientBuilder(context);
 
-    var result = await httpClient.Get(`http://localhost:12089/profile/get/${userName}`);
-    console.log('result: ', result);
+    var result = await httpClient.Get(`/profile/get/${userName}`);
+    
     if (result.response.isOwner) {
         return {
             redirect: {

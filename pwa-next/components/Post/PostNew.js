@@ -1,30 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+import { Avatar, Chip, Container, Grid } from '@material-ui/core';
 import Dialog from '@material-ui/core/Dialog';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItem from '@material-ui/core/ListItem';
-import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
-import InputRenderer from '../../lib/InputRenderer';
-import { Avatar, Chip, Container, Grid, InputAdornment } from '@material-ui/core';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
-import { PropType } from '../../lib/proptypes';
-import ToolbarButton from '../Button/ToolBarButton';
-import { useFormik } from 'formik';
-import useFormikObjectBuilder from '../../lib/formik/formikObjectBuilder';
-import PostNewModel, { usePostNewModelValidationSchema } from '../../Models/PostNewModel';
-import AutoCompleteInput from '../autoComplete/AutoCompleteInput';
-import { useTranslation } from 'next-i18next'
-import { BrowserHttpClient } from '../../lib/BrowserHttpClient';
-import { useRouter } from 'next/router'
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 import { AvatarGroup } from '@material-ui/lab';
+import { useFormik } from 'formik';
+import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+import { BrowserHttpClient } from '../../lib/BrowserHttpClient';
+import useFormikObjectBuilder from '../../lib/formik/formikObjectBuilder';
+import InputRenderer from '../../lib/InputRenderer';
+import { PropType } from '../../lib/proptypes';
+import Toast from '../../lib/toastHelper';
+import { usePostNewModelValidationSchema } from '../../Models/PostNewModel';
 import AppBar from '../AppBar/AppBar';
+import AutoCompleteInput from '../autoComplete/AutoCompleteInput';
+import ToolbarButton from '../Button/ToolBarButton';
 
 const useStyles = makeStyles((theme) => ({
     toolBar: {
@@ -57,7 +51,7 @@ export default function PostNewDialog({ open, handleWindow, photos }) {
     const router = useRouter();
     const classes = useStyles();
     const [urls, setUrls] = useState([]);
-    
+
 
 
 
@@ -74,7 +68,7 @@ export default function PostNewDialog({ open, handleWindow, photos }) {
         if (photos) {
             for (const photo of photos) {
                 const imageUrl = window.URL.createObjectURL(photo);
-                
+
                 formik.setFieldValue(`file${i}`, photos[i]);
 
                 setUrls((before) => [...before, imageUrl]);
@@ -96,7 +90,6 @@ export default function PostNewDialog({ open, handleWindow, photos }) {
 
         for (const url of urls) {
             URL.revokeObjectURL(url);
-
         }
         setUrls([]);
         handleWindow(false);
@@ -104,19 +97,25 @@ export default function PostNewDialog({ open, handleWindow, photos }) {
     var onsubmit = () => {
 
         formik.setSubmitting(true);
-        BrowserHttpClient.MultiPartFormData("http://localhost:12089/post/new", formik.values)
-            .then(response => {
-                formik.setSubmitting(false);
-                if (response.successFull) {
-                    router.push(`/#${response.response}`)
-                }
-            }).catch(error => {
+        if (formik.isValid) {
+            Toast("درحال ارسال پست...");
+            BrowserHttpClient.MultiPartFormData("/post/new", formik.values)
+                .then(response => {
+                    formik.setSubmitting(false);
+                    toast.dismiss();
+                    if (response.successFull) {
+                        handleWindow(false);
+                        toast("پست شما با موفقیت ارسال شد");
+                        router.push(`/`);
+                        toast.dismiss();
+                    }
+                }).catch(error => {
+                    console.error('error sendig post : ', error);
+                    formik.setSubmitting(false);
+                    toast.error("ارسال پست با خطا روبرو شد");
+                });
+        }
 
-                formik.setSubmitting(false);
-
-
-
-            });
     }
 
     const schema = usePostNewModelValidationSchema();
@@ -127,7 +126,7 @@ export default function PostNewDialog({ open, handleWindow, photos }) {
 
 
     }, schema, onsubmit))
-    
+
 
     const rightIcon = <ToolbarButton color='primary' disabled={formik.isSubmitting} onClick={formik.handleSubmit} >
         <Typography color='primary' >
@@ -135,7 +134,7 @@ export default function PostNewDialog({ open, handleWindow, photos }) {
    </Typography>
     </ToolbarButton>
 
-    const leftIcon = [<ToolbarButton  onClick={handleClose} >
+    const leftIcon = [<ToolbarButton onClick={handleClose} >
         <Typography color='primary' >
             انصراف
    </Typography>
@@ -200,7 +199,7 @@ export default function PostNewDialog({ open, handleWindow, photos }) {
                                 autoComplete="off" placeholder="یک مکان انتخاب کنید" Type={PropType.Text}
                                 Name="placeId" fullWidth />
                         }
-                        queryUrl={"http://localhost:12089/place/search/{query}"}
+                        queryUrl={"/place/search/{query}"}
                         onSelected={(value) => { formik.setFieldValue("placeId", value?.id) }}
                     />
 

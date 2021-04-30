@@ -9,10 +9,16 @@ import { CookiesProvider } from "react-cookie"
 import { ToastContainer } from 'react-toastify'
 
 import { appWithTranslation } from 'next-i18next'
+import { makeStyles } from '@material-ui/core'
 
+const useStyle = makeStyles(theme => ({
+  toast: {
+    borderRadius: 0
+  }
+}))
 
 function MyApp({ Component, pageProps }) {
-
+  const classes = useStyle();
   return (
 
     <StateProvider initialState={initialState} reducer={mainReducer}>
@@ -20,7 +26,7 @@ function MyApp({ Component, pageProps }) {
         <CookiesProvider>
           <BaseLayout >
             <Component {...pageProps} />
-            <ToastContainer rtl />
+            <ToastContainer toastClassName={classes.toast} bodyStyle={{ width: '100%', borderRadius: 0 }} rtl hideProgressBar />
           </BaseLayout>
         </CookiesProvider>
       </RTL>

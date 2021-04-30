@@ -1,5 +1,5 @@
+import { Chip, withStyles } from '@material-ui/core';
 import React from 'react';
-import { withStyles, Chip } from '@material-ui/core';
 
 const StyledChip = withStyles({
     root: {

@@ -1,5 +1,5 @@
-import React from 'react'
-import { Fade, Slide, useScrollTrigger } from '@material-ui/core';
+import { Fade, useScrollTrigger } from '@material-ui/core';
+import React from 'react';
 
 export default function HideOnScroll(props) {
     const { children, window } = props;

@@ -1,9 +1,10 @@
-import { Avatar, ButtonBase, IconButton, useTheme } from "@material-ui/core";
+import { Avatar, ButtonBase, useTheme } from "@material-ui/core";
 
 
 
 export default function SquareImage({src}) {
     console.log('src: ', src);
+    
     
     const theme = useTheme()
     return (

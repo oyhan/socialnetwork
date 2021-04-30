@@ -1,10 +1,9 @@
+import { CircularProgress, Grid, makeStyles } from '@material-ui/core';
 import React from 'react';
-import { Typography, makeStyles, CircularProgress, Grid } from '@material-ui/core';
-import { useHttpClient } from '../../lib/BrowserHttpClient';
+import AppBar from '../../components/AppBar/AppBar';
 import FavoriteItem from '../../components/Favorite/FavoriteItem/FavoriteItem';
 import VerticalSlider from '../../components/Slider/VerticalSlider/VerticalSlider';
-import AppBar from '../../components/AppBar/AppBar';
-import { Search } from '@material-ui/icons';
+import { useHttpClient } from '../../lib/BrowserHttpClient';
 
 const useStyle = makeStyles((theme) => ({
     text: {
@@ -14,7 +13,7 @@ const useStyle = makeStyles((theme) => ({
 
 export default function Favorites() {
 
-    const [loading, data, error] = useHttpClient(`http://localhost:12089/Place/Favorites`, "Get", r => r.response)
+    const [loading, data, error] = useHttpClient(`/Place/Favorites`, "Get", r => r.response)
 
     return <>
         <AppBar back title="علاقه‌مندی ها" />

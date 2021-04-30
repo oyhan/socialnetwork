@@ -1,5 +1,4 @@
-import { FeatureGroup } from 'leaflet';
-import React, { useEffect } from 'react'
+import { useEffect } from 'react';
 import { useMap } from 'react-leaflet';
 var parse = require('wellknown');
 export default function LeafletMapController() {

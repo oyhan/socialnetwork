@@ -40,12 +40,12 @@ export default function UserProfile({ user }) {
 
 
     const handleUnFollow = () => {
-        BrowserHttpClient.Post(`http://localhost:12089/user/unfollow/${userName}`).then(() => {
+        BrowserHttpClient.Post(`/user/unfollow/${userName}`).then(() => {
             setFollowing(false);
         })
     }
     const handleFollow = () => {
-        BrowserHttpClient.Post(`http://localhost:12089/user/follow/${userName}`).then(() => {
+        BrowserHttpClient.Post(`/user/follow/${userName}`).then(() => {
             setFollowing(true);
         })
     }

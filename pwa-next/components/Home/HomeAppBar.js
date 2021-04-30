@@ -1,18 +1,14 @@
-import React, { useState } from 'react';
 import MAppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
+import Toolbar from '@material-ui/core/Toolbar';
 import SearchIcon from '@material-ui/icons/Search';
-import MoreIcon from '@material-ui/icons/MoreVert';
-import { Chip, Fade, Slide, useScrollTrigger, Zoom } from '@material-ui/core';
-import HeaderTopChip from '../Header/HeaderTopChip';
-import HeaderLowerChip from '../Header/HeaderLowerChip';
-import WhereToGo from './WhereToGo';
+import React, { useState } from 'react';
 import { useScrollData } from 'scroll-data-hook';
+import HeaderLowerChip from '../Header/HeaderLowerChip';
+import HeaderTopChip from '../Header/HeaderTopChip';
 import SearchBobo from './SearchBobo';
+import WhereToGo from './WhereToGo';
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,

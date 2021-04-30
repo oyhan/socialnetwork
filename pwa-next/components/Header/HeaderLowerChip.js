@@ -1,6 +1,6 @@
 import { Chip, makeStyles } from '@material-ui/core';
-import React from 'react'
 import NearMeIcon from '@material-ui/icons/NearMe';
+import React from 'react';
 import { useScrollData } from 'scroll-data-hook';
 
 

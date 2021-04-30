@@ -17,7 +17,7 @@ export async function getServerSideProps(context) {
     
     var httpClient = httpClientBuilder(context);
 
-    var result = await httpClient.Get(`http://localhost:12089/restaurant/${placeId}/31.834989/54.374296`);
+    var result = await httpClient.Get(`/restaurant/${placeId}/31.834989/54.374296`);
     
     return {
         props: {

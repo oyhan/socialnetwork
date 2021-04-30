@@ -318,7 +318,7 @@ export default function InputRenderer(props) {
                     //variant="outlined"
                     name={name}
                     required={required}
-                    type="number"
+                    type="tel"
                     disabled={Disabled}
                 />
             )

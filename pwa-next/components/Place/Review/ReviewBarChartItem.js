@@ -13,7 +13,7 @@ const useStyle = makeStyles(theme => ({
     }
 }))
 export default function ReviewBarChartItem({ count,total, title, ...props }) {
-    console.log('total: ', total);
+    
     const classes = useStyle();
     const value = count===0? 0 : count * 100 /total;
     

@@ -40,7 +40,7 @@ var baseUrl ;
 export const HttpClient = {
         SetContext: function (context) {
             httpContext = context;
-            baseUrl= "http://localhost:12089"
+            baseUrl= process.env.BACKEND
         },
     Post,
     Get,

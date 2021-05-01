@@ -17,7 +17,7 @@ import { PropType } from '../../lib/proptypes';
 import Toast from '../../lib/toastHelper';
 import { usePostNewModelValidationSchema } from '../../Models/PostNewModel';
 import AppBar from '../AppBar/AppBar';
-import AutoCompleteInput from '../autoComplete/AutoCompleteInput';
+import AutoCompleteInput from '../AutoComplete/AutoCompleteInput';
 import ToolbarButton from '../Button/ToolBarButton';
 
 const useStyles = makeStyles((theme) => ({

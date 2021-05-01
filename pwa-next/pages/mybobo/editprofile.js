@@ -10,7 +10,7 @@ import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
-import AutoCompleteInput from '../../components/autoComplete/AutoCompleteInput';
+import AutoCompleteInput from '../../components/AutoComplete/AutoCompleteInput';
 import EditProfileAppBar from '../../components/Profile/EditProfile/EditProfileAppBar';
 import ProfileAvatar from '../../components/Profile/ProfileAvatar';
 import { BrowserHttpClient } from '../../lib/BrowserHttpClient';

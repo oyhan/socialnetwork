@@ -4,6 +4,7 @@
 ChefCode.Common.Repository/obj/Debug/netstandard2.0/ChefCode.Common.Repository.assets.cache
 Mahoor.Api/appsettings.Development.json
 .vs
-/Mahoor.Api/wwwroot/user/Sousanmd/post/0443cf9f-76dd-4887-a13d-68a4dc07fe85_8A5951DD-B9AE-427B-8045-CA1A72B226C0.jpeg
-/Mahoor.Api/wwwroot/user/Sousanmd/post
-/Mahoor.Api/wwwroot/user/Sousanmd/review
+/Mahoor.Api/wwwroot/
+/Mahoor.Api/bin/
+/Mahoor.Api/Properties/PublishProfiles
+**/bin/**

@@ -66,8 +66,11 @@ export default function Signup() {
 
     const steps = [{ title: "شماره همراه", step: Step1 }, { title: "نام کاربری", step: Step2 }]
 
+    const isLastStep = () => {
+        return currentStep == steps.length - 1
+    }
     const handleNext = () => {
-        if (currentStep == steps.length - 1) {
+        if (isLastStep()) {
             onsubmit();
         }
         else {
@@ -80,6 +83,7 @@ export default function Signup() {
         if (currentStep == 0) {
             return;
         }
+        formik.setSubmitting(false);
         setCurrentStep(currentStep - 1);
 
 
@@ -96,7 +100,7 @@ export default function Signup() {
                 {
                     steps[currentStep].step
                 }
-                <ButtonBobo color='primary' variant='contained' onClick={handleNext} disabled={formik.isSubmitting}>
+                <ButtonBobo color='primary' variant='contained' onClick={handleNext} disabled={formik.isSubmitting || (!formik.isValid && isLastStep())}>
                     {formik.isSubmitting ? <CircularProgress /> : currentStep == steps.length - 1 ? "ارسال کد تایید" : "بعدی"}
                 </ButtonBobo>
             </div>

@@ -37,32 +37,44 @@ namespace Mahoor.Api
             services.Configure<AppSettings>(Configuration.GetSection(
                 nameof(AppSettings)));
             services.CongfigureApp(Configuration);
-            
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,IOptionsSnapshot<AppSettings> options)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IOptionsSnapshot<AppSettings> options)
         {
             Settings = options.Value;
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.Use(async (context, next) =>
+            {
+                await next.Invoke();
+                //handle response
+                //you may also need to check the request path to check whether it requests image
+                if (context.Response.StatusCode == 404 && context.Request.Path.Value.Contains("avatar.webp"))
+                {
+                    context.Response.Redirect("/defaultAv.png"); //path in wwwroot for default image
+                }
+            });
+
+            app.UseStaticFiles();
             app.UseAppConfigs();
             app.UseCors();
             app.UseRouting();
-            app.UseStaticFiles();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+        
             app.UseSpa(spa =>
             {
                 spa.UseProxyToSpaDevelopmentServer(Settings.UiUrl);
             });
             app.EnsureLastMigrationApplyed<AppDbContext>();
-           
+
         }
     }
 }

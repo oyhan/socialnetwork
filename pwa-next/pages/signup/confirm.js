@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 import { useCookies } from "react-cookie";
 import ButtonBobo from '../../components/Button/ButtonBobo';
 import ToolbarBackButton from '../../components/Button/ToolbarBackButton';
+import OtpTimer from '../../components/OtpTimer/OtpTimer';
 import { BrowserHttpClient } from '../../lib/BrowserHttpClient';
 import useFormikObjectBuilder from '../../lib/formik/formikObjectBuilder';
 import InputRenderer from '../../lib/InputRenderer';
@@ -33,6 +34,7 @@ export default function Confirm({ phoneNumber }) {
     const [cookie, setCookie] = useCookies(["user"])
     const [, dispatch] = useStateValue();
     const history = useRouter();
+    const [timer, setTimer] = useState(120)
 
     const onsubmit = () => {
         formik.setSubmitting(true);
@@ -90,6 +92,8 @@ export default function Confirm({ phoneNumber }) {
         if (currentStep == 0) {
             return;
         }
+        
+        formik.setSubmitting(false);
         setCurrentStep(currentStep - 1);
 
 
@@ -111,7 +115,7 @@ export default function Confirm({ phoneNumber }) {
                 {
                     steps[currentStep].step
                 }
-                <ButtonBobo color='primary' variant='contained' onClick={handleNext} disabled={formik.isSubmitting}>
+                <ButtonBobo color='primary' variant='contained' onClick={handleNext} disabled={formik.isSubmitting || !formik.isValid}>
                     {formik.isSubmitting ? <CircularProgress /> : currentStep == steps.length - 1 ? "ارسال کد تایید" : "بعدی"}
                 </ButtonBobo>
                 <OtpTimer callback={retry} initial={timer} />

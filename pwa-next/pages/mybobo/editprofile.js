@@ -10,6 +10,7 @@ import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
+import { toast } from 'react-toastify';
 import AutoCompleteInput from '../../components/AutoComplete/AutoCompleteInput';
 import EditProfileAppBar from '../../components/Profile/EditProfile/EditProfileAppBar';
 import ProfileAvatar from '../../components/Profile/ProfileAvatar';
@@ -20,6 +21,7 @@ import InputRenderer from '../../lib/InputRenderer';
 import { PropType } from '../../lib/proptypes';
 import { actions } from '../../lib/reducer/actions';
 import { useStateValue } from '../../lib/store/appState';
+import Toast from '../../lib/toastHelper';
 import { useProfileModelValidationSchema } from '../../Models/ProfileModel';
 const useStyle = makeStyles((theme) => ({
     text: {
@@ -71,7 +73,8 @@ export default function EditProfile({ user }) {
         formik.validateForm();
     }, [user])
     const avatarChanged = (file) => {
-        formik.setFieldValue("files", file)
+        console.log('file: ', file);
+        formik.setFieldValue("files", file[0])
     }
     return <>
         <EditProfileAppBar submiting={formik.isSubmitting} save={onsubmit(formik)} />

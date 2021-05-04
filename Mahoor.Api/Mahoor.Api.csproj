@@ -9,16 +9,7 @@
     <DocumentationFile>C:\Users\Ali\source\repos\MahoorGroup\Mahoor\Mahoor.Api\Mahoor.Api.xml</DocumentationFile>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="wwwroot\user\**" />
-    <Compile Remove="wwwroot\wwwroot\**" />
-    <Content Remove="wwwroot\user\**" />
-    <Content Remove="wwwroot\wwwroot\**" />
-    <EmbeddedResource Remove="wwwroot\user\**" />
-    <EmbeddedResource Remove="wwwroot\wwwroot\**" />
-    <None Remove="wwwroot\user\**" />
-    <None Remove="wwwroot\wwwroot\**" />
-  </ItemGroup>
+ 
 
   <ItemGroup>
     <Compile Remove="Controllers\FollowerController.cs" />

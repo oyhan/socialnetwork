@@ -40,7 +40,7 @@ var baseUrl ;
 export const HttpClient = {
         SetContext: function (context) {
             httpContext = context;
-            baseUrl= process.env.BACKEND
+            baseUrl=process.env.NODE_ENV === 'development' ? "http://localhost:12089" :process.env.BACKEND
         },
     Post,
     Get,
@@ -103,10 +103,9 @@ function Get(url) {
             'Content-Type': 'application/json'
         },
     }
-    // return axios.get(url, {
-    //     auth: { userName: 'demo', password: "demo" }
-    // }).then(handleResponse, handleError)
+    console.log('baseUrl: ', baseUrl);
     return fetch(baseUrl+url, request).then(handleResponse, handleError);
+    
 }
 
 

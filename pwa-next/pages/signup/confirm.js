@@ -70,7 +70,7 @@ export default function Confirm({ phoneNumber }) {
             onChange={formik.handleChange}
             error={formik.errors.token}
             key="token"
-            
+
             value={formik.values.token}
             autoComplete="off" placeholder={'کد تایید'} Type={PropType.Number} Name="token" />
     </>;
@@ -92,7 +92,7 @@ export default function Confirm({ phoneNumber }) {
         if (currentStep == 0) {
             return;
         }
-        
+
         formik.setSubmitting(false);
         setCurrentStep(currentStep - 1);
 
@@ -102,7 +102,7 @@ export default function Confirm({ phoneNumber }) {
     const retry = () => {
         setTimer(120);
     }
-    
+
     return <>
         {
             currentStep != 0 && <ToolbarBackButton handleClick={handleBack} />

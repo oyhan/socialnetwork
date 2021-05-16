@@ -75,7 +75,7 @@ export default function Login() {
 }
 
 export async function getServerSideProps(context){
-
+console.log("login");
     const userManager = UserManagerBuilder(context);
     const cookie = getCookieParser(context.req)()
     const user = userManager.Load(cookie);

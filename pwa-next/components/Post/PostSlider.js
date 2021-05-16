@@ -2,6 +2,8 @@ import React from 'react';
 import ZoomSlider from 'react-instagram-zoom-slider'
 import { makeStyles } from '@material-ui/core';
 import ImageEditor from '../ImageEditor/ImageEditor';
+import Image from 'next/image'
+
 const useStyle = makeStyles({
     image: {
         maxHeight: '53vh',
@@ -15,7 +17,7 @@ ImageEditor
 export default function PostSlider({ medias }) {
     const classes = useStyle();
     const slides = medias.map(m => <ImageEditor>
-        <img src={`${m.url}`} draggable="false" className={classes.image} />
+        <Image src={`${m.url}`} draggable="false"  className={classes.image} />
     </ImageEditor>)
 
     return (

@@ -9,7 +9,11 @@ const StyledRating = withStyles(theme => ({
   iconHover: {
     color: theme.palette.secondary.dark,
   },
-
+  sizeSmall :{
+    "& span" :{
+      margin : -1
+    }
+  }
 }))(Rating);
 
 export default function Rate({ value, size, onchange, input, ...other }) {
@@ -23,10 +27,10 @@ export default function Rate({ value, size, onchange, input, ...other }) {
       precision={input ? 1 : 0.1}
       size={size || 'medium'}
       disabled={!input}
-
       // classes={{
       //     iconFilled: "color: yellow;"
       // }}
+     
       icon={<RateIcon fontSize="inherit" />}
       onChange={(event, newValue) => {
         

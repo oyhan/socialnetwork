@@ -6,6 +6,7 @@ import LanguageIcon from '@material-ui/icons/Language';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import ButtonBobo from '../../components/Button/ButtonBobo';
 import { resizeWithPica } from '../../components/ImageUploader/ImageUploader';
 import FullWidthTabs from '../../components/Navigation/Tab/FullWidthTab';
@@ -13,9 +14,11 @@ import PostNewDialog from '../../components/Post/PostNew';
 import ProfileAppBar from '../../components/Profile/ProfileAppBar';
 import UserPosts from '../../components/Profile/UserProfile/UserPosts';
 import SpeedDials from '../../components/SpeedDial/SpeedDial';
+import useWebp from '../../lib/hooks/ImageCompress/useWebp';
 import httpClientBuilder from '../../lib/HttpClient';
 import { actions } from '../../lib/reducer/actions';
 import { useStateValue } from '../../lib/store/appState';
+import Toast from '../../lib/toastHelper';
 
 const useStyle = makeStyles((theme) => ({
     text: {
@@ -45,7 +48,7 @@ const resizePhotos = (files) => {
                     fetch(result)
                         .then(res => res.blob())
                         .then(blob => {
-                            
+
 
                             selectedFiles = [...selectedFiles, blob];
                             i++;
@@ -67,19 +70,34 @@ export default function MyBobo(profileDto) {
     const [newPost, setNewPost] = useState(false);
     const [photo, setPhoto] = useState([]);
     const [{ user }, dispatch] = useStateValue();
+    const [compressing, result] = useWebp(photo, 0.5);
+    console.log('result: ', result);
+
 
     const classes = useStyle()
     const { avatarURl, bio, city, favorites, noOfFollowers, noOfFollowings, noOfPosts, userName, website } = profileDto;
 
 
     const handleNewPost = (files) => {
-        resizePhotos(files).then(prepared => {
-            setPhoto(prepared);
-            setNewPost(true);
-        })
+        // resizePhotos(files).then(prepared => {
+        //     setPhoto(prepared);
+        //     setNewPost(true);
+        // })
+        setPhoto(files);
 
 
     }
+
+    useEffect(() => {
+        if (compressing) {
+            
+            Toast("درحال آماده سازی تصاویر");
+        } else {
+            console.log('compressing: ', compressing);
+            toast.dismiss();
+        }
+
+    }, [compressing])
 
     useEffect(() => {
 
@@ -89,7 +107,7 @@ export default function MyBobo(profileDto) {
         })
     }, [])
 
-    const tabs = ["فعالیت‌های شما", "علاقه‌مندی‌های شما", "عکس‌ها", "Reviews"]
+    const tabs = ["فعالیت‌های شما", "علاقه‌مندی‌های شما", "عکس‌ها", "نظرات"]
 
     const InfoItem = ({ title, icon, item, user }) => {
 
@@ -200,7 +218,7 @@ export default function MyBobo(profileDto) {
         </Grid>
 
         <SpeedDials newPostClickHandler={handleNewPost} />
-        <PostNewDialog open={newPost} handleWindow={setNewPost} photos={photo} />
+        <PostNewDialog open={result.length>0} handleWindow={setNewPost} photos={result} />
 
         <FullWidthTabs tabs={tabs} tabsContent={[<UserPosts userName={userName} />, "favorites", "photos", "reviews"]} />
     </>

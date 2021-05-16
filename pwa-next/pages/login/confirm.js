@@ -45,10 +45,10 @@ export default function Confirm({ mobileNumber }) {
                 
                 const testUser = JSON.parse(userCookie);
                 
-                setCookie("user",userCookie);
-                cookieCutter.set('refreshToken', response.refreshToken);
-                cookieCutter.set('jwt', response.token);
-
+                setCookie("user",userCookie,{path:"/"});
+                const opts = {path:"/"}
+                cookieCutter.set('refreshToken', response.refreshToken,opts);
+                cookieCutter.set('jwt', response.token,opts);
                 dispatch({
                     type:actions.USER,
                     payload : response.user
@@ -108,7 +108,6 @@ export default function Confirm({ mobileNumber }) {
         </div>
     )
 }
-
 
 export async function getServerSideProps(context) {
     const mobileNumber = context.query.mobileNumber;

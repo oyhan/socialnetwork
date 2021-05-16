@@ -37,6 +37,7 @@ export default function Home({ data, posts }) {
   useEffect(() => {
 
     if (position) {
+      
       cookieCutter.set("latitude", position.latitude);
       cookieCutter.set("longitude", position.longitude);
       document.cookie = `position=lat=${position.latitude}&lon=${position.longitude}`;
@@ -62,7 +63,7 @@ export default function Home({ data, posts }) {
         <title>بوبو</title>
       </Head>
       <HorizontalSlider Component={SliderItem} title="نزدیک‌ترین کافه‌ها و رستوران‌ها" items={data} />
-      <HomeMap points={data.map(p => p.latLon)} />
+      {/* <HomeMap points={data.map(p => p.latLon)} /> */}
       <HorizontalSlider Component={SliderItem} title="رستوران‌های برتر یزد" items={data} />
 
       <HomePosts posts={posts} />
@@ -81,6 +82,7 @@ export async function getServerSideProps(context) {
   const { req, res } = context;
   const userManager = UserManagerBuilder(context);
   const user = userManager.Load(cookies);
+  
 
 
   if (!user) {
@@ -95,10 +97,10 @@ export async function getServerSideProps(context) {
   var userPosition = getCookieParser(context.req)().position;
 
 
-  if (process.env.NODE_ENV === "development") {
-    userPosition = "lat=31.834989&lon=54.374296";
+  // if (process.env.NODE_ENV === "development") {
+  //   userPosition = "lat=31.834989&lon=54.374296";
 
-  }
+  // }
 
 
   try {

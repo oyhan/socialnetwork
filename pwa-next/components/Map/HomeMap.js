@@ -5,13 +5,26 @@ import Map from './Map';
 
 const useStyle = makeStyles((theme) => ({
     root: {
+        width: '100%',
+        height: 150,
+        marginTop: theme.spacing(3),
+        marginBottom: theme.spacing(3),
+        // position:'absolute'
+    },
+    wrapper:{
         width: '100vw',
         height: 150,
         marginTop: theme.spacing(3),
-        marginBottom: theme.spacing(3)
+        marginBottom: theme.spacing(3),
+        position:'absolute',
+        zIndex:1000,
+        cursor : 'pointer'
     },
     title: {
         // marginBottom : theme.spacing(2),
+    },
+    container:{
+        height : 150
     }
 }))
 
@@ -24,10 +37,10 @@ export default function HomeMap({ items, title, points }) {
 
     const classes = useStyle();
 
-    const onclick = (route) => () => {
+    const onclick =  () => {
 
-
-        router.push("/closestRestaurant");
+      
+        router.push("/closest");
 
     }
 
@@ -41,10 +54,11 @@ export default function HomeMap({ items, title, points }) {
                  </Typography>
 
             </Grid>
-            <Grid onClick={onclick} container >
+            <Grid className={classes.container} container >
                 <div className={classes.root} >
                     <Map points={points} />
                 </div>
+                <div onClick={onclick}  className={classes.wrapper}></div>
             </Grid>
         </>
     )

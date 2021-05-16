@@ -57,7 +57,7 @@ export const theme = createMuiTheme({
     direction: 'rtl',
     typography: {
         fontFamily: [
-            'IranYekan',
+            'Homa',
             'BlinkMacSystemFont',
             '"Segoe UI"',
             'Roboto',

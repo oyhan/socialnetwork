@@ -1,14 +1,18 @@
+import 'leaflet.locatecontrol/dist/L.Control.Locate.css';
+import "leaflet.locatecontrol/dist/L.Control.Locate.min.js";
 import { useEffect } from 'react';
 import { useMap } from 'react-leaflet';
-var parse = require('wellknown');
+import useLocation from '../../../lib/hooks/location/useLocation';
+
 export default function LeafletMapController() {
+    const position = useLocation();
 
     const map = useMap();
     useEffect(() => {
-       const feature=  parse('POINT(31.834989 54.374296)');
-       
-        var geojsonLayer = L.geoJson(feature);
-        map.addLayer(geojsonLayer);
-    },[])
+        // L.control.locate({})
+        // map.hasLayer()
+        L.circleMarker([position.latitude,position.longitude]).addTo(map);
+        map.flyTo([position.latitude,position.longitude]);
+    },[position.latitude,position.longitude])
     return null;
 } 

@@ -9,12 +9,12 @@ import Rate from '../../Rate/Rate';
 const useStyles = makeStyles(theme => ({
     root: {
         position: 'relative',
-        maxWidth: 200,
-        minWidth: 200,
-        maxHeight: 265
+        maxWidth: 150,
+        minWidth: 150,
+        maxHeight: 200
     },
     media: {
-        height: 140,
+        height: 100,
     },
     btn: {
         position: 'absolute',
@@ -30,16 +30,24 @@ const useStyles = makeStyles(theme => ({
         // alignItems : 'center',
     },
     ratesCount: {
-
-        paddingLeft: '9px',
-        lineHeight: '19px'
-
+        fontSize: "10px",
+        lineHeight: "16px",
+        paddingLeft: 4,
     },
     inline: {
         display: 'flex'
     },
     distance: {
-        marginLeft: '4px'
+        fontSize: 10,
+        marginRight: 0,
+        lineHeight: 2.5,
+    },
+    content :{
+        padding : 1
+    },
+    placeTitle: {
+        fontSize : 12,
+        fontWeight:900
     }
 
 }));
@@ -74,22 +82,21 @@ export default function SliderItem({ image, title, rate, ratesCount, distance, f
                     title=""
                 />
             </Link>
-            <CardContent>
-                <Typography gutterBottom variant="h6" component="h2">
+            <CardContent className={classes.content} >
+                <Typography className={classes.placeTitle} gutterBottom variant="h6" component="h6">
                     {title}
                 </Typography>
                 <div className={classes.inline}>
-                    <Rate value={rate} />
-                    <Typography className={classes.ratesCount} color='disabled'>
+                    <Rate size='small' value={rate} />
+                    <Typography className={classes.ratesCount} color='textSecondary'>
                         <span>({ratesCount})</span>
 
                     </Typography>
                 </div>
                 <div className={classes.inline}>
-                    <RoomIcon />
+                    <RoomIcon fontSize="small" />
                     <Typography className={classes.distance} color='disabled'>
                         {distance}
-
                     </Typography>
                 </div>
 
@@ -98,9 +105,9 @@ export default function SliderItem({ image, title, rate, ratesCount, distance, f
 
             <CardActions>
 
-                <IconButton onClick={handlFave} aria-label="favorite" className={classes.btn}>
+                <IconButton size='small' onClick={handlFave} aria-label="favorite" className={classes.btn}>
                     {
-                        faved ? <FavoriteIcon color='primary' /> :
+                        faved ? <FavoriteIcon fontSize='small' color='primary' /> :
                             <FavoriteTwoToneIcon fontSize="small" />
                     }
                 </IconButton>

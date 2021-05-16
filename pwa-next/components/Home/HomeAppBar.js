@@ -7,6 +7,7 @@ import React, { useState } from 'react';
 import { useScrollData } from 'scroll-data-hook';
 import HeaderLowerChip from '../Header/HeaderLowerChip';
 import HeaderTopChip from '../Header/HeaderTopChip';
+import ScrollResizeHeader from '../Header/ScrollResizeHeader';
 import SearchBobo from './SearchBobo';
 import WhereToGo from './WhereToGo';
 const useStyles = makeStyles((theme) => ({
@@ -35,16 +36,17 @@ const useStyles = makeStyles((theme) => ({
         minHeight: 215
     },
     btnHolder: {
+        marginTop: 12,
         justifySelf: 'center',
         alignSelf: 'center',
-        display :'flex',
-        flexDirection : 'column'
+        display: 'flex',
+        flexDirection: 'column'
     },
-    searchIcon :{
-        position : 'fixed',
-        top :10,
-        left :10,
-        zIndex :10,
+    searchIcon: {
+        position: 'fixed',
+        top: 10,
+        left: 10,
+        zIndex: 10,
     }
 
 }));
@@ -87,7 +89,7 @@ export default function HomeAppBar(props) {
         return style;
     }
 
-    const handleOpenSearchBobo = ()=>{
+    const handleOpenSearchBobo = () => {
         setOpenSeachBobo(true);
     }
 
@@ -99,13 +101,20 @@ export default function HomeAppBar(props) {
                 <IconButton onClick={handleOpenSearchBobo} className={classes.searchIcon} aria-label="search" edge='start' color="inherit">
                     <SearchIcon />
                 </IconButton>
-                <Toolbar style={calcToolbarStyle()}>
+                {/* <Toolbar style={calcToolbarStyle()}>
                     <div className={classes.btnHolder}>
                         <HeaderTopChip handleClick={handleClick} title="کجا می‌روید؟" />
                         <HeaderLowerChip handleClick={handleClick} title="ببین نزدیکت چیه" />
                     </div>
-                </Toolbar>
+                </Toolbar> */}
 
+                <ScrollResizeHeader/>
+                   
+                
+                <div className={classes.btnHolder}>
+                        <HeaderTopChip handleClick={handleClick} title="کجا می‌روید؟" />
+                        <HeaderLowerChip handleClick={handleClick} title="ببین نزدیکت چیه" />
+                    </div>
                 <WhereToGo open={open} handleWindow={setOpen} />
                 <SearchBobo open={openSeachBobo} handleWindow={setOpenSeachBobo} />
             </MAppBar>

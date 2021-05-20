@@ -8,9 +8,10 @@ export default function ScrollResizeHeader(props) {
 
   const headerY = useTransform(
     
+    
     scrollYProgress,
     [0, 0.02, 0.1],
-    ["0%", "0%", "-70%"]
+    ["0%", "0%", "-57%"]
   );
   
   return (
@@ -19,8 +20,8 @@ export default function ScrollResizeHeader(props) {
         position: "fixed",
         top: 0,
         width:'100%',
-        backgroundImage: headerY.current === "-70%" ? "" : `url(/home/header/bg.jpg)`,
-        height: 200,
+        backgroundImage: headerY.current === "-57%" ? "" : `url(/home/header/bg.jpg)`,
+        height: 150,
         alignItems: 'flex-start',
         paddingTop: theme.spacing(1),
         display: 'grid',

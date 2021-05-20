@@ -37,13 +37,13 @@ export default function Home({ data, posts }) {
   useEffect(() => {
 
     if (position) {
-      
+
       cookieCutter.set("latitude", position.latitude);
       cookieCutter.set("longitude", position.longitude);
       document.cookie = `position=lat=${position.latitude}&lon=${position.longitude}`;
     }
     dispatch({ type: actions.USER, payload: { ...user, location: position } });
-  }, [position])
+  }, [position.latitude])
 
   useEffect(() => {
     // dispatch({ type: actions.APPBAR, payload: <HomeAppBar /> });
@@ -65,11 +65,7 @@ export default function Home({ data, posts }) {
       <HorizontalSlider Component={SliderItem} title="نزدیک‌ترین کافه‌ها و رستوران‌ها" items={data} />
       {/* <HomeMap points={data.map(p => p.latLon)} /> */}
       <HorizontalSlider Component={SliderItem} title="رستوران‌های برتر یزد" items={data} />
-
       <HomePosts posts={posts} />
-
-
-
     </>
   )
 }
@@ -82,7 +78,7 @@ export async function getServerSideProps(context) {
   const { req, res } = context;
   const userManager = UserManagerBuilder(context);
   const user = userManager.Load(cookies);
-  
+
 
 
   if (!user) {
@@ -95,12 +91,13 @@ export async function getServerSideProps(context) {
   }
 
   var userPosition = getCookieParser(context.req)().position;
+  console.log('userPosition: ', userPosition);
 
 
-  // if (process.env.NODE_ENV === "development") {
-  //   userPosition = "lat=31.834989&lon=54.374296";
+  if (process.env.NODE_ENV === "development") {
+    userPosition = "lat=31.834989&lon=54.374296";
 
-  // }
+  }
 
 
   try {
@@ -119,9 +116,9 @@ export async function getServerSideProps(context) {
       props: { data: cardPosts, posts: timeLine.followingsPosts }, // will be passed to the page component as props
     }
   } catch (error) {
-    
+
     return {
-      props: { data: [], posts: []}, // will be passed to the page component as props
+      props: { data: [], posts: [] }, // will be passed to the page component as props
     }
   }
 

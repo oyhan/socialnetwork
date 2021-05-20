@@ -36,3 +36,8 @@
     transform: rotate(360deg);
   }
 }
+
+@font-face{
+  font-family: "Homa";
+  src: url("./fonts/B\ Homa_0.ttf");
+ }

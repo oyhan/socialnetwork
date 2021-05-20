@@ -28,6 +28,7 @@ var myIcon = L.icon({
 });
 export default function LeafletMap() {
     var points = useContext(MapContext);
+    console.log('points: ', points);
     const [{ user }, dispatch] = useStateValue();
     const position = useLocation();
     

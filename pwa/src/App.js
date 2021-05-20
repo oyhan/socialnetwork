@@ -1,24 +1,54 @@
-import logo from './logo.svg';
+import { CssBaseline, makeStyles } from '@material-ui/core';
+import { useEffect } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
+import useUserLayout from './infrastructure/LayoutSelector';
+import RTL from './infrastructure/Rtl';
+import Home from './pages/Home';
+import * as serviceWorker from './serviceWorker';
+import { AppWrapper } from './statemanagement/AppContext';
+import "./typings/yup/yup.nationalCode";
+import { BrowserRouter as Router } from 'react-router-dom';
+const useStyle = makeStyles(theme => ({
+  toast: {
+    borderRadius: 0
+  }
+}))
 
 function App() {
+  const classes = useStyle();
+
+  const updateServiceWorker = (registration) => () => {
+    
+    const waitingWorker = registration && registration.waiting;
+    waitingWorker && waitingWorker.postMessage({ type: "SKIP_WAITING" });
+    window.location.reload();
+  };
+
+  const onNewUpdate = (registration) => {
+    toast.info("برای بروزرسانی برنامه کلیک کنید", {
+      onClick: updateServiceWorker(registration),
+      autoClose: false,
+    })
+  }
+  useEffect(() => {
+    serviceWorker.register({ onUpdate: onNewUpdate });
+
+  })
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppWrapper> 
+      < RTL >
+        <CssBaseline />  
+        <Router>
+          {
+            useUserLayout()
+          }
+        </Router>
+        <ToastContainer toastClassName={classes.toast} bodyStyle={{ width: '100%', borderRadius: 0 }} rtl hideProgressBar />
+      </RTL >
+    </AppWrapper>
   );
 }
 

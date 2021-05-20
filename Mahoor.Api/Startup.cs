@@ -48,16 +48,16 @@ namespace Mahoor.Api
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.Use(async (context, next) =>
-            {
-                await next.Invoke();
-                //handle response
-                //you may also need to check the request path to check whether it requests image
-                if (context.Response.StatusCode == 404 && context.Request.Path.Value.Contains("avatar.webp"))
-                {
-                    context.Response.Redirect("/defaultAv.png"); //path in wwwroot for default image
-                }
-            });
+            //app.Use(async (context, next) =>
+            //{
+            //    await next.Invoke();
+            //    //handle response
+            //    //you may also need to check the request path to check whether it requests image
+            //    if (context.Response.StatusCode == 404 && context.Request.Path.Value.Contains("avatar.webp"))
+            //    {
+            //        context.Response.Redirect("/defaultAv.png"); //path in wwwroot for default image
+            //    }
+            //});
 
             app.UseStaticFiles();
             app.UseAppConfigs();

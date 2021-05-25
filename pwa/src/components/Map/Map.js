@@ -7,17 +7,21 @@ const MapDataProvider = ({ data, children }) =>
         {children}
     </MapContext.Provider>
 
-export default function Map({ points ,point}) {
-    console.log('points: ', points);
+export default function Map({ points, point ,enableMyLocation}) {
+    
     const [viewport, setViewport] = React.useState({
         latitude: 31.834989,
         longitude: 54.374296,
         zoom: 15
     });
-    
+
     return (
         // <MapDataProvider data={points}>
-            <LeafletMap points={points} point={point} />
+
+        <LeafletMap enableMyLocation={enableMyLocation}  points={points} point={point} />
+
+
+
         // </MapDataProvider>
     )
     // return (

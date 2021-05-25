@@ -32,7 +32,8 @@ namespace Mahoor.Services.Review.Handlers
                 Title = r.Title,
                 DateWritten = r.CreatedDate,
                 UserAvatar = r.User.AvatarUrl,
-                Writer = r.User.DisplayName
+                Writer = r.User.DisplayName,
+                WriterUserName=r.User.UserName
             }, new GetRestaurantReviewsOrderedByDateVisitedDescQuery(request.RestaurantId, 0, 10,request.Text));
 
 

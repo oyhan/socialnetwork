@@ -1,3 +1,4 @@
+import { Backdrop } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import EditIcon from '@material-ui/icons/Edit';
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
@@ -17,7 +18,9 @@ const useStyles = makeStyles((theme) => ({
         zIndex :1000
 
     },
-
+    backdrop :{
+        zIndex :500
+    },
     speedDial: {
         position: 'absolute',
         '&.MuiSpeedDial-directionUp, &.MuiSpeedDial-directionLeft': {
@@ -66,6 +69,7 @@ export default function SpeedDials({ newPostClickHandler }) {
 
     return (
         <HideOnScroll>
+            <Backdrop className={classes.backdrop} open={open} />
             <div className={classes.root}>
                 <input accept="image/*" multiple ref={ref} type='file' style={{ display: 'none' }} onChange={inputlClickHandler} id="postinput" />
                 <div className={classes.exampleWrapper}>
@@ -91,6 +95,6 @@ export default function SpeedDials({ newPostClickHandler }) {
                     </SpeedDial>
                 </div>
             </div>
-        </HideOnScroll>
+         </HideOnScroll>
     );
 }

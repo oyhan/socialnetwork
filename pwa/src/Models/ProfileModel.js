@@ -21,7 +21,7 @@ export default ProfileModel;
 export function useProfileModelValidationSchema() {
     const [{ user }] = useStateValue();
     return (Yup.object({
-        displayName: Yup.string().required("اجباری").min(6, "حداقل 6  کاراکتر").max(20, "حداکثر 20 کاراکتر"),
+        displayName: Yup.string().required("اجباری").typeError("").min(6, "حداقل 6  کاراکتر").max(20, "حداکثر 20 کاراکتر"),
         userName: Yup.string().required("اجباری").min(6, "حداقل 6  کاراکتر").max(20, "حداکثر 20 کاراکتر")
             .test('Unique Email', "نام کاربری تکراریست",
                 (value) => {

@@ -1,4 +1,4 @@
-import { useHistory} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import React from 'react';
 import AppBar from '../../AppBar/AppBar';
 import ToolbarButton from '../../Button/ToolBarButton';
@@ -14,7 +14,7 @@ export default function EditProfileAppBar({ save, submiting }) {
     const router = useHistory();
 
     const handleCancel = () => {
-        router.back();
+        router.goBack();
     }
 
     const handleSave = () => {

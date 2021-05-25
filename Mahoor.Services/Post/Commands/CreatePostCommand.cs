@@ -12,6 +12,7 @@ namespace Mahoor.Services.Post.Commands
         public string UserId { get; set; }
         public string Text { get; set; }
         public IReadOnlyList<MediaDto> Medias{ get; set; }
-        public Guid PlaceId { get; set; }
+        public Guid? PlaceId { get; set; }
+        public Guid? CityId { get; set; }
     }
 }

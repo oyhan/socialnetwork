@@ -110,13 +110,13 @@ namespace Mahoor.Services.ExtentionMethods
 
             return new ProfileDto()
             {
-                UserName = user.UserName,
-                City = user.CurrentCity,
+                UserName = user.UserName.ToLower(),
+                City = user.CurrentCity??"",
                 AvatarURl = user.AvatarUrl,
-                Bio = user.Bio,
+                Bio = user.Bio??"",
                 Favorites = user.Favorites,
-                Website = user.Website,
-                DisplayName = user.DisplayName,
+                Website = user.Website??"",
+                DisplayName = user.DisplayName??"",
                 CityId = user.CityId
             };
         }
@@ -137,15 +137,15 @@ namespace Mahoor.Services.ExtentionMethods
             };
         }
 
-        public static CityDto ToCityDto(this CityModel city)
+        public static CityHomeDto ToCityHomeDto(this CityModel city)
         {
 
-            return new CityDto()
+            return new CityHomeDto()
             {
                 Id = city.Id,
                 Name = $"{city.City},{city.Province}",
-
-
+                //LastPhoto = city.Posts.OrderByDescending(p=>p.CreatedDate).FirstOrDefault().Medias.LastOrDefault().Path,
+                PhotosCount=city.Posts.Count()
             };
         }
 

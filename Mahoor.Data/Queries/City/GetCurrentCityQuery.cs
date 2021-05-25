@@ -9,7 +9,7 @@ namespace Mahoor.Data.Queries.City
     {
         public GetCurrentCityQuery(in double requestLat, in double requestLon, in int requestFrom, in int requestTo)
         {
-            var location = new Point(  requestLon , requestLat);
+            var location = new Point(requestLon, requestLat) { SRID = 4326 };
             AddCriteria(c=>c.Geom.Covers(location));
             ApplyPaging(requestFrom,requestTo);
         }

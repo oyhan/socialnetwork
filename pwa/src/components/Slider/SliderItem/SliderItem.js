@@ -3,7 +3,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteTwoToneIcon from '@material-ui/icons/FavoriteTwoTone';
 import RoomIcon from '@material-ui/icons/Room';
 import {Link} from 'react-router-dom';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserHttpClient } from '../../../lib/BrowserHttpClient';
 import Rate from '../../Rate/Rate';
 const useStyles = makeStyles(theme => ({
@@ -53,7 +53,11 @@ const useStyles = makeStyles(theme => ({
 }));
 export default function SliderItem({ image, title, rate, ratesCount, distance, favorite, faveCallBack, id }) {
     const classes = useStyles();
-    const [faved, setFaved] = useState(favorite);
+    const [faved, setFaved] = useState(false);
+    useEffect(() => {
+        setFaved(favorite);
+        
+    }, [favorite])
     const handlFave = () => {
 
         if (faved) {

@@ -32,7 +32,9 @@ export default function PlaceOverview(props) {
                             </Box>
                         </Typography>
                         <Grid container>
-                            <Rate value={rate} />
+                           {
+                              rate &&  <Rate value={rate} />
+                           }
                             <Typography color='disabled' variant='caption' >
                                 <Box m='0 5px'>
                                     {noOfReviews} نظر

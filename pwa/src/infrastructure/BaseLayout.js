@@ -23,10 +23,11 @@ const useStyles = makeStyles((theme) => ({
         // height: '100%',
         // padding: '5rem 10px',
         padding: 0,
-        // marginBottom: 100
+        marginBottom: 100
     }
 }));
 
+const noBottomNavPaths = ["/nearme","/login" ,"/signup" , "/start" , "/post"]
 export default function BaseLayout(props) {
     
     const [state, dispatch] = useStateValue();
@@ -44,7 +45,16 @@ export default function BaseLayout(props) {
 
     }, [])
     const classes = useStyles();
-
+    const showBottomNav = ()=>{
+        const loc = window.location.pathname;
+        
+        const anyMatch = noBottomNavPaths.some(r=>{
+            
+           return loc.startsWith(r)
+        });
+        return !anyMatch;
+    }
+    
     return (
 
         <>
@@ -62,7 +72,8 @@ export default function BaseLayout(props) {
             </Container>
 
             {
-                state.user && <AppBottomNav />
+                showBottomNav() && <AppBottomNav />
+                
             }
 
         </>

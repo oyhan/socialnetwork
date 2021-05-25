@@ -12,6 +12,7 @@ namespace Mahoor.Api.ViewModels
         public string Text { get; set; }
   
         public IFormFileCollection Files { get; set; }
-        public Guid PlaceId { get; set; }
+        public Guid? PlaceId { get; set; }
+        public Guid? CityId { get; set; }
     }
 }

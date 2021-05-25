@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.default,
     height: '100%',
     position:'sticky',
-    top:150
+    top:150,
     
     // width: 500,
   },

@@ -24,14 +24,16 @@ export default function PlaceReviews({ restaurantDetail, placeId }) {
         e.preventDefault();
         BrowserHttpClient.Get(`/review/search/${placeId}/${reviewSearchText}`)
             .then(result => {
-                if (result.successFull) {
+                if (result && result.successFull) {
                     setReviewsSearched(result.response);
+                    return;
                 }
+                setReviewsSearched(undefined);
             })
     }
 
     const { excellent, veryGood, normal, weak, horrible } = data || {};
-    const total =excellent + veryGood+normal+ weak+ horrible;
+    const total = excellent + veryGood + normal + weak + horrible;
     const [openNewReviewDialog, openDialog] = useState(false);
 
     const handleNewReview = () => {
@@ -95,10 +97,8 @@ export default function PlaceReviews({ restaurantDetail, placeId }) {
                 </Grid>
 
                 <Grid container className={classes.row}>
-                    <form onSubmit={onSearchSubmit}>
-                        <SearchInput onChange={(event) => {
-
-
+                    <form style={{width:'100%'}} onSubmit={onSearchSubmit}>
+                        <SearchInput  onChange={(event) => {
                             setSearchText(event.target.value)
                         }} />
                     </form>
@@ -106,6 +106,8 @@ export default function PlaceReviews({ restaurantDetail, placeId }) {
                 <Grid className={classes.row}>
                     {
                         reviewsSearched ?
+                        reviewsSearched.length ===0?
+                            <Typography color='textSecondary' variant='caption'>چیزی پیدا نشد...</Typography> :
                             reviewsSearched.map((r, i) =>
                                 <div className={classes.row}>
                                     <ReviewItem {...r} key={i} />

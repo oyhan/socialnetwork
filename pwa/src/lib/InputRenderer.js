@@ -110,6 +110,7 @@ export default function InputRenderer(props) {
             return (
                 <ValidationTextField
                     fullWidth
+                    inputProps={{disableUnderline:true}} 
                     onChange={handleChangeDefault}
                     {...other}
                     id={id}

@@ -10,6 +10,8 @@ import HeaderTopChip from '../Header/HeaderTopChip';
 import ScrollResizeHeader from '../Header/ScrollResizeHeader';
 import SearchBobo from './SearchBobo';
 import WhereToGo from './WhereToGo';
+
+import {useHistory} from 'react-router-dom';
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -36,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
         minHeight: 215
     },
     btnHolder: {
-        marginTop: 12,
+        marginTop: 40,
         justifySelf: 'center',
         alignSelf: 'center',
         display: 'flex',
@@ -49,13 +51,18 @@ const useStyles = makeStyles((theme) => ({
         zIndex: 10,
     },
     appBar : {
-        height: '60px'
+        height: '60px',
+        background: 'url(/home/header/bg.jpg)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        height: 150,
     }
 
 }));
 
 
 export default function HomeAppBar(props) {
+    const router = useHistory();
     const [open, setOpen] = useState();
     const handleClick = () => {
         setOpen(true);
@@ -96,6 +103,9 @@ export default function HomeAppBar(props) {
         setOpenSeachBobo(true);
     }
 
+    const goToWhatsNearMe = ()=>{
+        router.push("/seewhatsaround");
+    }
     return (
         <div className={classes.root}>
             {/* <HideOnScroll {...props}> */}
@@ -111,12 +121,12 @@ export default function HomeAppBar(props) {
                     </div>
                 </Toolbar> */}
 
-                <ScrollResizeHeader/>
+                {/* <ScrollResizeHeader/> */}
                    
                 
                 <div className={classes.btnHolder}>
                         <HeaderTopChip handleClick={handleClick} title="کجا می‌روید؟" />
-                        <HeaderLowerChip handleClick={handleClick} title="ببین نزدیکت چیه" />
+                        <HeaderLowerChip handleClick={goToWhatsNearMe} title="ببین نزدیکت چیه" />
                     </div>
                 <WhereToGo open={open} handleWindow={setOpen} />
                 <SearchBobo open={openSeachBobo} handleWindow={setOpenSeachBobo} />

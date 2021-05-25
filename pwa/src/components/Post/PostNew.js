@@ -17,7 +17,7 @@ import { usePostNewModelValidationSchema } from '../../Models/PostNewModel';
 import AppBar from '../AppBar/AppBar';
 import AutoCompleteInput from '../AutoComplete/AutoCompleteInput';
 import ToolbarButton from '../Button/ToolBarButton';
-import {useHistory} from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 const useStyles = makeStyles((theme) => ({
     toolBar: {
         direction: 'rtl'
@@ -46,6 +46,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function PostNewDialog({ open, handleWindow, photos }) {
 
+
     const router = useHistory();
     const classes = useStyles();
     const [urls, setUrls] = useState([]);
@@ -55,7 +56,7 @@ export default function PostNewDialog({ open, handleWindow, photos }) {
 
 
 
-   
+
     const handleClickOpen = () => {
 
     };
@@ -107,8 +108,8 @@ export default function PostNewDialog({ open, handleWindow, photos }) {
                         toast.dismiss();
                     }
                 }).catch(error => {
-                    console.error('error sendig post : ', error);
                     formik.setSubmitting(false);
+                    toast.dismiss();
                     toast.error("ارسال پست با خطا روبرو شد");
                 });
         }
@@ -136,6 +137,14 @@ export default function PostNewDialog({ open, handleWindow, photos }) {
             انصراف
    </Typography>
     </ToolbarButton>]
+
+    const handleSelectPlace = (value) => {
+        if (value.isCity) {
+            formik.setFieldValue("cityId", value?.id)
+        } else {
+            formik.setFieldValue("placeId", value?.id)
+        }
+    }
 
     return (
 
@@ -197,7 +206,7 @@ export default function PostNewDialog({ open, handleWindow, photos }) {
                                 Name="placeId" fullWidth />
                         }
                         queryUrl={"/place/search/{query}"}
-                        onSelected={(value) => { formik.setFieldValue("placeId", value?.id) }}
+                        onSelected={handleSelectPlace}
                     />
 
 

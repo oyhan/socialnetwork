@@ -13,7 +13,12 @@ const useStyles = makeStyles({
     width: '100%', 
     bottom: 0,
     zIndex: 1000,
+    height: 49,
   },
+  label :{
+    marginTop: '-3px',
+    fontSize:10
+  }
 });
 
 export default function AppBottomNav() {
@@ -36,9 +41,9 @@ export default function AppBottomNav() {
       showLabels
       className={classes.root}
     >
-      <BottomNavigationAction  onClick={onclick("/")} label="خانه" icon={<HomeIcon />} />
-      <BottomNavigationAction onClick={onclick("/favorites")} label="علاقه‌مندی‌ها" icon={<FavoriteBorderIcon />} />
-      <BottomNavigationAction onClick={onclick("/mybobo")} label="بوبوی من" icon={<PersonOutlineOutlinedIcon />} />
+      <BottomNavigationAction classes={{label:classes.label}} onClick={onclick("/")} label="خانه" icon={<HomeIcon  fontSize='small'/>} />
+      <BottomNavigationAction classes={{label:classes.label}} onClick={onclick("/favorites")} label="علاقه‌مندی‌ها" icon={<FavoriteBorderIcon fontSize='small'  />} />
+      <BottomNavigationAction classes={{label:classes.label}} onClick={onclick("/mybobo")} label="بوبوی من" icon={<PersonOutlineOutlinedIcon  fontSize='small'/>} />
     </BottomNavigation>
   );
 }

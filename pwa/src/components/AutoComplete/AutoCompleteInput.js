@@ -1,4 +1,4 @@
-import { Chip, makeStyles } from '@material-ui/core';
+import { Chip, Grid, makeStyles, TextField } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import throttle from 'lodash/throttle';
 import React, { useEffect, useState } from 'react';
@@ -7,7 +7,8 @@ import { normalizenumber } from '../../lib/normalizations';
 const useStyles = makeStyles(() => (
     {
         root: {
-            display: 'flex'
+            display: 'flex',
+            width: '99%'
         },
         green: {
             color: 'green'
@@ -29,6 +30,7 @@ const useStyles = makeStyles(() => (
 
 
 export default function AutoCompleteInput({ onSelected, queryUrl, inputcomponent, resultSelector, defaultValue, ...other }) {
+
 
 
 
@@ -66,6 +68,7 @@ export default function AutoCompleteInput({ onSelected, queryUrl, inputcomponent
         }
     }, [inputValue])
     const onchange = (event, newValue) => {
+        
         onSelected(newValue);
     }
     return (
@@ -80,7 +83,9 @@ export default function AutoCompleteInput({ onSelected, queryUrl, inputcomponent
                     setInputValue(newInputValue);
                 }}
                 getOptionLabel={(item) => item.province ? `${item.province},${item.city}` : item}
-                renderInput={(params) => <inputcomponent.type {...inputcomponent.props} {...params} />}
+                renderInput={(params) => {
+                    return (<inputcomponent.type  {...inputcomponent.props} {...params} />)
+                }}
                 // renderInput={(params) => <TextField fullWidth {...params} label="پلاک خودرو کد خودرو یا کد راننده..." variant="outlined" fullWidth />}
                 filterOptions={(x) => x}
                 options={options}
@@ -92,8 +97,7 @@ export default function AutoCompleteInput({ onSelected, queryUrl, inputcomponent
                 onChange={onchange}
                 renderOption={(option) => {
                     return (
-                        // <Grid container alignItems="center">
-                        //     <Grid item xs>
+
                         <Chip
                             color='primary'
                             label={`${option.province},${option.city}`}
@@ -103,11 +107,10 @@ export default function AutoCompleteInput({ onSelected, queryUrl, inputcomponent
                         //     }
                         // }
                         />
-                        // </Grid>
-                        // </Grid>
+
                     );
                 }}
-                {...other}
+            {...other}
             />
         </>
 

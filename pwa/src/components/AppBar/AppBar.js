@@ -1,5 +1,5 @@
 import MAppBar from '@material-ui/core/AppBar';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import React from 'react';
@@ -12,10 +12,7 @@ const useStyles = makeStyles((theme) => ({
     // marginRight: theme.spacing(2),
   },
   toolbar: {
-    minHeight: 128,
-    alignItems: 'flex-start',
-    paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(2),
+
   },
   title: {
     flexGrow: 1,
@@ -41,16 +38,26 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function AppBar({ rightIcon, title, leftIcons, middleCenterElement, extera, appBarColor, back }) {
+export default function AppBar({ rightIcon, title, leftIcons, middleCenterElement, extera, appBarColor, back ,short}) {
 
   const classes = useStyles();
+  const theme = useTheme();
+  const toolBarStyle = {
+    minHeight: short? "unset" : 128 ,
+    alignItems: 'flex-start',
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(2),
+  }
 
+  const rootStyle ={
+    marginBottom: short? "unset" : 50
+  }
   return (
-    <div className={classes.root}>
+    <div style={rootStyle}>
       <MAppBar color={appBarColor ? appBarColor : 'primary'} elevation={0} position="static">
-        <Toolbar className={classes.toolbar}>
+        <Toolbar style={toolBarStyle}>
           <div className={classes.rightIcon}>
-            { back ?
+            {back ?
               <ToolbarBackButton /> :
               rightIcon
             }

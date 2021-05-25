@@ -9,7 +9,7 @@ export default function ToolbarBackButton({ handleClick }) {
         if (handleClick) {
             handleClick();
         } else {
-            router.back();
+            router.goBack();
         }
     }
     return (

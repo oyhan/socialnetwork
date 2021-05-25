@@ -23,23 +23,23 @@ const useStyle = makeStyles((theme) => ({
 }))
 
 
-export default function VerticalSlider({ items ,title , Component }) {
+export default function VerticalSlider({ items ,title , Component ,componentProps }) {
     
 
     const classes = useStyle();
 
     return (
         <>
-            <Grid container >
+            {/* <Grid container > */}
                 <div className={classes.root} >
                     {
                         items.map((i, index) =>
-                            <Component  {...i} key={index} />
+                            <Component {...componentProps}  {...i} key={index} />
                         )
                     }
 
                 </div>
-            </Grid>
+            {/* </Grid> */}
         </>
     )
 

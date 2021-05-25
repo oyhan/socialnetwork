@@ -6,11 +6,12 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserHttpClient } from '../../../lib/BrowserHttpClient';
 import BoboChip from '../../Chip/Chip';
 import Rate from '../../Rate/Rate';
-
+import clsx from 'clsx';
+import RoomIcon from '@material-ui/icons/Room';
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
@@ -19,13 +20,16 @@ const useStyles = makeStyles((theme) => ({
         margin : '0 10px'
     },
     details: {
+        width: '73%',
         display: 'flex',
         flexDirection: 'column',
-        width: '73%'
+        margin: '-12px -3px',
     },
     content: {
         flex: '1 0 auto',
-        width: '100%'
+        width: '100%',
+        padding: '0 10px',
+        paddingTop: 16,
     },
     cover: {
         width: 100,
@@ -37,6 +41,9 @@ const useStyles = makeStyles((theme) => ({
         paddingLeft: theme.spacing(1),
         paddingBottom: theme.spacing(1),
     },
+    spaceBetween: {
+        justifyContent: 'space-between'
+    },
     playIcon: {
         height: 38,
         width: 38,
@@ -44,17 +51,41 @@ const useStyles = makeStyles((theme) => ({
     inline: {
         margin: '10px 0 7px 0',
         display: 'flex',
-        justifyContent: 'space-between'
+        // justifyContent: 'space-between'
     },
+    placeTitle: {
+        fontSize: 12,
+        fontWeight: 900
+    },
+    titleRow: {
+        marginBottom: -16
+    },
+    openStatus: {
+        marginLeft: 7
+    },
+    noOfReviews: {
+        marginLeft: 10
+    },
+    ratesCount: {
+        fontSize: 10,
+        lineHeight: 2.5,
+        letterSpacing: '.5px',
+    },
+    firstRow:{
+        marginTop:10
+    }
 }));
 
-export default function FavoriteItem({ rate, placeType, name, noOfReviews, distanceString, isOpen ,id}) {
+export default function FavoriteItem({ rate, placeType, name, noOfReviews, distanceString, isOpen, id, iconic ,favorite }) {
     const classes = useStyles();
-    const theme = useTheme();
     const [faved, setFaved] = useState(true);
 
+    useEffect(() => {
+        setFaved(favorite);
+       
+    }, [favorite])
 
-    
+
     const handlFave = () => {
 
         if (faved) {
@@ -78,39 +109,49 @@ export default function FavoriteItem({ rate, placeType, name, noOfReviews, dista
             <Card elevation={0} className={classes.root}>
                 <CardMedia
                     className={classes.cover}
-                    image="https://miro.medium.com/max/3000/1*MI686k5sDQrISBM6L8pf5A.jpeg"
-                    title="Live from space album cover"
+                    image="/coffeeshop2.jpg"
+                    title="علاقه‌مندی"
                 />
                 <div className={classes.details}>
 
                     <CardContent className={classes.content}>
-                        <div className={classes.inline}>
-                            <Typography component="h6" variant="h6">
+                        <div className={clsx(classes.inline, classes.spaceBetween, classes.titleRow, classes.firstRow)}>
+                            <Typography component="h6" className={classes.placeTitle} variant="h6">
                                 {name}
                             </Typography>
                             <span>
-                                <IconButton onClick={handlFave} aria-label="add to favorites">
+                                <IconButton size='small' onClick={handlFave} aria-label="add to favorites">
                                     {
-                                        faved ? <FavoriteIcon color='primary' /> : <FavoriteBorderIcon />
+                                        faved ? <FavoriteIcon fontSize='small' color='primary' /> : <FavoriteBorderIcon fontSize='small' />
                                     }
                                 </IconButton>
                             </span>
                         </div>
-                        <Typography className={classes.inline}>
-                            <Rate value={rate} />
-                            <Typography variant='caption' className={classes.ratesCount} color='disabled'>
-                                <span>{noOfReviews} نظر</span>
-                                <span>{isOpen ? "باز است" : ""}</span>
-
+                        <Typography className={clsx(classes.inline, classes.titleRow)}>
+                            <Rate size='small' value={rate} />
+                            <Typography variant='caption' className={clsx(classes.ratesCount)} color='textSecondary'>
+                                <span className={classes.noOfReviews}>{noOfReviews} نظر</span>.
+                                <span className={classes.openStatus}>{isOpen ? "باز است" : "بسته است"}</span>
                             </Typography>
                         </Typography>
+                        <Typography color='textSecondary' className={clsx(classes.inline, classes.ratesCount)}>
+                            ایرانی
+                        </Typography>
+                        {
+                            iconic ? <div className={clsx(classes.inline,)}>
+                                <RoomIcon fontSize="small" />
+                                <Typography className={classes.ratesCount} color='disabled'>
+                                    {distanceString}
+                                </Typography>
+                            </div> :
+                                <Typography variant="caption" className={classes.inline} color="textSecondary">
+                                    <BoboChip size="small" label={`${distanceString}`} />
+                                    <Typography variant='caption'>
+                                        فاصله از موقعیت کنونی
+                                    </Typography>
+                                </Typography>
+                        }
 
-                        <Typography variant="caption" className={classes.inline} color="textSecondary">
-                            <BoboChip size="small" label={`${distanceString}`} />
-                            <Typography variant='caption'>
-                                فاصله از موقعیت کنونی
-                        </Typography>
-                        </Typography>
                         <Typography variant='caption'>
                             {placeType}
                         </Typography>

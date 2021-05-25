@@ -20,9 +20,7 @@ using OsmSharp.Streams;
 
 namespace Mahoor.Api.Controllers
 {
-#if !DEBUG
     [Authorize]
-#endif
     public class TimelineController : BaseApiController
     {
         private readonly IMediator _mediator;
@@ -70,22 +68,27 @@ namespace Mahoor.Api.Controllers
             
             return Ok(rows);
         }
-        
-        
+
+
+
+#if DEBUG
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult> Citys()
         {
 
             return Ok(AddGeoData.InsertCitys(_db));
 
-//            var citys = await _cityRepository.ListAsync(c => new
-//            {
-//                Geom = c.Geom.ToText(),
-//                c.City,
-//
-//            },new GetAllCitiesQuery());
-//            return Ok(citys);
+            //            var citys = await _cityRepository.ListAsync(c => new
+            //            {
+            //                Geom = c.Geom.ToText(),
+            //                c.City,
+            //
+            //            },new GetAllCitiesQuery());
+            //            return Ok(citys);
         }
+#endif
+
 
     }
 }

@@ -21,5 +21,7 @@ namespace Mahoor.Services.Timeline.Dtos
         public Guid Id { get; set; }
         public int NoOfReviews { get; set; }
         public bool Favorite { get; set; }
+        public bool IsOpenNow { get; set; }
+        public string Cuisine { get; internal set; }
     }
 }

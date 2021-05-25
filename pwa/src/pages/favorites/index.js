@@ -17,11 +17,11 @@ export default function Favorites() {
 
     return <>
         <AppBar back title="علاقه‌مندی ها" />
-        <Grid container>
-            {loading ? <CircularProgress /> :
-                <VerticalSlider items={data} Component={FavoriteItem} />
-            }
-        </Grid>
+
+        {loading ? <CircularProgress /> :
+            <VerticalSlider items={data} Component={FavoriteItem} />
+        }
+
     </>
 }
 

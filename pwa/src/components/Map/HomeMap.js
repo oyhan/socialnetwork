@@ -11,20 +11,20 @@ const useStyle = makeStyles((theme) => ({
         marginBottom: theme.spacing(3),
         // position:'absolute'
     },
-    wrapper:{
+    wrapper: {
         width: '100vw',
         height: 150,
         marginTop: theme.spacing(3),
         marginBottom: theme.spacing(3),
-        position:'absolute',
-        zIndex:1000,
-        cursor : 'pointer'
+        position: 'absolute',
+        zIndex: 1000,
+        cursor: 'pointer'
     },
     title: {
         // marginBottom : theme.spacing(2),
     },
-    container:{
-        height : 150
+    container: {
+        height: 150
     }
 }))
 
@@ -35,12 +35,13 @@ const useStyle = makeStyles((theme) => ({
 export default function HomeMap({ items, title, points }) {
 
 
+
     const classes = useStyle();
 
-    const onclick =  () => {
+    const onclick = () => {
 
-      
-        router.push("/closest");
+
+        // router.push("/closest");
 
     }
 
@@ -52,13 +53,12 @@ export default function HomeMap({ items, title, points }) {
                 <Typography component='h3'>
                     مکان‌های اطراف  را جستجو کنید
                  </Typography>
-
             </Grid>
             <Grid className={classes.container} container >
                 <div className={classes.root} >
-                    <Map points={points} />
+                    {points && <Map points={points} point={points} />}
                 </div>
-                <div onClick={onclick}  className={classes.wrapper}></div>
+                <div onClick={onclick} className={classes.wrapper}></div>
             </Grid>
         </>
     )

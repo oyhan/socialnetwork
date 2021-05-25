@@ -1,6 +1,7 @@
-import { Container, Grid, Link, makeStyles } from '@material-ui/core';
+import { Container, Grid, makeStyles } from '@material-ui/core';
 import React from 'react';
 import ButtonBobo from '../../components/Button/ButtonBobo';
+import {Link} from 'react-router-dom';
 
 const useStyle = makeStyles(theme => ({
     root: {
@@ -23,7 +24,7 @@ export default function Start() {
                 <Grid className={classes.footer} item>
                     <Grid container justify='space-around'>
                         <Grid item xs={5}>
-                            <Link href="/login">
+                            <Link to="/login">
                                 <ButtonBobo fullWidth>
                                     ورود
                                 </ButtonBobo>
@@ -31,7 +32,7 @@ export default function Start() {
                         </Grid>
 
                         <Grid item xs={5}>
-                            <Link href="/signup">
+                            <Link to="/signup">
                                 <ButtonBobo fullWidth>
                                     ثبت نام
                                 </ButtonBobo>

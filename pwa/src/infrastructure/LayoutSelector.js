@@ -6,13 +6,15 @@ import BaseLayout from './BaseLayout';
 import Routes from './Routes';
 
 
-
+const AppLoader = ()=>{
+    return <CircularProgress style={{position : 'fixed' , top:'50%' ,left : '50%'}}/>
+}
 
 export default function useUserLayout() {
 
     return (
         <BaseLayout>
-            <Suspense fallback={<CircularProgress />}>
+            <Suspense fallback={<AppLoader />}>
                 <Switch>
 
                     {Routes.user.map((r, i) => {

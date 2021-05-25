@@ -18,24 +18,24 @@ export function useHttpClient(url, method, getResult, body) {
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState([]);
     const [error, setError] = useState();
-    
+
 
     useEffect(() => {
-        
-        // HttpClient[method || "Get"](url, JSON.stringify(body))
-        //     .then(result => {
-        //         
-        //         if (getResult)
-        //             result = getResult(result);
 
-        //         setLoading(false);
-        //         setData(result);
-        //     })
-        //     .catch(error => {
-        //         
-        //         setLoading(false);
-        //         setError(error);
-        //     })
+        HttpClient[method || "Get"](url, JSON.stringify(body))
+            .then(result => {
+
+                if (getResult)
+                    result = getResult(result);
+
+                setData(result);
+                setLoading(false);
+            })
+            .catch(error => {
+
+                setLoading(false);
+                setError(error);
+            })
 
     }, [])
 

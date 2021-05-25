@@ -1,11 +1,11 @@
 import { CircularProgress, makeStyles, Typography } from '@material-ui/core';
-import cookieCutter from 'cookie-cutter';
 import { useFormik } from 'formik';
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import ButtonBobo from '../../components/Button/ButtonBobo';
 import ToolbarBackButton from '../../components/Button/ToolbarBackButton';
 import OtpTimer from '../../components/OtpTimer/OtpTimer';
+import { setCredentials } from '../../helper/cookieHelper';
 import { BrowserHttpClient } from '../../lib/BrowserHttpClient';
 import useFormikObjectBuilder from '../../lib/formik/formikObjectBuilder';
 import InputRenderer from '../../lib/InputRenderer';
@@ -28,25 +28,20 @@ const useStyle = makeStyles((theme) => ({
     }
 }))
 
-export default function Confirm({ phoneNumber }) {
+export default function Confirm() {
     const schema = useSignupConfirmModelValidationSchema();
     const [, dispatch] = useStateValue();
     const history = useHistory();
     const [timer, setTimer] = useState(120)
-
+    const loctation = useLocation();
+    console.log('loctation: ', loctation);
     const onsubmit = () => {
         formik.setSubmitting(true);
         if (formik.isValid) {
-            BrowserHttpClient.Post(`/User/ConfirmPhoneNumber/${phoneNumber}/${formik.values.token}`)
+            BrowserHttpClient.Post(`/User/ConfirmPhoneNumber/${loctation.state.phoneNumber}/${formik.values.token}`)
                 .then(response => {
-                    const userCookie = JSON.stringify(response.user);
-                    localStorage.setItem("user", userCookie);
 
-
-                    // setCookie("user", userCookie);
-                    cookieCutter.set('refreshToken', response.refreshToken);
-                    cookieCutter.set('jwt', response.token);
-
+                    setCredentials(response);
                     dispatch({
                         type: actions.USER,
                         payload: response.user

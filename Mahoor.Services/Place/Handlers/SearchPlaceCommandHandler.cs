@@ -5,7 +5,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Mahoor.Data;
+using Mahoor.Data.Queries.City;
 using Mahoor.Data.Queries.Place;
+using Mahoor.DomainObjects.City;
 using Mahoor.DomainObjects.Place;
 using Mahoor.Services.Place.Commands;
 using Mahoor.Services.Place.Dto;
@@ -18,10 +20,12 @@ namespace Mahoor.Services.Place.Handlers
     class SearchPlaceCommandHandler :IRequestHandler<SearchPlaceCommand,BaseServiceResponse<List<PlaceSearchDto>>>
     {
         private readonly IAppRepository<BasePlaceModel, Guid> _placeRepository;
+        private readonly IAppRepository<CityModel, Guid> _cityRepository;
 
-        public SearchPlaceCommandHandler(IAppRepository<BasePlaceModel,Guid> placeRepository)
+        public SearchPlaceCommandHandler(IAppRepository<BasePlaceModel,Guid> placeRepository, IAppRepository<CityModel, Guid> cityRepository)
         {
             _placeRepository = placeRepository;
+            _cityRepository = cityRepository;
         }
         public async Task<BaseServiceResponse<List<PlaceSearchDto>>> Handle(SearchPlaceCommand request, CancellationToken cancellationToken)
         {
@@ -33,7 +37,16 @@ namespace Mahoor.Services.Place.Handlers
                     Name = p.Name,
                 }, new SearchPlaceQuery(request.Name));
 
-                return BaseServiceResponse<List<PlaceSearchDto>>.SuccessFullResponse(response.ToList());
+                var responseCities = await _cityRepository.ListAsync(p => new PlaceSearchDto()
+                {
+                    Id = p.Id,
+                    Name = p.City,
+                    IsCity = true
+                }, new GetAllCitiesQuery(request.Name));
+
+                var result = response.ToList();
+                result.AddRange(responseCities);
+                return BaseServiceResponse<List<PlaceSearchDto>>.SuccessFullResponse(result);
             }
             catch (Exception e)
             {

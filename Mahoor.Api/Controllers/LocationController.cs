@@ -24,7 +24,7 @@ namespace Mahoor.Api.Controllers
             _cityRepository = cityRepository;
         }
         [HttpGet("/location/current/{lat}/{lon}")]
-        public async Task<ActionResult<List<CityDto>>> GetCurrentCity(double lat , double lon)
+        public async Task<ActionResult<CityDto>> GetCurrentCity(double lat , double lon)
         {
             var command = new GetCityByLatLongCommand(lat, lon);
 
@@ -50,7 +50,6 @@ namespace Mahoor.Api.Controllers
                 c.Province
 
             },new GetAllCitiesQuery(name));
-            citys = citys.Where(c => c.City.Contains(name) || c.Province.Contains(name)).ToList();
             return Ok(citys);
         }
     }

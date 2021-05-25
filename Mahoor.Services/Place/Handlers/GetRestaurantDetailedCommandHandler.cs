@@ -30,7 +30,8 @@ namespace Mahoor.Services.Place.Handlers
         private readonly IAppRepository<ReviewModel, Guid> _reviewRepository;
         private readonly IGraphService _graphService;
 
-        public GetRestaurantDetailedCommandHandler(IAppRepository<RestaurantModel, Guid> restaurantRepository,IHttpContextAccessor httpContextAccessor, IAppRepository<ReviewModel, Guid> reviewRepository,IGraphService _graphService)
+        public GetRestaurantDetailedCommandHandler(IAppRepository<RestaurantModel, Guid> restaurantRepository,
+            IHttpContextAccessor httpContextAccessor, IAppRepository<ReviewModel, Guid> reviewRepository,IGraphService _graphService)
         {
             _restaurantRepository = restaurantRepository;
             _httpContextAccessor = httpContextAccessor;

@@ -8,20 +8,20 @@ const useStyles = makeStyles((theme) => ({
   root: {
     position: 'absolute',
     top: 104,
-    width:200,
-    left:'10vw',
-    zIndex :1000,
-    
+    width: 200,
+    left: '10vw',
+    zIndex: 1000,
+
     [theme.breakpoints.up('md')]: {
-      left:'25vw',
+      left: '25vw',
     },
     [theme.breakpoints.up('lg')]: {
-      left:'26vw',
+      left: '26vw',
     },
     [theme.breakpoints.up('xl')]: {
-      left:'34vw',
+      left: '34vw',
     },
-   
+
   },
   avatar: {
     width: theme.spacing(9),
@@ -43,24 +43,24 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function ProfileAvatar({ userName, displayName, avatarURl, onAvatarSelected }) {
-  
-  
+export default function ProfileAvatar({ userName, displayName, avatarURl, onAvatarSelected, readonly }) {
+
+
   const avatarfullPath = GetAvatarUrl(userName);
-  
+
   const classes = useStyles();
   return (
     <Grid container className={classes.root}>
-      
+
       <IconButton size='small' className={classes.avatorBtn}>
 
         {/* {avatarURl ? <Avatar src={avatarfullPath} className={classes.avatar} sizes={classes.avatar} /> :
           <div > */}
-            <ImageUploader defaultImage={avatarfullPath} receiveFiles={onAvatarSelected} />
+        <ImageUploader filesLimit={1} readonly={readonly} defaultImage={avatarfullPath} receiveFiles={onAvatarSelected} />
 
-          {/* </div> */}
+        {/* </div> */}
 
-        
+
 
       </IconButton>
       <Grid item direction='column' className={classes.avatarTxt}>

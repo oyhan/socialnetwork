@@ -13,10 +13,12 @@ using Mahoor.Services.User;
 using Mahoor.Services.User.Commands;
 using Mahoor.Services.User.Dto;
 using Mahoor.Services.User.Profile.Dto;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Mahoor.Api.Controllers
 {
+    [Authorize]
     public class ProfileController:BaseApiController
     {
         private readonly AppUserManager _userManager;

@@ -1,4 +1,4 @@
-import { InputAdornment, makeStyles } from '@material-ui/core';
+import { Grid, InputAdornment, makeStyles } from '@material-ui/core';
 import { AccountCircle } from '@material-ui/icons';
 import AlternateEmailIcon from '@material-ui/icons/AlternateEmail';
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -12,8 +12,7 @@ import { toast } from 'react-toastify';
 import AutoCompleteInput from '../../components/AutoComplete/AutoCompleteInput';
 import EditProfileAppBar from '../../components/Profile/EditProfile/EditProfileAppBar';
 import ProfileAvatar from '../../components/Profile/ProfileAvatar';
-import { useHttpClient } from '../../infrastructure/HttpClient';
-import { BrowserHttpClient } from '../../lib/BrowserHttpClient';
+import { BrowserHttpClient, useHttpClient } from '../../lib/BrowserHttpClient';
 import formikObjectBuilder from '../../lib/formik/formikObjectBuilder';
 import InputRenderer from '../../lib/InputRenderer';
 import { PropType } from '../../lib/proptypes';
@@ -30,11 +29,12 @@ const useStyle = makeStyles((theme) => ({
 export default function EditProfile() {
     const [, dispatch] = useStateValue();
 
-     const [loading , user , error] = useHttpClient("/profile/me","Get",r=>r.response);
+    const [loading, user, error] = useHttpClient("/profile/me", "Get", r => r.response);
     const router = useHistory();
     const { avatarURl, bio, city, favorites, noOfFollowers,
 
         noOfFollowings, noOfPosts, userName, website, displayName } = user;
+
 
 
     var onsubmit = (formik) => () => {
@@ -47,14 +47,14 @@ export default function EditProfile() {
                     toast.dismiss();
                     if (response.successFull) {
                         dispatch({ type: actions.USER, payload: formik.values });
-                        router.back();
+                        router.goBack();
                     } else {
-                        
+
                         toast("ویرایش پروفایل با خطا روبرو شد");
                     }
                 }).catch(error => {
                     formik.setSubmitting(false);
-                    
+
                     toast("ویرایش پروفایل با خطا روبرو شد");
                 });
         }
@@ -64,14 +64,18 @@ export default function EditProfile() {
     const schema = useProfileModelValidationSchema();
     var formik = useFormik(formikObjectBuilder(user, schema, onsubmit))
 
-
+    
 
     useEffect(() => {
+        console.log('user: ', user);
         formik.setValues(user);
+        
+
         formik.validateForm();
     }, [user])
     const avatarChanged = (file) => {
-        
+
+
         formik.setFieldValue("files", file[0])
     }
     return <>
@@ -120,13 +124,14 @@ export default function EditProfile() {
             key="cityId"
             value={formik.values.cityId}
             autoComplete="off" placeholder={"شهر"} Type={PropType.Hidden} Name="cityId" fullWidth />
-        <AutoCompleteInput
+        {formik.values.city && <AutoCompleteInput
             defaultValue={formik.values.city}
             inputcomponent={
                 <InputRenderer
                     key="city"
                     onChange={formik.handleChange}
-                    error={formik.errors?.city}
+                    error={formik.errors?.cityId}
+                    defaultValue={formik.values.city}
                     value={formik.values.city}
                     InputProps={{
                         startAdornment: (
@@ -140,7 +145,7 @@ export default function EditProfile() {
             }
             queryUrl={"/Location/Citys/{query}"}
             onSelected={(value) => { formik.setFieldValue("cityId", value?.id) }}
-        />
+        />}
 
         <InputRenderer
             key="favorites"
@@ -153,7 +158,7 @@ export default function EditProfile() {
                     </InputAdornment>
                 ),
             }}
-            value={favorites}
+            value={formik.values.favorites}
             autoComplete="off" placeholder={"علاقه‌مندی ها"} Type={PropType.Text} Name="favorites" fullWidth />
         <InputRenderer
             key="website"

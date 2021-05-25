@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Elasticsearch.Net.Specification.IndexLifecycleManagementApi;
 using Mahoor.Services.Helper;
+using Mahoor.Services.Place;
 using Mahoor.Services.Place.Commands;
 using Mahoor.Services.Place.Dto;
 using Mahoor.Services.Timeline.Dtos;
@@ -14,7 +15,7 @@ namespace Mahoor.Api.Controllers
     public class PlaceController :BaseApiController
     {
 
-
+       
         [HttpPost("/place/fave/{placeId}")]
         public async Task<ActionResult<PlaceRateDto>> AddToFavorite(Guid placeId)
         {
@@ -84,8 +85,21 @@ namespace Mahoor.Api.Controllers
             return BadRequest(result);
         }
 
+        [HttpGet("/restaurant/nearme")]
+        public async Task<ActionResult<RestaurantDto>> NearmeRestaurants()
+        {
+            var command = new GetNearRestaurantsCommand(User.Id());
 
-        [HttpGet("/place/search/{name}")]
+            var result = await Mediator.Send(command);
+            if (result.SuccessFull)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+
+       [HttpGet("/place/search/{name}")]
         public async Task<ActionResult<PlaceSearchDto>> Search(string name)
         {
             var command = new SearchPlaceCommand(name);

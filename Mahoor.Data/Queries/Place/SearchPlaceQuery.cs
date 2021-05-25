@@ -10,8 +10,8 @@ namespace Mahoor.Data.Queries.Place
     {
         public SearchPlaceQuery(string nameTerm)
         {
-           
-            AddCriteria(c=>c.Name.ToLower().Contains(nameTerm) || c.EnglishName.ToLower().Contains(nameTerm));
+            var termReady = nameTerm.ToLower();
+            AddCriteria(c=>c.Name.ToLower().Contains(termReady) || c.EnglishName.ToLower().Contains(termReady));
         }
     }
 }

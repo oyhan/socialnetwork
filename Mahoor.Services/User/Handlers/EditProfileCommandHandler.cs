@@ -103,13 +103,13 @@ namespace Mahoor.Services.User.Handlers
             await using var fileStream= File.Create(path);
 //            await using var fileStream = new FileStream(path, FileMode.CreateNew);
             await file.CopyToAsync(fileStream);
-            using (var imageFactory = new ImageFactory(preserveExifData: false))
-            {
-                imageFactory.Load(file.OpenReadStream())
-                    .Format(format)
-                    .Quality(100)
-                    .Save(fileStream);
-            }
+            //using (var imageFactory = new ImageFactory(preserveExifData: false))
+            //{
+            //    imageFactory.Load(file.OpenReadStream())
+            //        .Format(format)
+            //        .Quality(100)
+            //        .Save(fileStream);
+            //}
             fileStream.Close();
         }
     }

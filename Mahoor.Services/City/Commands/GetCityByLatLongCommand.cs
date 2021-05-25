@@ -8,7 +8,7 @@ using MediatR;
 
 namespace Mahoor.Services.City.Commands
 {
-    public class GetCityByLatLongCommand : IRequest<BaseServiceResponse<List<CityDto>>>, IQuery
+    public class GetCityByLatLongCommand : IRequest<BaseServiceResponse<CityHomeDto>>, IQuery
     {
         public double Lat { get; }
         public double Lon { get; }

@@ -88,7 +88,7 @@ namespace Mahoor.Services.User
         {
             var user = new UserModel()
             {
-                UserName = command.UserName,
+                UserName = command.UserName.ToLower(),
                 PhoneNumber =  command.PhoneNumber
             };
             var duplicateUser = await FindByPhoneNumberAsync(command.PhoneNumber);

@@ -1,13 +1,14 @@
 import { Avatar, Box, Grid, Typography } from "@material-ui/core";
+import GetAvatarUrl from "../../../helper/AvatarHelper";
 import { appMoment } from "../../../lib/appmoment";
 import Rate from "../../Rate/Rate";
 
 
 export default function ReviewItem(review) {
-    const { writerUserName,rate,description,
-        dateWrittenString,dateWritten,writer,title} =review;
+    const { writerUserName, rate, description,
+        dateWrittenString, dateWritten, writer, title } = review;
     
-    const avatarUrl = `/user/${writerUserName}/avatar/avatar.webp`;
+    const avatarUrl = GetAvatarUrl(writerUserName);
 
     return (
         <Grid container>
@@ -28,13 +29,13 @@ export default function ReviewItem(review) {
                         <Typography variant='subtitle2'>
                             <Box fontWeight='fontWeightBold'>
                                 {title}
-                        </Box>
+                            </Box>
                         </Typography>
                     </Grid>
 
                     <Grid item>
                         <Typography variant='caption' component='p'>
-                           {description}
+                            {description}
                         </Typography>
                     </Grid>
                 </Grid>

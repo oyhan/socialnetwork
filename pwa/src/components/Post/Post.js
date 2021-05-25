@@ -14,7 +14,7 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import ReplyIcon from '@material-ui/icons/Reply';
 import ReportIcon from '@material-ui/icons/Report';
 import TrendingFlatIcon from '@material-ui/icons/TrendingFlat';
-import { useHistory} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import React, { useState } from 'react';
 import GetAvatarUrl from '../../helper/AvatarHelper';
 import { BrowserHttpClient } from '../../lib/BrowserHttpClient';
@@ -61,9 +61,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Post({ userName, createdDate, placeName, text, likes, medias, id, liked }) {
     const router = useHistory();
-    
+
     const [{ user }] = useStateValue();
-    
+
     const classes = useStyles();
     const [innerLikes, setLikes] = useState(likes);
     const [expanded, setExpanded] = React.useState(false);
@@ -81,7 +81,13 @@ export default function Post({ userName, createdDate, placeName, text, likes, me
     const handleMore = () => {
         setOpen(!open);
     }
-    var moreBtnItems = [{
+    const selectDialogItem = ()=>{
+        if(user.userName.toLowerCase() !=userName.toLowerCase()){
+            return btnMoreItems ;
+        }
+        return btnMoreOwnerItems;
+    }
+    const btnMoreItems = [{
         title: `انصراف از دنبال کردن`,
         action: () => {
             BrowserHttpClient.Post(`/user/unfollow/${userName}`).then(() => {
@@ -118,6 +124,19 @@ export default function Post({ userName, createdDate, placeName, text, likes, me
     },
     ]
 
+    const btnMoreOwnerItems = [{
+        title: `حذف`,
+        action: () => {
+            BrowserHttpClient.Post(`/post/delete/${id}`).then(() => {
+                setUnfollow(!unfollow);
+                setOpen(false);
+            })
+        },
+        // icon: <CallMissedIcon />,
+        //not unfollowed before and its not him/her self
+        visible: !unfollow || (user.userName != userName)
+    }
+    ]
     const handleLike = () => {
         if (!userLiked) {
             BrowserHttpClient.Post(`/like/${id}`).then(() => {
@@ -133,8 +152,21 @@ export default function Post({ userName, createdDate, placeName, text, likes, me
 
     }
 
-    const handleGotoProfile=()=>{
+    const handleGotoProfile = () => {
         router.push(`profile/${userName}`);
+    }
+
+    const sharePost = async () => {
+        const shareData = {
+            title: `پست ${userName} را در بوبو ببینید`,
+            text: text,
+            url: `/post/${id}`,
+        }
+        try {
+            await navigator.share(shareData)
+        } catch (err) {
+            
+        }
     }
 
     return (
@@ -178,12 +210,12 @@ export default function Post({ userName, createdDate, placeName, text, likes, me
                 <Typography>
                     {innerLikes}
                 </Typography>
-                <IconButton className={classes.sharebtn} aria-label="share">
+                <IconButton onClick={sharePost} className={classes.sharebtn} aria-label="share">
                     <ReplyIcon />
                 </IconButton>
             </CardActions>
 
-            <Dialog open={open} items={moreBtnItems} handleClose={handleMore} />
+            <Dialog open={open} items={selectDialogItem()} handleClose={handleMore} />
 
         </Card>
     );

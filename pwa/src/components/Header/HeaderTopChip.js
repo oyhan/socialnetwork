@@ -9,7 +9,8 @@ const useStyles = makeStyles((theme) => ({
         alignSelf: 'center',
         '& svg': {
             color: theme.palette.primary.main
-        }
+        },
+        height: 24,
       
     },
 }))

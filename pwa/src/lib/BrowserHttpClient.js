@@ -19,9 +19,6 @@ export const BrowserHttpClient = {
 
 
 export function useHttpClient(url, method, getResult, body) {
-    
-    
-
 
 
     const [loading, setLoading] = useState(true);
@@ -30,12 +27,8 @@ export function useHttpClient(url, method, getResult, body) {
 
     var timerId = undefined;
     function throttle(func, delay) {
-
-
         //currently there is a func scheduled.
-
         if (timerId) return;
-
 
         //no funciton scheduled create one...
         timerId = setTimeout(() => {
@@ -44,28 +37,25 @@ export function useHttpClient(url, method, getResult, body) {
         }, delay)
 
     }
+
     let fetchFunction = (url2) => () => {
-
+        setLoading(true);
         BrowserHttpClient[method](url2, JSON.stringify(body))
-
             .then(result => {
                 if (getResult)
                     result = getResult(result);
 
-                setLoading(false);
                 setData(result);
+                setLoading(false);
             })
             .catch(error => {
                 setData([]);
                 setLoading(false);
                 setError(error);
             })
-
     }
 
-
     useEffect(() => {
-        
 
         throttle(fetchFunction(url), 150)
     }, [url])
@@ -159,11 +149,11 @@ function GetAll(url) {
 function handleResponse(response) {
 
     if (response.status == 401) {
-        UserManager.Save(null);
-        toast.info("نیاز به ورود مجدد دارید...")
-        setTimeout(() => {
-            window.location = "/";
-        }, 3000)
+        // UserManager.Save(null);
+        // toast.info("نیاز به ورود مجدد دارید...")
+        // setTimeout(() => {
+        //     window.location = "/";
+        // }, 3000)
     }
     return new Promise((resolve, reject) => {
         if (response.ok) {

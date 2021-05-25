@@ -85,7 +85,7 @@ export default function PlacePageAppBar(props) {
         return style;
     }
     const handleBack = () => {
-        router.back();
+        router.goBack();
     }
 
     return (

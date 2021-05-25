@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
     avatorBtn: {
         width: theme.spacing(9),
         height: theme.spacing(9),
+        color: 'white',
         // marginBottom: '-43px',
         // marginLeft: '43px',
     },
@@ -79,7 +80,7 @@ export default function UserProfileAvatar({ userName,displayName }) {
             </IconButton>
             <Grid item direction='column' className={classes.avatarTxt}>
                 <Typography color='primary' resource variant='subtitle2'>
-                    نام نمایشی
+                    {displayName}
               </Typography>
                 <Typography color='primary' variant='caption'>
                     {userName && `@${userName}` || '@نام کاربری'}

@@ -1,7 +1,6 @@
 import { Grid, makeStyles } from '@material-ui/core';
 import { motion, useAnimation } from 'framer-motion';
 import React, { useEffect, useState } from 'react';
-import Sheet from 'react-modal-sheet';
 // const createGesture = dynamic(
 
 //     () => import('@ionic/react'), // replace '@components/map' with your component's location
@@ -12,6 +11,7 @@ const useStyle = makeStyles(theme => ({
         height: '100vh',
         display: "flex",
         flexDirection: "column",
+        width :'100%'
     },
     handle: {
         width: 50,
@@ -23,7 +23,6 @@ const useStyle = makeStyles(theme => ({
     },
     sheet: {
         display: "inline-block",
-        backgroundColor: 'yellow',
         // marginLeft: 20,
         width: '100%',
         height: '100vh',
@@ -36,7 +35,7 @@ const useStyle = makeStyles(theme => ({
 
 }))
 
-export default function BottomSheet(props) {
+export default function BottomSheet(prop) {
 
     const [isOpen, setOpen] = React.useState(true);
     const controls = useAnimation();

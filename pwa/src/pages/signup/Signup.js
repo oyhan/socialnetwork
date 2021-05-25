@@ -34,7 +34,7 @@ export default function Signup() {
             BrowserHttpClient.Post("/User/Register", JSON.stringify(formik.values))
                 .then(response => {
                     formik.setSubmitting(false);
-                    history.push({ pathname: "/signup/confirm", query: { phoneNumber: formik.values.phoneNumber } })
+                    history.push("/signup/confirm", { phoneNumber: formik.values.phoneNumber });
                     toast.success("کد تایید برای شما پیامک شد");
                 }).catch(error => {
                     formik.setSubmitting(false);

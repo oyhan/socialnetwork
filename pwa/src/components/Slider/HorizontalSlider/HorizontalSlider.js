@@ -32,18 +32,7 @@ export default function HorizontalSlider({ items ,title , Component }) {
 
     return (
         <>
-            <Grid justify='space-between' direction='row' spacing={0} container className={classes.title} >
-                <Typography component='h4'>
-                    {title}
-                 </Typography>
-                <Link to="/seeall" >
-                    <a>
-                        <Typography color='primary'>
-                            همه را ببین
-                        </Typography>
-                    </a>
-                </Link>
-            </Grid>
+            
             <Grid container >
                 <div className={classes.root} >
                     {

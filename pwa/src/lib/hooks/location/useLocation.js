@@ -6,7 +6,7 @@ export default function useLocation() {
     const getDefault = ()=>{
         if(isBrowser){
             var savedLocation = JSON.parse(localStorage.getItem("location"));
-            return savedLocation || defaultLocation;
+            return defaultLocation
         }
         return  defaultLocation;
     }
@@ -23,8 +23,8 @@ export default function useLocation() {
     }
     const success = (pos) => {
         var crd = pos.coords;
-        localStorage.setItem("location",JSON.stringify({latitude :crd.latitude,longitude:crd.longitude}))
-        setPos(crd);
+        localStorage.setItem("location",JSON.stringify(defaultLocation))
+        setPos(defaultLocation);
        
     }
     useEffect(() => {

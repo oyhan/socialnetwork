@@ -5,6 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using ChefCode.Common.WebFamework;
 using Mahoor.Api.ViewModels;
+using Mahoor.Services.City.Commands;
+using Mahoor.Services.City.Dto;
 using Mahoor.Services.Helper;
 using Mahoor.Services.Like.Command;
 using Mahoor.Services.Post;
@@ -21,20 +23,20 @@ using StackExchange.Redis;
 namespace Mahoor.Api.Controllers
 {
     [Authorize]
-    public class PostController: BaseApiController
+    public class PostController : BaseApiController
     {
-//        private IPostService _postService;
+        //        private IPostService _postService;
         private readonly IMediator _mediator;
-//        private readonly IDatabase _redis;
+        //        private readonly IDatabase _redis;
 
         public PostController(
-            IMediator mediator 
+            IMediator mediator
             )
         {
-//            _postService = postService;
+            //            _postService = postService;
             _mediator = mediator;
-//            _redis = redis;
-//            redis.StringSet("asd", "dqwdqwdqd");
+            //            _redis = redis;
+            //            redis.StringSet("asd", "dqwdqwdqd");
         }
 
 
@@ -43,8 +45,6 @@ namespace Mahoor.Api.Controllers
         [Consumes("multipart/form-data")]
         public async Task<ActionResult> New([FromForm] PostViewModel post)
         {
-
-
             var medias = ProcessFiles();
             if (medias == null || medias.Count == 0)
             {
@@ -57,9 +57,10 @@ namespace Mahoor.Api.Controllers
                 UserId = User.Id(),
                 PlaceId = post.PlaceId,
                 Medias = medias,
-                
+                CityId = post.CityId
+
             };
-            
+
             var result = await _mediator.Send<BaseServiceResponse<Guid>>(cmd);
             if (result.SuccessFull)
             {
@@ -81,12 +82,13 @@ namespace Mahoor.Api.Controllers
 
             return BadRequest(result);
         }
+
         [HttpGet]
-        public async Task<ActionResult> GetPostById(Guid id)
+        public async Task<ActionResult> GetPostById(Guid postId)
         {
-            var cmd = new GetPostByIdCommand() 
+            var cmd = new GetPostByIdCommand()
             {
-                PostId = id
+                PostId = postId
             };
             var result = await _mediator.Send(cmd);
             if (result.SuccessFull)
@@ -96,11 +98,11 @@ namespace Mahoor.Api.Controllers
 
             return BadRequest(result);
         }
-        [HttpPost("/delete/{id}")]
+        [HttpPost("/post/delete/{id}")]
         public async Task<ActionResult> Delete(Guid id)
         {
-            var command = new DeletePostCommand() {PostId = id};
-            var result = await _mediator.Send< BaseServiceResponse<bool>>(command);
+            var command = new DeletePostCommand() { PostId = id ,Requester= User.IdGuid()};
+            var result = await _mediator.Send<BaseServiceResponse<bool>>(command);
             if (result.Response)
             {
                 return Ok();
@@ -114,9 +116,9 @@ namespace Mahoor.Api.Controllers
         /// <param name="postId">the id of the post</param>
         /// <returns></returns>
         [HttpPost("/like/{id}")]
-        public async Task<ActionResult> Like( Guid id)
+        public async Task<ActionResult> Like(Guid id)
         {
-            var cmd = new NewLikePostCommand(Guid.Parse(User.Id()) ,id );
+            var cmd = new NewLikePostCommand(Guid.Parse(User.Id()), id);
             var result = await _mediator.Send(cmd);
             if (result.Response)
             {
@@ -131,7 +133,7 @@ namespace Mahoor.Api.Controllers
         /// <param name="id">post id</param>
         /// <returns></returns>
         [HttpPost("/unlike/{id}")]
-        public async Task<ActionResult> UnLike( Guid id)
+        public async Task<ActionResult> UnLike(Guid id)
         {
             var cmd = new NewUnLikePostCommand(Guid.Parse(User.Id()), id);
 
@@ -163,7 +165,21 @@ namespace Mahoor.Api.Controllers
 
             return BadRequest(result);
         }
-        /// <su
+        
+        [HttpGet("/city/posts/{cityId}")]
+        [AllowAnonymous]
+        public async Task<ActionResult<BaseServiceResponse<List<CityPostListDto>>>> GetCityPosts(Guid cityId)
+        {
+            var cmd = new GetCityPostsCommand(0,50,cityId);
+           
+            var result = await _mediator.Send(cmd);
+            if (result.SuccessFull)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
 
 
     }

@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Fab, makeStyles, Tooltip } from '@material-ui/core';
 import { green } from '@material-ui/core/colors';
 import { PhotoCamera } from '@material-ui/icons';
+import useWebp from '../../lib/hooks/ImageCompress/useWebp';
 const pica = require('pica')();
 
 const useStyle = makeStyles((theme) => ({
@@ -24,10 +25,10 @@ const useStyle = makeStyles((theme) => ({
         color: green[500],
         position: 'absolute',
         top: -6,
-        left: -6, 
+        left: -6,
         zIndex: 1,
     },
-    buttonProgress: { 
+    buttonProgress: {
         color: green[500],
         position: 'absolute',
         top: '50%',
@@ -43,30 +44,76 @@ const useStyle = makeStyles((theme) => ({
     },
     thumbnailContainer: {
         display: 'flex'
+    },
+    fab :{
+        background:'#fff'
     }
 }))
 export function resizeWithPica(image, newWidth) {
-    
-    
 
     var offScreenCanvas = document.createElement("canvas")
     offScreenCanvas.width = newWidth;
     offScreenCanvas.height = image.height * newWidth / image.width;
+
     return pica.resize(image, offScreenCanvas, {
         quality: 3,
-        transferable: true
+        transferable: true,
     }).then(() => {
-        const dataUrl = offScreenCanvas.toDataURL();
-        
-        return dataUrl;
+        offScreenCanvas.toBlob((blob) => {
+
+
+            return blob;
+        }, "image/webp");
+
+        // return dataUrl;
     })
 }
-export default function ImageUploader({ name, index, filesLimit, nothumbnail, receiveFiles, defaultImage, multiple, ...props }) {
+export default function ImageUploader({ name, index, filesLimit, nothumbnail, receiveFiles, defaultImage, multiple, readonly, ...props }) {
+
     const [thumbs, setThumbs] = React.useState([]);
+    const [images, setImages] = useState([]);
+
+
+    const [processing, imageResized] = useWebp(images, .2)
+
+    const toBase64 = file => new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+    });
+
+    useEffect(() => {
+
+        if (imageResized.length > 0) {
+
+
+            receiveFiles && receiveFiles(imageResized)
+            for (const f of imageResized) {
+                console.log('f: ', f);
+                toBase64(f).then(result => {
+                    setThumbs([...thumbs, {
+                        filename: f.name,
+                        value: result.split(',')[1].toString(),
+                        mimetype: f.type,
+                        src: result
+                    }])
+                })
+
+            }
+        }
+    }, [imageResized])
     const classes = useStyle();
     const rand = Math.round(Math.random() * 10000);
+
+
     const createThumbnails = (event) => {
+
         const files = [...event.target.files];
+
+        setImages(files);
+
+
         var selectedFiles = [];
         const prepareFiles = () => {
             return new Promise((resolve, reject) => {
@@ -105,10 +152,7 @@ export default function ImageUploader({ name, index, filesLimit, nothumbnail, re
             }
             )
         }
-        prepareFiles().then(prepared => {
 
-            receiveFiles && receiveFiles(prepared);
-        })
     }
     return (
         <div key={index} className={classes.root}>
@@ -152,7 +196,11 @@ export default function ImageUploader({ name, index, filesLimit, nothumbnail, re
                                     aria-label="save"
                                     color="primary"
                                     component='label'
-                                    htmlFor={`input-file-${rand}`}
+                                    disableRipple
+                                    classes={{
+                                        primary : classes.fab
+                                    }}
+                                    htmlFor={readonly ? "" : `input-file-${rand}`}
                                 >
                                     <img src={defaultImage}
                                         width={props.thumbnailSize === undefined ? 50 : props.thumbnailSize}
@@ -171,7 +219,7 @@ export default function ImageUploader({ name, index, filesLimit, nothumbnail, re
                                     aria-label="save"
                                     color="primary"
                                     component='label'
-                                    htmlFor={`input-file-${rand}`}
+                                    htmlFor={readonly ? "" : `input-file-${rand}`}
                                 >
                                     <PhotoCamera />
                                 </Fab>

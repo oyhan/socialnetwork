@@ -1,14 +1,14 @@
-import  React from 'react';
-import {Link,BrouserRouter as Router,Route , Redirect} from 'react-router-dom';
-import UserManager from '../lib/userManager';
+import cookieCutter from 'cookie-cutter';
+import React from 'react';
+import { Redirect, Route } from 'react-router-dom';
 
 
 
 export default function PrivateRoute (props) {
 
 
-    const user = UserManager.Load();
-    if (user)
+    const jwt = cookieCutter.get("jwt")
+    if (jwt)
       return (
 
         <Route {...props} path={props.path} >

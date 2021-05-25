@@ -51,11 +51,11 @@ const leftIcon = [
   </IconButton>,
 ]
 
-export default function ProfileAppBar({ profileDto }) {
+export default function ProfileAppBar({ profileDto ,readonly }) {
   const classes = useStyles();
 
   const extera = (
-    <ProfileAvatar {...profileDto} />
+    <ProfileAvatar readonly={readonly}  {...profileDto} />
   )
 
   return (

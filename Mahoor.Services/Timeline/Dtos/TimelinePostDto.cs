@@ -7,7 +7,7 @@ namespace Mahoor.Services.Timeline.Dtos
     public class TimelinePostDto
     {
         public int Likes { get; set; }
-        public List<TimelineMediaDto> Medias { get; set; }
+        public IEnumerable<TimelineMediaDto> Medias { get; set; }
         public string Text { get; set; }
         public string PlaceName { get; set; }
         public Guid Id { get; set; }

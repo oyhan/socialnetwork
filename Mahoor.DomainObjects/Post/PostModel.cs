@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml.Linq;
 using ChefCode.Common.BaseModels;
+using Mahoor.DomainObjects.City;
 using Mahoor.DomainObjects.Place;
 using Mahoor.DomainObjects.User;
 using Microsoft.EntityFrameworkCore;
@@ -13,11 +14,13 @@ namespace Mahoor.DomainObjects.Post
     {
         public string Text { get; set; }
         public string UserId { get; set; }
-        public Guid PlaceId { get; set; }
+        public Guid? PlaceId { get; set; }
         public string PlaceName { get; set; }
         public BasePlaceModel Place { get; set; }
         public UserModel User { get; set; }
         public List<Media> Medias { get; set; }
+        public CityModel City { get; set; }
+        public Guid? CityId { get; set; }
     }
 
     [Owned]

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Typography, makeStyles, Grid, IconButton } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 // import UserProfileAppBar from './UserProfileAppBar';
 import { useStateValue } from '../../../lib/store/appState';
@@ -75,7 +75,7 @@ export default function UserProfile({ user }) {
                 <Typography>
                     دنبال کنندگان
                 </Typography>
-                <Link href={`/${user.userName}/followers`}>
+                <Link to={`/${user.userName}/followers`}>
                     <Typography align='center'>
                         {noOfFollowers}
                     </Typography>
@@ -90,8 +90,8 @@ export default function UserProfile({ user }) {
                 </Typography>
             </Grid>
         </Grid>
-        <Grid spacing={1} className={classes.div} container direction='row' justify='space-around'>
-            <Grid container spacing={1} direction='row'>
+        <Grid className={classes.div} container direction='row' justify='space-around'>
+            <Grid container direction='row'>
                 <IconButton size='small' disableRipple color='inherit'>
                     <LocationOnIcon />
                 </IconButton>
@@ -99,7 +99,7 @@ export default function UserProfile({ user }) {
                     {city}
                 </Typography>
             </Grid>
-            <Grid container spacing={1} direction='row'>
+            <Grid container direction='row'>
                 <IconButton size='small' disableRipple color='inherit'>
                     <FavoriteIcon />
                 </IconButton>
@@ -107,7 +107,7 @@ export default function UserProfile({ user }) {
                     {favorites}
                 </Typography>
             </Grid>
-            <Grid container spacing={1} direction='row'>
+            <Grid container direction='row'>
                 <IconButton size='small' disableRipple color='inherit'>
                     <LanguageIcon />
                 </IconButton>
@@ -121,8 +121,10 @@ export default function UserProfile({ user }) {
                 </Typography>
             </Grid>
         </Grid>
-        <FullWidthTabs tabs={["فعالیت", "عکس"]} tabsContent={[
-            <UserPosts userName={userName} />
-        ]} />
+        {
+           userName && <FullWidthTabs tabs={["فعالیت", "عکس"]} tabsContent={[
+                <UserPosts userName={userName} />
+            ]} />
+        }
     </>
 }

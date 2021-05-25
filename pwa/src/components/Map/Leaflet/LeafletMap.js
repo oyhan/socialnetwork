@@ -26,7 +26,7 @@ var myIcon = L.icon({
     shadowSize: [50, 64],
     shadowAnchor: [22, 94]
 });
-export default function LeafletMap({ points , point }) {
+export default function LeafletMap({ points , point , enableMyLocation }) {
     
     
     // var points = useContext(MapContext);
@@ -59,7 +59,7 @@ export default function LeafletMap({ points , point }) {
                 }
                 )
             }
-            <LeafletMapController />
+            <LeafletMapController enableMyLocation={enableMyLocation} />
             <FeatureGroup>
 
             </FeatureGroup>

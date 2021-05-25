@@ -111,13 +111,16 @@ namespace Mahoor.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<Guid?>("CityId")
+                        .HasColumnType("uuid");
+
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<DateTime>("LastModifiedDate")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<Guid>("PlaceId")
+                    b.Property<Guid?>("PlaceId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("PlaceName")
@@ -131,6 +134,8 @@ namespace Mahoor.Data.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CityId");
 
                     b.HasIndex("PlaceId");
 
@@ -552,11 +557,13 @@ namespace Mahoor.Data.Migrations
 
             modelBuilder.Entity("Mahoor.DomainObjects.Post.PostModel", b =>
                 {
+                    b.HasOne("Mahoor.DomainObjects.City.CityModel", "City")
+                        .WithMany("Posts")
+                        .HasForeignKey("CityId");
+
                     b.HasOne("Mahoor.DomainObjects.Place.BasePlaceModel", "Place")
                         .WithMany()
-                        .HasForeignKey("PlaceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PlaceId");
 
                     b.HasOne("Mahoor.DomainObjects.User.UserModel", "User")
                         .WithMany("Posts")

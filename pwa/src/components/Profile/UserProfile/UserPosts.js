@@ -9,7 +9,7 @@ export default function UserPosts({ userName }) {
         <Grid container direction='column' justify='center' alignContent='center' >
             {
                 loading  ? <Typography>loading</Typography> : error ? <Typography>{error}</Typography> :
-                    data.map((p, index) => {
+                data &&data.map((p, index) => {
                         return (
                             <Post key={index} {...p} />
                         )

@@ -4,55 +4,34 @@ import LaunchIcon from '@material-ui/icons/Launch';
 import React from 'react';
 import AppBar from '../AppBar/AppBar';
 import ProfileAvatar from './ProfileAvatar';
-import {Link} from 'react-router-dom'
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  rightIcon: {
-    marginRight: theme.spacing(2),
-  },
-  toolbar: {
-    minHeight: 128,
-    alignItems: 'flex-start',
-    paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-    alignSelf: 'flex-start',
-    textAlign: 'center'
-  },
-  avatar: {
-    width: theme.spacing(9),
-    height: theme.spacing(9),
-    // color: theme.palette.secondary.light,
-    border: '4px solid',
-    backgroundColor: theme.palette.secondary.main,
-  },
-  avatorBtn: {
-    width: theme.spacing(9),
-    height: theme.spacing(9),
-    marginBottom: '-43px',
-    marginLeft: '43px',
-  },
-  avatarTxt: {
-    marginBottom: '-59px',
-    marginLeft: 119,
+import { Link } from 'react-router-dom'
+
+
+export default function ProfileAppBar({ profileDto, readonly }) {
+  
+
+  const shareProfile = async () => {
+    const shareData = {
+      title: `پروفایل ${profileDto.userName} را در بوبو مشاهده کنید`,
+      text: "",
+      url: `/profile/${profileDto.userName}`,
+    }
+    try {
+      await navigator.share(shareData)
+    } catch (err) {
+
+    }
   }
-}));
-const leftIcon = [
+  const leftIcon = [
 
-  <IconButton aria-label="display more actions" edge="end" color="inherit">
-    <LaunchIcon />
-  </IconButton>,
-  <IconButton component={Link} to="/settings"  aria-label="search" color="inherit">
-    <Settings />
-  </IconButton>,
-]
+    <IconButton onClick={shareProfile} aria-label="display more actions" edge="end" color="inherit">
+      <LaunchIcon />
+    </IconButton>,
+    <IconButton component={Link} to="/settings" aria-label="search" color="inherit">
+      <Settings />
+    </IconButton>,
+  ]
 
-export default function ProfileAppBar({ profileDto ,readonly }) {
-  const classes = useStyles();
 
   const extera = (
     <ProfileAvatar readonly={readonly}  {...profileDto} />

@@ -57,7 +57,7 @@ export default function SearchBobo(props) {
     }
 
     useEffect(() => {
-        console.log('searchInCity: ', searchInCity);
+        
 
         setDestination(destination)
 

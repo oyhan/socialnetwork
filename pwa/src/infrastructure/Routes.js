@@ -1,12 +1,12 @@
 import { lazy } from 'react';
-import PlaceSeeAllPhotos from '../components/Place/PlaceSeeAllPhotos';
-import SearchForPlace from '../components/Place/SearchForPlace';
 import Home from '../pages/Home';
 import ConfirmLogin from '../pages/login/confirm';
 import NearMe from '../pages/nearme';
 import SettingsPage from '../pages/settings';
 import ConfirmSignup from '../pages/signup/confirm';
 
+const SearchForPlace = lazy(() => import('../components/Place/SearchForPlace'));
+const PlaceSeeAllPhotos = lazy(() => import('../components/Place/PlaceSeeAllPhotos'));
 const CityPostsPage = lazy(() => import('../pages/city/cityPosts'));
 const PostPage = lazy(() => import('../pages/post'));
 const WhatsNearMe = lazy(() => import('../pages/seewhatsaround'));
@@ -18,7 +18,6 @@ const Followers = lazy(() => import('../pages/user/followers'));
 const Followings = lazy(() => import('../pages/user/followings'));
 const Profile = lazy(() => import('../pages/profile/Profile'));
 const Place = lazy(() => import('../pages/place/Place'));
-// const Home = lazy(() => import('../pages/Home'));
 const EditProfile = lazy(() => import('../pages/mybobo/editprofile'));
 const MyBobo = lazy(() => import('../pages/mybobo'));
 

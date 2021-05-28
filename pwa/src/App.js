@@ -20,7 +20,7 @@ function App() {
   const classes = useStyle();
 
   const updateServiceWorker = (registration) => () => {
-    
+
     const waitingWorker = registration && registration.waiting;
     waitingWorker && waitingWorker.postMessage({ type: "SKIP_WAITING" });
     window.location.reload();
@@ -33,14 +33,15 @@ function App() {
     })
   }
   useEffect(() => {
+    console.log("srego");
     serviceWorker.register({ onUpdate: onNewUpdate });
 
   })
 
   return (
-    <AppWrapper> 
+    <AppWrapper>
       < RTL >
-        <CssBaseline />  
+        <CssBaseline />
         <Router>
           {
             useUserLayout()

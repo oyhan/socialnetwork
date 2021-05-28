@@ -53,7 +53,7 @@ export default function AppBottomNav() {
     <BottomNavigation
       value={value}
       onChange={(event, newValue) => {
-        console.log('newValue: ', newValue);
+        
 
         setValue(newValue);
       }}

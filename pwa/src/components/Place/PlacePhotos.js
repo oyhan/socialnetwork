@@ -3,10 +3,10 @@ import { useHttpClient } from "../../lib/BrowserHttpClient";
 import SquareImage from "../Image/SquareImage";
 import HorizontalSlider from "../Slider/HorizontalSlider/HorizontalSlider";
 import usePlacePageStyles from "./PlacePage.css";
+import {Link} from 'react-router-dom';
 
 
-
-const PlacePhotos = ({ placeId }) => {
+const PlacePhotos = ({ placeId ,place }) => {
     const classes = usePlacePageStyles();
     const [loading, data, error] = useHttpClient(`/place/photos/${placeId}`, "Get", r => r.response)
 
@@ -19,7 +19,7 @@ const PlacePhotos = ({ placeId }) => {
                         <Typography component='h4'>
                             عکس ها
             </Typography>
-                        <Link to="/:placeName/photos/:placeId" >
+                        <Link to={`/${place.name}/photos/${placeId}`} >
 
                             <Typography color='primary'>
                                 همه را ببین

@@ -3,10 +3,9 @@ import IconButton from '@material-ui/core/IconButton';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-import { useHistory} from 'react-router-dom';
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useScrollData } from 'scroll-data-hook';
-import HideOnScroll from '../HideOnScroll/HideOnScroll';
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -96,13 +95,13 @@ export default function PlacePageAppBar(props) {
                 <IconButton className={classes.searchIcon} onClick={handleBack} aria-label="search" edge='start' color="inherit">
                     <ArrowForwardIosIcon />
                 </IconButton>
-                <HideOnScroll>
+                {/* <HideOnScroll> */}
                     <Toolbar  style={calcToolbarStyle()} >
 
 
 
                     </Toolbar>
-                </HideOnScroll>
+                {/* </HideOnScroll> */}
 
             </MAppBar>
             {/* </HideOnScroll> */}

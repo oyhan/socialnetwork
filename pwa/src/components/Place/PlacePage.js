@@ -20,7 +20,7 @@ export default function PlacePage({ placeDetail, placeId }) {
         <>
             <PlacePageAppBar />
             <FullWidthTabs tabs={['overview', 'عکس ها', 'نظرات']}
-                tabsContent={[<PlaceOverview {...placeDetail} />, <PlacePhotos placeId={placeId} />, <PlaceReviews placeId={placeId} restaurantDetail={placeDetail} />]} />
+                tabsContent={[<PlaceOverview {...placeDetail} />, <PlacePhotos place={placeDetail} placeId={placeId} />, <PlaceReviews placeId={placeId} restaurantDetail={placeDetail} />]} />
         </>
     )
 

@@ -1,5 +1,7 @@
 import { Grid, makeStyles } from "@material-ui/core";
-import {useParams} from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { useHttpClient } from "../../lib/BrowserHttpClient";
+import AppBar from "../AppBar/AppBar";
 const useStyle = makeStyles(theme => ({
     photo: {
         width: 70,
@@ -11,25 +13,28 @@ const useStyle = makeStyles(theme => ({
 }))
 
 export default function PlaceSeeAllPhotos() {
-    const {placeId} = useParams();
+    const { placeId } = useParams();
     const [loading, data, error] = useHttpClient(`/place/photos/${placeId}`, "Get", r => r.response)
 
     const classes = useStyle();
     return (
-        <Grid container>
-            {
-               data &&  data.map((p,i) => {
+        <>
+            <AppBar back title="عکس ها" short />
 
-                    return (
-                        <Grid className={classes.item} key={i} item>
-                            <img className={classes.photo} src={p.path} />
-                        </Grid>
-                    )
+            <Grid container>
+                {
+                    data && data.map((p, i) => {
 
-                })
-            }
-        </Grid>
+                        return (
+                            <Grid className={classes.item} key={i} item>
+                                <img className={classes.photo} src={p.path} />
+                            </Grid>
+                        )
 
+                    })
+                }
+            </Grid>
+        </>
     )
 
 }

@@ -4,9 +4,6 @@ using System.IO;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using ImageProcessor;
-using ImageProcessor.Imaging.Formats;
-using ImageProcessor.Plugins.WebP.Imaging.Formats;
 using Mahoor.Data;
 using Mahoor.DomainObjects.City;
 using Mahoor.DomainObjects.Post;
@@ -54,7 +51,7 @@ namespace Mahoor.Services.User.Handlers
                     }
 
                     //SaveImage(media.File, jpg,new JpegFormat());
-                    SaveImage(media.File, mainAvatar, new WebPFormat());
+                    SaveImage(media.File, mainAvatar);
                     
                     media.Path = $"{relativePath}{fileName}";
                     user.AvatarUrl = media.Path;
@@ -97,7 +94,7 @@ namespace Mahoor.Services.User.Handlers
 
         }
 
-        private async void SaveImage(IFormFile file, string path, FormatBase format)
+        private async void SaveImage(IFormFile file, string path)
         {
             await using var fileStream= File.Create(path);
 //            await using var fileStream = new FileStream(path, FileMode.CreateNew);

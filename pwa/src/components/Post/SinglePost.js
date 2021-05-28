@@ -1,34 +1,32 @@
 import { Avatar, Divider, Grid, IconButton, makeStyles, Typography } from '@material-ui/core';
-import { useParams, Link, useHistory } from 'react-router-dom';
-import GetAvatarUrl from '../../helper/AvatarHelper';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import { motion } from 'framer-motion';
+import { Link, useHistory } from 'react-router-dom';
+import { toHumanReadableDate } from '../../lib/dateHelper';
 import ToolbarButton from '../Button/ToolBarButton';
 import usePostLike from './postLikeHook';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { toHumanReadableDate } from '../../lib/dateHelper';
 
 const useStyle = makeStyles(theme => ({
     root: {
-        display: 'flex',
-        flexDirection: 'column',
+
         height: '100vh',
         background: '#433c3c',
         color: '#ededed'
     },
-
+    image: {
+    },
     header: {
-        flex: 1
+        height: '15%'
     },
     postdiv: {
-        flex: 2,
+        height: '50%',
         maxHeight: '50vh',
-        flexWrap : 'nowrap !important',
+        flexWrap: 'nowrap !important',
         "& img": {
+            objectFit: 'contain',
             width: '100%',
-            aspectRatio: '4/3',
-            margin: '0 auto',
+            height: 200,
+
         }
 
     },
@@ -36,7 +34,7 @@ const useStyle = makeStyles(theme => ({
         margin: '20px 8px',
     },
     footer: {
-        flex: 1
+        height: '25%',
     },
     avatar: {
         width: 28,
@@ -69,8 +67,8 @@ const useStyle = makeStyles(theme => ({
 
 }));
 
-export default function SinglePost({ userName, likes, liked, id, createdDate, text, medias }) {
-    const avatar = GetAvatarUrl(userName);
+export default function SinglePost({ userName, likes, liked, id, createdDate, text, medias,avatarUrl }) {
+    const avatar =avatarUrl;
     const history = useHistory();
     const [likesCount, userLiked, toggleLike] = usePostLike(liked, likes, id)
     const classes = useStyle();
@@ -82,14 +80,16 @@ export default function SinglePost({ userName, likes, liked, id, createdDate, te
     return (
         <>
 
-            <div className={classes.root}>
-                <div className={classes.header}>
+            <Grid direction='column' className={classes.root}>
+                <Grid item className={classes.header}>
                     <ToolbarButton onClick={handleGoBack} className={classes.actionBtn}>
                         انجام شد
                     </ToolbarButton>
-                </div>
+                </Grid>
                 <Grid container direction="column" className={classes.postdiv}>
-                    <img src={medias[0].url} />
+
+                    <img  src={medias[0].url} />
+
                     <div className={classes.postText}>
                         {text}
                     </div>
@@ -99,7 +99,7 @@ export default function SinglePost({ userName, likes, liked, id, createdDate, te
 
                     <Grid container className={classes.personInfo} >
                         <Grid xs={2} item>
-                            <Avatar aria-label="user avatar" src={avatar} component={Link} to={`profile/${userName}`} className={classes.avatar} />
+                            <Avatar aria-label="user avatar" src={avatar} component={Link} to={`/profile/${userName}`} className={classes.avatar} />
                         </Grid>
                         <Grid className={classes.senderDiv} xs={9} item>
                             <Grid direction="column" container>
@@ -126,7 +126,7 @@ export default function SinglePost({ userName, likes, liked, id, createdDate, te
                         >
                             <IconButton onClick={toggleLike} aria-label="add to favorites">
                                 {
-                                    userLiked ? <FavoriteIcon htmlColor="white" /> : <FavoriteBorderIcon />
+                                    userLiked ? <FavoriteIcon color='primary' /> : <FavoriteIcon htmlColor="white" />
                                 }
                             </IconButton>
                         </motion.div>
@@ -136,7 +136,7 @@ export default function SinglePost({ userName, likes, liked, id, createdDate, te
                         </Typography>
                     </Grid>
                 </Grid>
-            </div>
+            </Grid>
 
         </>
     )

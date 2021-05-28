@@ -123,7 +123,7 @@ export default function PlaceReviews({ restaurantDetail, placeId }) {
 
 
             </Container>
-            <ReviewNewDialog placeId={placeId} handleWindow={openDialog} place={restaurantDetail} open={openNewReviewDialog} />
+            <ReviewNewDialog placeId={placeId} handleWindow={openDialog} placeName={restaurantDetail.name} open={openNewReviewDialog} />
         </>
     )
 }

@@ -13,7 +13,7 @@ const noPointerEvents = {
 }
 
 const styles = theme => {
-  console.log('theme.direction: ', theme.direction);
+  
   return ({
     root: {
       // direction: theme.direction

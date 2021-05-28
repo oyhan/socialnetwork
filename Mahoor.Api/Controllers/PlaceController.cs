@@ -99,10 +99,10 @@ namespace Mahoor.Api.Controllers
             return BadRequest(result);
         }
 
-       [HttpGet("/place/search/{name}")]
-        public async Task<ActionResult<PlaceSearchDto>> Search(string name)
+       [HttpGet("/place/search/{name}/{cityId}")]
+        public async Task<ActionResult<PlaceSearchDto>> Search(string name,Guid? cityId)
         {
-            var command = new SearchPlaceCommand(name);
+            var command = new SearchPlaceCommand(name,cityId);
 
             var result = await Mediator.Send(command);
             if (result.SuccessFull)

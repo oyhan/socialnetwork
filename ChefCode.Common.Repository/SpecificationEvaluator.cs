@@ -20,8 +20,13 @@ namespace ChefCode.Common.Repository
             foreach (ISpecification<T> specification in specifications)
             {
                 
-                if (specification.Criteria != null)
-                    queryable = queryable.Where<T>(specification.Criteria);
+                if (specification.Criterias.Count> 0)
+                {
+                    foreach (var expression in specification.Criterias)
+                    {
+                        queryable = queryable.Where<T>(expression);
+                    }
+                }
                 else if (specification.CriteriaString != null)
                     queryable = queryable.Where(specification.CriteriaString);
                 IQueryable<T> seed = specification.Includes.Aggregate<Expression<Func<T, object>>, IQueryable<T>>(queryable, (Func<IQueryable<T>, Expression<Func<T, object>>, IQueryable<T>>)((current, include) => (IQueryable<T>)current.Include<T, object>(include)));

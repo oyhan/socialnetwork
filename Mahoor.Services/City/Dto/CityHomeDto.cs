@@ -9,5 +9,6 @@ namespace Mahoor.Services.City.Dto
     {
         public string LastPhoto { get; set; }
         public int PhotosCount { get; set; }
+        public IEnumerable<PostModel> Posts{ get; set; }
     }
 }

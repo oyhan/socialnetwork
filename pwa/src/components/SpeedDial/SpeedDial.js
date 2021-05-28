@@ -7,19 +7,21 @@ import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
 import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon';
 import React, { useRef } from 'react';
 import HideOnScroll from '../HideOnScroll/HideOnScroll';
+import {Link} from 'react-router-dom';
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
+        zIndex :2000
     },
     exampleWrapper: {
         position: 'fixed',
         bottom: theme.spacing(8),
         right: theme.spacing(3),
-        zIndex :1000
+        zIndex: 1000
 
     },
-    backdrop :{
-        zIndex :500
+    backdrop: {
+        zIndex: 500
     },
     speedDial: {
         position: 'absolute',
@@ -42,17 +44,12 @@ export default function SpeedDials({ newPostClickHandler }) {
     const [open, setOpen] = React.useState(false);
     const [hidden, setHidden] = React.useState(false);
     const ref = useRef();
-    const handleDirectionChange = (event) => {
-        setDirection(event.target.value);
-    };
+
     const actions = [
-        // { icon: <EditIcon />, name: 'دیدگاه جدید' },
-        { icon: <PhotoCameraIcon />, name: 'پست جدید', htmlFor: "postinput", handleClick: () => { ref.current.click();  } },
+        { icon: <EditIcon />, name: 'دیدگاه جدید', FabProps: {component: Link , to : "/searchforplace"} },
+        { icon: <PhotoCameraIcon />, name: 'پست جدید', htmlFor: "postinput", handleClick: () => { ref.current.click(); } },
 
     ];
-    const handleHiddenChange = (event) => {
-        setHidden(event.target.checked);
-    };
 
     const handleClose = () => {
         setOpen(false);
@@ -90,11 +87,12 @@ export default function SpeedDials({ newPostClickHandler }) {
                                 tooltipTitle={action.name}
                                 htmlFor={"postinput"}
                                 onClick={action.handleClick}
+                                {...action}
                             />
                         ))}
                     </SpeedDial>
                 </div>
             </div>
-         </HideOnScroll>
+        </HideOnScroll>
     );
 }

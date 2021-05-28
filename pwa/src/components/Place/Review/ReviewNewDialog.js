@@ -46,7 +46,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function ReviewNewDialog({ open, handleWindow, placeId, place }) {
+export default function ReviewNewDialog({ open, handleWindow, placeId, placeName }) {
 
     const classes = useStyles();
     const [urls, setUrls] = useState([]);
@@ -153,7 +153,7 @@ export default function ReviewNewDialog({ open, handleWindow, placeId, place }) 
 
         <div  >
             <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
-                <AppBar leftIcons={leftIcon} appBarColor='transparent' title={place.name} rightIcon={rightIcon} />
+                <AppBar leftIcons={leftIcon} appBarColor='transparent' title={placeName} rightIcon={rightIcon} />
                 <Container>
                     <Grid container justify='center' className={classes.negetiveMargin}>
                         <Typography variant='h6'>

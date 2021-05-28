@@ -12,5 +12,6 @@ namespace Mahoor.Services.User.Follower.Dto
         public string FullName { get; set; }
         public string City { get; set; }
         public string Province { get; set; }
+        public bool IsFollowingBack { get; set; }
     }
 }

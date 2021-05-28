@@ -70,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-export default function CityPageAppBar({ photosCount, lastPhoto, id, name }) {
+export default function CityPageAppBar({ photosCount, lastPhoto, id, name ,nearby}) {
 
 
     const router = useHistory();
@@ -90,7 +90,7 @@ export default function CityPageAppBar({ photosCount, lastPhoto, id, name }) {
     }
 
     const appBarStyle = {
-        background: `url(${lastPhoto})`,
+        background:!lastPhoto ? `url(/yazd.jpg)`: `url(${lastPhoto})`,
         height: '60px',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
@@ -108,7 +108,7 @@ export default function CityPageAppBar({ photosCount, lastPhoto, id, name }) {
                     <IconButton size='small' className={classes.closeBtn} component={Link} to="/" aria-label="search" edge='start' color="inherit">
                         <CancelIcon htmlColor="black" fontSize='small' />
                     </IconButton>
-                    <HeaderTopChip handleClick={handleClick} title="نزدیک" />
+                    <HeaderTopChip handleClick={handleClick} title={nearby? "نزدیک" :name} />
                 </div>
 
                 <div className={classes.bottomLeftButton}>

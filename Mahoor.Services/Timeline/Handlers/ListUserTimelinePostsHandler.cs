@@ -46,6 +46,7 @@ namespace Mahoor.Services.Timeline.Handlers
                 {
                     post.Likes = await _graphService.GetAssociationCountTo(post.Id, AType.Likes);
                     post.Liked = await _graphService.HasAssociation(Guid.Parse(request.Requester), post.Id, AType.Likes);
+                    post.AvatarUrl = user.AvatarUrl;
                 }
                 return BaseServiceResponse<IReadOnlyList<TimelinePostDto>>.SuccessFullResponse(posts);
             }

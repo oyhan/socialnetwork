@@ -39,7 +39,8 @@ namespace Mahoor.Services.User.Handlers
                         Location = $"{s.City.City},{s.City.Province}",
                         AvatarUrl = s.AvatarUrl,
                         UserName = s.UserName,
-                        FullName = $"{s.DisplayName}"
+                        FullName = $"{s.DisplayName}",
+                        IsFollowingBack = true,
 
                     }).ToList();
 

@@ -31,21 +31,22 @@ namespace Mahoor.Services.Place.Handlers
         {
             try
             {
+                var cityToSearchIn =request.CityId !=null ? await _cityRepository.GetByIdAsync(request.CityId.Value) : null;
                 var response = await _placeRepository.ListAsync(p => new PlaceSearchDto()
                 {
                     Id = p.Id,
                     Name = p.Name,
-                }, new SearchPlaceQuery(request.Name));
+                }, new SearchPlaceQuery(request.Name, cityToSearchIn));
 
-                var responseCities = await _cityRepository.ListAsync(p => new PlaceSearchDto()
-                {
-                    Id = p.Id,
-                    Name = p.City,
-                    IsCity = true
-                }, new GetAllCitiesQuery(request.Name));
+                //var responseCities = await _cityRepository.ListAsync(p => new PlaceSearchDto()
+                //{
+                //    Id = p.Id,
+                //    Name = p.City,
+                //    IsCity = true
+                //}, new GetAllCitiesQuery(request.Name));
 
                 var result = response.ToList();
-                result.AddRange(responseCities);
+                //result.AddRange(responseCities);
                 return BaseServiceResponse<List<PlaceSearchDto>>.SuccessFullResponse(result);
             }
             catch (Exception e)

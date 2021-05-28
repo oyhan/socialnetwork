@@ -100,7 +100,8 @@ namespace Mahoor.Services.ExtentionMethods
                 UserName=user.UserName,
                 DisplayName=user.DisplayName,
                 NumberOfFollowers = user.NumberOfFollowers,
-                Id=user.Id
+                Id=user.Id,
+                AvatarUrl = user.AvatarUrl
 
             };
         }

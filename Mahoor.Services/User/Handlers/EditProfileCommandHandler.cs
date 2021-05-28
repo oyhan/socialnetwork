@@ -46,9 +46,8 @@ namespace Mahoor.Services.User.Handlers
                     var media = request.Medias[0];
                     var relativePath = $"/user/{user.UserName}/avatar/";
                     var directory = $"{ContentPath}{relativePath}";
-                    var fileName = $"avatar.jpg";
-                    var jpg = $"{directory}/{fileName}";
-                    var mainAvatar = $"{directory}/avatar.webp";
+                    var fileName = $"{Guid.NewGuid()}.webp";
+                    var mainAvatar = $"{directory}/{fileName}";
                     if (!Directory.Exists(directory))
                     {
                         Directory.CreateDirectory(directory);
@@ -57,7 +56,7 @@ namespace Mahoor.Services.User.Handlers
                     //SaveImage(media.File, jpg,new JpegFormat());
                     SaveImage(media.File, mainAvatar, new WebPFormat());
                     
-                    media.Path = $"{relativePath}avatar.webp";
+                    media.Path = $"{relativePath}{fileName}";
                     user.AvatarUrl = media.Path;
                 }
 

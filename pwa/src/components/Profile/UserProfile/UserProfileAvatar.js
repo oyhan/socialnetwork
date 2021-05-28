@@ -4,7 +4,6 @@ import BlockIcon from '@material-ui/icons/Block';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import ReportIcon from '@material-ui/icons/Report';
 import { useState } from "react";
-import GetAvatarUrl from "../../../helper/AvatarHelper"; 
 import MoreDialog from "../../Dialog/Dialog";
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -51,13 +50,13 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function UserProfileAvatar({ userName,displayName }) {
+export default function UserProfileAvatar({ userName,displayName ,avatarURl }) {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
     const handleUserMoreButton = () => {
         setOpen(!open);
     }
-    const avatarfullPath = GetAvatarUrl(userName);
+    const avatarfullPath = avatarURl;
 
     const moreBtnItems = [{
         title: `بلاک کردن ${userName}`,

@@ -8,14 +8,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { LocationOn } from '@material-ui/icons';
 import React from 'react';
-import GetAvatarUrl from '../../helper/AvatarHelper';
 import { BrowserHttpClient } from '../../lib/BrowserHttpClient';
 import { useStateValue } from '../../lib/store/appState';
 import FollowButton from '../Button/FollowButton';
 import FollowerButton from '../Button/FollowerButton';
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 345,
+    width: 345,
   },
   media: {
     height: 0,
@@ -39,10 +38,11 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function FollowerItem({ fullName, userName, id, location }) {
+export default function FollowerItem({ fullName, userName, id, location, avatarUrl ,isFollowingBack }) {
+  console.log('isFollowingBack: ', isFollowingBack);
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
-  const [following, setFollowing] = React.useState(true);
+  const [following, setFollowing] = React.useState(isFollowingBack);
   const [{ user }] = useStateValue();
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -62,10 +62,10 @@ export default function FollowerItem({ fullName, userName, id, location }) {
     <Card elevation={0} className={classes.root}>
       <CardHeader
         avatar={
-          <Avatar src={GetAvatarUrl(userName)} aria-label="avatar" className={classes.avatar} />
+          <Avatar src={avatarUrl} aria-label="avatar" className={classes.avatar} />
         }
         title={`${fullName}`}
-        subheader={userName}
+        subheader={"@" + userName}
       />
 
       <CardContent className={classes.indented}>

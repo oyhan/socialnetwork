@@ -9,6 +9,8 @@ import { useHttpClient } from '../../lib/BrowserHttpClient';
 import useLocation from '../../lib/hooks/location/useLocation';
 import { useHistory } from 'react-router-dom';
 import { getRecentSearchHistory, setRecentSearchHistory } from '../../helper/citySearchHelper';
+import CitySearchResult from './CitySearchResult';
+import RecentSearch from './RecentSearch';
 const useStyles = makeStyles({
     customTextField: {
         "& input::placeholder": {
@@ -21,9 +23,7 @@ const useStyles = makeStyles({
     distance: {
         borderRadius: 0
     },
-    search: {
-        marginTop: 30
-    }
+    
 })
 export default function WhereToGo({ open, handleWindow, handleSelectCity }) {
 
@@ -31,11 +31,7 @@ export default function WhereToGo({ open, handleWindow, handleSelectCity }) {
     const position = useLocation();
     const history = useHistory();
     const [loadingcityHomeData, currentCity, errors] = useHttpClient(`/location/current/${position.latitude}/${position.longitude}`, "Get", r => r.response);
-    const [loadingSearch, searchResult, errorsSearch] = useHttpClient(`/Location/Citys/${query}`, "Get");
-
-
-
-
+    const [loadingSearch, searchResult, errorsSearch] = useHttpClient(`/city/${query}`, "Get");
 
     const classes = useStyles();
     const handleClickNearby = () => {
@@ -47,7 +43,7 @@ export default function WhereToGo({ open, handleWindow, handleSelectCity }) {
         setQuery(event.target.value);
     }
     const setHomeCity = (city) => {
-        localStorage.setItem("homecity", JSON.stringify({ id: city.id, name: `${city.city},${city.provice}` }));
+        localStorage.setItem("homecity", JSON.stringify(city));
         handleWindow(false);
         history.push("/seewhatsaround");
     }
@@ -59,30 +55,9 @@ export default function WhereToGo({ open, handleWindow, handleSelectCity }) {
     const handClickRecentSearch = (city) => () => {
         setHomeCity(city)
     }
-    const recentSearch = () => <>
-        <Typography color="textSecondary">
-            جستجوهای اخیر
-            </Typography>
-        <Grid container className={classes.search} justify='space-between'>
-            {getRecentSearchHistory().map(c =>
-
-                <Grid style={{ margin: '15px 10px' }} onClick={handClickRecentSearch(c)} container >
-                    <Typography>
-                        {c.city},{c.province}
-                    </Typography>
-                </Grid>
-            )}
-
-
-            {/* <Grid item>
-                <Chip label="5 کیلومتر" className={classes.distance} />
-            </Grid> */}
-        </Grid>
-    </>
+    
     const seaching = () => {
         const isSearching = searchResult != undefined && searchResult.length > 0;
-
-
         return isSearching;
     }
     return (
@@ -109,20 +84,10 @@ export default function WhereToGo({ open, handleWindow, handleSelectCity }) {
                 </Typography>
             </IconButton>
             {
-                !seaching() ? recentSearch() :
+                !seaching() ? <RecentSearch handClickRecentSearch={handClickRecentSearch}/> :
                     <List>
                         {
-                            searchResult && searchResult.map(r => {
-
-                                return (<ListItem onClick={selectSearchResult(r)}>
-                                    <ListItemText
-                                        primary={r.city}
-                                        secondary={r.province}
-                                    />
-                                </ListItem>)
-
-                            }
-                            )
+                            searchResult && <CitySearchResult onSelect={selectSearchResult} citys={searchResult} />
                         }
                     </List>
             }

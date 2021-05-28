@@ -12,10 +12,12 @@ namespace Mahoor.Services.Place.Commands
     {
         public string Requester { get; set; }
         public string Name { get;private set; }
-        
-        public SearchPlaceCommand(string name)
+        public Guid? CityId { get; set; }
+
+        public SearchPlaceCommand(string name,Guid? cityId)
         {
             Name = name;
+            CityId = cityId;
         }
 
     }

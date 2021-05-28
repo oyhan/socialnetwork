@@ -17,7 +17,7 @@ import usePlacePageStyles from './PlacePage.css';
 export default function PlaceOverview(props) {
     
     const { name, noOfReviews, cuisine, distanceToUser, website, telephone, rate, isOpenNow, services,favorite,
-        address, location } = props;
+        address, location  } = props;
         
 
     const classes = usePlacePageStyles();

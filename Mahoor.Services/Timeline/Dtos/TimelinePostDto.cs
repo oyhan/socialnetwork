@@ -14,5 +14,6 @@ namespace Mahoor.Services.Timeline.Dtos
         public string UserName { get; set; }
         public DateTime CreatedDate { get; set; }
         public bool  Liked { get; set; }
+        public string AvatarUrl { get; set; }
     }
 }

@@ -213,7 +213,8 @@ namespace Mahoor.Services.Post
                 }),
                 Id = p.Id,
                 PlaceName = p.PlaceName,
-                Text = p.Text
+                Text = p.Text,
+                AvatarUrl = p.User.AvatarUrl
             }, new GetPostByIdQuery(id));
             if (posts.Count == 0)
             {

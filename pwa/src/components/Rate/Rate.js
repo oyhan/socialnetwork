@@ -2,7 +2,7 @@ import { useTheme, withStyles } from '@material-ui/core';
 import React, { useState } from 'react';
 import Rating from '../Rating';
 import RateIcon from './RateIcon';
-
+import RateIconEmpty from './RateIconEmpty';
 const StyledRating = withStyles(theme => ({
   // iconFilled: {
   //   color: theme.palette.secondary.main,
@@ -41,7 +41,7 @@ export default function Rate({ value, size, onchange, input, ...other }) {
 
       iconHovered ={<RateIcon  fontSize={size || 'medium'} htmlColor={theme.palette.secondary.dark}  />}
       iconFilled={<RateIcon fontSize={size || 'medium'}  htmlColor={theme.palette.secondary.main}  />}
-      iconNormal={<RateIcon  fontSize={size || 'medium'} />}
+      iconNormal={<RateIconEmpty  fontSize={size || 'medium'} />}
       onChange={newValue => {
         
         if (input) {

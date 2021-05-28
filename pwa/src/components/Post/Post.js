@@ -16,7 +16,6 @@ import ReportIcon from '@material-ui/icons/Report';
 import TrendingFlatIcon from '@material-ui/icons/TrendingFlat';
 import { useHistory } from 'react-router-dom';
 import React, { useState } from 'react';
-import GetAvatarUrl from '../../helper/AvatarHelper';
 import { BrowserHttpClient } from '../../lib/BrowserHttpClient';
 import { useStateValue } from '../../lib/store/appState';
 import Dialog from '../Dialog/Dialog';
@@ -59,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function Post({ userName, createdDate, placeName, text, likes, medias, id, liked }) {
+export default function Post({ userName, createdDate, placeName, text, likes, medias, id, liked ,avatarUrl}) {
     const router = useHistory();
 
     const [{ user }] = useStateValue();
@@ -72,7 +71,7 @@ export default function Post({ userName, createdDate, placeName, text, likes, me
     const [userLiked, setLiked] = useState(liked);
     const [unfollow, setUnfollow] = useState(false);
     const datephrase = date.fromNow();
-    const avatar = GetAvatarUrl(userName);
+    const avatar = avatarUrl;
 
 
     const handleExpandClick = () => {

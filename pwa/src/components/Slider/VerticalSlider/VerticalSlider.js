@@ -4,8 +4,8 @@ import React from 'react';
 
 const useStyle = makeStyles((theme) => ({
     root: {
-
-        display: 'flex',
+        margin : '5px 0',
+        // display: 'flex',
         flexDirection: 'column',
         '-ms-overflow-style': 'none',  /* IE and Edge */
         'scrollbar-width': 'none',  /* Firefox */
@@ -31,14 +31,14 @@ export default function VerticalSlider({ items ,title , Component ,componentProp
     return (
         <>
             {/* <Grid container > */}
-                <div className={classes.root} >
+                <Grid container direction='column' justify='center' alignItems='center' className={classes.root} >
                     {
                         items.map((i, index) =>
                             <Component {...componentProps}  {...i} key={index} />
                         )
                     }
 
-                </div>
+                </Grid>
             {/* </Grid> */}
         </>
     )

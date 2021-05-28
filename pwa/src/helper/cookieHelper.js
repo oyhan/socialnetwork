@@ -1,12 +1,20 @@
 import cookieCutter from 'cookie-cutter';
+import UserManager from '../lib/userManager';
 var moment = require('moment-jalaali')
 
 export function setCredentials(response) {
-    const userCookie = JSON.stringify(response.user);
-    localStorage.setItem("user", userCookie);
+    UserManager.Save(response.user)
+    save(response, 5);
+}
+export function removeCredentials() {
+    save({ user: {} }, -5);
+}
 
-    const expireDate = moment().add(5, 'days').toDate();
-    
+function save(response, days) {
+
+
+    const expireDate = moment().add(days, 'days').toDate();
+
 
     const opts = { path: "/", expires: expireDate };
 

@@ -47,10 +47,33 @@ namespace Mahoor.Api.Controllers
             {
                 c.Id,
                 c.City,
-                c.Province
-
+                c.Province,
             },new GetAllCitiesQuery(name));
+           
             return Ok(citys);
+        }
+
+        [HttpGet("/city/{name}")]
+        public async Task<ActionResult> GetCityHomeData(string name)
+        {
+            var citys = await _cityRepository.ListAsync(c => new
+            {
+                c.Id,
+                c.City,
+                c.Province,
+                c.Posts,
+                PhotosCount = c.Posts.Count()
+            }, new GetAllCitiesQuery(name));
+            var result = citys.Select(c => new CityHomeDto()
+            {
+                Id = c.Id,
+                LastPhoto = c.Posts?.OrderByDescending(p => p.CreatedDate)?.FirstOrDefault()?.Medias?.First()?.Path,
+                Name = $"{c.City},{c.Province}",
+                PhotosCount = c.PhotosCount,
+                City = c.City,
+                Province = c.Province
+            });
+            return Ok(result);
         }
     }
 }

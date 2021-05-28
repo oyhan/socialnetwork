@@ -1,39 +1,44 @@
-import { CircularProgress, IconButton, InputAdornment, makeStyles } from "@material-ui/core";
-import { Cancel, Search } from "@material-ui/icons";
+import { CircularProgress, Container, Grid, IconButton, InputAdornment, makeStyles, Toolbar, Typography } from "@material-ui/core";
+import { Search } from "@material-ui/icons";
 import LocationOnIcon from '@material-ui/icons/LocationOn';
-import React, { useEffect, useState } from 'react';
-import { setRecentSearchHistory } from "../../helper/citySearchHelper";
-import { PropType } from "../../infrastructure/proptypes";
-import { useHttpClient } from "../../lib/BrowserHttpClient";
 import InputRenderer from "../../lib/InputRenderer";
-import SearchDialog from "../Dialog/SearchDialog";
+import { PropType } from "../../lib/proptypes";
+import RecentSearch from "../Home/RecentSearch";
 import RestaurantSearchItem from "../Search/RestaurantSearchItem";
 import UserSearchItem from "../Search/UserSearchItem";
-import CitySearchResult from "./CitySearchResult";
-import RecentSearch from "./RecentSearch";
-import useSearchBobo from "./SearchBoboHook";
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+import CitySearchResult from "../Home/CitySearchResult";
+import { useEffect, useState } from "react";
+import { setRecentSearchHistory } from "../../helper/citySearchHelper";
+import { useHttpClient } from "../../lib/BrowserHttpClient";
+import { useHistory } from 'react-router-dom'
 import CloseIcon from '@material-ui/icons/Close';
+import CallMadeIcon from '@material-ui/icons/CallMade';
+import ReviewNewDialog from "./Review/ReviewNewDialog";
 const useStyles = makeStyles({
     customTextField: {
         "& input::placeholder": {
             fontSize: "20px"
         }
+    },
+    arrowUpward: {
+        transform: 'rotate(45deg)',
+        fontSize: 53,
+        margin: '30px 0'
+
     }
 })
-export default function SearchBobo(props) {
+export default function SearchForPlace() {
+    const history = useHistory();
     const classes = useStyles();
     const [term, setTerm] = useState("");
     const [cityQuery, setCityQuery] = useState("");
     const [loadingSearch, cityResult, errorsSearch] = useHttpClient(`/city/${cityQuery}`, "Get");
     const [searchingCity, setSearchingCity] = useState(false);
     const [searchInCity, setSearchInCity] = useState();
-    const [loading, data, error] = useSearchBobo(term, searchInCity);
+    const [loading, data, error] = useHttpClient(`/place/search/${term}/${searchInCity}`, "Get", r => r.response)
     const [destination, setDestination] = useState();
-
-    const handleChange = (event) => {
-        setSearchingCity(false);
-        setTerm(event.target.value);
-    }
+    const [review, setReview] = useState({ open: false });
     const handleChangeDest = (event) => {
         setCityQuery(event.target.value);
         setDestination(event.target.value);
@@ -56,6 +61,10 @@ export default function SearchBobo(props) {
         setDestination("");
     }
 
+    const handleChange = (event) => {
+        setSearchingCity(false);
+        setTerm(event.target.value);
+    }
     useEffect(() => {
         console.log('searchInCity: ', searchInCity);
 
@@ -64,9 +73,24 @@ export default function SearchBobo(props) {
 
     }, [searchInCity])
 
+    const handleClose = () => {
+        history.goBack();
+    }
+    const closeReviewPage = ()=>{
+        history.goBack();
+    }
+    const handleNewReview = (place) => () => {
+        setReview({ open: true, placeName: place.name, placeId: place.id })
+    }
+
     return (
         <>
-            <SearchDialog {...props} >
+            <Toolbar className={classes.toolBar}>
+                <IconButton edge="start" color="primary" onClick={handleClose} aria-label="close">
+                    <CloseIcon />
+                </IconButton>
+            </Toolbar>
+            <Container>
                 <InputRenderer
                     classes={{ root: classes.customTextField }}
                     InputProps={{
@@ -102,23 +126,28 @@ export default function SearchBobo(props) {
                     onChange={handleChangeDest}
                     autocomplete="off" placeholder="مقصد را وارد کنید" Type={PropType.Text}
                     Name="" fullWidth />
+
+                <Grid container justify='center' alignItems='center' direction='column' >
+                    <Grid item >
+                        <CallMadeIcon color='primary' className={classes.arrowUpward} />
+                    </Grid>
+                    <Grid item >
+                        <Typography color='textSecondary'>
+                            مکان مورد نظر را برای نوشتن نظر را جستجو کنید
+                        </Typography>
+                    </Grid>
+                </Grid>
                 {
 
                     loading || loadingSearch ? <CircularProgress /> :
-                        searchingCity ? cityResult && <CitySearchResult onSelect={selectDestination} citys={cityResult} /> : data && data.length > 0 ?
+                        searchingCity ? cityResult && <CitySearchResult onSelect={selectDestination} citys={cityResult} /> : data && data.length > 0 &&
                             data.map((r, i) => {
-                                if (isUser(r)) {
-                                    return <UserSearchItem {...r} key={i} />
-                                }
-                                return <RestaurantSearchItem place={r} key={i} />
-                            }) :
-                            <RecentSearch handClickRecentSearch={selectDestination} />
+                                return <RestaurantSearchItem place={r} handleClick={handleNewReview} key={i} />
+                            })
                 }
-            </SearchDialog>
-
-
+                <ReviewNewDialog open={review.open} handleWindow={closeReviewPage} placeName={review.placeName} placeId={review.placeId} />
+            </Container>
 
         </>
     )
 }
-

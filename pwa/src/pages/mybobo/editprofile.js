@@ -67,7 +67,7 @@ export default function EditProfile() {
     
 
     useEffect(() => {
-        console.log('user: ', user);
+        
         formik.setValues(user);
         
 

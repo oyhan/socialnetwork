@@ -4,7 +4,7 @@ import LaunchIcon from '@material-ui/icons/Launch';
 import React from 'react';
 import AppBar from '../AppBar/AppBar';
 import ProfileAvatar from './ProfileAvatar';
-
+import {Link} from 'react-router-dom'
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -46,7 +46,7 @@ const leftIcon = [
   <IconButton aria-label="display more actions" edge="end" color="inherit">
     <LaunchIcon />
   </IconButton>,
-  <IconButton aria-label="search" color="inherit">
+  <IconButton component={Link} to="/settings"  aria-label="search" color="inherit">
     <Settings />
   </IconButton>,
 ]

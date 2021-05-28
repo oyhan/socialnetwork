@@ -1,7 +1,10 @@
 import { lazy } from 'react';
+import PlaceSeeAllPhotos from '../components/Place/PlaceSeeAllPhotos';
+import SearchForPlace from '../components/Place/SearchForPlace';
 import Home from '../pages/Home';
 import ConfirmLogin from '../pages/login/confirm';
 import NearMe from '../pages/nearme';
+import SettingsPage from '../pages/settings';
 import ConfirmSignup from '../pages/signup/confirm';
 
 const CityPostsPage = lazy(() => import('../pages/city/cityPosts'));
@@ -22,6 +25,9 @@ const MyBobo = lazy(() => import('../pages/mybobo'));
 const Routes = {
     
     user: [
+        { path: "/:placeName/photos/:placeId",  private: true, component: <PlaceSeeAllPhotos />},
+        { path: "/searchforplace",  private: true, component: <SearchForPlace /> },
+        { path: "/settings",  private: true, component: <SettingsPage /> },
         { path: "/:cityName/posts/:cityId",  private: false, component: <CityPostsPage /> },
         { path: "/post/:postId",  private: true, component: <PostPage /> },
         { path: "/nearme",  private: true, component: <NearMe /> },

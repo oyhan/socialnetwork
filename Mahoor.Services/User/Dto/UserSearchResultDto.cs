@@ -11,5 +11,6 @@ namespace Mahoor.Services.User.Dto
         public int NumberOfFollowers { get; set; }
         public string UserName { get; set; }
         public bool IsFollowing { get; set; }
+        public string AvatarUrl { get; set; }
     }
 }

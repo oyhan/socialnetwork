@@ -1,3 +1,4 @@
+import { removeCredentials } from "../helper/cookieHelper";
 
 
 
@@ -23,7 +24,7 @@ const UserManager = {
         const result = this.Load() != null;
 
         return result;
-    }
+    },
     // ,
     // RefreshToken: async function (httpContext, httpClient) {
     //     refreshToken = cookieCutter.get("refreshToken");
@@ -34,6 +35,11 @@ const UserManager = {
         
 
     // }
+    Signout : function(){
+        this.Save("");
+        removeCredentials();
+        window.location.href="/start";
+    }
 }
 
 export default UserManager;

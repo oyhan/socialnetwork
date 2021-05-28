@@ -56,7 +56,7 @@ export function useHttpClient(url, method, getResult, body) {
     }
 
     useEffect(() => {
-
+        console.log('url: ', url);
         throttle(fetchFunction(url), 150)
     }, [url])
 

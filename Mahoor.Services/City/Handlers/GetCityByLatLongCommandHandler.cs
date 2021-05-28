@@ -34,12 +34,12 @@ namespace Mahoor.Services.City.Handlers
             {
                 Id = city.Id,
                 Name = $"{city.City},{city.Province}",
-                PhotosCount = city.Posts.Count()
+                PhotosCount = city.Posts.Count(),
             },
                 new GetCurrentCityQuery(request.Lat, request.Lon, request.From, request.To))).ToList();
             var city = citys.FirstOrDefault();
             var lastPost =await _postRepository.ListAsync(new GetLastPostsOfCityQuery(city.Id,0,1));
-            var lastPhoto = lastPost.FirstOrDefault().Medias.First().Path;
+            var lastPhoto = lastPost.FirstOrDefault()?.Medias?.First()?.Path;
             city.LastPhoto = lastPhoto;
            
             return BaseServiceResponse<CityHomeDto>.SuccessFullResponse(citys.FirstOrDefault());

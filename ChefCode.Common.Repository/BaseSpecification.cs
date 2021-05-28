@@ -11,7 +11,7 @@ namespace ChefCode.Common.Repository
 	{
 		protected BaseSpecification(Expression<Func<T, bool>> criteria)
 		{
-			this.Criteria = criteria;
+			this.Criterias.Add(criteria);
 		}
 
 		protected BaseSpecification()
@@ -23,7 +23,7 @@ namespace ChefCode.Common.Repository
 			this.CriteriaString = criteria;
 		}
 
-		public Expression<Func<T, bool>> Criteria { get; private set; }
+		public List<Expression<Func<T, bool>>> Criterias { get; private set; } = new List<Expression<Func<T, bool>>>();
 
 		public string CriteriaString { get; private set; }
 
@@ -66,7 +66,7 @@ namespace ChefCode.Common.Repository
 
 		protected virtual void AddCriteria(Expression<Func<T, bool>> criteria)
 		{
-			this.Criteria = criteria;
+			this.Criterias.Add(criteria);
 		}
 
 		protected virtual void ApplyPaging(int skip, int take)

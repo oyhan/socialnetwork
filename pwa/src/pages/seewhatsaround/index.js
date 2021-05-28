@@ -1,13 +1,14 @@
 import { CircularProgress, Grid, makeStyles, Typography } from '@material-ui/core';
 import cookieCutter from 'cookie-cutter';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom'
+import { Link,useLocation } from 'react-router-dom'
 import CityPageAppBar from '../../components/CityPage/CityPageAppBar';
+import useHomeCity from '../../components/CityPage/useHomeCity';
 import HomePosts from '../../components/Home/HomePosts';
 import HorizontalSlider from '../../components/Slider/HorizontalSlider/HorizontalSlider';
 import SliderItem from '../../components/Slider/SliderItem/SliderItem';
 import { useHttpClient } from '../../lib/BrowserHttpClient';
-import useLocation from '../../lib/hooks/location/useLocation';
+import useGps from '../../lib/hooks/location/useLocation';
 import { actions } from '../../lib/reducer/actions';
 import { useStateValue } from '../../lib/store/appState';
 
@@ -25,11 +26,12 @@ const useStyles = makeStyles(theme => ({
 
 export default function WhatsNearMe() {
 
-    const position = useLocation();
+    const position = useGps();
     const classes = useStyles();
-
-    const [loadingcityHomeData, cityHomeData, errors] = useHttpClient(`/location/current/${position.latitude}/${position.longitude}`, "Get", r => r.response);
-
+    const location = useLocation();
+    console.log('location: ', location);
+    const [loadingcityHomeData, cityHomeData, errors] = useHomeCity(location.state && location.state.nearby);
+    
     const [loading, timeLine, error] = useHttpClient(`/Timeline/Get?lat=${position.latitude}&lon=${position.longitude}`, "Get");
 
     
@@ -91,7 +93,7 @@ export default function WhatsNearMe() {
     return (
         <>
 
-            {!loadingcityHomeData && <CityPageAppBar {...cityHomeData} />}
+            {!loadingcityHomeData && <CityPageAppBar nearby={location.state?.nearby} {...cityHomeData} />}
 
             <Link to={{ state: cardPosts, pathname: "/nearme" }}>
                 <div className={classes.mapSymbole}>
@@ -103,7 +105,7 @@ export default function WhatsNearMe() {
                 <>
                     <Grid justify='space-between' direction='row' spacing={0} container className={classes.title} >
                         <Typography component='h4'>
-                            {cityHomeData.name} نزدیکترین کافه ها و رستوران‌ها
+                             نزدیکترین کافه ها و رستوران‌ها {cityHomeData.name}
               </Typography>
                         <Link to="/nearme" >
                             <a>

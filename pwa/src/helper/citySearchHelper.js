@@ -9,6 +9,10 @@ export  function setRecentSearchHistory(searchResult) {
     }
     else {
         var currentArray = JSON.parse(currentSearchHistory);
+        
+        const alreadyExists = currentArray.some(h=>h.id==searchResult.id);
+        if(alreadyExists) return;
+
         localStorage.setItem("citySearchHistory", JSON.stringify([{...searchResult},...currentArray]));
     }
 }

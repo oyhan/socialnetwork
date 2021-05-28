@@ -5,8 +5,9 @@ import ImageEditor from '../ImageEditor/ImageEditor';
 
 const useStyle = makeStyles({
     image: {
-        maxHeight: '53vh',
-        margin: '0 auto'
+        objectFit: 'contain',
+            width: '100%',
+            height: 250,
     },
     root: {
         direction: "rtl"
@@ -15,9 +16,9 @@ const useStyle = makeStyles({
 
 export default function PostSlider({ medias }) {
     const classes = useStyle();
-    const slides = medias.map(m => <ImageEditor>
+    const slides = medias.map(m =>
         <img layout='fill' src={`${m.url}`} draggable="false"  className={classes.image} />
-    </ImageEditor>)
+   )
 
     return (
         <div className={classes.root}>

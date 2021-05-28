@@ -6,7 +6,7 @@ namespace ChefCode.Common.Interfaces
 {
     public interface ISpecification<T>
     {
-        Expression<Func<T, bool>> Criteria { get; }
+        List<Expression<Func<T, bool>>> Criterias { get; }
 
         string CriteriaString { get; }
 

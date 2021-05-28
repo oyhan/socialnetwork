@@ -28,6 +28,9 @@ const useStyle = makeStyles((theme) => ({
         left: -6,
         zIndex: 1,
     },
+    defaultImage: {
+
+    },
     buttonProgress: {
         color: green[500],
         position: 'absolute',
@@ -39,14 +42,15 @@ const useStyle = makeStyles((theme) => ({
     thumbBox: {
         margin: '0 27px',
         ' & img': {
-            borderRadius: '50%'
+            borderRadius: '50%',
+            border: 'white 3px solid',
         }
     },
     thumbnailContainer: {
         display: 'flex'
     },
-    fab :{
-        background:'#fff'
+    fab: {
+        background: '#fff'
     }
 }))
 export function resizeWithPica(image, newWidth) {
@@ -71,6 +75,9 @@ export function resizeWithPica(image, newWidth) {
 export default function ImageUploader({ name, index, filesLimit, nothumbnail, receiveFiles, defaultImage, multiple, readonly, ...props }) {
 
     const [thumbs, setThumbs] = React.useState([]);
+    
+
+
     const [images, setImages] = useState([]);
 
 
@@ -83,25 +90,31 @@ export default function ImageUploader({ name, index, filesLimit, nothumbnail, re
         reader.onerror = error => reject(error);
     });
 
-    useEffect(() => {
 
+    const prepareThumbnails = async (imageResized) => {
         if (imageResized.length > 0) {
-
-
             receiveFiles && receiveFiles(imageResized)
+            let thumbsArray = [];
             for (const f of imageResized) {
-                console.log('f: ', f);
-                toBase64(f).then(result => {
-                    setThumbs([...thumbs, {
-                        filename: f.name,
-                        value: result.split(',')[1].toString(),
-                        mimetype: f.type,
-                        src: result
-                    }])
-                })
 
+                const resizedImage = await toBase64(f);
+                thumbsArray = [...thumbsArray, {
+                    filename: f.name,
+                    value: resizedImage.split(',')[1].toString(),
+                    mimetype: f.type,
+                    src: resizedImage
+                }];
             }
+            
+            setThumbs(thumbsArray);
+            
         }
+    }
+
+
+    useEffect(() => {
+        prepareThumbnails(imageResized)
+
     }, [imageResized])
     const classes = useStyle();
     const rand = Math.round(Math.random() * 10000);
@@ -178,27 +191,16 @@ export default function ImageUploader({ name, index, filesLimit, nothumbnail, re
                             </div>
                         </Tooltip>) :
                         defaultImage ?
-                            //     <Tooltip
-                            //     id="tooltip-top-start"
-                            //     placement="top"
-                            //     classes={{ tooltip: classes.tooltip }}
-                            // >
-                            //     <div className={classes.thumbBox}>
-                            //         <img src={defaultImage}
-                            //             width={props.thumbnailSize === undefined ? 50 : props.thumbnailSize}
-                            //             height={props.thumbnailSize === undefined ? 50 : props.thumbnailSize}
-                            //             className="thumbnail"
-                            //              />
-                            //     </div>
-                            // </Tooltip>
-                            <div className={classes.thumbBox} >
+
+                            <div
+                                className={classes.thumbBox} >
                                 <Fab key={index}
                                     aria-label="save"
                                     color="primary"
                                     component='label'
                                     disableRipple
                                     classes={{
-                                        primary : classes.fab
+                                        primary: classes.fab
                                     }}
                                     htmlFor={readonly ? "" : `input-file-${rand}`}
                                 >
@@ -208,6 +210,7 @@ export default function ImageUploader({ name, index, filesLimit, nothumbnail, re
                                         className="thumbnail"
                                     />
                                 </Fab>
+
                             </div>
                             :
                             <Tooltip

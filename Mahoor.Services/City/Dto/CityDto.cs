@@ -8,5 +8,7 @@ namespace Mahoor.Services.City.Dto
     {
         public string Name { get; set; }
         public Guid Id { get; set; }
+        public string City { get; set; }
+        public string Province { get; set; }
     }
 }

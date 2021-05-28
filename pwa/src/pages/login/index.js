@@ -1,4 +1,4 @@
-import { CircularProgress, makeStyles } from '@material-ui/core';
+import { CircularProgress, Grid, makeStyles } from '@material-ui/core';
 import { useFormik } from 'formik';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
@@ -13,10 +13,6 @@ import UserManagerBuilder from '../../lib/userManager';
 
 const useStyles = makeStyles({
     root: {
-        display: 'flex',
-        flexDirection: 'column',
-        marginTop: 50,
-        justifyContent: 'space-evenly',
         height: 450,
         alignItems: 'center'
     }
@@ -55,7 +51,8 @@ export default function Login() {
         onSubmit: onSubmit
     });
     return (
-        <div className={classes.root} >
+        <Grid justify='space-evenly' direction='column' container className={classes.root} >
+
 
             <form onSubmit={formik.handleSubmit}>
                 <InputRenderer fullWidth autoComplete="off" disabled={formik.isSubmitting}
@@ -69,7 +66,7 @@ export default function Login() {
                 </ButtonBobo>
             </form>
 
-        </div>
+        </Grid>
     )
 }
 

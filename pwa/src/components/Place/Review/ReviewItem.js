@@ -1,14 +1,13 @@
 import { Avatar, Box, Grid, Typography } from "@material-ui/core";
-import GetAvatarUrl from "../../../helper/AvatarHelper";
 import { appMoment } from "../../../lib/appmoment";
 import Rate from "../../Rate/Rate";
 
 
 export default function ReviewItem(review) {
     const { writerUserName, rate, description,
-        dateWrittenString, dateWritten, writer, title } = review;
+        dateWrittenString, dateWritten, writer, title ,userAvatar } = review;
     
-    const avatarUrl = GetAvatarUrl(writerUserName);
+    const avatarUrl =userAvatar;
 
     return (
         <Grid container>

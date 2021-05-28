@@ -38,7 +38,8 @@ export default function HeaderLowerChip({ title, handleClick, ...other }) {
    
     const classes = useStyles();
     const goToWhatsNearMe = ()=>{
-        router.push("/seewhatsaround");
+        router.push("/seewhatsaround", { nearby: true });
+
     }
     return (
         <Chip

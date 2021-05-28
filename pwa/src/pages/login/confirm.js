@@ -1,4 +1,4 @@
-import { CircularProgress, makeStyles } from '@material-ui/core';
+import { CircularProgress, Grid, makeStyles } from '@material-ui/core';
 // import "../../styles/login.css"
 import { useFormik } from 'formik';
 import React, { useEffect, useState } from 'react';
@@ -16,12 +16,15 @@ import { useStateValue } from '../../lib/store/appState';
 
 const useStyles = makeStyles({
     root: {
-        display: 'flex',
-        flexDirection: 'column',
-        marginTop: 50,
-        justifyContent: 'space-evenly',
+       
         height: 450,
         alignItems: 'center'
+    },
+    input: {
+        "& input" : {
+            letterSpacing:10,
+            textAlign :'center',
+        }
     }
 })
 
@@ -37,7 +40,7 @@ export default function Confirm() {
         const otp = formik.values.otp;
         BrowserHttpClient.Post(`${baseUrl}/User/ConfirmPhoneNumber/${location.state.mobileNumber}/${otp}`).
             then((response) => {
-                
+
                 setCredentials(response);
 
                 dispatch({
@@ -46,9 +49,9 @@ export default function Confirm() {
                 })
 
                 // document.cookie=`jwt=${response.token}`;
-                window.location.href="/"     
+                window.location.href = "/"
             }).catch(error => {
-                
+
 
                 formik.setSubmitting(false);
                 toast.error(error);
@@ -84,20 +87,21 @@ export default function Confirm() {
 
 
     return (
-        <div className={classes.root} >
+        <Grid justify='space-evenly' direction='column' container className={classes.root} >
 
             <form onSubmit={formik.handleSubmit}>
-                <InputRenderer fullWidth autoComplete="off" disabled={formik.isSubmitting} onChange={formik.handleChange}
+                <InputRenderer  autoComplete="off" disabled={formik.isSubmitting} onChange={formik.handleChange}
                     error={formik.errors.otp}
                     Type={PropType.Number} Name="otp"
                     DisplayName="کد تایید"
-                    placeholder="کد تایید" />
+                    className={classes.input}
+                    placeholder="______" />
                 <ButtonBobo color='primary' variant='contained' type="submit" disabled={formik.isSubmitting}>
                     {formik.isSubmitting ? <CircularProgress /> : "تایید"}
                 </ButtonBobo>
             </form>
             <OtpTimer callback={retry} initial={timer} />
-        </div>
+        </Grid>
     )
 }
 

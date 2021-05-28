@@ -11,7 +11,7 @@ import ScrollResizeHeader from '../Header/ScrollResizeHeader';
 import SearchBobo from './SearchBobo';
 import WhereToGo from './WhereToGo';
 
-import {useHistory} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
         left: 10,
         zIndex: 10,
     },
-    appBar : {
+    appBar: {
         height: '60px',
         background: 'url(/home/header/bg.jpg)',
         backgroundSize: 'cover',
@@ -103,8 +103,7 @@ export default function HomeAppBar(props) {
         setOpenSeachBobo(true);
     }
 
-    const goToWhatsNearMe = ()=>{
-        router.push("/seewhatsaround");
+    const goToWhatsNearMe = () => {
     }
     return (
         <div className={classes.root}>
@@ -122,12 +121,12 @@ export default function HomeAppBar(props) {
                 </Toolbar> */}
 
                 {/* <ScrollResizeHeader/> */}
-                   
-                
+
+
                 <div className={classes.btnHolder}>
-                        <HeaderTopChip handleClick={handleClick} title="کجا می‌روید؟" />
-                        <HeaderLowerChip handleClick={goToWhatsNearMe} title="ببین نزدیکت چیه" />
-                    </div>
+                    <HeaderTopChip handleClick={handleClick} title="کجا می‌روید؟" />
+                    <HeaderLowerChip  title="ببین نزدیکت چیه" />
+                </div>
                 <WhereToGo open={open} handleWindow={setOpen} />
                 <SearchBobo open={openSeachBobo} handleWindow={setOpenSeachBobo} />
             </MAppBar>

@@ -1,5 +1,4 @@
 import { Grid, IconButton, makeStyles, Typography } from "@material-ui/core";
-import GetAvatarUrl from "../../helper/AvatarHelper";
 import ImageUploader from "../ImageUploader/ImageUploader";
 
 
@@ -45,9 +44,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ProfileAvatar({ userName, displayName, avatarURl, onAvatarSelected, readonly }) {
 
-
-  const avatarfullPath = GetAvatarUrl(userName);
-
   const classes = useStyles();
   return (
     <Grid container className={classes.root}>
@@ -56,7 +52,7 @@ export default function ProfileAvatar({ userName, displayName, avatarURl, onAvat
 
         {/* {avatarURl ? <Avatar src={avatarfullPath} className={classes.avatar} sizes={classes.avatar} /> :
           <div > */}
-        <ImageUploader filesLimit={1} readonly={readonly} defaultImage={avatarfullPath} receiveFiles={onAvatarSelected} />
+        <ImageUploader thumbnailSize="70" filesLimit={1} readonly={readonly} defaultImage={avatarURl} receiveFiles={onAvatarSelected} />
 
         {/* </div> */}
 

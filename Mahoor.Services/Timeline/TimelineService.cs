@@ -14,6 +14,7 @@ using Mahoor.Services.Post;
 using Mahoor.Services.Post.Dto;
 using Mahoor.Services.Redis;
 using Mahoor.Services.Timeline.Dtos;
+using Mahoor.Services.User;
 using SmartFormat.Utilities;
 using StackExchange.Redis;
 
@@ -23,16 +24,19 @@ namespace Mahoor.Services.Timeline
     {
         private readonly IRedisService _redisService;
         private readonly IDatabase _database;
+        private readonly AppUserManager _userManager;
         private readonly IGraphService _graphService;
         private readonly IAppRepository<PostModel, Guid> _postRepository;
         private readonly IAppRepository<AssociationModel, Guid> _associationRepository;
         private readonly AppDbContext _db;
 
         public TimelineService(IRedisService redisService, IDatabase database,IGraphService graphService,
+            AppUserManager userManager,
             IAppRepository<PostModel,Guid> postRepository , IAppRepository<AssociationModel,Guid> associationRepository,AppDbContext db)
         {
             _redisService = redisService;
             _database = database;
+            _userManager = userManager;
             _graphService = graphService;
             _postRepository = postRepository;
             _associationRepository = associationRepository;
@@ -49,14 +53,16 @@ namespace Mahoor.Services.Timeline
            
             var followingsIds = (await _graphService.GetAssociationsFrom(userId, AType.Following));
             followingsIds.Add(userId);
-//            var posts =await _postRepository.ListAsync(s=>s.ToTimelinePostDto(),new GetUserTimelinePosts(followingsIds,from , to));
-            
+            //            var posts =await _postRepository.ListAsync(s=>s.ToTimelinePostDto(),new GetUserTimelinePosts(followingsIds,from , to));
+            var followingGuids = followingsIds.Select(d=>d.ToString());
             var posts = await _associationRepository.ListAsync(s => s.Data.ToTimelinePostDto(),
                 new GetUserFollowingsPosts( followingsIds));
+            var usersFollowing = _userManager.UserManager.Users.Where(u => followingGuids.Contains(u.Id)).Select(u=>new { u.Id,u.UserName,u.AvatarUrl });
             foreach (var post in posts)
             {
                 post.Likes =await _graphService.GetAssociationCountTo(post.Id, AType.Likes);
                 post.Liked = await _graphService.HasAssociation(userId, post.Id, AType.Likes);
+                post.AvatarUrl = usersFollowing.FirstOrDefault(u => u.UserName == post.UserName)?.AvatarUrl;
             }
 
             return posts;

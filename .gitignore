@@ -8,3 +8,6 @@ Mahoor.Api/appsettings.Development.json
 /Mahoor.Api/bin/
 /Mahoor.Api/Properties/PublishProfiles
 **/bin/**
+.idea/.idea.Mahoor/.idea/indexLayout.xml
+.idea/.idea.Mahoor/.idea/.name
+.idea/.idea.Mahoor/.idea/vcs.xml

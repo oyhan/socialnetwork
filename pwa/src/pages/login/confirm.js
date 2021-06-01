@@ -35,6 +35,7 @@ export default function Confirm() {
     const [, dispatch] = useStateValue();
     const classes = useStyles();
     const onSubmit = (e) => {
+        
         formik.setSubmitting(true);
         const baseUrl = "";
         const otp = formik.values.otp;
@@ -51,7 +52,7 @@ export default function Confirm() {
                 // document.cookie=`jwt=${response.token}`;
                 window.location.href = "/"
             }).catch(error => {
-
+                
 
                 formik.setSubmitting(false);
                 toast.error(error);
@@ -63,12 +64,12 @@ export default function Confirm() {
             otp: "",
         },
         validationSchema: Yup.object({
-            otp: Yup.string().matches("^[0-9]+$", "فقط مقدار عددی وارد کنید").min(6, "کدتایید باید 6 رقم باشد")
+            otp: Yup.string().required("لطفا کد تایید را وارد کنید").matches("^[0-9]+$", "فقط مقدار عددی وارد کنید").min(6, "کدتایید باید 6 رقم باشد")
         }),
         validateOnMount: false,
-        initialErrors: {
-            otp: " "
-        },
+        // initialErrors: {
+        //     otp: " "
+        // },
         isInitialValid: false,
         onSubmit: onSubmit,
     });
@@ -76,7 +77,6 @@ export default function Confirm() {
 
     useEffect(() => {
         if (formik.isValid)
-
             formik.submitForm();
     }, [formik.isValid])
 
@@ -84,6 +84,7 @@ export default function Confirm() {
     const retry = () => {
         setTimer(120);
     }
+    
 
 
     return (

@@ -112,7 +112,7 @@ export default function Post({ userName, createdDate, placeName, text, likes, me
     {
         title: `دنبال کردن`,
         action: () => {
-            BrowserHttpClient.Post(`/user/follow/${id}`).then(() => {
+            BrowserHttpClient.Post(`/user/follow/${userName}`).then(() => {
                 setUnfollow(!unfollow);
 
                 setOpen(false);

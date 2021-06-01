@@ -53,6 +53,7 @@ const useStyles = makeStyles((theme) => ({
 export default function UserProfileAvatar({ userName,displayName ,avatarURl }) {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
+
     const handleUserMoreButton = () => {
         setOpen(!open);
     }
@@ -61,12 +62,14 @@ export default function UserProfileAvatar({ userName,displayName ,avatarURl }) {
     const moreBtnItems = [{
         title: `بلاک کردن ${userName}`,
         action: () => { },
-        icon : <BlockIcon/>
+        icon : <BlockIcon/>,
+        visible:true
     },
     {
         title: `گزارش‌کردن این پروفایل`,
         action: () => { },
-        icon : <ReportIcon/>
+        icon : <ReportIcon/>,
+        visible:true
     }
 ]
 

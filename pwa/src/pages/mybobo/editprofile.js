@@ -1,4 +1,4 @@
-import { Grid, InputAdornment, makeStyles } from '@material-ui/core';
+import { Grid, InputAdornment, makeStyles, Typography } from '@material-ui/core';
 import { AccountCircle } from '@material-ui/icons';
 import AlternateEmailIcon from '@material-ui/icons/AlternateEmail';
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -34,8 +34,7 @@ export default function EditProfile() {
     const { avatarURl, bio, city, favorites, noOfFollowers,
 
         noOfFollowings, noOfPosts, userName, website, displayName } = user;
-
-
+  
 
     var onsubmit = (formik) => () => {
         if (formik.isValid) {
@@ -54,8 +53,11 @@ export default function EditProfile() {
                     }
                 }).catch(error => {
                     formik.setSubmitting(false);
-
                     toast("ویرایش پروفایل با خطا روبرو شد");
+                    toast.dismiss();
+                }).finally(()=>{
+                    toast.dismiss();
+
                 });
         }
 
@@ -64,12 +66,12 @@ export default function EditProfile() {
     const schema = useProfileModelValidationSchema();
     var formik = useFormik(formikObjectBuilder(user, schema, onsubmit))
 
-    
+
 
     useEffect(() => {
-        
+
         formik.setValues(user);
-        
+
 
         formik.validateForm();
     }, [user])
@@ -124,14 +126,13 @@ export default function EditProfile() {
             key="cityId"
             value={formik.values.cityId}
             autoComplete="off" placeholder={"شهر"} Type={PropType.Hidden} Name="cityId" fullWidth />
-        {formik.values.city && <AutoCompleteInput
+         {formik.values.city && <AutoCompleteInput
             defaultValue={formik.values.city}
             inputcomponent={
                 <InputRenderer
                     key="city"
                     onChange={formik.handleChange}
                     error={formik.errors?.cityId}
-                    defaultValue={formik.values.city}
                     value={formik.values.city}
                     InputProps={{
                         startAdornment: (
@@ -146,6 +147,7 @@ export default function EditProfile() {
             queryUrl={"/Location/Citys/{query}"}
             onSelected={(value) => { formik.setFieldValue("cityId", value?.id) }}
         />}
+        
 
         <InputRenderer
             key="favorites"

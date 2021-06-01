@@ -32,7 +32,7 @@ export function useProfileModelValidationSchema() {
                 })
 
         ,
-        cityId: Yup.string().required("اجباری"),
+        cityId: Yup.string().typeError("اجباری").required("اجباری"),
         favorites: "",
         website: "",
         bio: ""

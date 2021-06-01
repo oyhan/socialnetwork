@@ -44,6 +44,7 @@ const useStyle = makeStyles((theme) => ({
         ' & img': {
             borderRadius: '50%',
             border: 'white 3px solid',
+            aspectRatio : 1
         }
     },
     thumbnailContainer: {
@@ -51,6 +52,11 @@ const useStyle = makeStyles((theme) => ({
     },
     fab: {
         background: '#fff'
+    },
+    inputDisplay :{
+        width: 70,
+        border: '3px white solid',
+        height: 70,
     }
 }))
 export function resizeWithPica(image, newWidth) {
@@ -222,6 +228,7 @@ export default function ImageUploader({ name, index, filesLimit, nothumbnail, re
                                     aria-label="save"
                                     color="primary"
                                     component='label'
+                                    classes={{root:classes.inputDisplay}}
                                     htmlFor={readonly ? "" : `input-file-${rand}`}
                                 >
                                     <PhotoCamera />

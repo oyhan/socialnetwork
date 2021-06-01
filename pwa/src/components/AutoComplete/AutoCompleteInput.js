@@ -84,7 +84,7 @@ export default function AutoCompleteInput({ onSelected, queryUrl, inputcomponent
                 }}
                 getOptionLabel={(item) => item.province ? `${item.province},${item.city}` : item}
                 renderInput={(params) => {
-                    return (<inputcomponent.type  {...inputcomponent.props} {...params} />)
+                    return (<inputcomponent.type  {...inputcomponent.props} {...params}  />)
                 }}
                 // renderInput={(params) => <TextField fullWidth {...params} label="پلاک خودرو کد خودرو یا کد راننده..." variant="outlined" fullWidth />}
                 filterOptions={(x) => x}

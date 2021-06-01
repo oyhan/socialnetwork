@@ -205,7 +205,7 @@ export default function PostNewDialog({ open, handleWindow, photos }) {
                                 autoComplete="off" placeholder="یک مکان انتخاب کنید" Type={PropType.Text}
                                 Name="placeId" fullWidth />
                         }
-                        queryUrl={"/place/search/{query}"}
+                        queryUrl={"/place/search/{query}/undefined"}
                         onSelected={handleSelectPlace}
                     />
 

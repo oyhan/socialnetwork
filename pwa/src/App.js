@@ -1,15 +1,15 @@
 import { CssBaseline, makeStyles } from '@material-ui/core';
 import { useEffect } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 import useUserLayout from './infrastructure/LayoutSelector';
 import RTL from './infrastructure/Rtl';
-import Home from './pages/Home';
 import * as serviceWorker from './serviceWorker';
 import { AppWrapper } from './statemanagement/AppContext';
 import "./typings/yup/yup.nationalCode";
-import { BrowserRouter as Router } from 'react-router-dom';
+
 const useStyle = makeStyles(theme => ({
   toast: {
     borderRadius: 0

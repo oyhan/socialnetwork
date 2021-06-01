@@ -1,5 +1,5 @@
+import { IonActionSheet } from '@ionic/react';
 import Divider from '@material-ui/core/Divider';
-import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -26,6 +26,7 @@ export default function Dialog({ open, items, handleClose }) {
         handleClose()
     }
 
+    const ionicItems = items.filter(i => i.visible).map(i => ({ text: i.title, handler: i.action }));
 
     const list = (anchor) => (
         <div
@@ -57,10 +58,22 @@ export default function Dialog({ open, items, handleClose }) {
     );
 
     return (
-        <div>
-            <Drawer anchor='bottom' open={open} onClose={onclose}>
-                {list('bottom')}
-            </Drawer>
-        </div>
+
+        <IonActionSheet
+            isOpen={open}
+            onDidDismiss={onclose}
+            cssClass='my-custom-class'
+            buttons={[...ionicItems, {
+                text: 'بستن',
+                role: 'cancel',
+
+            }]}
+        >
+        </IonActionSheet>
+        // <div>
+        //     <Drawer anchor='bottom' open={open} onClose={onclose}>
+        //         {list('bottom')}
+        //     </Drawer>
+        // </div>
     );
 }

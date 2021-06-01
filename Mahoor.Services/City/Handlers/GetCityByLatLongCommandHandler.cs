@@ -38,6 +38,7 @@ namespace Mahoor.Services.City.Handlers
             },
                 new GetCurrentCityQuery(request.Lat, request.Lon, request.From, request.To))).ToList();
             var city = citys.FirstOrDefault();
+            if (city == null) return BaseServiceResponse<CityHomeDto>.FailedResponse("Sorry Maybe you are not in IRAN");
             var lastPost =await _postRepository.ListAsync(new GetLastPostsOfCityQuery(city.Id,0,1));
             var lastPhoto = lastPost.FirstOrDefault()?.Medias?.First()?.Path;
             city.LastPhoto = lastPhoto;

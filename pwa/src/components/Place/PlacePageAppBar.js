@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     },
     toolbar: {
         background: `url(/home/header/bg.jpg)`,
-        minHeight: 200,
+        minHeight: 150,
         alignItems: 'flex-start',
         paddingTop: theme.spacing(1),
         display: 'flex',
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
         alignSelf: 'flex-end',
     },
     offset: {
-        minHeight: 215
+        minHeight: 160
     },
     btnHolder: {
         justifySelf: 'center',
@@ -62,7 +62,7 @@ export default function PlacePageAppBar(props) {
     const calcToolbarStyle = () => {
         var style = {
             backgroundImage: `url(/yazd.jpg)`,
-            height: 200,
+            height: 150,
             alignItems: 'flex-start',
             paddingTop: theme.spacing(1),
             display: 'grid',
@@ -72,8 +72,8 @@ export default function PlacePageAppBar(props) {
             backgroundPosition: 'center',
         }
 
-        if ((200 - position.y) >= 70) {
-            style.height = 200 - position.y;
+        if ((150 - position.y) >= 70) {
+            style.height = 150 - position.y;
             style.backgroundImage = `url(/yazd.jpg)`;
         } else {
             style.height = 70;

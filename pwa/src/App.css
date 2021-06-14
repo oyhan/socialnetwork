@@ -12,7 +12,9 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
-
+a{
+  text-decoration:  none !important;
+}
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -41,3 +43,25 @@
   font-family: "Homa";
   src: url("./fonts/B\ Homa_0.ttf");
  }
+
+ .z-index-510{
+   z-index: 510;
+ }
+
+ button.MuiSpeedDial-fab[aria-expanded="true"] {
+  background-color : white
+  
+}
+button.MuiSpeedDial-fab[aria-expanded="true"] svg {
+ color : black;
+  
+}
+@font-face{
+  font-family: "Titr";
+  src: url("./fonts/B\ Titr\ Bold_0.ttf");
+ }
+.titr {
+  font-family:  Titr !important;
+  font-size: 1.45rem !important;
+}
+

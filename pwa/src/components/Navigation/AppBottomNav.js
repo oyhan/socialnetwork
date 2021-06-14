@@ -9,7 +9,7 @@ import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 import { useHistory } from 'react-router-dom';
 import React, { useEffect } from 'react';
 import PersonIcon from '@material-ui/icons/Person';
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme=>({
   root: {
     position: 'fixed',
     width: '100%',
@@ -19,9 +19,10 @@ const useStyles = makeStyles({
   },
   label: {
     marginTop: '-3px',
-    fontSize: 10
+    fontSize: 10,
+    color : 'gray'
   }
-});
+}));
 
 export default function AppBottomNav() {
 
@@ -33,14 +34,14 @@ export default function AppBottomNav() {
     router.push(route);
   }
   const selectProfileIcon = () => {
-    return path.startsWith("/mybobo") ? <PersonIcon fontSize='small' color="primary" /> : <PersonOutlineOutlinedIcon fontSize='small' />;
+    return path.startsWith("/mybobo") ? <PersonIcon fontSize='medium' htmlColor='black'  /> : <PersonOutlineOutlinedIcon fontSize='medium' />;
   }
   const selectFavoriteTabIcon = () => {
-    return path.startsWith("/favorites") ? <FavoriteIcon fontSize='small' color="primary" /> : <FavoriteBorderIcon fontSize='small' />;
+    return path.startsWith("/favorites") ? <FavoriteIcon fontSize='medium' htmlColor='black'   /> : <FavoriteBorderIcon fontSize='medium' />;
 
   }
   const selectHomeTabIcon = () => {
-    return path === "/" ? <HomeIcon fontSize='small' color="primary" /> : <HomeOutlinedIcon fontSize='small' />;
+    return path === "/" ? <HomeIcon fontSize='medium' htmlColor='black'   /> : <HomeOutlinedIcon fontSize='medium' />;
 
   }
 

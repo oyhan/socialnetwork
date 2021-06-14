@@ -8,6 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { LocationOn } from '@material-ui/icons';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { BrowserHttpClient } from '../../lib/BrowserHttpClient';
 import { useStateValue } from '../../lib/store/appState';
 import FollowButton from '../Button/FollowButton';
@@ -38,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function FollowerItem({ fullName, userName, id, location, avatarUrl ,isFollowingBack }) {
+export default function FollowerItem({ fullName, userName, id, location, avatarUrl, isFollowingBack }) {
   console.log('isFollowingBack: ', isFollowingBack);
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
@@ -60,9 +61,12 @@ export default function FollowerItem({ fullName, userName, id, location, avatarU
   const mySelf = user.userName == userName;
   return (
     <Card elevation={0} className={classes.root}>
+
       <CardHeader
         avatar={
-          <Avatar src={avatarUrl} aria-label="avatar" className={classes.avatar} />
+          <Link to={`/profile/${userName}`}>
+            <Avatar src={avatarUrl} aria-label="avatar" className={classes.avatar} />
+          </Link>
         }
         title={`${fullName}`}
         subheader={"@" + userName}

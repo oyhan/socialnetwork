@@ -118,7 +118,8 @@ namespace Mahoor.Services.ExtentionMethods
                 Favorites = user.Favorites,
                 Website = user.Website??"",
                 DisplayName = user.DisplayName??"",
-                CityId = user.CityId
+                CityId = user.CityId,
+                HeaderPic = user.ProfileHeaderPicture
             };
         }
 

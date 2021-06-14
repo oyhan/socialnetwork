@@ -22,16 +22,18 @@ const useStyles = makeStyles((theme) => ({
         overflowY: 'hidden',
         // height: '100%',
         // padding: '5rem 10px',
-        padding: 0,
-        marginBottom: 100
+        padding: '0 10px',
+        marginBottom: 100,
+        // background:'#e6e0e0'
+        background: 'white',
     }
 }));
 
-const noBottomNavPaths = ["/nearme","/login" ,"/signup" , "/start" , "/post"]
+const noBottomNavPaths = ["/nearme", "/login", "/signup", "/start", "/post"]
 export default function BaseLayout(props) {
-    
+
     const [state, dispatch] = useStateValue();
-    
+
 
     const getUser = () => {
         const user = JSON.parse(localStorage.getItem("user"));
@@ -45,16 +47,16 @@ export default function BaseLayout(props) {
 
     }, [])
     const classes = useStyles();
-    const showBottomNav = ()=>{
+    const showBottomNav = () => {
         const loc = window.location.pathname;
-        
-        const anyMatch = noBottomNavPaths.some(r=>{
-            
-           return loc.startsWith(r)
+
+        const anyMatch = noBottomNavPaths.some(r => {
+
+            return loc.startsWith(r)
         });
         return !anyMatch;
     }
-    
+
     return (
 
         <>
@@ -73,7 +75,7 @@ export default function BaseLayout(props) {
 
             {
                 showBottomNav() && <AppBottomNav />
-                
+
             }
 
         </>

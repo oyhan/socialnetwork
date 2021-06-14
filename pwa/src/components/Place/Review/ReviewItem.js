@@ -1,4 +1,4 @@
-import { Avatar, Box, Grid, Typography } from "@material-ui/core";
+import { Avatar, Box, Divider, Grid, Typography } from "@material-ui/core";
 import { appMoment } from "../../../lib/appmoment";
 import Rate from "../../Rate/Rate";
 
@@ -39,7 +39,6 @@ export default function ReviewItem(review) {
                     </Grid>
                 </Grid>
             </Grid>
-
         </Grid>
     )
 }

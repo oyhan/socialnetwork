@@ -4,7 +4,7 @@ import React from 'react';
 
 const StyledIcon = withStyles(theme => ({
     fontSizeSmall : {
-        fontSize : "0.80rem"
+        fontSize : "0.70rem"
     } 
 }))(RadioButtonCheckedTwoToneIcon);
 

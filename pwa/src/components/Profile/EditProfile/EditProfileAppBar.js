@@ -1,18 +1,23 @@
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import React from 'react';
 import AppBar from '../../AppBar/AppBar';
 import ToolbarButton from '../../Button/ToolBarButton';
 import ProfileAvatar from '../ProfileAvatar';
-
+import PhotoOutlinedIcon from '@material-ui/icons/PhotoOutlined';
+import { IconButton } from '@material-ui/core';
+import ImageUploader from '../../ImageUploader/ImageUploader';
 const extera = (
     <ProfileAvatar />
 )
 
 
 
-export default function EditProfileAppBar({ save, submiting }) {
+export default function EditProfileAppBar({ save, submiting, onSelectHeaderPicture ,headerPic}) {
+    console.log('headerPic: ', headerPic);
     const router = useHistory();
-
+    
+    const [headerBg, setHeaderBg] = useState(headerPic);
+    console.log('headerBg: ', headerBg);
     const handleCancel = () => {
         router.goBack();
     }
@@ -25,8 +30,20 @@ export default function EditProfileAppBar({ save, submiting }) {
     const leftIcon = [
         <ToolbarButton onClick={handleCancel} >انصراف</ToolbarButton>
     ]
+
+    const handleSelectHeaderPicture = (pictures) => {
+        setHeaderBg(window.URL.createObjectURL(pictures[0]));
+        onSelectHeaderPicture(pictures[0])
+    }
+
+    const setHeaderBtn =
+        <ImageUploader sizeLimit={200} receiveFiles={handleSelectHeaderPicture} nothumbnail
+            pickerComponent={<IconButton component='label'>
+                <PhotoOutlinedIcon htmlColor='gray' />
+            </IconButton>} />
+
     return (
-        <AppBar leftIcons={leftIcon} rightIcon={rightIcon} /*extera={extera}*/ title="ویرایش پروفایل" />
+        <AppBar  leftIcons={leftIcon} headerPic={headerBg||headerPic} rightIcon={rightIcon} middleCenterElement={setHeaderBtn} title="ویرایش پروفایل" />
     )
 }
 

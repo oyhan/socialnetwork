@@ -1,16 +1,16 @@
 import { CircularProgress, Grid, makeStyles, Typography } from '@material-ui/core';
 import cookieCutter from 'cookie-cutter';
 import { useEffect, useState } from 'react';
-import AppBar from '../components/AppBar/AppBar';
+import { Link } from 'react-router-dom';
+import HomeAppBar from '../components/Home/HomeAppBar';
 import HomePosts from '../components/Home/HomePosts';
 import HorizontalSlider from '../components/Slider/HorizontalSlider/HorizontalSlider';
 import SliderItem from '../components/Slider/SliderItem/SliderItem';
-import { useHttpClient } from '../lib/BrowserHttpClient';
+import { BrowserHttpClient, useHttpClient } from '../lib/BrowserHttpClient';
 import useLocation from '../lib/hooks/location/useLocation';
 import { actions } from '../lib/reducer/actions';
 import { useStateValue } from '../lib/store/appState';
-import { Link } from 'react-router-dom'
-import HomeAppBar from '../components/Home/HomeAppBar';
+import AppDivider from '../components/Dividers/AppDivider';
 
 const useStyles = makeStyles(theme => ({
   mapSymbole: {
@@ -23,7 +23,8 @@ const useStyles = makeStyles(theme => ({
     cursor: 'pointer'
   },
   title: {
-    marginBottom: theme.spacing(2),
+    marginBottom: theme.spacing(1),
+    marginTop: theme.spacing(1),
   }
 }))
 
@@ -62,6 +63,10 @@ export default function Home() {
   const [{ user }, dispatch] = useStateValue();
   // const position = useLocation();
   const getUser = () => {
+    // var user = BrowserHttpClient.Get("/profile/me").then(result =>{
+    //   const profile = result.response;
+    //   return profile;
+    // })
     const user = JSON.parse(localStorage.getItem("user"));
     return user;
   }
@@ -81,6 +86,7 @@ export default function Home() {
   useEffect(() => {
     // dispatch({ type: actions.APPBAR, payload: <HomeAppBar /> });
     var user = getUser();
+    
 
     dispatch({ type: actions.USER, payload: { ...user, isAuthenticated: true, location: "" } })
   }, [])
@@ -90,35 +96,40 @@ export default function Home() {
 
       <HomeAppBar />
 
-      {loading ? <CircularProgress  size="1rem"/> :
+      {loading ? <CircularProgress size="1rem" /> :
         <>
           <Grid justify='space-between' direction='row' spacing={0} container className={classes.title} >
             <Typography component='h4'>
               نزدیکترین کافه ها و رستوران‌ها
             </Typography>
-            <Link to="/nearme" >
-              <a>
-                <Typography color='primary'>
-                  همه را ببین
-                        </Typography>
-              </a>
+
+            <Link to="/seeallclose" >
+              <Typography color='primary'>
+                همه را ببین
+              </Typography>
             </Link>
+
           </Grid>
           <HorizontalSlider Component={SliderItem} items={cardPosts} />
         </>
       }
       {/* <HomeMap points={cardPosts.map(p => p.latLon)} /> */}
+
+      <AppDivider />
+
       <Grid justify='space-between' direction='row' spacing={0}
         container className={classes.title} >
-        <Typography component='h3'>
+        <Typography variant='h6'>
           مکان‌های اطراف  را جستجو کنید
-                 </Typography>
+        </Typography>
       </Grid>
       <Link to={{ state: cardPosts, pathname: "/nearme" }}>
         <div className={classes.mapSymbole}>
 
         </div>
       </Link>
+
+      <AppDivider />
 
       {loading ? <CircularProgress size="1rem" /> :
         <>
@@ -130,13 +141,15 @@ export default function Home() {
               <a>
                 <Typography color='primary'>
                   همه را ببین
-                        </Typography>
+                </Typography>
               </a>
             </Link>
           </Grid>
           <HorizontalSlider Component={SliderItem} items={cardPosts} />
         </>
       }
+
+      <AppDivider />
 
       <HomePosts posts={timeLine.followingsPosts || []} />
 

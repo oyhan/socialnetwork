@@ -20,10 +20,10 @@ namespace Mahoor.Data.Queries.Review
         public GetRestaurantReviewsOrderedByDateVisitedDescQuery(Guid restaurantId, int from, int to , string textSearch)
         {
             AddCriteria(r => r.PlaceId == restaurantId && ( 
-                                                            r.Description.SimilarSearch(textSearch) 
-                                                            || r.Title.SimilarSearch(textSearch)));
+                                                            r.Description.Contains(textSearch) 
+                                                            || r.Title.Contains(textSearch)));
             ApplyPaging(from, to);
-            ApplyOrderBy(r => EF.Functions.PgroongaScore());
+            // ApplyOrderBy(r => EF.Functions.PgroongaScore());
 
         }
     }

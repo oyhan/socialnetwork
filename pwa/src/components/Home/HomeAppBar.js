@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
         alignSelf: 'flex-end',
     },
     offset: {
-        minHeight: 215
+        minHeight:152
     },
     btnHolder: {
         marginTop: 40,

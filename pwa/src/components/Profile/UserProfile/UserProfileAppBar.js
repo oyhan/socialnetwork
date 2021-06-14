@@ -9,11 +9,11 @@ const leftIcon = [
     </IconButton>
 ]
 
-export default function UserProfileAppBar() {
+export default function UserProfileAppBar({headerPic}) {
 
 
     return (
-        <AppBar leftIcons={leftIcon}   />
+        <AppBar headerPic={headerPic} leftIcons={leftIcon}   />
     )
 }
 

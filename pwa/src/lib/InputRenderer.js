@@ -328,7 +328,6 @@ export default function InputRenderer(props) {
                 <ValidationTextField
                     onChange={handleChangeDefault}
                     helperText={Hint}
-                    {...other}
                     id={id}
                     key={id}
                     label={displayName}
@@ -343,6 +342,7 @@ export default function InputRenderer(props) {
                     required={required}
                     defaultValue={defaultValue}
                     disabled={Disabled}
+                    {...other}
                     
                 />
             )

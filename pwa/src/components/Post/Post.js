@@ -15,11 +15,12 @@ import ReplyIcon from '@material-ui/icons/Reply';
 import ReportIcon from '@material-ui/icons/Report';
 import TrendingFlatIcon from '@material-ui/icons/TrendingFlat';
 import { useHistory } from 'react-router-dom';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { BrowserHttpClient } from '../../lib/BrowserHttpClient';
 import { useStateValue } from '../../lib/store/appState';
 import Dialog from '../Dialog/Dialog';
 import PostSlider from './PostSlider';
+import {Divider} from '@material-ui/core'
 require('moment/locale/fa');
 
 var moment = require('moment-jalaali')
@@ -28,7 +29,6 @@ moment.loadPersian({ dialect: 'persian-modern' })
 const useStyles = makeStyles((theme) => ({
     root: {
         maxWidth: '100%',
-        margin: "20px 0"
     },
     media: {
         height: 250,
@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Post({ userName, createdDate, placeName, text, likes, medias, id, liked ,avatarUrl}) {
     const router = useHistory();
-
+    const postRef = useRef();
     const [{ user }] = useStateValue();
 
     const classes = useStyles();
@@ -78,6 +78,7 @@ export default function Post({ userName, createdDate, placeName, text, likes, me
         setExpanded(!expanded);
     };
     const handleMore = () => {
+        
         setOpen(!open);
     }
     const selectDialogItem = ()=>{
@@ -91,19 +92,19 @@ export default function Post({ userName, createdDate, placeName, text, likes, me
         action: () => {
             BrowserHttpClient.Post(`/user/unfollow/${userName}`).then(() => {
                 setUnfollow(!unfollow);
-                setOpen(false);
+                // setOpen(false);
             })
         },
         icon: <CallMissedIcon />,
         //not unfollowed before and its not him/her self
-        visible: !unfollow || (user.userName != userName)
+        visible: !unfollow && (user.userName != userName)
     },
     {
         title: `گزارش کردن این عکس`,
         action: () => {
             BrowserHttpClient.Post(`/post/report/${id}`).then(() => {
                 setLikes(innerLikes + 1);
-                setOpen(false);
+                // setOpen(false);
             })
         },
         icon: <ReportIcon />,
@@ -115,11 +116,11 @@ export default function Post({ userName, createdDate, placeName, text, likes, me
             BrowserHttpClient.Post(`/user/follow/${userName}`).then(() => {
                 setUnfollow(!unfollow);
 
-                setOpen(false);
+                // setOpen(false);
             })
         },
         icon: <TrendingFlatIcon />,
-        visible: unfollow || (user.userName != userName)
+        visible: unfollow && (user.userName != userName)
     },
     ]
 
@@ -127,8 +128,9 @@ export default function Post({ userName, createdDate, placeName, text, likes, me
         title: `حذف`,
         action: () => {
             BrowserHttpClient.Post(`/post/delete/${id}`).then(() => {
-                setUnfollow(!unfollow);
-                setOpen(false);
+                postRef.current.nextSibling.remove();
+                postRef.current.remove();
+               
             })
         },
         // icon: <CallMissedIcon />,
@@ -169,7 +171,7 @@ export default function Post({ userName, createdDate, placeName, text, likes, me
     }
 
     return (
-        <Card elevation={0} id={id} className={classes.root}>
+        <Card ref={postRef} elevation={0} id={id} className={classes.root}>
             <CardHeader
                 avatar={
                     <Avatar aria-label="recipe" src={avatar} onClick={handleGotoProfile} className={classes.avatar}>
@@ -198,6 +200,7 @@ export default function Post({ userName, createdDate, placeName, text, likes, me
                     {text}
                 </Typography>
             </CardContent>
+            <Divider/>
             <CardActions disableSpacing classes={{
                 root: classes.actions
             }}>

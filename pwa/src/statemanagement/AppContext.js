@@ -18,7 +18,6 @@ export function AppWrapper({ children }) {
 
     const [state, dispatch] = React.useReducer(reducer, sharedState);
     
-
     return (
         <StateProvider>
             <AppContext.Provider value={{ state, dispatch }} >

@@ -11,7 +11,7 @@ export default function useWebp(files, percentToReduceSize) {
     useEffect(() => {
         if (files && files.length > 0) {
             setProcessing(true);
-            processFiles(files, percentToReduceSize)
+            ResizeFiles(files, percentToReduceSize)
                 .then(newFiles => {
                     // setProcessing(false);
                     setResult(newFiles);
@@ -24,7 +24,7 @@ export default function useWebp(files, percentToReduceSize) {
     return [processing, result];
 }
 
-function processFiles(files, percentToReduceSize) {
+export function ResizeFiles(files, percentToReduceSize) {
     return new Promise((resolve, reject) => {
         let returnFiles = [];
         for (let file of files) {

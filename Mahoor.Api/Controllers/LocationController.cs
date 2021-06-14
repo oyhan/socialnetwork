@@ -18,10 +18,12 @@ namespace Mahoor.Api.Controllers
     public class LocationController:BaseApiController
     {
         private readonly IAppRepository<CityModel, Guid> _cityRepository;
+        private readonly ILocationService _locationService;
 
-        public LocationController(IAppRepository<CityModel,Guid> cityRepository)
+        public LocationController(IAppRepository<CityModel,Guid> cityRepository,ILocationService locationService)
         {
             _cityRepository = cityRepository;
+            _locationService = locationService;
         }
         [HttpGet("/location/current/{lat}/{lon}")]
         public async Task<ActionResult<CityDto>> GetCurrentCity(double lat , double lon)
@@ -62,6 +64,7 @@ namespace Mahoor.Api.Controllers
                 c.City,
                 c.Province,
                 c.Posts,
+                c.Geom,
                 PhotosCount = c.Posts.Count()
             }, new GetAllCitiesQuery(name));
             var result = citys.Select(c => new CityHomeDto()
@@ -71,7 +74,8 @@ namespace Mahoor.Api.Controllers
                 Name = $"{c.City},{c.Province}",
                 PhotosCount = c.PhotosCount,
                 City = c.City,
-                Province = c.Province
+                Province = c.Province,
+                DistanceToUser = c.Geom.GetDistance(_locationService.RequesterLocation)
             });
             return Ok(result);
         }

@@ -19,5 +19,6 @@ namespace Mahoor.Services.User.Profile.Dto
         public Guid? CityId { get; set; }
         public bool IsOwner { get; set; }
         public bool IsFollowing { get; set; }
+        public string HeaderPic { get;  set; }
     }
 }

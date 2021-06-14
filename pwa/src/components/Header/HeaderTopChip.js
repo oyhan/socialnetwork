@@ -10,21 +10,47 @@ const useStyles = makeStyles((theme) => ({
         '& svg': {
             color: theme.palette.primary.main
         },
-        height: 24,
-      
+        height: 29,
+        background :'white',
+
+
     },
+    chipSecondary :{
+        background : theme.palette.secondary.main,
+        color: 'white',
+        '& svg': {
+            color: 'white'
+        },
+    }
 }))
 
-export default function HeaderTopChip({title , handleClick,...other}) {
+export default function HeaderTopChip({ title, variant, handleClick, ...other }) {
     const classes = useStyles();
+
+    if (variant == 'secondary') {
+        return (
+            <Chip
+                {...other}
+                deleteIcon={<KeyboardArrowDownOutlinedIcon color='primary' />}
+                onClick={handleClick}
+                label={title}
+                onDelete={handleClick}
+                className={classes.chipSecondary}
+            />
+        )
+    }
+
     return (
         <Chip
             {...other}
-            icon={<KeyboardArrowDownOutlinedIcon  color='primary' />}
+            deleteIcon={<KeyboardArrowDownOutlinedIcon color='primary' />}
             onClick={handleClick}
             label={title}
+            onDelete={handleClick}
             className={classes.chip}
         />
     )
+
+
 
 }

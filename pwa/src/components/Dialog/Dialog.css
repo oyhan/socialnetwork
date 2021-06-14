@@ -1,0 +1,14 @@
+:root {
+    --ion-color-primary: #ee3e3e;
+    --md-primary-color : #802143;
+  }
+
+  .sc-ion-action-sheet-ios-h {
+    --button-background : #e4dedd;
+    --background : #e4deddb7;
+
+  }
+
+  .action-sheet-button.sc-ion-action-sheet-ios.action-sheet-cancel {
+    color : var(--md-primary-color)
+  }

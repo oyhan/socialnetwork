@@ -40,7 +40,7 @@ export default function Rate({ value, size, onchange, input, ...other }) {
       // }}
 
       iconHovered ={<RateIcon  fontSize={size || 'medium'} htmlColor={theme.palette.secondary.dark}  />}
-      iconFilled={<RateIcon fontSize={size || 'medium'}  htmlColor={theme.palette.secondary.main}  />}
+      iconFilled={<RateIcon fontSize={size || 'medium'}  color='primary'  />}
       iconNormal={<RateIconEmpty  fontSize={size || 'medium'} />}
       onChange={newValue => {
         

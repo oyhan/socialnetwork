@@ -15,28 +15,29 @@ import usePlacePageStyles from './PlacePage.css';
 
 
 export default function PlaceOverview(props) {
-    
-    const { name, noOfReviews, cuisine, distanceToUser, website, telephone, rate, isOpenNow, services,favorite,
-        address, location  } = props;
-        
+
+    const { name, noOfReviews, cuisine, distanceToUser, website, telephone, rate, isOpenNow, services, favorite,
+        address, location } = props;
+
 
     const classes = usePlacePageStyles();
     return (
         <>
-            <Grid container justify='space-around'>
+            <Grid container className={classes.row2} justify='space-between'>
                 <Grid item>
                     <Grid container direction='column' >
-                        <Typography variant='h6' >
+                        <Typography variant='h6' className="titr" >
                             <Box fontWeight='fontWeightBold'>
                                 {name}
+
                             </Box>
                         </Typography>
                         <Grid container>
-                           {
-                              rate &&  <Rate value={rate} />
-                           }
+                            {
+                                rate != undefined && <Rate value={rate} />
+                            }
                             <Typography color='disabled' variant='caption' >
-                                <Box m='0 5px'>
+                                <Box m='4px 5px'>
                                     {noOfReviews} نظر
                                </Box>
                             </Typography>
@@ -57,7 +58,7 @@ export default function PlaceOverview(props) {
                         </Grid>
 
                         <Grid container >
-                            <RoomIcon />
+                            <RoomIcon fontSize='small' />
                             <Typography color='textSecondary' component='div' variant='caption'>
                                 {distanceToUser}
                             </Typography>
@@ -66,7 +67,14 @@ export default function PlaceOverview(props) {
                     </Grid>
                 </Grid>
             </Grid>
-            <Container>
+
+            <Grid container className={classes.row2}>
+                <Typography variant='body2' color='textSecondary'>
+                    {cuisine}ایرانی،بین المللی،خاورمیانه
+                </Typography>
+            </Grid>
+
+            <Container style={{ marginTop: '50px' }}>
                 <Grid container className={classes.caption}>
                     <Typography variant='subtitle2'>
                         <Box fontWeight='fontWeightBold'>
@@ -76,16 +84,16 @@ export default function PlaceOverview(props) {
                 </Grid>
 
                 <Grid container className={classes.row} >
-                    <Grid item xs={10} className={classes.alignCenter}>
+                    <Grid item xs={11} className={classes.alignCenter}>
                         <Grid container>
                             <LaptopIcon color='primary' />
                             <Typography><Box margin='0 10px'>وبسایت</Box></Typography>
                         </Grid>
 
                     </Grid>
-                    <Grid item xs={2}>
+                    <Grid item xs={1}>
                         <a href={website || ""} >
-                            <IconButton ><ArrowBackIosIcon /></IconButton>
+                            <IconButton size='small' ><ArrowBackIosIcon style={{ fontSize: '12px', marginRight: 11 }} fontSize='small' /></IconButton>
                         </a>
                     </Grid>
                 </Grid>
@@ -106,7 +114,7 @@ export default function PlaceOverview(props) {
                 <Divider />
 
                 <Grid container className={classes.row}>
-                    <Grid item xs={10} className={classes.alignCenter}>
+                    <Grid item xs={11} className={classes.alignCenter}>
                         <Grid container>
                             <Grid item>
                                 <QueryBuilderIcon color='primary' />
@@ -129,8 +137,8 @@ export default function PlaceOverview(props) {
                         </Grid>
 
                     </Grid>
-                    <Grid item xs={2}>
-                        <IconButton ><ArrowBackIosIcon /></IconButton>
+                    <Grid item xs={1}>
+                        <IconButton size='small' ><ArrowBackIosIcon style={{ fontSize: '12px', marginRight: 11 }} fontSize='small' /></IconButton>
                     </Grid>
 
                 </Grid>
@@ -151,7 +159,7 @@ export default function PlaceOverview(props) {
 
                 <Grid container className={clsx(classes.map, classes.row)}>
                     {
-                        location && <Map point={location}  points={[location]}  />
+                        location && <Map point={location} points={[location]} />
                     }
                 </Grid>
 

@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { Fab, makeStyles, Tooltip } from '@material-ui/core';
 import { green } from '@material-ui/core/colors';
 import { PhotoCamera } from '@material-ui/icons';
-import useWebp from '../../lib/hooks/ImageCompress/useWebp';
+import useWebp, { ResizeFiles } from '../../lib/hooks/ImageCompress/useWebp';
 const pica = require('pica')();
 
 const useStyle = makeStyles((theme) => ({
     root: {
         display: 'flex',
         alignItems: 'center',
-        margin: '15px 0',
+        margin: '4px 0',
     },
     wrapper: {
         margin: theme.spacing(1),
@@ -44,7 +44,7 @@ const useStyle = makeStyles((theme) => ({
         ' & img': {
             borderRadius: '50%',
             border: 'white 3px solid',
-            aspectRatio : 1
+            aspectRatio: 1
         }
     },
     thumbnailContainer: {
@@ -53,7 +53,7 @@ const useStyle = makeStyles((theme) => ({
     fab: {
         background: '#fff'
     },
-    inputDisplay :{
+    inputDisplay: {
         width: 70,
         border: '3px white solid',
         height: 70,
@@ -78,10 +78,10 @@ export function resizeWithPica(image, newWidth) {
         // return dataUrl;
     })
 }
-export default function ImageUploader({ name, index, filesLimit, nothumbnail, receiveFiles, defaultImage, multiple, readonly, ...props }) {
+export default function ImageUploader({ name, sizeLimit, noCompression, index, filesLimit, nothumbnail, receiveFiles, defaultImage, multiple, readonly, pickerComponent, ...props }) {
 
     const [thumbs, setThumbs] = React.useState([]);
-    
+    const [ready, setReady] = useState(false);
 
 
     const [images, setImages] = useState([]);
@@ -101,6 +101,9 @@ export default function ImageUploader({ name, index, filesLimit, nothumbnail, re
         if (imageResized.length > 0) {
             receiveFiles && receiveFiles(imageResized)
             let thumbsArray = [];
+
+            if (nothumbnail) return;
+
             for (const f of imageResized) {
 
                 const resizedImage = await toBase64(f);
@@ -111,9 +114,9 @@ export default function ImageUploader({ name, index, filesLimit, nothumbnail, re
                     src: resizedImage
                 }];
             }
-            
+
             setThumbs(thumbsArray);
-            
+
         }
     }
 
@@ -122,55 +125,76 @@ export default function ImageUploader({ name, index, filesLimit, nothumbnail, re
         prepareThumbnails(imageResized)
 
     }, [imageResized])
+
     const classes = useStyle();
+
     const rand = Math.round(Math.random() * 10000);
 
+    const shouldResize = (file) => {
+
+        return sizeLimit && file[0].size / 1024 > sizeLimit
+
+    }
 
     const createThumbnails = (event) => {
 
         const files = [...event.target.files];
 
-        setImages(files);
+        if (noCompression) {
 
-
-        var selectedFiles = [];
-        const prepareFiles = () => {
-            return new Promise((resolve, reject) => {
-                let i = 0;
-                for (const file of files) {
-
-                    let image = new Image();
-
-                    var thum = [];
-                    image.src = window.URL.createObjectURL(file);
-                    image.onload = function () {
-                        const f = file;
-
-                        resizeWithPica(image, 200).then((result) => {
-                            thum.push({
-                                filename: f.name,
-                                value: result.split(',')[1].toString(),
-                                mimetype: f.type,
-                                src: result
-                            });
-                            setThumbs(thum);
-                            fetch(result)
-                                .then(res => res.blob())
-                                .then(blob => {
-
-                                    selectedFiles = [...selectedFiles, blob];
-                                    i++;
-                                    if (i == files.length) {
-
-                                        resolve(selectedFiles);
-                                    }
-                                })
-                        })
-                    }
-                }
-            }
-            )
+            receiveFiles && receiveFiles(files)
+            return;
         }
+
+        if (shouldResize(files)) {
+            setImages(files);
+        } else {
+            ResizeFiles(files, 1).then(resized => {
+                prepareThumbnails(resized)
+            })
+
+        }
+
+
+
+        // var selectedFiles = [];
+        // const prepareFiles = () => {
+        //     return new Promise((resolve, reject) => {
+        //         let i = 0;
+        //         for (const file of files) {
+
+        //             let image = new Image();
+
+        //             var thum = [];
+        //             image.src = window.URL.createObjectURL(file);
+        //             image.onload = function () {
+        //                 const f = file;
+
+        //                 resizeWithPica(image, 200).then((result) => {
+        //                     thum.push({
+        //                         filename: f.name,
+        //                         value: result.split(',')[1].toString(),
+        //                         mimetype: f.type,
+        //                         src: result
+        //                     });
+        //                     setThumbs(thum);
+        //                     fetch(result)
+        //                         .then(res => res.blob())
+        //                         .then(blob => {
+
+        //                             selectedFiles = [...selectedFiles, blob];
+        //                             i++;
+        //                             if (i == files.length) {
+
+        //                                 resolve(selectedFiles);
+        //                             }
+        //                         })
+        //                 })
+        //             }
+        //         }
+        //     }
+        //     )
+        // }
 
     }
     return (
@@ -189,11 +213,25 @@ export default function ImageUploader({ name, index, filesLimit, nothumbnail, re
                             key={key}
                         >
                             <div className={classes.thumbBox}>
-                                <img src={t.src}
-                                    width={props.thumbnailSize === undefined ? 50 : props.thumbnailSize}
-                                    height={props.thumbnailSize === undefined ? 50 : props.thumbnailSize}
-                                    className="thumbnail"
-                                    alt={t.name} />
+                                <Fab key={index}
+                                    aria-label="save"
+                                    color="primary"
+                                    component='label'
+                                    disableRipple
+                                    classes={{
+                                        primary: classes.fab
+                                    }}
+                                    htmlFor={readonly ? "" : `input-file-${rand}`}
+                                >
+                                    <img src={t.src}
+                                        alt={t.name}
+                                        width={props.thumbnailSize === undefined ? 50 : props.thumbnailSize}
+                                        height={props.thumbnailSize === undefined ? 50 : props.thumbnailSize}
+                                        className="thumbnail"
+                                    />
+                                </Fab>
+
+
                             </div>
                         </Tooltip>) :
                         defaultImage ?
@@ -219,21 +257,21 @@ export default function ImageUploader({ name, index, filesLimit, nothumbnail, re
 
                             </div>
                             :
-                            <Tooltip
-                                id="tooltip-top-start"
-                                title="اضافه کردن تصویر"
-                                placement="top"
-                            >
-                                <Fab key={index}
-                                    aria-label="save"
-                                    color="primary"
-                                    component='label'
-                                    classes={{root:classes.inputDisplay}}
-                                    htmlFor={readonly ? "" : `input-file-${rand}`}
-                                >
-                                    <PhotoCamera />
-                                </Fab>
-                            </Tooltip>
+                            <>
+                                {
+                                    pickerComponent ? <pickerComponent.type {...pickerComponent.props} htmlFor={readonly ? "" : `input-file-${rand}`} /> :
+                                        <Fab key={index}
+                                            aria-label="save"
+                                            color="primary"
+                                            component='label'
+                                            classes={{ root: classes.inputDisplay }}
+                                            htmlFor={readonly ? "" : `input-file-${rand}`}
+                                        >
+                                            <PhotoCamera />
+                                        </Fab>
+                                }
+
+                            </>
                 }
             </div>
             {/* <div className={classes.thumbnailContainer}> {

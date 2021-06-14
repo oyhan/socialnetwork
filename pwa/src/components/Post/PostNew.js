@@ -104,7 +104,7 @@ export default function PostNewDialog({ open, handleWindow, photos }) {
                     if (response.successFull) {
                         handleWindow(false);
                         toast("پست شما با موفقیت ارسال شد");
-                        router.push(`/`);
+                        router.push(`/mybobo`);
                         toast.dismiss();
                     }
                 }).catch(error => {

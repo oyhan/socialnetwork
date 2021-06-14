@@ -1,10 +1,11 @@
+import { Grid } from '@material-ui/core';
 import MAppBar from '@material-ui/core/AppBar';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import React from 'react';
 import ToolbarBackButton from '../Button/ToolbarBackButton';
-const useStyles = makeStyles((theme) => ({
+const useStyles =(headerPic)=> makeStyles((theme) => ({
   root: {
     marginBottom: 50
   },
@@ -35,39 +36,64 @@ const useStyles = makeStyles((theme) => ({
   avatarTxt: {
     marginBottom: '-59px',
     marginLeft: 119,
+  },
+  appbar: {
+    [theme.breakpoints.down('md')]: {
+      width: '100vw',
+      marginLeft: '-10px',
+    },
+    backgroundImage: `url(${headerPic})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+  },
+  rootToolbar: {
+    display: 'unset'
   }
 }));
 
-export default function AppBar({ rightIcon, title, leftIcons, middleCenterElement, extera, appBarColor, back ,short}) {
+export default function AppBar({ rightIcon, title, leftIcons, middleCenterElement, extera, appBarColor, back, short ,headerPic }) {
 
-  const classes = useStyles();
+  
+  const classes = useStyles(headerPic)();
   const theme = useTheme();
   const toolBarStyle = {
-    minHeight: short? "unset" : 128 ,
+    minHeight: short ? "unset" : 128,
     alignItems: 'flex-start',
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(2),
-  }
 
-  const rootStyle ={
-    marginBottom: short? "unset" : 50
+  }
+  
+  const rootStyle = {
+    marginBottom: short ? "unset" : 50,
+
   }
   return (
     <div style={rootStyle}>
-      <MAppBar color={appBarColor ? appBarColor : 'primary'} elevation={0} position="static">
-        <Toolbar style={toolBarStyle}>
-          <div className={classes.rightIcon}>
-            {back ?
-              <ToolbarBackButton /> :
-              rightIcon
+      <MAppBar color={appBarColor ? appBarColor : 'primary'} elevation={0} className={classes.appbar} position="static">
+        <Toolbar classes={{ root: classes.rootToolbar }} style={toolBarStyle}>
+          <Grid container>
+            <div className={classes.rightIcon}>
+              {back ?
+                <ToolbarBackButton /> :
+                rightIcon
+              }
+
+            </div>
+            <Typography className={classes.title} variant="h6" noWrap>
+              {title}
+            </Typography>
+            {
+              leftIcons && leftIcons.map(icon => icon)
             }
-          </div>
-          <Typography className={classes.title} variant="h6" noWrap>
-            {title}
-          </Typography>
+          </Grid>
+
           {
-            leftIcons && leftIcons.map(icon => icon)
+            middleCenterElement && <Grid justify='center' style={{ alignSelf: 'center' }} container>
+              {middleCenterElement}
+            </Grid>
           }
+
 
         </Toolbar>
 

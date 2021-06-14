@@ -27,7 +27,7 @@ namespace Mahoor.Services.Helper
                 var longitudeStr = _httpContext.Request.Headers["Longitude"].ToString();
                 var x = double.Parse(longitudeStr);
                 var y = double.Parse(latitudeStr);
-                return new Point(x, y);
+                return new Point(x, y){SRID = 4326};
             }
         }
     }

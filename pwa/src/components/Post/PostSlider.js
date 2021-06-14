@@ -7,7 +7,8 @@ const useStyle = makeStyles({
     image: {
         objectFit: 'contain',
             width: '100%',
-            height: 250,
+            height: 335,
+            margin :-10
     },
     root: {
         direction: "rtl"

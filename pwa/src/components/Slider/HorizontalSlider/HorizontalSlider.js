@@ -12,7 +12,7 @@ const useStyle = makeStyles((theme) => ({
         'scrollbar-width': 'none',  /* Firefox */
         overflowY: 'hidden',
         '& > div': {
-            marginRight: theme.spacing(1),
+            marginRight: theme.spacing(.5),
         },
         '&::-webkit-scrollbar' : {
             display: 'none',

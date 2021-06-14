@@ -16,14 +16,14 @@ import { useStateValue } from '../../lib/store/appState';
 
 const useStyles = makeStyles({
     root: {
-       
+
         height: 450,
         alignItems: 'center'
     },
     input: {
-        "& input" : {
-            letterSpacing:10,
-            textAlign :'center',
+        "& input": {
+            letterSpacing: 10,
+            textAlign: 'center',
         }
     }
 })
@@ -35,7 +35,7 @@ export default function Confirm() {
     const [, dispatch] = useStateValue();
     const classes = useStyles();
     const onSubmit = (e) => {
-        
+
         formik.setSubmitting(true);
         const baseUrl = "";
         const otp = formik.values.otp;
@@ -52,7 +52,7 @@ export default function Confirm() {
                 // document.cookie=`jwt=${response.token}`;
                 window.location.href = "/"
             }).catch(error => {
-                
+
 
                 formik.setSubmitting(false);
                 toast.error(error);
@@ -84,14 +84,12 @@ export default function Confirm() {
     const retry = () => {
         setTimer(120);
     }
-    
-
 
     return (
         <Grid justify='space-evenly' direction='column' container className={classes.root} >
 
             <form onSubmit={formik.handleSubmit}>
-                <InputRenderer  autoComplete="off" disabled={formik.isSubmitting} onChange={formik.handleChange}
+                <InputRenderer autoComplete="off" disabled={formik.isSubmitting} onChange={formik.handleChange}
                     error={formik.errors.otp}
                     Type={PropType.Number} Name="otp"
                     DisplayName="کد تایید"

@@ -1,16 +1,11 @@
 import { ListItem, ListItemText } from "@material-ui/core"
+import CitySearchResultItem from "./CitySearchResultItem"
 
 
 export default function CitySearchResult({ citys, onSelect }) {
     return (
         citys.map(r => {
-
-            return (<ListItem button onClick={onSelect(r)}>
-                <ListItemText
-                    primary={r.city}
-                    secondary={r.province}
-                />
-            </ListItem>)
+            return (<CitySearchResultItem item={r} handClickRecentSearch={onSelect} />)
         }
         ))
 }

@@ -34,7 +34,7 @@ export default function EditProfile() {
     const { avatarURl, bio, city, favorites, noOfFollowers,
 
         noOfFollowings, noOfPosts, userName, website, displayName } = user;
-  
+
 
     var onsubmit = (formik) => () => {
         if (formik.isValid) {
@@ -55,7 +55,7 @@ export default function EditProfile() {
                     formik.setSubmitting(false);
                     toast("ویرایش پروفایل با خطا روبرو شد");
                     toast.dismiss();
-                }).finally(()=>{
+                }).finally(() => {
                     toast.dismiss();
 
                 });
@@ -76,12 +76,16 @@ export default function EditProfile() {
         formik.validateForm();
     }, [user])
     const avatarChanged = (file) => {
-
-
-        formik.setFieldValue("files", file[0])
+        console.log('file: ', file);
+        formik.setFieldValue("avatar", file[0])
     }
+    const handleSelectHeaderPicture = (headerFile) => {
+        console.log('headerFile: ', headerFile);
+        formik.setFieldValue("header", headerFile)
+    }
+
     return <>
-        <EditProfileAppBar submiting={formik.isSubmitting} save={onsubmit(formik)} />
+        <EditProfileAppBar headerPic={user.headerPic} submiting={formik.isSubmitting} save={onsubmit(formik)} onSelectHeaderPicture={handleSelectHeaderPicture} />
         <ProfileAvatar userName={userName} avatarURl={avatarURl} onAvatarSelected={avatarChanged} />
         <InputRenderer
             key="displayName"
@@ -126,7 +130,7 @@ export default function EditProfile() {
             key="cityId"
             value={formik.values.cityId}
             autoComplete="off" placeholder={"شهر"} Type={PropType.Hidden} Name="cityId" fullWidth />
-         {formik.values.city && <AutoCompleteInput
+        {formik.values.city && <AutoCompleteInput
             defaultValue={formik.values.city}
             inputcomponent={
                 <InputRenderer
@@ -147,7 +151,7 @@ export default function EditProfile() {
             queryUrl={"/Location/Citys/{query}"}
             onSelected={(value) => { formik.setFieldValue("cityId", value?.id) }}
         />}
-        
+
 
         <InputRenderer
             key="favorites"
@@ -180,15 +184,14 @@ export default function EditProfile() {
             key="bio"
             onChange={formik.handleChange}
             error={formik.errors.bio}
-            InputProps={{
-                startAdornment: (
-                    <InputAdornment position="start">
-                        <InfoIcon />
-                    </InputAdornment>
-                ),
-            }}
+            rows={0}
             value={formik.values.bio}
             autoComplete="off" placeholder={"درباره خود جزئیاتی بنویسید"}
             Type={PropType.TextArea} Name="bio" fullWidth />
+
+        <Typography>
+            حداکثر 160 کاراکتر
+         </Typography>
     </>
+
 }

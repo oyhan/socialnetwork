@@ -2,7 +2,7 @@ import { Card, CardActions, CardContent, CardMedia, IconButton, makeStyles, Typo
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteTwoToneIcon from '@material-ui/icons/FavoriteTwoTone';
 import RoomIcon from '@material-ui/icons/Room';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { BrowserHttpClient } from '../../../lib/BrowserHttpClient';
 import Rate from '../../Rate/Rate';
@@ -10,11 +10,11 @@ const useStyles = makeStyles(theme => ({
     root: {
         position: 'relative',
         maxWidth: 150,
-        minWidth: 150,
-        maxHeight: 200
+        minWidth: 122,
+        height: 124
     },
     media: {
-        height: 100,
+        height: 88,
     },
     btn: {
         position: 'absolute',
@@ -38,16 +38,23 @@ const useStyles = makeStyles(theme => ({
         display: 'flex'
     },
     distance: {
-        fontSize: 10,
+        fontSize: 9,
         marginRight: 0,
-        lineHeight: 2.5,
+        lineHeight: 1.5,
     },
-    content :{
-        padding : 1
+    content: {
+        "& div": {
+            marginBottom: -2
+        },
+        padding: 1
     },
     placeTitle: {
-        fontSize : 12,
-        fontWeight:900
+        fontSize: 11,
+        marginBottom: '-4px',
+        marginTop: '-5px',
+    },
+    smalIcon :{
+        fontSize : '.7rem'
     }
 
 }));
@@ -56,7 +63,7 @@ export default function SliderItem({ image, title, rate, ratesCount, distance, f
     const [faved, setFaved] = useState(false);
     useEffect(() => {
         setFaved(favorite);
-        
+
     }, [favorite])
     const handlFave = () => {
 
@@ -87,7 +94,7 @@ export default function SliderItem({ image, title, rate, ratesCount, distance, f
                 />
             </Link>
             <CardContent className={classes.content} >
-                <Typography className={classes.placeTitle} gutterBottom variant="h6" component="h6">
+                <Typography className={classes.placeTitle} variant="caption" component="h6">
                     {title}
                 </Typography>
                 <div className={classes.inline}>
@@ -98,7 +105,7 @@ export default function SliderItem({ image, title, rate, ratesCount, distance, f
                     </Typography>
                 </div>
                 <div className={classes.inline}>
-                    <RoomIcon fontSize="small" />
+                    <RoomIcon classes={{fontSizeSmall : classes.smalIcon}} fontSize="small" />
                     <Typography className={classes.distance} color='disabled'>
                         {distance}
                     </Typography>

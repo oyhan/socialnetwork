@@ -20,9 +20,7 @@ const useStyles = makeStyles({
     icon: {
         transform: "scaleX(-1)"
     },
-    distance: {
-        borderRadius: 0
-    },
+ 
     
 })
 export default function WhereToGo({ open, handleWindow, handleSelectCity }) {

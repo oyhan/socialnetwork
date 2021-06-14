@@ -5,6 +5,7 @@ import React from 'react';
 import AppBar from '../AppBar/AppBar';
 import ProfileAvatar from './ProfileAvatar';
 import { Link } from 'react-router-dom'
+import IosShareIcon from '../Icons/IosShareIcon';
 
 
 export default function ProfileAppBar({ profileDto, readonly }) {
@@ -19,15 +20,16 @@ export default function ProfileAppBar({ profileDto, readonly }) {
     try {
       await navigator.share(shareData)
     } catch (err) {
+      console.log('err: ', err);
 
     }
   }
   const leftIcon = [
 
-    <IconButton onClick={shareProfile} aria-label="display more actions" edge="end" color="inherit">
-      <LaunchIcon />
+    <IconButton className="z-index-510" onClick={shareProfile} aria-label="display more actions" edge="end" color="inherit">
+      <IosShareIcon />
     </IconButton>,
-    <IconButton component={Link} to="/settings" aria-label="search" color="inherit">
+    <IconButton className='z-index-510' component={Link} to="/settings" aria-label="search" color="inherit">
       <Settings />
     </IconButton>,
   ]
@@ -38,7 +40,7 @@ export default function ProfileAppBar({ profileDto, readonly }) {
   )
 
   return (
-    <AppBar leftIcons={leftIcon} extera={extera} />
+    <AppBar headerPic={profileDto.headerPic} leftIcons={leftIcon} extera={extera} />
   )
 }
 

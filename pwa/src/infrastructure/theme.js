@@ -21,7 +21,9 @@ const AppTheme = {
                     outline: '1px solid slategrey'
                 }
             }
-        }
+        },
+
+
     },
     palette: {
         text: {
@@ -46,6 +48,10 @@ const AppTheme = {
     },
     direction: 'rtl',
     typography: {
+        subtitle2: {
+            fontSize: 9,
+            fontWeight: 600
+        },
         fontFamily: [
             'Homa',
             'BlinkMacSystemFont',

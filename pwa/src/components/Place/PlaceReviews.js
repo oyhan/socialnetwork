@@ -97,8 +97,8 @@ export default function PlaceReviews({ restaurantDetail, placeId }) {
                 </Grid>
 
                 <Grid container className={classes.row}>
-                    <form style={{width:'100%'}} onSubmit={onSearchSubmit}>
-                        <SearchInput  onChange={(event) => {
+                    <form style={{ width: '100%' }} onSubmit={onSearchSubmit}>
+                        <SearchInput onChange={(event) => {
                             setSearchText(event.target.value)
                         }} />
                     </form>
@@ -106,20 +106,24 @@ export default function PlaceReviews({ restaurantDetail, placeId }) {
                 <Grid className={classes.row}>
                     {
                         reviewsSearched ?
-                        reviewsSearched.length ===0?
-                            <Typography color='textSecondary' variant='caption'>چیزی پیدا نشد...</Typography> :
-                            reviewsSearched.map((r, i) =>
-                                <div className={classes.row}>
-                                    <ReviewItem {...r} key={i} />
-                                </div>)
+                            reviewsSearched.length === 0 ?
+                                <Typography color='textSecondary' variant='caption'>چیزی پیدا نشد...</Typography> :
+                                reviewsSearched.map((r, i) =>
+                                    <div className={classes.row}>
+                                        <ReviewItem {...r} key={i} />
+                                        <Divider />
+                                    </div>)
                             :
                             reviews && reviews.map((r, i) =>
                                 <div className={classes.row}>
                                     <ReviewItem {...r} key={i} />
+                                    <Divider />
+
                                 </div>
                             )
                     }
                 </Grid>
+
 
 
             </Container>

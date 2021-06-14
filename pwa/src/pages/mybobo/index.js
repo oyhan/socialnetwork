@@ -98,29 +98,27 @@ export default function MyBobo() {
                 case "city":
                     return (
                         <IconButton disableRipple>
-                            <LocationOnIcon />
+                            <LocationOnIcon htmlColor='black' />
                         </IconButton>
                     )
                 case "bio":
                     return (
-                        <IconButton disableRipple>
-                            <InfoIcon />
-                        </IconButton>
+                        ""
                     )
                 case "favorites":
                     return (
                         <IconButton disableRipple>
-                            <FavoriteIcon />
+                            <FavoriteIcon htmlColor='black' />
                         </IconButton>)
                 case "website":
                     return (
                         <IconButton disableRipple>
-                            <LanguageIcon />
+                            <LanguageIcon htmlColor='black' />
                         </IconButton>)
             }
         }
         return (
-            <Grid container  direction='row'>
+            <Grid container style={{ margin: '-8px 0' }} direction='row'>
                 {
                     user[item] ?
                         getIcon(item) :
@@ -131,7 +129,7 @@ export default function MyBobo() {
                         </Link>
                 }
                 <Typography variant="caption" className={classes.text}>
-                    {user[item] || title}
+                    {user[item] || <Link to="/editprofile" >{title}</Link>}
                 </Typography>
             </Grid>
         )
@@ -176,7 +174,21 @@ export default function MyBobo() {
                 <InfoItem title="شهر فعلی خود را اضافه کنید" item="city" user={user} />
                 <InfoItem title="علاقه‌مندی خود را اضافه کنید" item="favorites" user={user} />
                 <InfoItem title="یک وبسایت اضافه کنید" item="website" user={user} />
-                <InfoItem title="درباره خود جزئیاتی بنویسید" item="bio" user={user} />
+                {/* <InfoItem title="درباره خود جزئیاتی بنویسید" item="bio" user={user} /> */}
+                <Grid container direction='row'>
+                    {
+                        user.bio ? "" :
+                            <Link to="/editprofile" >
+                                <IconButton disableRipple>
+                                    <Add color='inherit' />
+                                </IconButton>
+                            </Link>
+                    }
+
+                    <Typography style={{marginRight : 20}} variant="caption" className={classes.text}>
+                        {user.bio || "درباره خود جزئیاتی بنویسید"}
+                    </Typography>
+                </Grid>
             </Grid>
             <SpeedDials newPostClickHandler={handleNewPost} />
             <PostNewDialog open={newPost} handleWindow={setNewPost} photos={result} />

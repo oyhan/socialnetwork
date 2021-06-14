@@ -6,10 +6,10 @@ import ImageUploader from "../ImageUploader/ImageUploader";
 const useStyles = makeStyles((theme) => ({
   root: {
     position: 'absolute',
-    top: 104,
+    top: 106,
     width: 200,
     left: '10vw',
-    zIndex: 1000,
+    zIndex: 499,
 
     [theme.breakpoints.up('md')]: {
       left: '25vw',

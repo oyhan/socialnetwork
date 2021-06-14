@@ -40,21 +40,47 @@ namespace Mahoor.Services.User.Handlers
                 }
                 if (request.Medias.Count > 0)
                 {
-                    var media = request.Medias[0];
-                    var relativePath = $"/user/{user.UserName}/avatar/";
-                    var directory = $"{ContentPath}{relativePath}";
-                    var fileName = $"{Guid.NewGuid()}.webp";
-                    var mainAvatar = $"{directory}/{fileName}";
-                    if (!Directory.Exists(directory))
+                    foreach (var media in request.Medias)
                     {
-                        Directory.CreateDirectory(directory);
+
+                        if (media.File.Name == "header")
+                        {
+                            var relativePath = $"/user/{user.UserName}/header/";
+                            var directory = $"{ContentPath}{relativePath}";
+                            var fileName = $"{Guid.NewGuid()}.webp";
+                            var header = $"{directory}/{fileName}";
+                            if (!Directory.Exists(directory))
+                            {
+                                Directory.CreateDirectory(directory);
+                            }
+
+                            //SaveImage(media.File, jpg,new JpegFormat());
+                            SaveImage(media.File, header);
+
+                            media.Path = $"{relativePath}{fileName}";
+                            user.ProfileHeaderPicture = media.Path;
+                        }
+                        if(media.File.Name == "avatar")
+                        {
+                            var relativePath = $"/user/{user.UserName}/avatar/";
+                            var directory = $"{ContentPath}{relativePath}";
+                            var fileName = $"{Guid.NewGuid()}.webp";
+                            var mainAvatar = $"{directory}/{fileName}";
+                            if (!Directory.Exists(directory))
+                            {
+                                Directory.CreateDirectory(directory);
+                            }
+
+                            //SaveImage(media.File, jpg,new JpegFormat());
+                            SaveImage(media.File, mainAvatar);
+
+                            media.Path = $"{relativePath}{fileName}";
+                            user.AvatarUrl = media.Path;
+                        }
+                        
                     }
 
-                    //SaveImage(media.File, jpg,new JpegFormat());
-                    SaveImage(media.File, mainAvatar);
-                    
-                    media.Path = $"{relativePath}{fileName}";
-                    user.AvatarUrl = media.Path;
+                   
                 }
 
                 var city = await _cityRepository.GetByIdAsync(request.CityId);

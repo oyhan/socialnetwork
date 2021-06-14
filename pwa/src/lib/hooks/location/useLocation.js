@@ -24,8 +24,9 @@ export default function useLocation() {
     }
     const success = (pos) => {
         var crd = pos.coords;
+        console.log('crd: ', crd);
         localStorage.setItem("location", JSON.stringify(defaultLocation))
-        setPos(crd);
+        setPos(defaultLocation);
 
     }
     useEffect(() => {

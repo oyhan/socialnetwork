@@ -136,6 +136,10 @@ export default function PlacePageAppBar({ photos, place }) {
                 {/* <Toolbar style={calcToolbarStyle()} > */}
                 <SwipeableViews enableMouseEvents>
                     {
+                        photos.length ==0 ? 
+                        
+                        <div style={calcToolbarStyle({})}></div> :
+
                         photos.map(p => (
                             <div key={p.path} style={calcToolbarStyle(p)}></div>
                         ))

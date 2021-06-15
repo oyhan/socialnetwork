@@ -11,3 +11,5 @@ Mahoor.Api/appsettings.Development.json
 .idea/.idea.Mahoor/.idea/indexLayout.xml
 .idea/.idea.Mahoor/.idea/.name
 .idea/.idea.Mahoor/.idea/vcs.xml
+Mahoor.Api/Mahoor.Api.csproj.user
+Mahoor.Api/Properties/PublishProfiles/FolderProfile.pubxml.user

@@ -3,6 +3,7 @@ import AllReviews from '../pages/allreviews';
 import Home from '../pages/Home';
 import ConfirmLogin from '../pages/login/confirm';
 import NearMe from '../pages/nearme';
+import SeeAllBest from '../pages/seeallbest';
 import SeeAllClose from '../pages/seeallclose';
 import SettingsPage from '../pages/settings';
 import ConfirmSignup from '../pages/signup/confirm';
@@ -28,6 +29,7 @@ const Routes = {
     user: [
         { path: "/place/allreviews/:placeId",  private: true, component: <AllReviews />},
         { path: "/seeallclose",  private: true, component: <SeeAllClose />},
+        { path: "/seeallbest",  private: true, component: <SeeAllBest />},
         { path: "/:placeName/photos/:placeId",  private: true, component: <PlaceSeeAllPhotos />},
         { path: "/searchforplace",  private: true, component: <SearchForPlace /> },
         { path: "/settings",  private: true, component: <SettingsPage /> },

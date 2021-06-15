@@ -16,25 +16,25 @@ using Serilog;
 
 namespace Mahoor.Services.Place.Commands
 {
-    public class GetNearRestaurantsCommandHandler : IRequestHandler<GetNearRestaurantsCommand, BaseServiceResponse<List<RestaurantDto>>>
+    public class GetBestRestaurantsCommandHandler : IRequestHandler<GetBestRestaurantsCommand, BaseServiceResponse<List<RestaurantDto>>>
     {
         private readonly ILocationService _locationService;
         private readonly IPlaceService _placeService;
         private readonly AppSettings _settings;
 
-        public GetNearRestaurantsCommandHandler(IPlaceService placeService,ILocationService locationService,IOptionsSnapshot<AppSettings> options)
+        public GetBestRestaurantsCommandHandler(IPlaceService placeService,ILocationService locationService,IOptionsSnapshot<AppSettings> options)
         {
             _locationService = locationService;
             _placeService = placeService;
             _settings = options.Value;
         }
-        public async Task<BaseServiceResponse<List<RestaurantDto>>> Handle(GetNearRestaurantsCommand request, CancellationToken cancellationToken)
+        public async Task<BaseServiceResponse<List<RestaurantDto>>> Handle(GetBestRestaurantsCommand request, CancellationToken cancellationToken)
         {
             try
             {
                 var point = _locationService.RequesterLocation as Point;
 
-                var restarunts = await _placeService.GetClosestRestaurants(point.Y, point.X, _settings.NearByRadius, request.From, request.To, Guid.Parse(request.Requester));
+                var restarunts = await _placeService.GetBestRestaurants(point.Y, point.X, _settings.NearByRadius, request.From, request.To, Guid.Parse(request.Requester));
 
                 return BaseServiceResponse<List<RestaurantDto>>.SuccessFullResponse(restarunts.ToList());
             }

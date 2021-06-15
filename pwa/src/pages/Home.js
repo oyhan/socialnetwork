@@ -154,7 +154,7 @@ export default function Home() {
             <Typography component='h4'>
               رستوران‌های برتر یزد
             </Typography>
-            <Link to="/nearme" >
+            <Link to="/seeallbest" >
               <a>
                 <Typography color='primary'>
                   همه را ببین

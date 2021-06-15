@@ -85,10 +85,10 @@ namespace Mahoor.Api.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("/restaurant/nearme")]
-        public async Task<ActionResult<RestaurantDto>> NearmeRestaurants()
+        [HttpGet("/restaurant/nearme/{from=0}/{to=10}")]
+        public async Task<ActionResult<RestaurantDto>> NearmeRestaurants(int from, int to)
         {
-            var command = new GetNearRestaurantsCommand(User.Id());
+            var command = new GetNearRestaurantsCommand(User.Id(),from,to);
 
             var result = await Mediator.Send(command);
             if (result.SuccessFull)
@@ -99,7 +99,22 @@ namespace Mahoor.Api.Controllers
             return BadRequest(result);
         }
 
-       [HttpGet("/place/search/{name}/{cityId}")]
+        [HttpGet("/restaurant/best/{from=0}/{to=10}")]
+        public async Task<ActionResult<RestaurantDto>> BestRestaraunts(int from , int  to)
+        {
+            var command = new GetBestRestaurantsCommand(User.Id(), from , to);
+
+            var result = await Mediator.Send(command);
+            if (result.SuccessFull)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+
+
+        [HttpGet("/place/search/{name}/{cityId}")]
         public async Task<ActionResult<PlaceSearchDto>> Search(string name,Guid? cityId)
         {
             var command = new SearchPlaceCommand(name,cityId);

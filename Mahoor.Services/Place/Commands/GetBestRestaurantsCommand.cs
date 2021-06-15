@@ -10,13 +10,14 @@ using MediatR;
 
 namespace Mahoor.Services.Place.Commands
 {
-    public class GetNearRestaurantsCommand : BasePagedRequest<BaseServiceResponse<List<RestaurantDto>>>, IAppBaseRequest
+    public class GetBestRestaurantsCommand : BasePagedRequest<BaseServiceResponse<List<RestaurantDto>>>, IAppBaseRequest
     {
-        public GetNearRestaurantsCommand(string userId, int from, int to)
+        public GetBestRestaurantsCommand(string userId , int from , int to)
         {
             Requester = userId;
             From = from;
             To = to;
+            
         }
 
         public string Requester { get; set; }

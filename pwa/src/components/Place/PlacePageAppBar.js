@@ -1,17 +1,15 @@
+import { Typography } from '@material-ui/core';
 import MAppBar from '@material-ui/core/AppBar';
 import IconButton from '@material-ui/core/IconButton';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Toolbar from '@material-ui/core/Toolbar';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { useScrollData } from 'scroll-data-hook';
 import CameraAltIcon from '@material-ui/icons/CameraAlt';
-import { Typography } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import ReplyIcon from '@material-ui/icons/Reply';
+import React, { useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import SwipeableViews from 'react-swipeable-views';
-import throttle from "lodash/throttle";
-import { useThrottledOnScroll } from '../Navigation/Tab/ScrollSpyTabs';
+import { useScrollData } from 'scroll-data-hook';
+
 const useStyles = (position) => makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -55,11 +53,17 @@ const useStyles = (position) => makeStyles((theme) => ({
         right: 10,
         zIndex: 10,
         display: position.y > 150 ? 'none' : 'block'
+    },
+    sharebtn: {
+        position: 'fixed',
+        top: 10,
+        right: 10,
+        zIndex: 10,
     }
 }));
 
 
-export default function PlacePageAppBar({ photos }) {
+export default function PlacePageAppBar({ photos, place }) {
     const [open, setOpen] = useState();
     const handleClick = () => {
         setOpen(true);
@@ -96,15 +100,26 @@ export default function PlacePageAppBar({ photos }) {
 
         }
 
-       
-            return style;
-       
+
+        return style;
+
     }
     const handleBack = () => {
         router.goBack();
     }
 
+    const sharePlace = async () => {
+        const shareData = {
+            title: `رستوران ${place.name} را ببینید`,
+            // text: text,
+            url: `/place/${place.id}`,
+        }
+        try {
+            await navigator.share(shareData)
+        } catch (err) {
 
+        }
+    }
 
     return (
         <div className={classes.root}>
@@ -113,6 +128,10 @@ export default function PlacePageAppBar({ photos }) {
             <MAppBar elevation={0} position="fixed">
                 <IconButton className={classes.searchIcon} onClick={handleBack} aria-label="search" edge='start' color="inherit">
                     <ArrowForwardIosIcon />
+                </IconButton>
+
+                <IconButton onClick={sharePlace} className={classes.sharebtn} aria-label="share" color="inherit">
+                    <ReplyIcon />
                 </IconButton>
                 {/* <Toolbar style={calcToolbarStyle()} > */}
                 <SwipeableViews enableMouseEvents>

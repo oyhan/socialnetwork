@@ -9,21 +9,21 @@ const useStyles = makeStyles((theme) => ({
     root: {
         position: 'absolute',
         top: 104,
-        width:320,
-        left:'10vw',
-        zIndex :10000,
-        
+        width: 320,
+        left: '10vw',
+        zIndex: 10000,
+
         [theme.breakpoints.up('md')]: {
-          left:'25vw',
+            left: '25vw',
         },
         [theme.breakpoints.up('lg')]: {
-          left:'26vw',
+            left: '26vw',
         },
         [theme.breakpoints.up('xl')]: {
-          left:'34vw',
+            left: '34vw',
         },
-       
-      },
+
+    },
     avatar: {
         width: 90,
         height: 90,
@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
         marginTop: 19,
         marginRight: 3,
         marginLeft: 9,
-    
+
     },
     more: {
         lineHeight: 4.5,
@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function UserProfileAvatar({ userName,displayName ,avatarURl }) {
+export default function UserProfileAvatar({ userName, displayName, avatarURl }) {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
 
@@ -63,16 +63,16 @@ export default function UserProfileAvatar({ userName,displayName ,avatarURl }) {
     const moreBtnItems = [{
         title: `بلاک کردن ${userName}`,
         action: () => { },
-        icon : <BlockIcon/>,
-        visible:true
+        icon: <BlockIcon />,
+        visible: true
     },
     {
         title: `گزارش‌کردن این پروفایل`,
         action: () => { },
-        icon : <ReportIcon/>,
-        visible:true
+        icon: <ReportIcon />,
+        visible: true
     }
-]
+    ]
 
     return (
         <Grid container className={classes.root}>
@@ -82,9 +82,9 @@ export default function UserProfileAvatar({ userName,displayName ,avatarURl }) {
                 </Avatar>
             </IconButton>
             <Grid item direction='column' className={classes.avatarTxt}>
-                <Typography color='primary' resource variant='subtitle2'>
+                <Typography color='textPrimary' className='titr'>
                     {displayName}
-              </Typography>
+                </Typography>
                 <Typography color='primary' variant='caption'>
                     {userName && `@${userName}` || '@نام کاربری'}
                 </Typography>

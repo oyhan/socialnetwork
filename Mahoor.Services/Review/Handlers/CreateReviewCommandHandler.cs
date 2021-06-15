@@ -87,15 +87,16 @@ namespace Mahoor.Services.Review.Handlers
                     Place = place,
                     Rate = request.Dto.Rate,
                     Title = request.Dto.Title,
-                    DateVisited = request.Dto.DateVisited,
-                    PlaceName = place.Name
+                    DateVisited = DateTime.Now,
+                    PlaceName = place.Name,
+                    
                      
                 };
 
                 var reviewModel = await _reviewRepository.AddAsync(review);
                var rowsEffected= await _reviewRepository.ApplyChangesAsync();
 
-                await _graphService.AddAssociation(Guid.Parse(request.Requester), reviewModel.Id, AType.Wrote
+                await _graphService.AddAssociation(Guid.Parse(request.Requester), place.Id, AType.Wrote
                     , reviewModel.ToReviewDto());
 
                 await _mediator.Publish(new ReviewCreatedEvent { Review = reviewModel });

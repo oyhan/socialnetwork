@@ -9,7 +9,7 @@ export default function CityPostsPage() {
     const { cityId } = useParams();
 
     const [loading, posts, error] = useHttpClient(`/city/posts/${cityId}`, "Get", r => r.response);
-    console.log('posts: ', posts);
+    
     const addNewPhoto = [<ToolbarButton>
         اضافه کن
     </ToolbarButton>]

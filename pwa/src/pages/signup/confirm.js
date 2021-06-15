@@ -34,7 +34,7 @@ export default function Confirm() {
     const history = useHistory();
     const [timer, setTimer] = useState(120)
     const loctation = useLocation();
-    console.log('loctation: ', loctation);
+    
     const onsubmit = () => {
         formik.setSubmitting(true);
         if (formik.isValid) {

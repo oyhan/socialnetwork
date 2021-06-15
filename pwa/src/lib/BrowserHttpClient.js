@@ -1,11 +1,12 @@
 import cookieCutter from 'cookie-cutter';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import { getDefault } from './hooks/location/useLocation';
 import UserManager from './userManager';
 var authentication = {};
 if (typeof window !== 'undefined') {
 
-    authentication = { Authorization: `Bearer ${cookieCutter.get("jwt")}`, Latitude: cookieCutter.get("latitude"), Longitude: cookieCutter.get("longitude") }
+    authentication = { Authorization: `Bearer ${cookieCutter.get("jwt")}`, Latitude: getDefault().latitude, Longitude: getDefault().longitude }
 
 }
 export const BrowserHttpClient = {
@@ -56,7 +57,7 @@ export function useHttpClient(url, method, getResult, body) {
     }
 
     useEffect(() => {
-        
+
         throttle(fetchFunction(url), 150)
     }, [url])
 

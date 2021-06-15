@@ -1,7 +1,18 @@
-import { Divider } from "@material-ui/core";
+import { Divider, makeStyles } from "@material-ui/core";
 
+const useStyle = makeStyles(theme => ({
+    divider: {
+        height: 8,
+        background: '#e6e0e0',
+        margin: '10px -10px',
+        [theme.breakpoints.down("sm")]: {
+            width: ' 100vw'
+        },
+        width: '100%'
+    }
+}))
 
-export default function AppDivider(){
-    return <Divider style={{height : 8,background:'#e6e0e0',margin: '10px -10px',
-    width:' 100vw'}}/>
+export default function AppDivider() {
+    const classes = useStyle();
+    return <Divider className={classes.divider} />
 }

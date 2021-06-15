@@ -54,7 +54,7 @@ namespace Mahoor.Api.Controllers
         }
 
         [HttpGet("/review/search/{restaurantId}/{text}")]
-        public async Task<ActionResult<BaseServiceResponse<List<RestaurantReviewItemDto>>>> Search(string text , Guid restaurantId)
+        public async Task<ActionResult<BaseServiceResponse<List<RestaurantReviewItemDto>>>> Search(string? text , Guid restaurantId)
         {
             var cmd = new SearchRestaurantReviewsCommand( restaurantId , text);
 
@@ -67,6 +67,8 @@ namespace Mahoor.Api.Controllers
 
             return BadRequest(result);
         }
+
+      
 
 
     }

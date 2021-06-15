@@ -193,7 +193,8 @@ namespace Mahoor.Services.ExtentionMethods
                 PlaceName = review.PlaceName,
                 Rate = review.Rate,
                 DateVisited = review.DateVisited,
-                Title = review.Title
+                Title = review.Title,
+                
             };
         }
 

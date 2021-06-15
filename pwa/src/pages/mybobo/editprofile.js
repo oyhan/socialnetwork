@@ -76,11 +76,11 @@ export default function EditProfile() {
         formik.validateForm();
     }, [user])
     const avatarChanged = (file) => {
-        console.log('file: ', file);
+        
         formik.setFieldValue("avatar", file[0])
     }
     const handleSelectHeaderPicture = (headerFile) => {
-        console.log('headerFile: ', headerFile);
+        
         formik.setFieldValue("header", headerFile)
     }
 

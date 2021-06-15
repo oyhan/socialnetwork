@@ -65,7 +65,8 @@ namespace Mahoor.Services.Graph
             try
             {
                 //at the time being we don't have duplicate association with the same keys 
-                if (await HasAssociation(id1, id2, aType))
+                 //we can write review multiple times for a place
+                if (aType !=AType.Wrote && await HasAssociation(id1, id2, aType))
                 {
                     return;
                 }

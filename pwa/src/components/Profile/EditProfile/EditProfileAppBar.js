@@ -13,11 +13,11 @@ const extera = (
 
 
 export default function EditProfileAppBar({ save, submiting, onSelectHeaderPicture ,headerPic}) {
-    console.log('headerPic: ', headerPic);
+    
     const router = useHistory();
     
     const [headerBg, setHeaderBg] = useState(headerPic);
-    console.log('headerBg: ', headerBg);
+    
     const handleCancel = () => {
         router.goBack();
     }

@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
 import isBrowser from '../../nextjs/utility';
+const defaultLocation = { latitude: 31.888539, longitude: 54.354710 };
+export const getDefault = () => {
+    var savedLocation = JSON.parse(localStorage.getItem("location"));
 
-const defaultLocation = { latitude: 31.834989, longitude: 54.374296 };
+    if (!savedLocation) return defaultLocation;
+
+    return savedLocation
+    
+}
 export default function useLocation() {
-    const getDefault = () => {
-        var savedLocation = JSON.parse(localStorage.getItem("location"));
-
-        if (!savedLocation) return defaultLocation;
-
-        return savedLocation
-        
-    }
+   
     const [pos, setPos] = useState(getDefault());
 
     var options = {
@@ -24,7 +24,7 @@ export default function useLocation() {
     }
     const success = (pos) => {
         var crd = pos.coords;
-        console.log('crd: ', crd);
+        
         localStorage.setItem("location", JSON.stringify(defaultLocation))
         setPos(defaultLocation);
 

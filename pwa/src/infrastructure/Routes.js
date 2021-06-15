@@ -1,4 +1,5 @@
 import { lazy } from 'react';
+import AllReviews from '../pages/allreviews';
 import Home from '../pages/Home';
 import ConfirmLogin from '../pages/login/confirm';
 import NearMe from '../pages/nearme';
@@ -25,6 +26,7 @@ const MyBobo = lazy(() => import('../pages/mybobo'));
 const Routes = {
     
     user: [
+        { path: "/place/allreviews/:placeId",  private: true, component: <AllReviews />},
         { path: "/seeallclose",  private: true, component: <SeeAllClose />},
         { path: "/:placeName/photos/:placeId",  private: true, component: <PlaceSeeAllPhotos />},
         { path: "/searchforplace",  private: true, component: <SearchForPlace /> },

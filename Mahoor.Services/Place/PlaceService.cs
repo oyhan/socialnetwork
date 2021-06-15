@@ -68,6 +68,32 @@ namespace Mahoor.Services.Place
             return closestRestaurants;
         }
 
+        public async Task<IReadOnlyList<RestaurantDto>> GetBestRestaurants(double lat, double lon, double radius, int from, int to, Guid userId)
+        {
+
+            var userLocation = new Point(lon, lat) { SRID = 4326 };
+            var favoritePlaces = await _graphService.GetAssociationsFrom(userId, AType.Faved);
+            var closestRestaurants = await _placeRepository.ListAsync(r => new RestaurantDto()
+            {
+                Name = r.Name,
+                DistanceInMeter = r.Location.Distance(userLocation),
+                Avatar = r.Avatar,
+                Rate = r.Rate,
+                Location = r.Location,
+                Id = r.Id,
+                NoOfReviews = r.Reviews.Count,
+                Favorite = favoritePlaces.Any(i => i == r.Id),
+                Cuisine = r["cuisine"].Replace(";", ","),
+                IsOpenNow = r.IsOpenNow,
+
+            },
+                new GetBestRestaurants( from, to));
+            foreach (var restaurant in closestRestaurants)
+            {
+                restaurant.LatLon = restaurant.Location.Coordinates.Select(c => $"[{c.Y},{c.X}]").FirstOrDefault();
+            }
+            return closestRestaurants;
+        }
 
 
     }

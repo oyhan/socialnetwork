@@ -11,5 +11,6 @@ namespace Mahoor.Services.Place
     public interface IPlaceService 
     {
         Task<IReadOnlyList<RestaurantDto>> GetClosestRestaurants(double lat, double lon, double radius , int from , int to,Guid userId);
+        Task<IReadOnlyList<RestaurantDto>> GetBestRestaurants(double lat, double lon, double radius , int from , int to,Guid userId);
     }
 }

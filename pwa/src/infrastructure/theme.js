@@ -27,7 +27,7 @@ const AppTheme = {
     },
     palette: {
         text: {
-
+            tertiary  : '#6e6464'    
             // primary: '#ffffff',
             // secondary :'#ffffff'
         },
@@ -43,6 +43,9 @@ const AppTheme = {
         },
         tertiary: {
             main: '#3a899a'
+        },
+        common : {
+            gray :'#e6e4e4'
         }
 
     },

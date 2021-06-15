@@ -34,7 +34,6 @@ function App() {
     })
   }
   useEffect(() => {
-    console.log("srego");
     serviceWorker.register({ onUpdate: onNewUpdate });
 
   })

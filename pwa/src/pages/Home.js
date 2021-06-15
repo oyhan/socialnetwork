@@ -38,6 +38,7 @@ export default function Home() {
 
 
   const [cardPosts, setCardPosts] = useState([]);
+  const [recommandedRests, setRecommandedRests] = useState([]);
 
   useEffect(() => {
 
@@ -56,6 +57,22 @@ export default function Home() {
       }));
 
       setCardPosts(restaurants);
+    }
+    if (timeLine.recommandedRestaurants) {
+
+      const recrestaurants = timeLine.recommandedRestaurants.map(p => ({
+
+        image: '/coffeeshop2.jpg',
+        title: p.name,
+        rate: p.rate,
+        ratesCount: p.noOfReviews,
+        distance: p.distanceString,
+        favorite: p.favorite,
+        latLon: p.latLon,
+        id: p.id
+      }));
+
+      setRecommandedRests(recrestaurants);
     }
 
 
@@ -145,7 +162,7 @@ export default function Home() {
               </a>
             </Link>
           </Grid>
-          <HorizontalSlider Component={SliderItem} items={cardPosts} />
+          <HorizontalSlider Component={SliderItem} items={recommandedRests} />
         </>
       }
 

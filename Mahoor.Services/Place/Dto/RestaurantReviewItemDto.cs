@@ -17,5 +17,8 @@ namespace Mahoor.Services.Place.Dto
         public string UserAvatar { get; set; }
         public string Writer { get; set; }
         public string WriterUserName { get; set; }
+        public string WriterCity { get; set; }
+        public int NoOfReviews { get; set; }
+        public string UserId { get; set; }
     }
 }

@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function FollowerItem({ fullName, userName, id, location, avatarUrl, isFollowingBack }) {
-  console.log('isFollowingBack: ', isFollowingBack);
+  
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   const [following, setFollowing] = React.useState(isFollowingBack);

@@ -15,10 +15,9 @@ export default function PlaceReviews({ restaurantDetail, placeId }) {
     const classes = usePlacePageStyles();
 
     const { reviews, name, noOfReviews, cuisine, distanceToUser, website, telephone, rate, isOpenNow, services,
-
-
         address, location } = restaurantDetail;
-    console.log('rate: ', rate);
+        
+    
 
     const [reviewSearchText, setSearchText] = useState("");
     const [loading, data, error] = useHttpClient(`/place/rate/${placeId}`, "Get", r => r.response);
@@ -68,7 +67,7 @@ export default function PlaceReviews({ restaurantDetail, placeId }) {
                 </Grid>
 
                 <Grid container className={classes.row}>
-                    <Typography variant='subtitle2'>
+                    <Typography >
                         <Box fontWeight='fontWeightBold'>
                             امتیاز مشتریان
                     </Box>
@@ -79,18 +78,17 @@ export default function PlaceReviews({ restaurantDetail, placeId }) {
 
                     {
                         loading ? <CircularProgress /> :
-                            <>
+                            <Container>
                                 <ReviewBarChartItem total={total} title="عالی" count={excellent} />
                                 <ReviewBarChartItem total={total} title="خیلی خوب" count={veryGood} />
                                 <ReviewBarChartItem total={total} title="معمولی" count={normal} />
                                 <ReviewBarChartItem total={total} title="ضعیف" count={weak} />
                                 <ReviewBarChartItem total={total} title="وحشتناک" count={horrible} />
-                            </>
+                            </Container>
                     }
 
                 </Grid>
 
-                <Divider />
 
 
 

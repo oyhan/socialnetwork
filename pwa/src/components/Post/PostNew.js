@@ -18,10 +18,11 @@ import AppBar from '../AppBar/AppBar';
 import AutoCompleteInput from '../AutoComplete/AutoCompleteInput';
 import ToolbarButton from '../Button/ToolBarButton';
 import { useHistory } from 'react-router-dom'
+import ThinDivider from '../Dividers/ThinDevider';
+
 const useStyles = makeStyles((theme) => ({
     toolBar: {
         direction: 'rtl'
-
     },
     title: {
         marginLeft: theme.spacing(2),
@@ -33,10 +34,11 @@ const useStyles = makeStyles((theme) => ({
         margin: 'auto'
     },
     divider: {
-        margin: theme.spacing(3)
+        margin: '-1px -16px',
     },
     row1: {
-        marginBottom: 150
+        marginBottom: 150,
+        marginTop: 35
     }
 }));
 
@@ -44,21 +46,11 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function PostNewDialog({ open, handleWindow, photos }) {
-
-
+export default function PostNewDialog({ open, handleWindow, cityId, photos }) {
     const router = useHistory();
     const classes = useStyles();
     const [urls, setUrls] = useState([]);
-
-
-
-
-
-
-
     const handleClickOpen = () => {
-
     };
 
     useEffect(() => {
@@ -66,34 +58,28 @@ export default function PostNewDialog({ open, handleWindow, photos }) {
         if (photos) {
             for (const photo of photos) {
                 const imageUrl = window.URL.createObjectURL(photo);
-
                 formik.setFieldValue(`file${i}`, photos[i]);
-
                 setUrls((before) => [...before, imageUrl]);
                 i++;
             }
             // formik.setFieldValue('files', [...photos]);
-
         }
-
         return () => {
             for (const url of urls) {
                 URL.revokeObjectURL(url);
-
             }
         }
     }, [photos])
 
     const handleClose = () => {
-
         for (const url of urls) {
             URL.revokeObjectURL(url);
         }
         setUrls([]);
         handleWindow(false);
     };
-    var onsubmit = () => {
 
+    var onsubmit = () => {
         formik.setSubmitting(true);
         if (formik.isValid) {
             Toast("درحال ارسال پست...");
@@ -113,25 +99,23 @@ export default function PostNewDialog({ open, handleWindow, photos }) {
                     toast.error("ارسال پست با خطا روبرو شد");
                 });
         }
-
     }
 
     const schema = usePostNewModelValidationSchema();
+
     var formik = useFormik(useFormikObjectBuilder({
         text: "",
         files: photos[0],
         placeId: "",
-
-
+        cityId: cityId
     }, schema, onsubmit))
-
-
+    
+    console.log('formik: ', formik);
     const rightIcon = <ToolbarButton color='primary' disabled={formik.isSubmitting} onClick={formik.handleSubmit} >
         <Typography color='primary' >
             پست
    </Typography>
     </ToolbarButton>
-
     const leftIcon = [<ToolbarButton onClick={handleClose} >
         <Typography color='primary' >
             انصراف
@@ -147,15 +131,12 @@ export default function PostNewDialog({ open, handleWindow, photos }) {
     }
 
     return (
-
         <div  >
             <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
-                <AppBar leftIcons={leftIcon} appBarColor='transparent' title="پست جدید" rightIcon={rightIcon} />
-
+                <AppBar short leftIcons={leftIcon} appBarColor='transparent' title="پست جدید" rightIcon={rightIcon} />
+                <Divider />
                 <Container>
-
                     <Grid container className={classes.row1} >
-
                         <Grid item xs={4}>
                             <Grid justify="center"  >
                                 {
@@ -164,57 +145,50 @@ export default function PostNewDialog({ open, handleWindow, photos }) {
                                             {
                                                 urls.map((i, key) =>
                                                     <Avatar alt="post image" src={i} />
-
                                                 )
                                             }
                                         </AvatarGroup>
                                         :
                                         <Avatar variant='square' alt="post image" src={urls[0]} className={classes.large} />
-
                                 }
-
                             </Grid>
                         </Grid>
-
                         <Grid item xs={8}>
                             <InputRenderer
                                 key="text"
                                 onChange={formik.handleChange}
-                                error={formik.errors.text}
+                                // error={formik.errors.text}
                                 value={formik.values.text}
                                 autoComplete="off" placeholder={"یک توضیح اضافه کنید (الزامی)"}
+                                InputProps={{
+                                    disableUnderline: true,
+                                }}
                                 Type={PropType.TextArea} Name="text" fullWidth />
-
                         </Grid>
-
                     </Grid>
-
                     <Divider className={classes.divider} />
-
-                    <AutoCompleteInput
+                    {!cityId && <AutoCompleteInput
                         renderOption={(option) => <Chip color='primary' label={`${option.name}`} />}
                         resultSelector={(result) => result.response}
                         getOptionLabel={(item) => item.name}
-
                         inputcomponent={
                             <InputRenderer
                                 key="placeId"
                                 onChange={formik.handleChange}
                                 error={formik.errors?.placeId}
                                 value={formik.values.placeId}
+                                InputProps={{
+                                    disableUnderline: true,
+                                }}
                                 autoComplete="off" placeholder="یک مکان انتخاب کنید" Type={PropType.Text}
                                 Name="placeId" fullWidth />
                         }
                         queryUrl={"/place/search/{query}/undefined"}
                         onSelected={handleSelectPlace}
-                    />
-
-
-
+                    />}
+                    {/* <Divider className={classes.divider} /> */}
                 </Container>
-
             </Dialog>
         </div>
     );
 }
-

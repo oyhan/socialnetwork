@@ -10,7 +10,7 @@ export default function SquareImage({src}) {
     return (
         <div>
             <ButtonBase >
-                <Avatar variant='square' style={{ width: theme.spacing(7), height: theme.spacing(7) }} src={src || '/yazd.jpg'} />
+                <Avatar variant='square' style={{ width: theme.spacing(13), height: theme.spacing(13) }} src={src || '/yazd.jpg'} />
             </ButtonBase>
         </div>
 

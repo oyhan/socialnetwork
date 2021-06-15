@@ -7,7 +7,7 @@ export default function useSearchBobo(term,searchIn) {
 
     const [waitingPlaces,places,errorPlaces] = useHttpClient(`/place/search/${term}/${searchIn}`,"Get",r=>r.response)
     
-    return [waitingUsers||waitingPlaces , [...users,...places] , {errorUsers , errorPlaces}  ] ;
+    return [waitingUsers||waitingPlaces , [...users,...places.filter(p=>!p.isCity)] , {errorUsers , errorPlaces}  ] ;
 
     
 }

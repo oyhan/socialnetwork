@@ -1,21 +1,28 @@
-import { Avatar, Box, Divider, Grid, Typography } from "@material-ui/core";
+import { Avatar, Box, Divider, Grid, makeStyles, Typography } from "@material-ui/core";
 import { appMoment } from "../../../lib/appmoment";
 import Rate from "../../Rate/Rate";
 
-
+const useStyle = makeStyles(theme=>({
+    avatar  : {
+        marginRight :  10
+    },
+    root : {
+        margin : '10px 0'
+    }
+}))
 export default function ReviewItem(review) {
     const { writerUserName, rate, description,
         dateWrittenString, dateWritten, writer, title ,userAvatar } = review;
     
     const avatarUrl =userAvatar;
-
+    const classes = useStyle();
     return (
-        <Grid container>
-            <Grid item xs={2}>
+        <Grid container className={classes.root} >
+            <Grid item className={classes.avatar}  >
                 <Avatar src={avatarUrl} size='small' />
             </Grid>
 
-            <Grid item xs={10}>
+            <Grid item >
                 <Grid container direction='column'>
                     <Grid container >
                         <Rate size='small' value={rate} />
@@ -25,15 +32,15 @@ export default function ReviewItem(review) {
                     </Grid>
 
                     <Grid item>
-                        <Typography variant='subtitle2'>
-                            <Box fontWeight='fontWeightBold'>
+                        <Typography className="titr2">
+                           
                                 {title}
-                            </Box>
+                           
                         </Typography>
                     </Grid>
 
                     <Grid item>
-                        <Typography variant='caption' component='p'>
+                        <Typography  variant='caption' component='pre'>
                             {description}
                         </Typography>
                     </Grid>

@@ -3,7 +3,7 @@ import { Box, Grid, LinearProgress, makeStyles } from "@material-ui/core";
 const useStyle = makeStyles(theme => ({
     bar: {
         height: theme.spacing(1),
-        backgroundColor : theme.palette.background.paper
+        backgroundColor : theme.palette.background.default
     },
     root : {
         margin :'1px 0'

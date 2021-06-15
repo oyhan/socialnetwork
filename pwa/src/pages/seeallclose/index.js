@@ -28,7 +28,7 @@ export default function SeeAllClose() {
 
     return (
         <>
-            <AppBar back leftIcons={leftIcons} short middleCenterElement={<HeaderTopChip variant='secondary' handleClick={() => { }} title="نزدیک" />} />
+            <AppBar back leftIcons={leftIcons} short title={<HeaderTopChip variant='secondary' handleClick={() => { }} title="نزدیک" />} />
             <Typography>
                 رستوران ها
             </Typography>

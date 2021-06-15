@@ -17,7 +17,7 @@ const useStyles =(headerPic)=> makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
-    alignSelf: 'flex-start',
+    alignSelf: 'center',
     textAlign: 'center'
   },
   avatar: {
@@ -65,7 +65,7 @@ export default function AppBar({ rightIcon, title, leftIcons, middleCenterElemen
   }
   
   const rootStyle = {
-    marginBottom: short ? "unset" : 50,
+    marginBottom: short ? "unset" : 82,
 
   }
   return (

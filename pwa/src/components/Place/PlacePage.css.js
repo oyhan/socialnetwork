@@ -8,7 +8,7 @@ const usePlacePageStyles = makeStyles(theme => ({
         alignSelf: 'center'
     },
     row: {
-        margin: '3px 0',
+        margin: '5px 0',
         width : '100%',
     },
     map: {
@@ -17,7 +17,19 @@ const usePlacePageStyles = makeStyles(theme => ({
     row2 : {
         padding : '0 10px'
 
-    }
+    },
+    endingBlock  :{
+        marginBottom : 50
+    },
+    mapSymbole: {
+        background: 'url(/mapsymbole.png)',
+        borderRadius: 15,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        height: 105,
+        margin: '5px 10px',
+        cursor: 'pointer'
+      },
    
 }))
 

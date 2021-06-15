@@ -23,10 +23,10 @@ const useStyles = makeStyles((theme) => ({
 
   },
   avatar: {
-    width: theme.spacing(9),
-    height: theme.spacing(9),
+    width: 90,
+    height: 90,
     // color: theme.palette.secondary.light,
-    border: '4px solid',
+    border: '5px solid',
     backgroundColor: theme.palette.common.white,
   },
   avatorBtn: {
@@ -36,8 +36,9 @@ const useStyles = makeStyles((theme) => ({
     // marginLeft: '43px',
   },
   avatarTxt: {
-    marginTop: 23,
-    marginRight: 3
+    marginTop: 19,
+    marginRight: 3,
+    marginLeft: 9,
 
   }
 }));
@@ -52,7 +53,7 @@ export default function ProfileAvatar({ userName, displayName, avatarURl, onAvat
 
         {/* {avatarURl ? <Avatar src={avatarfullPath} className={classes.avatar} sizes={classes.avatar} /> :
           <div > */}
-        <ImageUploader thumbnailSize="70" filesLimit={1} readonly={readonly} defaultImage={avatarURl} receiveFiles={onAvatarSelected} />
+        <ImageUploader thumbnailSize="90" filesLimit={1} readonly={readonly} defaultImage={avatarURl} receiveFiles={onAvatarSelected} />
 
         {/* </div> */}
 
@@ -60,7 +61,7 @@ export default function ProfileAvatar({ userName, displayName, avatarURl, onAvat
 
       </IconButton>
       <Grid item direction='column' className={classes.avatarTxt}>
-        <Typography color='primary' resource variant='subtitle2'>
+        <Typography color='primary' color='textPrimary' resource className='titr' variant='subtitle1'>
           {displayName}
         </Typography>
         <Typography color='primary' variant='caption'>

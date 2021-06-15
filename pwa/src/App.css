@@ -58,10 +58,15 @@ button.MuiSpeedDial-fab[aria-expanded="true"] svg {
 }
 @font-face{
   font-family: "Titr";
-  src: url("./fonts/B\ Titr\ Bold_0.ttf");
+  src: url("./fonts/Far_TitrBd.ttf");
  }
 .titr {
   font-family:  Titr !important;
-  font-size: 1.45rem !important;
+  font-size: 1.25rem !important;
 }
+.titr2 {
+  font-family:  Titr !important;
+  font-size: .9rem !important;
+}
+
 

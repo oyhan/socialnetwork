@@ -42,7 +42,7 @@ const AppTheme = {
             main: '#df76af'
         },
         tertiary: {
-            main: '#80b7d0'
+            main: '#3a899a'
         }
 
     },

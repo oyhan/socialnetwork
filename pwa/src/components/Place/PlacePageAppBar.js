@@ -6,7 +6,13 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useScrollData } from 'scroll-data-hook';
-const useStyles = makeStyles((theme) => ({
+import CameraAltIcon from '@material-ui/icons/CameraAlt';
+import { Typography } from '@material-ui/core';
+import { Link } from 'react-router-dom';
+import SwipeableViews from 'react-swipeable-views';
+import throttle from "lodash/throttle";
+import { useThrottledOnScroll } from '../Navigation/Tab/ScrollSpyTabs';
+const useStyles = (position) => makeStyles((theme) => ({
     root: {
         flexGrow: 1,
     },
@@ -42,26 +48,35 @@ const useStyles = makeStyles((theme) => ({
         top: 10,
         left: 10,
         zIndex: 10,
+    },
+    bottomLeftButton: {
+        position: 'fixed',
+        top: 100,
+        right: 10,
+        zIndex: 10,
+        display: position.y > 150 ? 'none' : 'block'
     }
-
 }));
 
 
-export default function PlacePageAppBar(props) {
+export default function PlacePageAppBar({ photos }) {
     const [open, setOpen] = useState();
     const handleClick = () => {
         setOpen(true);
     }
     const router = useHistory();
-    const classes = useStyles();
     var { position, direction } = useScrollData();
+
+    const classes = useStyles(position)();
 
 
     const theme = useTheme();
 
-    const calcToolbarStyle = () => {
+    const calcToolbarStyle = (photo) => {
+        const url = photos?.length > 0 ? `url(${photo.path})` : `url(/yazd.jpg)`
+
         var style = {
-            backgroundImage: `url(/yazd.jpg)`,
+            backgroundImage: url,
             height: 150,
             alignItems: 'flex-start',
             paddingTop: theme.spacing(1),
@@ -74,18 +89,22 @@ export default function PlacePageAppBar(props) {
 
         if ((150 - position.y) >= 70) {
             style.height = 150 - position.y;
-            style.backgroundImage = `url(/yazd.jpg)`;
+            style.backgroundImage = url;
         } else {
             style.height = 70;
             style.backgroundImage = 'unset';
 
         }
 
-        return style;
+       
+            return style;
+       
     }
     const handleBack = () => {
         router.goBack();
     }
+
+
 
     return (
         <div className={classes.root}>
@@ -95,13 +114,24 @@ export default function PlacePageAppBar(props) {
                 <IconButton className={classes.searchIcon} onClick={handleBack} aria-label="search" edge='start' color="inherit">
                     <ArrowForwardIosIcon />
                 </IconButton>
-                {/* <HideOnScroll> */}
-                    <Toolbar  style={calcToolbarStyle()} >
+                {/* <Toolbar style={calcToolbarStyle()} > */}
+                <SwipeableViews enableMouseEvents>
+                    {
+                        photos.map(p => (
+                            <div key={p.path} style={calcToolbarStyle(p)}></div>
+                        ))
+                    }
 
+                </SwipeableViews>
+                <div className={classes.bottomLeftButton}>
+                    <IconButton component={Link} to={`/${"Asd"}/posts/${2}`} aria-label="search" edge='end' color="inherit">
+                        <Typography variant='caption'>
+                            {photos?.length}
+                        </Typography> &nbsp;<CameraAltIcon fontSize='small' />
+                    </IconButton>
+                </div>
 
-
-                    </Toolbar>
-                {/* </HideOnScroll> */}
+                {/* </Toolbar> */}
 
             </MAppBar>
             {/* </HideOnScroll> */}

@@ -46,13 +46,13 @@ const useStyles = makeStyles((theme) => ({
     
   }));
 
-export default function SearchInput({ ...props }) {
+export default function SearchInput({ onSearchSubmit, ...props }) {
     const classes = useStyles();
 
     return (
         <div className={classes.search}>
-            <div className={classes.searchIcon}>
-                <SearchIcon />
+            <div onClick={onSearchSubmit} className={classes.searchIcon}>
+                <SearchIcon  />
             </div>
             <InputBase
                 fullWidth

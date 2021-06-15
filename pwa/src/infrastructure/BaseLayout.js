@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
         // position: 'fixed',
         // height: '100vh',
         width: '100%',
-        overflowY: 'hidden',
+        // overflowY: 'hidden',
         // height: '100%',
         // padding: '5rem 10px',
         padding: '0 10px',

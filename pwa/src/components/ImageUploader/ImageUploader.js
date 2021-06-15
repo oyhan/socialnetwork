@@ -43,7 +43,7 @@ const useStyle = makeStyles((theme) => ({
         margin: '0 27px',
         ' & img': {
             borderRadius: '50%',
-            border: 'white 3px solid',
+            border: 'white 5px solid',
             aspectRatio: 1
         }
     },

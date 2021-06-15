@@ -23,7 +23,7 @@ export default function ProfileAppBar({ profileDto, readonly }) {
       console.log('err: ', err);
 
     }
-  }
+  } 
   const leftIcon = [
 
     <IconButton className="z-index-510" onClick={shareProfile} aria-label="display more actions" edge="end" color="inherit">

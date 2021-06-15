@@ -36,11 +36,10 @@ export default function PlaceOverview(props) {
                             {
                                 rate != undefined && <Rate value={rate} />
                             }
-                            <Typography color='disabled' variant='caption' >
-                                <Box m='4px 5px'>
-                                    {noOfReviews} نظر
-                               </Box>
-                            </Typography>
+                              &nbsp;
+                    <Typography color='textSecondary' >
+                                {noOfReviews} نظر
+                    </Typography>
                         </Grid>
                         <Typography variant='caption'>{cuisine}</Typography>
 
@@ -74,111 +73,109 @@ export default function PlaceOverview(props) {
                 </Typography>
             </Grid>
 
-            <Container style={{ marginTop: '50px' }}>
-                <Grid container className={classes.caption}>
-                    <Typography variant='subtitle2'>
-                        <Box fontWeight='fontWeightBold'>
-                            اطلاعات رستوران
-                        </Box>
-                    </Typography>
-                </Grid>
 
-                <Grid container className={classes.row} >
-                    <Grid item xs={11} className={classes.alignCenter}>
-                        <Grid container>
-                            <LaptopIcon color='primary' />
-                            <Typography><Box margin='0 10px'>وبسایت</Box></Typography>
-                        </Grid>
+            <Grid container className={classes.caption} style={{ marginTop: 50 }}>
+                <Typography component='h4'>
+                    اطلاعات رستوران
+                </Typography>
+            </Grid>
 
-                    </Grid>
-                    <Grid item xs={1}>
-                        <a href={website || ""} >
-                            <IconButton size='small' ><ArrowBackIosIcon style={{ fontSize: '12px', marginRight: 11 }} fontSize='small' /></IconButton>
-                        </a>
-                    </Grid>
-                </Grid>
-
-                <Divider />
-
-                <Grid container className={classes.row}>
-                    <Grid item xs={10} className={classes.alignCenter}>
-                        <Grid container>
-                            <PhoneEnabledIcon color='primary' />
-                            <Typography color='primary'><Box margin='0 10px'>{telephone}</Box></Typography>
-                        </Grid>
-
+            <Grid container className={classes.row} >
+                <Grid item xs={11} className={classes.alignCenter}>
+                    <Grid container>
+                        <LaptopIcon color='primary' />
+                        <Typography><Box margin='0 10px'>وبسایت</Box></Typography>
                     </Grid>
 
                 </Grid>
-
-                <Divider />
-
-                <Grid container className={classes.row}>
-                    <Grid item xs={11} className={classes.alignCenter}>
-                        <Grid container>
-                            <Grid item>
-                                <QueryBuilderIcon color='primary' />
-                            </Grid>
-                            <Box m='0 10px' fontWeight='fontWeightLight'>
-                                <Grid item>
-                                    <Grid container direction='column'>
-                                        {
-                                            isOpenNow ?
-                                                <Typography variant='caption' ><Box>الان باز است</Box></Typography> :
-                                                <Typography variant='caption' ><Box>بسته است</Box></Typography>
-                                        }
-                                        <Typography variant='caption' ><Box>16:00-00:00</Box></Typography>
-                                        <Typography variant='caption' ><Box>23:00-17:00</Box></Typography>
-                                    </Grid>
-                                </Grid>
-                            </Box>
-
-
-                        </Grid>
-
-                    </Grid>
-                    <Grid item xs={1}>
+                <Grid item xs={1}>
+                    <a href={website || ""} >
                         <IconButton size='small' ><ArrowBackIosIcon style={{ fontSize: '12px', marginRight: 11 }} fontSize='small' /></IconButton>
+                    </a>
+                </Grid>
+            </Grid>
+
+            <Divider />
+
+            <Grid container className={classes.row}>
+                <Grid item xs={10} className={classes.alignCenter}>
+                    <Grid container>
+                        <PhoneEnabledIcon color='primary' />
+                        <Typography color='primary'><Box margin='0 10px'>{telephone}</Box></Typography>
                     </Grid>
 
                 </Grid>
 
-                <Divider />
+            </Grid>
 
-                <Grid container className={classes.row}>
-                    <Grid item xs={10} className={classes.alignCenter}>
-                        <Grid container>
-                            <RoomServiceIcon color='primary' />
-                            <Typography variant='caption'><Box margin='0 10px'>{services}</Box></Typography>
+            <Divider />
+
+            <Grid container className={classes.row}>
+                <Grid item xs={11} className={classes.alignCenter}>
+                    <Grid container>
+                        <Grid item>
+                            <QueryBuilderIcon color='primary' />
                         </Grid>
+                        <Box m='0 10px' fontWeight='fontWeightLight'>
+                            <Grid item>
+                                <Grid container direction='column'>
+                                    {
+                                        isOpenNow ?
+                                            <Typography variant='caption' ><Box>الان باز است</Box></Typography> :
+                                            <Typography variant='caption' ><Box>بسته است</Box></Typography>
+                                    }
+                                    <Typography variant='caption' ><Box>16:00-00:00</Box></Typography>
+                                    <Typography variant='caption' ><Box>23:00-17:00</Box></Typography>
+                                </Grid>
+                            </Grid>
+                        </Box>
+
 
                     </Grid>
 
                 </Grid>
-                <Divider />
-
-                <Grid container className={clsx(classes.map, classes.row)}>
-                    {
-                        location && <Map point={location} points={[location]} />
-                    }
+                <Grid item xs={1}>
+                    <IconButton size='small' ><ArrowBackIosIcon style={{ fontSize: '12px', marginRight: 11 }} fontSize='small' /></IconButton>
                 </Grid>
 
-                <Divider />
+            </Grid>
 
-                <Grid container className={classes.row}>
-                    <Grid item xs={10} className={classes.alignCenter}>
-                        <Grid container>
-                            <PinDropOutlinedIcon color='primary' />
-                            <Typography variant='caption'><Box margin='0 10px'>{address}</Box></Typography>
-                        </Grid>
+            <Divider />
 
+            <Grid container className={classes.row}>
+                <Grid item xs={10} className={classes.alignCenter}>
+                    <Grid container>
+                        <RoomServiceIcon color='primary' />
+                        <Typography variant='caption'><Box margin='0 10px'>{services}</Box></Typography>
                     </Grid>
 
                 </Grid>
 
+            </Grid>
+            <Divider />
+
+            <Grid container className={clsx(classes.map, classes.row)}>
+                {
+                    location && <Map point={location} points={[location]} />
+                }
+            </Grid>
+
+            <Divider />
+
+            <Grid container className={clsx(classes.row,classes.endingBlock)}>
+                <Grid item xs={10} className={classes.alignCenter}>
+                    <Grid container>
+                        <PinDropOutlinedIcon color='primary' />
+                        <Typography variant='caption'><Box margin='0 10px'>{address}</Box></Typography>
+                    </Grid>
+
+                </Grid>
+
+            </Grid>
 
 
-            </Container>
+
+
 
         </>)
 }

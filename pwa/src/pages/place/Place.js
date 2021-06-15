@@ -10,9 +10,10 @@ export default function Place() {
     const userPosition = userLocation();
     
     const [loading , placeDetail , error] = useHttpClient(`/restaurant/${placeId}/${userPosition.latitude}/${userPosition.longitude}`,"Get",r=>r.response);
+    const [loadingPhotos, photos, ] = useHttpClient(`/place/photos/${placeId}`, "Get", r => r.response)
 
     return (
-        <PlacePage placeDetail={placeDetail} placeId={placeId} />
+        <PlacePage loadingPhotos={loadingPhotos} placeDetail={placeDetail} photos={photos} placeId={placeId} />
     )
 
 }

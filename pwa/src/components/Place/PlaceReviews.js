@@ -1,4 +1,4 @@
-import { Box, ButtonBase, CircularProgress, Container, Divider, Grid, Typography } from "@material-ui/core";
+import { Box, ButtonBase, CircularProgress, Container, Divider, Grid, IconButton, Typography } from "@material-ui/core";
 import CreateIcon from '@material-ui/icons/Create';
 import { useState } from "react";
 import { BrowserHttpClient, useHttpClient } from "../../lib/BrowserHttpClient";
@@ -8,12 +8,17 @@ import usePlacePageStyles from "./PlacePage.css";
 import ReviewBarChartItem from "./Review/ReviewBarChartItem";
 import ReviewItem from "./Review/ReviewItem";
 import ReviewNewDialog from "./Review/ReviewNewDialog";
+import { Link } from 'react-router-dom';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 
 export default function PlaceReviews({ restaurantDetail, placeId }) {
     const classes = usePlacePageStyles();
 
     const { reviews, name, noOfReviews, cuisine, distanceToUser, website, telephone, rate, isOpenNow, services,
+
+
         address, location } = restaurantDetail;
+    console.log('rate: ', rate);
 
     const [reviewSearchText, setSearchText] = useState("");
     const [loading, data, error] = useHttpClient(`/place/rate/${placeId}`, "Get", r => r.response);
@@ -42,20 +47,22 @@ export default function PlaceReviews({ restaurantDetail, placeId }) {
 
     return (
         <>
-            <Container className={classes.row}>
+            <div className={classes.row}>
                 <Grid container className={classes.caption}>
-                    <Typography variant='h6'>
-                        <Box fontWeight='fontWeightBold'>
-                            نظرات
-                        </Box>
+                    <Typography component='h4'>
+                        نظرات
                     </Typography>
+
                 </Grid>
 
 
                 <Grid container  >
 
-                    <Rate value={rate} />
-                    <Typography color='disabled' >
+                    {
+                        rate != undefined && <Rate value={rate} />
+                    }
+                    &nbsp;
+                    <Typography color='textSecondary' >
                         {noOfReviews} نظر
                     </Typography>
                 </Grid>
@@ -85,20 +92,11 @@ export default function PlaceReviews({ restaurantDetail, placeId }) {
 
                 <Divider />
 
-                <Grid container className={classes.row}>
-                    <Grid item xs={10} className={classes.alignCenter}>
-                        <Grid container>
-                            <ButtonBase onClick={handleNewReview}>
-                                <CreateIcon color='primary' />
-                                <Typography variant='caption' color='primary'><Box margin='0 10px'>نظرتان را بنویسید</Box></Typography>
-                            </ButtonBase>
-                        </Grid>
-                    </Grid>
-                </Grid>
+
 
                 <Grid container className={classes.row}>
                     <form style={{ width: '100%' }} onSubmit={onSearchSubmit}>
-                        <SearchInput onChange={(event) => {
+                        <SearchInput onClick={onSearchSubmit} onChange={(event) => {
                             setSearchText(event.target.value)
                         }} />
                     </form>
@@ -117,16 +115,58 @@ export default function PlaceReviews({ restaurantDetail, placeId }) {
                             reviews && reviews.map((r, i) =>
                                 <div className={classes.row}>
                                     <ReviewItem {...r} key={i} />
-                                    <Divider />
+                                    {
+                                        i === reviews?.length - 1 ? "" : <Divider />
+                                    }
 
                                 </div>
                             )
                     }
                 </Grid>
 
+                <Grid container className={classes.row} >
+                    <Grid item xs={11} className={classes.alignCenter}>
+                        <Link to={`allreviews/${placeId}`}>
+                            <Grid container>
+                                <Typography variant='caption'><Box margin='0 10px'>دیدن نظرات بیشتر</Box></Typography>
+                            </Grid>
+                        </Link>
 
+                    </Grid>
+                    <Grid item xs={1}>
+                        <Link to={`allreviews/${placeId}`}>
+                            <IconButton size='small' ><ArrowBackIosIcon style={{ fontSize: '12px', marginRight: 11 }} fontSize='small' /></IconButton>
+                        </Link>
+                    </Grid>
+                </Grid>
 
-            </Container>
+                <Divider />
+
+                <Grid container className={classes.row}>
+                    <Grid item xs={10} className={classes.alignCenter}>
+                        <Grid container>
+                            <ButtonBase onClick={handleNewReview}>
+                                <CreateIcon color='primary' />
+                                <Typography variant='caption' color='primary'><Box margin='0 10px'>نظرتان را بنویسید</Box></Typography>
+                            </ButtonBase>
+                        </Grid>
+                    </Grid>
+                </Grid>
+
+                <Divider />
+
+                <Grid justify='space-between' direction='row' spacing={0}
+                    container className={classes.title} >
+                    <Typography >
+                        مکان های نزدیک
+                    </Typography>
+                </Grid>
+                <Link to={{ pathname: "/nearme" }}>
+                    <div className={classes.mapSymbole}>
+
+                    </div>
+                </Link>
+            </div>
             <ReviewNewDialog placeId={placeId} handleWindow={openDialog} placeName={restaurantDetail.name} open={openNewReviewDialog} />
         </>
     )

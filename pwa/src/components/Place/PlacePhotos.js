@@ -3,34 +3,34 @@ import { useHttpClient } from "../../lib/BrowserHttpClient";
 import SquareImage from "../Image/SquareImage";
 import HorizontalSlider from "../Slider/HorizontalSlider/HorizontalSlider";
 import usePlacePageStyles from "./PlacePage.css";
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
-const PlacePhotos = ({ placeId ,place }) => {
+const PlacePhotos = ({ placeId, place ,photos ,loadingPhotos }) => {
     const classes = usePlacePageStyles();
-    const [loading, data, error] = useHttpClient(`/place/photos/${placeId}`, "Get", r => r.response)
 
 
     return (
         <>
             {
-                loading ? <CircularProgress /> : <Container className={classes.row}>
-                    <Grid justify='space-between' direction='row' spacing={0} container className={classes.title} >
-                        <Typography component='h4'>
-                            عکس ها
+                loadingPhotos ? <CircularProgress /> :
+                    <div className={classes.row}>
+                        <Grid justify='space-between' direction='row' spacing={0} container className={classes.title} >
+                            <Typography component='h4'>
+                                عکس ها
             </Typography>
-                        <Link to={`/${place.name}/photos/${placeId}`} >
+                            <Link to={`/${place.name}/photos/${placeId}`} >
 
-                            <Typography color='primary'>
-                                همه را ببین
+                                <Typography color='primary'>
+                                    همه را ببین
                         </Typography>
-                        </Link>
-                    </Grid>
-                    <HorizontalSlider title="عکس‌ها" Component={SquareImage} items={data.map(p => ({ src: `${p.path}` }))} />
-                </Container>
+                            </Link>
+                        </Grid>
+                        <HorizontalSlider title="عکس‌ها" Component={SquareImage} items={photos.map(p => ({ src: `${p.path}` }))} />
+                    </div>
             }
 
-            <Divider />
+            <Divider className={classes.endingBlock}/>
 
         </>
     )

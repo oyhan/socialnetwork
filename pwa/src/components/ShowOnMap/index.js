@@ -30,7 +30,7 @@ export default function ShowOnMap({ places }) {
     const history = useHistory();
     const slider = useRef();
     const points = places.map(p => p.latLon);
-    const [mapHeight, setMapHeight] = useState(0);
+    const [mapHeight, setMapHeight] = useState(350);
     const [open, setOpen] = useState(true);
     const classes = useStyle();
 

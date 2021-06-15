@@ -20,7 +20,7 @@ export default function LeafletMapController({ enableMyLocation }) {
             }
 
         }
-        map.hasCon
+       
         // map.hasLayer()
         // L.circleMarker([position.latitude, position.longitude]).addTo(map);
         // map.flyTo([position.latitude,position.longitude]);

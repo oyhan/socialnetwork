@@ -20,7 +20,7 @@ import { BrowserHttpClient } from '../../lib/BrowserHttpClient';
 import { useStateValue } from '../../lib/store/appState';
 import Dialog from '../Dialog/Dialog';
 import PostSlider from './PostSlider';
-import {Divider} from '@material-ui/core'
+import { Divider } from '@material-ui/core'
 require('moment/locale/fa');
 
 var moment = require('moment-jalaali')
@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function Post({ userName, createdDate, placeName, text, likes, medias, id, liked ,avatarUrl}) {
+export default function Post({ userName, createdDate, placeName, text, likes, medias, id, liked, avatarUrl }) {
     const router = useHistory();
     const postRef = useRef();
     const [{ user }] = useStateValue();
@@ -78,12 +78,12 @@ export default function Post({ userName, createdDate, placeName, text, likes, me
         setExpanded(!expanded);
     };
     const handleMore = () => {
-        
+
         setOpen(!open);
     }
-    const selectDialogItem = ()=>{
-        if(user.userName.toLowerCase() !=userName.toLowerCase()){
-            return btnMoreItems ;
+    const selectDialogItem = () => {
+        if (user.userName.toLowerCase() != userName.toLowerCase()) {
+            return btnMoreItems;
         }
         return btnMoreOwnerItems;
     }
@@ -130,7 +130,7 @@ export default function Post({ userName, createdDate, placeName, text, likes, me
             BrowserHttpClient.Post(`/post/delete/${id}`).then(() => {
                 postRef.current.nextSibling.remove();
                 postRef.current.remove();
-               
+
             })
         },
         // icon: <CallMissedIcon />,
@@ -166,7 +166,7 @@ export default function Post({ userName, createdDate, placeName, text, likes, me
         try {
             await navigator.share(shareData)
         } catch (err) {
-            
+
         }
     }
 
@@ -200,7 +200,7 @@ export default function Post({ userName, createdDate, placeName, text, likes, me
                     {text}
                 </Typography>
             </CardContent>
-            <Divider/>
+            <Divider />
             <CardActions disableSpacing classes={{
                 root: classes.actions
             }}>

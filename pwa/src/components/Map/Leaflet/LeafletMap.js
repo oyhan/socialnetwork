@@ -26,11 +26,11 @@ var myIcon = L.icon({
     shadowSize: [50, 64],
     shadowAnchor: [22, 94]
 });
-export default function LeafletMap({ points , point , enableMyLocation }) {
-    
-    
+export default function LeafletMap({ points, point, enableMyLocation }) {
+
+
     // var points = useContext(MapContext);
-    
+
     const [{ user }, dispatch] = useStateValue();
     const position = useLocation();
 

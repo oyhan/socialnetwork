@@ -36,7 +36,7 @@ namespace Mahoor.Services.Search.Handlers
             {
                 var result = new SearchBoboDto();
                 var term = request.Term.ToLower();
-                var users = await _userManager.UserManager.Users.Where(u => u.UserName.ToLower().Contains(request.Term)).Select(u => u.ToSearchDto()).ToListAsync();
+                var users = await _userManager.UserManager.Users.Where(u => u.UserName.ToLower().Contains(term)).Select(u => u.ToSearchDto()).ToListAsync();
                 var followings = await _graphService.GetAssociationsFrom(Guid.Parse(request.Requester), DomainObjects.SocialGraph.AType.Following);
                 var followingsHashSet = followings.Select(f => f.ToString()).ToHashSet();
                 foreach (var user in users)

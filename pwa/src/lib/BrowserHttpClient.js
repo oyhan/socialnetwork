@@ -6,7 +6,7 @@ import UserManager from './userManager';
 var authentication = {};
 if (typeof window !== 'undefined') {
 
-    authentication = { Authorization: `Bearer ${cookieCutter.get("jwt")}`, Latitude: getDefault().latitude, Longitude: getDefault().longitude }
+    authentication = { Authorization: `Bearer ${cookieCutter.get("jwt") || localStorage.getItem("jwt")}`, Latitude: getDefault().latitude, Longitude: getDefault().longitude }
 
 }
 export const BrowserHttpClient = {

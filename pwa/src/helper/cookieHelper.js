@@ -20,4 +20,6 @@ function save(response, days) {
 
     cookieCutter.set('refreshToken', response.refreshToken, opts);
     cookieCutter.set('jwt', response.token, opts);
+    localStorage.setItem('jwt', response.token);
+    localStorage.setItem('refreshToken', response.refreshToken);
 }

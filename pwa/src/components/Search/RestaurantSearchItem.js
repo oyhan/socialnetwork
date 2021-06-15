@@ -22,9 +22,8 @@ export default function RestaurantSearchItem({ place, handleClick }) {
             <Link to={`/place/${place.id}`}>
                 <ListItem >
                     <ListItemAvatar>
-                        <Avatar>
-                            <RestaurantOutlinedIcon />
-                        </Avatar>
+
+                        <RestaurantOutlinedIcon color='primary' />
                     </ListItemAvatar>
                     <ListItemText
                         primary={place.name}

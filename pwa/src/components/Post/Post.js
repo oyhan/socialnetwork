@@ -196,7 +196,7 @@ export default function Post({ userName, createdDate, placeName, text, likes, me
                     root: classes.text
                 }
             }>
-                <Typography variant="body2" color="textSecondary" component="p">
+                <Typography variant="body2" color="textSecondary" component="pre">
                     {text}
                 </Typography>
             </CardContent>

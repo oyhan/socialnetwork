@@ -18,7 +18,8 @@ const useStyles =(headerPic)=> makeStyles((theme) => ({
   title: {
     flexGrow: 1,
     alignSelf: 'center',
-    textAlign: 'center'
+    textAlign: 'center',
+    fontSize:17
   },
   avatar: {
     width: theme.spacing(9),
@@ -40,7 +41,6 @@ const useStyles =(headerPic)=> makeStyles((theme) => ({
   appbar: {
     [theme.breakpoints.down('md')]: {
       width: '100vw',
-      marginLeft: '-10px',
     },
     backgroundImage: `url(${headerPic})`,
     backgroundSize: 'cover',
@@ -57,10 +57,11 @@ export default function AppBar({ rightIcon, title, leftIcons, middleCenterElemen
   const classes = useStyles(headerPic)();
   const theme = useTheme();
   const toolBarStyle = {
-    minHeight: short ? "unset" : 128,
+    height: short ? 91 : 178,
     alignItems: 'flex-start',
-    paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(2),
+    paddingTop: 43,
+    paddingRight: 0,
+    paddingLeft : 0 ,
 
   }
   
@@ -80,7 +81,7 @@ export default function AppBar({ rightIcon, title, leftIcons, middleCenterElemen
               }
 
             </div>
-            <Typography className={classes.title} variant="h6" noWrap>
+            <Typography className={classes.title}  noWrap>
               {title}
             </Typography>
             {

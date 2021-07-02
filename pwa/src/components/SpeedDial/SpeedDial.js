@@ -21,21 +21,23 @@ const useStyles = makeStyles((theme) => ({
     },
     backdrop: {
         zIndex: 500,
-        backgroundColor: 'rgb(0 0 0 / 71%)',
+        backgroundColor: 'rgb(0 0 0 / 80%)',
         '-webkit-tap-highlight-color': 'transparent',
     },
     speedDial: {
         position: 'absolute',
         '&.MuiSpeedDial-directionUp, &.MuiSpeedDial-directionLeft': {
-            bottom: theme.spacing(2),
-            right: theme.spacing(2),
+            bottom: -9,
+            right:-15,
         },
         '&.MuiSpeedDial-directionDown, &.MuiSpeedDial-directionRight': {
-            top: theme.spacing(2),
-            left: theme.spacing(2),
+            top: -9,
+            left:-15,
         },
     },
     fab: {
+        width : 53,
+        height:53,
         background: 'black',
         "&:hover": {
             background: 'black',
@@ -46,6 +48,8 @@ const useStyles = makeStyles((theme) => ({
         }
     },
     action: {
+        width : 53,
+        height:53,
         background: 'black',
         "& svg ": {
             color: 'white',
@@ -60,9 +64,10 @@ const useStyles = makeStyles((theme) => ({
         color : 'white',
         boxShadow : 'unset',
         background: 'unset',
-        fontSize : 12,
+        fontSize : 14,
         padding:'unset',
-
+        width: 90,
+        textAlign: 'end',
     }
 
 }));
@@ -76,8 +81,8 @@ export default function SpeedDials({ newPostClickHandler }) {
     const ref = useRef();
 
     const actions = [
-        { icon: <EditIcon />, name: 'دیدگاه جدید', FabProps: { component: Link, to: "/searchforplace" } },
-        { icon: <PhotoCameraIcon />, name: 'پست جدید', htmlFor: "postinput", handleClick: () => { ref.current.click(); } },
+        { icon: <EditIcon />, name: 'نوشتن review', FabProps: { component: Link, to: "/searchforplace" } },
+        { icon: <PhotoCameraIcon />, name: 'پست کردن عکس', htmlFor: "postinput", handleClick: () => { ref.current.click(); } },
 
     ];
 

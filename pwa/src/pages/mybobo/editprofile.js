@@ -130,7 +130,7 @@ export default function EditProfile() {
             key="cityId"
             value={formik.values.cityId}
             autoComplete="off" placeholder={"شهر"} Type={PropType.Hidden} Name="cityId" fullWidth />
-        {formik.values.city && <AutoCompleteInput
+        { <AutoCompleteInput
             defaultValue={formik.values.city}
             inputcomponent={
                 <InputRenderer

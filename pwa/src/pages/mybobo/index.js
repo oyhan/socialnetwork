@@ -22,7 +22,9 @@ import { useHttpClient } from '../../lib/BrowserHttpClient';
 
 const useStyle = makeStyles((theme) => ({
     text: {
-        marginTop: 12
+        marginTop: 9,
+        fontSize: 16,
+        marginLeft: '-8px',
     },
     div: {
         margin: '20px 0'
@@ -32,6 +34,11 @@ const useStyle = makeStyles((theme) => ({
         bottom: theme.spacing(8),
         right: theme.spacing(3),
     },
+    addBtn: {
+        "& svg": {
+            fontSize: 24
+        }
+    }
 }))
 
 const resizePhotos = (files) => {
@@ -123,8 +130,8 @@ export default function MyBobo() {
                     user[item] ?
                         getIcon(item) :
                         <Link to="/editprofile" >
-                            <IconButton disableRipple>
-                                <Add color='inherit' />
+                            <IconButton disableRipple className={classes.addBtn}>
+                                <Add color='inherit' htmlColor='black' />
                             </IconButton>
                         </Link>
                 }
@@ -174,21 +181,26 @@ export default function MyBobo() {
                 <InfoItem title="شهر فعلی خود را اضافه کنید" item="city" user={user} />
                 <InfoItem title="علاقه‌مندی خود را اضافه کنید" item="favorites" user={user} />
                 <InfoItem title="یک وبسایت اضافه کنید" item="website" user={user} />
-                {/* <InfoItem title="درباره خود جزئیاتی بنویسید" item="bio" user={user} /> */}
-                <Grid container direction='row'>
+                {
+                    user.bio?  <Typography style={{ marginRight: 20 }} variant="caption" className={classes.text}>
+                    {user.bio || "درباره خود جزئیاتی بنویسید"}
+                </Typography> : 
+                <InfoItem title="درباره خود جزئیاتی بنویسید" item="bio" user={user} />
+                }
+                {/* <Grid container direction='row'>
                     {
                         user.bio ? "" :
                             <Link to="/editprofile" >
                                 <IconButton disableRipple>
-                                    <Add color='inherit' />
+                                    <Add color='inherit' htmlColor='black' />
                                 </IconButton>
                             </Link>
                     }
 
-                    <Typography style={{marginRight : 20}} variant="caption" className={classes.text}>
+                    <Typography style={{ marginRight: 20 }} variant="caption" className={classes.text}>
                         {user.bio || "درباره خود جزئیاتی بنویسید"}
                     </Typography>
-                </Grid>
+                </Grid> */}
             </Grid>
             <SpeedDials newPostClickHandler={handleNewPost} />
             <PostNewDialog open={newPost} handleWindow={setNewPost} photos={result} />

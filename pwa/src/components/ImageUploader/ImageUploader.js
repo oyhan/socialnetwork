@@ -3,6 +3,7 @@ import { Fab, makeStyles, Tooltip } from '@material-ui/core';
 import { green } from '@material-ui/core/colors';
 import { PhotoCamera } from '@material-ui/icons';
 import useWebp, { ResizeFiles } from '../../lib/hooks/ImageCompress/useWebp';
+import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 const pica = require('pica')();
 
 const useStyle = makeStyles((theme) => ({
@@ -54,9 +55,14 @@ const useStyle = makeStyles((theme) => ({
         background: '#fff'
     },
     inputDisplay: {
-        width: 70,
-        border: '3px white solid',
-        height: 70,
+        width: 90,
+        border: '5px #FFFAFA solid',
+        height: 90,
+        "&  svg" :{
+            fontSize : '2.1rem'
+        },
+        boxShadow : 'unset'
+
     }
 }))
 export function resizeWithPica(image, newWidth) {
@@ -262,12 +268,13 @@ export default function ImageUploader({ name, sizeLimit, noCompression, index, f
                                     pickerComponent ? <pickerComponent.type {...pickerComponent.props} htmlFor={readonly ? "" : `input-file-${rand}`} /> :
                                         <Fab key={index}
                                             aria-label="save"
-                                            color="primary"
+                                            color="secondary"
                                             component='label'
+                                            disableRipple
                                             classes={{ root: classes.inputDisplay }}
                                             htmlFor={readonly ? "" : `input-file-${rand}`}
                                         >
-                                            <PhotoCamera />
+                                            <AddAPhotoIcon htmlColor='white' />
                                         </Fab>
                                 }
 

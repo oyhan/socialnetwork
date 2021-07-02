@@ -39,7 +39,7 @@ export default function EditProfileAppBar({ save, submiting, onSelectHeaderPictu
     const setHeaderBtn =
         <ImageUploader sizeLimit={200} receiveFiles={handleSelectHeaderPicture} nothumbnail
             pickerComponent={<IconButton component='label'>
-                <PhotoOutlinedIcon htmlColor='gray' />
+                <PhotoOutlinedIcon htmlColor='#C4C4C4' />
             </IconButton>} />
 
     return (

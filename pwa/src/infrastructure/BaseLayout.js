@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
         // overflowY: 'hidden',
         // height: '100%',
         // padding: '5rem 10px',
-        padding: '0 10px',
+        padding: '0px',
         marginBottom: 100,
         // background:'#e6e0e0'
         background: 'white',

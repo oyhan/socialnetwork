@@ -6,20 +6,20 @@ import ImageUploader from "../ImageUploader/ImageUploader";
 const useStyles = makeStyles((theme) => ({
   root: {
     position: 'absolute',
-    top: 106,
+    top: 127,
     width: 200,
-    left: '10vw',
+    left: '5%',
     zIndex: 499,
 
-    [theme.breakpoints.up('md')]: {
-      left: '25vw',
-    },
-    [theme.breakpoints.up('lg')]: {
-      left: '26vw',
-    },
-    [theme.breakpoints.up('xl')]: {
-      left: '34vw',
-    },
+    // [theme.breakpoints.up('md')]: {
+    //   left: '25vw',
+    // },
+    // [theme.breakpoints.up('lg')]: {
+    //   left: '26vw',
+    // },
+    // [theme.breakpoints.up('xl')]: {
+    //   left: '34vw',
+    // },
 
   },
   avatar: {
@@ -30,16 +30,22 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.common.white,
   },
   avatorBtn: {
-    width: theme.spacing(9),
-    height: theme.spacing(9),
+    // width: theme.spacing(9),
+    // height: theme.spacing(9),
     // marginBottom: '-43px',
     // marginLeft: '43px',
   },
   avatarTxt: {
-    marginTop: 19,
-    marginRight: 3,
-    marginLeft: 9,
-
+    top: 46,
+    position: 'relative',
+    fontSize: 15,
+  },
+  username: {
+    fontSize: 15,
+    position: 'absolute',
+    width: 100,
+    top: 24,
+    right: '-8px',
   }
 }));
 
@@ -53,7 +59,7 @@ export default function ProfileAvatar({ userName, displayName, avatarURl, onAvat
 
         {/* {avatarURl ? <Avatar src={avatarfullPath} className={classes.avatar} sizes={classes.avatar} /> :
           <div > */}
-        <ImageUploader thumbnailSize="90" filesLimit={1} readonly={readonly} defaultImage={avatarURl} receiveFiles={onAvatarSelected} />
+        <ImageUploader thumbnailSize="100" filesLimit={1} readonly={readonly} defaultImage={avatarURl} receiveFiles={onAvatarSelected} />
 
         {/* </div> */}
 
@@ -64,7 +70,7 @@ export default function ProfileAvatar({ userName, displayName, avatarURl, onAvat
         <Typography color='primary' color='textPrimary' resource className='titr' variant='subtitle1'>
           {displayName}
         </Typography>
-        <Typography color='primary' variant='caption'>
+        <Typography color='textPrimary' variant='caption' className={classes.username}>
           {userName && `@${userName}` || '@نام کاربری'}
         </Typography>
       </Grid>

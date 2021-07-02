@@ -39,13 +39,13 @@ const AppTheme = {
         secondary: {
             dark: '#ab4680',
             light: '#ffa7e1',
-            main: '#df76af'
+            main: '#DF76AF'
         },
         tertiary: {
             main: '#3a899a'
         },
         common : {
-            gray :'#e6e4e4'
+            gray :'#C4C4C4'
         }
 
     },

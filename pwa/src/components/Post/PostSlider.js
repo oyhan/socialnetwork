@@ -8,7 +8,6 @@ const useStyle = makeStyles({
         objectFit: 'contain',
             width: '100%',
             height: 335,
-            margin :-10
     },
     root: {
         direction: "rtl"

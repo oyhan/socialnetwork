@@ -25,6 +25,10 @@ const useStyles = makeStyles(theme => ({
   title: {
     marginBottom: theme.spacing(1),
     marginTop: theme.spacing(1),
+  },
+  nearestRestaurantTitle: {
+    marginBottom: theme.spacing(1),
+    marginTop: '30px',
   }
 }))
 
@@ -103,7 +107,7 @@ export default function Home() {
   useEffect(() => {
     // dispatch({ type: actions.APPBAR, payload: <HomeAppBar /> });
     var user = getUser();
-    
+
 
     dispatch({ type: actions.USER, payload: { ...user, isAuthenticated: true, location: "" } })
   }, [])
@@ -115,7 +119,7 @@ export default function Home() {
 
       {loading ? <CircularProgress size="1rem" /> :
         <>
-          <Grid justify='space-between' direction='row' spacing={0} container className={classes.title} >
+          <Grid justify='space-between' direction='row' spacing={0} container className={classes.nearestRestaurantTitle} >
             <Typography component='h4'>
               نزدیکترین کافه ها و رستوران‌ها
             </Typography>

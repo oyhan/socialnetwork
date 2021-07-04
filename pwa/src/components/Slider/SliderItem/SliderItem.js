@@ -10,11 +10,12 @@ const useStyles = makeStyles(theme => ({
     root: {
         position: 'relative',
         maxWidth: 150,
-        minWidth: 122,
+        minWidth: 130,
         height: 124
     },
     media: {
-        height: 88,
+        height: 80,
+        width: 130,
     },
     btn: {
         position: 'absolute',
@@ -46,15 +47,17 @@ const useStyles = makeStyles(theme => ({
         "& div": {
             marginBottom: -2
         },
-        padding: 1
+        padding: 1,
+        marginTop: '2px',
+        width: '130px',
     },
     placeTitle: {
         fontSize: 11,
         marginBottom: '-4px',
         marginTop: '-5px',
     },
-    smalIcon :{
-        fontSize : '.7rem'
+    smalIcon: {
+        fontSize: '.7rem'
     }
 
 }));
@@ -105,7 +108,7 @@ export default function SliderItem({ image, title, rate, ratesCount, distance, f
                     </Typography>
                 </div>
                 <div className={classes.inline}>
-                    <RoomIcon classes={{fontSizeSmall : classes.smalIcon}} fontSize="small" />
+                    <RoomIcon classes={{ fontSizeSmall: classes.smalIcon }} fontSize="small" />
                     <Typography className={classes.distance} color='disabled'>
                         {distance}
                     </Typography>

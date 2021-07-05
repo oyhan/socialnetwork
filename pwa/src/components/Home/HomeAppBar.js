@@ -15,6 +15,7 @@ import { useHistory } from 'react-router-dom';
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
+        height: '190px',
     },
     menuButton: {
         marginRight: theme.spacing(2),
@@ -38,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
         minHeight:152
     },
     btnHolder: {
-        marginTop: 40,
+        marginTop: 71,
         justifySelf: 'center',
         alignSelf: 'center',
         display: 'flex',
@@ -55,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
         background: 'url(/home/header/bg.jpg)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        height: 150,
+        height: '190px',
     }
 
 }));

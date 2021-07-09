@@ -4,7 +4,7 @@ import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 
 const StyledIcon = withStyles(theme => ({
     fontSizeSmall : {
-        fontSize : "0.70rem"
+        fontSize : "0.60rem"
     } ,
     fontSizeMedium:{
         fontSize : "1.3rem"

@@ -1,4 +1,4 @@
-import { CircularProgress, Grid, makeStyles, Typography } from '@material-ui/core';
+import { Box, CircularProgress, Grid, makeStyles, Typography } from '@material-ui/core';
 import cookieCutter from 'cookie-cutter';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -15,11 +15,11 @@ import AppDivider from '../components/Dividers/AppDivider';
 const useStyles = makeStyles(theme => ({
   mapSymbole: {
     background: 'url(/mapsymbole.png)',
-    borderRadius: 15,
+    borderRadius: 9,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     height: 105,
-    margin: '5px 10px',
+    margin: '5px 7px',
     cursor: 'pointer'
   },
   title: {
@@ -118,32 +118,37 @@ export default function Home() {
       <HomeAppBar />
 
       {loading ? <CircularProgress size="1rem" /> :
-        <>
+        <Box m='0 10px'>
           <Grid justify='space-between' direction='row' spacing={0} container className={classes.nearestRestaurantTitle} >
-            <Typography component='h4'>
+            <Typography component='h4' className='s17'>
               نزدیکترین کافه ها و رستوران‌ها
             </Typography>
 
             <Link to="/seeallclose" >
-              <Typography color='primary'>
+              <Typography color='primary' className='s14'>
                 همه را ببین
               </Typography>
             </Link>
 
           </Grid>
           <HorizontalSlider Component={SliderItem} items={cardPosts} />
-        </>
+        </Box>
       }
       {/* <HomeMap points={cardPosts.map(p => p.latLon)} /> */}
 
       <AppDivider />
 
-      <Grid justify='space-between' direction='row' spacing={0}
-        container className={classes.title} >
-        <Typography variant='h6'>
-          مکان‌های اطراف  را جستجو کنید
+      <Box m='0 7px'>
+        <Grid justify='space-between' direction='row' spacing={0}
+          container >
+          <Box m='12px 0 9px 0'>
+            <Typography variant='h6' className='s19'>
+              مکان‌های اطراف  را جستجو کنید
         </Typography>
-      </Grid>
+          </Box>
+        </Grid>
+      </Box>
+
       <Link to={{ state: cardPosts, pathname: "/nearme" }}>
         <div className={classes.mapSymbole}>
 
@@ -153,21 +158,21 @@ export default function Home() {
       <AppDivider />
 
       {loading ? <CircularProgress size="1rem" /> :
-        <>
+        <Box m='0 10px'>
           <Grid justify='space-between' direction='row' spacing={0} container className={classes.title} >
-            <Typography component='h4'>
+            <Typography component='h4' className='s17'>
               رستوران‌های برتر یزد
             </Typography>
             <Link to="/seeallbest" >
               <a>
-                <Typography color='primary'>
+                <Typography color='primary' className='s14'>
                   همه را ببین
                 </Typography>
               </a>
             </Link>
           </Grid>
           <HorizontalSlider Component={SliderItem} items={recommandedRests} />
-        </>
+        </Box>
       }
 
       <AppDivider />

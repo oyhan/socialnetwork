@@ -72,3 +72,15 @@ button.MuiSpeedDial-fab[aria-expanded="true"] svg {
 a{
   color : unset
 }
+.s19{
+  font-size : 19px !important;
+  font-weight: 400 !important;
+}
+.s17{
+  font-size: 17px !important;
+  font-weight: 400 !important;
+}
+.s14{
+  font-size: 14px !important;
+  font-weight: 400 !important;
+}

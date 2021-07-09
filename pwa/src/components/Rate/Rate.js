@@ -15,6 +15,7 @@ const StyledRating = withStyles(theme => ({
   //     margin : -1
   //   }
   // }
+ 
   icon : {
     margin : 0
   }

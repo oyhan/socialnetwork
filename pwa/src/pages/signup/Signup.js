@@ -1,15 +1,15 @@
 import { CircularProgress, makeStyles, Typography } from '@material-ui/core';
 import { useFormik } from 'formik';
-import { useHistory} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import ButtonBobo from '../../components/Button/ButtonBobo';
 import ToolbarBackButton from '../../components/Button/ToolbarBackButton';
 import { BrowserHttpClient } from '../../lib/BrowserHttpClient';
 import useFormikObjectBuilder from '../../lib/formik/formikObjectBuilder';
-import InputRenderer from '../../lib/InputRenderer';
-import { PropType } from '../../lib/proptypes';
 import { useSignUpModelValidationSchema } from '../../Models/SignupModel';
+import { Input } from '@material-ui/icons';
+import SimpleInput from '../../components/Input/SimpleInput';
 
 const useStyle = makeStyles((theme) => ({
     text: {
@@ -18,16 +18,41 @@ const useStyle = makeStyles((theme) => ({
     root: {
         display: 'flex',
         flexDirection: 'column',
-        marginTop: 50,
         justifyContent: 'center',
         height: 450,
-        alignItems: 'center'
+        alignItems: 'center',
+    },
+    stepContainer: {
+        width: '90%',
+    },
+    firstPage: {
+        marginTop: 48,
+    },
+    labelContainer: {
+        fontSize: '30px',
+        marginBottom: '18px',
+    },
+    btn: {
+        height: '55px',
+        backgroundColor: 'black !important',
+        width: '100%',
+        color: 'white !important'
+    },
+    input: {
+        height: '53px',
+        width: '100%',
+        marginBottom: '10px',
+    },
+    error: {
+        marginBottom: '10px',
+        marginTop: '-9px'
     }
 }))
 
 export default function Signup() {
     const schema = useSignUpModelValidationSchema();
     const history = useHistory();
+    const secondStep = 1;
     const onsubmit = () => {
         formik.setSubmitting(true);
         if (formik.isValid) {
@@ -48,23 +73,27 @@ export default function Signup() {
     var formik = useFormik(useFormikObjectBuilder({}, schema, onsubmit))
 
     const Step1 = <>
-        <InputRenderer
+        <SimpleInput
+            inputClassName={classes.input}
+            errorClassName={classes.error}
             onChange={formik.handleChange}
             error={formik.errors.phoneNumber}
             key="phoneNumber"
             value={formik.values.phoneNumber}
-            autoComplete="off" placeholder={'شماره موبایل'} Type={PropType.Number} Name="phoneNumber" />
+            autoComplete="off" placeholder={'شماره موبایل'} type={'text'} name="phoneNumber" />
     </>;
     const Step2 = <>
-        <InputRenderer
+        <SimpleInput
+            inputClassName={classes.input}
+            errorClassName={classes.error}
             onChange={formik.handleChange}
             error={formik.errors.userName}
             key="userName"
             value={formik.values.userName}
-            autoComplete="off" placeholder={'نام کاربری'} Type={PropType.Text} Name="userName" />
+            autoComplete="off" placeholder={'نام کاربری'} type={'text'} name="userName" />
     </>;
 
-    const steps = [{ title: "شماره همراه", step: Step1 }, { title: "نام کاربری", step: Step2 }]
+    const steps = [{ title: "شماره موبایل", step: Step1 }, { title: "نام کاربری", step: Step2 }]
 
     const isLastStep = () => {
         return currentStep == steps.length - 1
@@ -92,15 +121,15 @@ export default function Signup() {
         {
             currentStep != 0 && <ToolbarBackButton handleClick={handleBack} />
         }
-        <div className={classes.root} >
-            <div>
-                <Typography>
-                    {steps[currentStep].title}
+        <div className={`${classes.root} ${currentStep != secondStep ? classes.firstPage : ''}`} >
+            <div className={classes.stepContainer}>
+                <Typography className={classes.labelContainer}>
+                    ثبت نام
                 </Typography>
                 {
                     steps[currentStep].step
                 }
-                <ButtonBobo color='primary' variant='contained' onClick={handleNext} disabled={formik.isSubmitting || (!formik.isValid && isLastStep())}>
+                <ButtonBobo className={classes.btn} color='primary' variant='contained' onClick={handleNext} disabled={formik.isSubmitting || (!formik.isValid && isLastStep())}>
                     {formik.isSubmitting ? <CircularProgress /> : currentStep == steps.length - 1 ? "ارسال کد تایید" : "بعدی"}
                 </ButtonBobo>
             </div>

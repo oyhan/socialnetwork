@@ -17,7 +17,7 @@ export function useSignUpModelValidationSchema() {
         userName: Yup.string().required("اجباری").min(6, "حداقل 6 کاراکتر").max(20, "حداکثر 20 کاراکتر")
             .test('Unique Email', "نام کاربری تکراریست",
                 (value) => {
-                     return BrowserHttpClient.Get(`/user/UsernameAvailable/${value}`)
+                    return BrowserHttpClient.Get(`/user/UsernameAvailable/${value}`)
                         .then(() => true).catch(() => false)
                 })
 

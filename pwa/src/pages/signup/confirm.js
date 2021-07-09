@@ -4,12 +4,11 @@ import React, { useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import ButtonBobo from '../../components/Button/ButtonBobo';
 import ToolbarBackButton from '../../components/Button/ToolbarBackButton';
+import SimpleInput from '../../components/Input/SimpleInput';
 import OtpTimer from '../../components/OtpTimer/OtpTimer';
 import { setCredentials } from '../../helper/cookieHelper';
 import { BrowserHttpClient } from '../../lib/BrowserHttpClient';
 import useFormikObjectBuilder from '../../lib/formik/formikObjectBuilder';
-import InputRenderer from '../../lib/InputRenderer';
-import { PropType } from '../../lib/proptypes';
 import { actions } from '../../lib/reducer/actions';
 import { useStateValue } from '../../lib/store/appState';
 import { useSignupConfirmModelValidationSchema } from '../../Models/SignupConfirm';
@@ -21,10 +20,34 @@ const useStyle = makeStyles((theme) => ({
     root: {
         display: 'flex',
         flexDirection: 'column',
-        marginTop: 50,
+        marginTop: 78,
         justifyContent: 'center',
         height: 450,
         alignItems: 'center'
+    },
+    stepContainer: {
+        width: '90%',
+    },
+    labelContainer: {
+        fontSize: '30px',
+        marginBottom: '18px',
+    },
+    btn: {
+        height: '55px',
+        backgroundColor: 'black !important',
+        width: '100% !important',
+        color: 'white !important'
+    },
+    input: {
+        height: '53px',
+        width: '100%',
+        marginBottom: '10px',
+        letterSpacing:10,
+        textAlign:'center'
+    },
+    error: {
+        marginBottom: '10px',
+        marginTop: '-9px'
     }
 }))
 
@@ -34,7 +57,7 @@ export default function Confirm() {
     const history = useHistory();
     const [timer, setTimer] = useState(120)
     const loctation = useLocation();
-    
+
     const onsubmit = () => {
         formik.setSubmitting(true);
         if (formik.isValid) {
@@ -59,17 +82,18 @@ export default function Confirm() {
     var formik = useFormik(useFormikObjectBuilder({}, schema, onsubmit))
 
     const Step1 = <>
-        <InputRenderer
+        <SimpleInput
             onChange={formik.handleChange}
             error={formik.errors.token}
             key="token"
-
+            inputClassName={classes.input}
+            errorClassName={classes.error}
             value={formik.values.token}
-            autoComplete="off" placeholder={'کد تایید'} Type={PropType.Number} Name="token" />
+            autoComplete="off" placeholder={'——————'} type={'text'} name="token" />
     </>;
 
 
-    const steps = [{ title: "کد تایید", step: Step1 }]
+    const steps = [{ title: "ثبت نام", step: Step1 }]
 
     const handleNext = () => {
         if (currentStep == steps.length - 1) {
@@ -101,14 +125,14 @@ export default function Confirm() {
             currentStep != 0 && <ToolbarBackButton handleClick={handleBack} />
         }
         <div className={classes.root} >
-            <div>
-                <Typography>
+            <div className={classes.stepContainer}>
+                <Typography className={classes.labelContainer}>
                     {steps[currentStep].title}
                 </Typography>
                 {
                     steps[currentStep].step
                 }
-                <ButtonBobo color='primary' variant='contained' onClick={handleNext} disabled={formik.isSubmitting || !formik.isValid}>
+                <ButtonBobo className={classes.btn} color='primary' variant='contained' onClick={handleNext} disabled={formik.isSubmitting || !formik.isValid}>
                     {formik.isSubmitting ? <CircularProgress /> : currentStep == steps.length - 1 ? "ارسال کد تایید" : "بعدی"}
                 </ButtonBobo>
                 <OtpTimer callback={retry} initial={timer} />

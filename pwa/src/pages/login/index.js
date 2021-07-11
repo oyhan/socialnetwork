@@ -19,7 +19,8 @@ const useStyles = makeStyles({
         height: '55px',
         backgroundColor: 'black !important',
         width: '100%',
-        color: 'white !important'
+        color: 'white !important',
+        borderRadius: 8,
     },
     stepContainer: {
         width: '90%',

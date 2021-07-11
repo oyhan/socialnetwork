@@ -33,7 +33,9 @@ const useStyles = makeStyles({
         height: '55px',
         backgroundColor: 'black !important',
         width: '100% !important',
-        color: 'white !important'
+        color: 'white !important',
+        borderRadius: 8,
+
     },
     input: {
         height: '53px',
@@ -117,7 +119,7 @@ export default function Confirm() {
                     type={'text'} name="otp"
                     inputClassName={classes.input}
                     errorClassName={classes.error}
-                    placeholder="——————" />
+                    placeholder="――――――" />
                 <ButtonBobo className={classes.btn} variant='contained' type="submit" disabled={formik.isSubmitting}>
                     {formik.isSubmitting ? <CircularProgress /> : "تایید"}
                 </ButtonBobo>

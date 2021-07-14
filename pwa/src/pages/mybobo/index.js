@@ -1,11 +1,10 @@
 import { CircularProgress, Grid, IconButton, makeStyles, Typography } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import InfoIcon from '@material-ui/icons/Info';
 import LanguageIcon from '@material-ui/icons/Language';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
-import { Link } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import ButtonBobo from '../../components/Button/ButtonBobo';
 import { resizeWithPica } from '../../components/ImageUploader/ImageUploader';
@@ -14,11 +13,12 @@ import PostNewDialog from '../../components/Post/PostNew';
 import ProfileAppBar from '../../components/Profile/ProfileAppBar';
 import UserPosts from '../../components/Profile/UserProfile/UserPosts';
 import SpeedDials from '../../components/SpeedDial/SpeedDial';
+import { useHttpClient } from '../../lib/BrowserHttpClient';
 import useWebp from '../../lib/hooks/ImageCompress/useWebp';
 import { actions } from '../../lib/reducer/actions';
 import { useStateValue } from '../../lib/store/appState';
 import Toast from '../../lib/toastHelper';
-import { useHttpClient } from '../../lib/BrowserHttpClient';
+import { useHistory, useLocation } from 'react-router-dom';
 
 const useStyle = makeStyles((theme) => ({
     text: {
@@ -72,12 +72,15 @@ export default function MyBobo() {
     const [{ user }, dispatch] = useStateValue();
     const [compressing, result] = useWebp(photo, 0.5);
     const classes = useStyle()
-
+    const history = useHistory();
     const { avatarURl, bio, city, favorites, noOfFollowers, noOfFollowings, noOfPosts, userName, website } = profileDto || user;
 
     const handleNewPost = (files) => {
-        setPhoto(files);
-        setNewPost(true);
+
+        // setPhoto(files);
+        history.push("/newPost", { files : files });
+
+        // setNewPost(true);
     }
 
     useEffect(() => {

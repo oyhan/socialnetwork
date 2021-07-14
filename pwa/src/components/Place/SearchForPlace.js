@@ -66,7 +66,7 @@ export default function SearchForPlace() {
         setTerm(event.target.value);
     }
     useEffect(() => {
-        console.log('searchInCity: ', searchInCity);
+        
 
         setDestination(destination)
 

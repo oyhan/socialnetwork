@@ -51,16 +51,16 @@ const useStyles =(headerPic)=> makeStyles((theme) => ({
   }
 }));
 
-export default function AppBar({ rightIcon, title, leftIcons, middleCenterElement, extera, appBarColor, back, short ,headerPic }) {
+export default function AppBar({ rightIcon, title, leftIcons, middleCenterElement, extera, appBarColor, back, short ,headerPic,height }) {
 
   
   const classes = useStyles(headerPic)();
   const theme = useTheme();
   const toolBarStyle = {
-    height: short ? 91 : 178,
+    height: height? height : short ? 91 : 178,
     alignItems: 'flex-start',
-    paddingTop: 43,
-    paddingRight: 0,
+    paddingTop: 30,
+    paddingRight: '2.29%',
     paddingLeft : 0 ,
 
   }

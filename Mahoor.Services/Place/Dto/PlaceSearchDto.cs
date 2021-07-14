@@ -9,5 +9,6 @@ namespace Mahoor.Services.Place.Dto
         public Guid Id { get; set; }
         public string Name { get; set; }
         public bool IsCity { get; set; }
+        public string Province { get; set; }
     }
 }

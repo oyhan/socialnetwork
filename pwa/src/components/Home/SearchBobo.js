@@ -1,4 +1,4 @@
-import { CircularProgress, IconButton, InputAdornment, makeStyles } from "@material-ui/core";
+import { CircularProgress, Container, IconButton, InputAdornment, makeStyles } from "@material-ui/core";
 import { Cancel, Search } from "@material-ui/icons";
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import React, { useEffect, useState } from 'react';
@@ -57,7 +57,7 @@ export default function SearchBobo(props) {
     }
 
     useEffect(() => {
-        
+
 
         setDestination(destination)
 
@@ -67,53 +67,59 @@ export default function SearchBobo(props) {
     return (
         <>
             <SearchDialog {...props} >
-                <InputRenderer
-                    classes={{ root: classes.customTextField }}
-                    InputProps={{
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                <Search color="disabled" />
-                            </InputAdornment>
-                        ),
-                    }}
-                    onChange={handleChange}
-                    autocomplete="off" placeholder="جستجوی بوبو" Type={PropType.Text}
-                    Name="" fullWidth />
+                <Container>
 
-                <InputRenderer
-                    InputProps={{
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                <LocationOnIcon color="disabled" />
-                            </InputAdornment>
-                        ),
-                        endAdornment: (
-                            <InputAdornment position="end">
-                                <IconButton
-                                    aria-label="Toggle password visibility"
-                                    onClick={handleRemoveSearchIn}
-                                >
-                                    <CloseIcon />
-                                </IconButton>
-                            </InputAdornment>
-                        ),
-                    }}
-                    value={destination}
-                    onChange={handleChangeDest}
-                    autocomplete="off" placeholder="مقصد را وارد کنید" Type={PropType.Text}
-                    Name="" fullWidth />
-                {
 
-                    loading || loadingSearch ? <CircularProgress /> :
-                        searchingCity ? cityResult && <CitySearchResult onSelect={selectDestination} citys={cityResult} /> : data && data.length > 0 ?
-                            data.map((r, i) => {
-                                if (isUser(r)) {
-                                    return <UserSearchItem {...r} key={i} />
-                                }
-                                return <RestaurantSearchItem place={r} key={i} />
-                            }) :
-                            <RecentSearch handClickRecentSearch={selectDestination} />
-                }
+                    <InputRenderer
+                        classes={{ root: classes.customTextField }}
+                        InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <Search color="disabled" />
+                                </InputAdornment>
+                            ),
+                        }}
+                        onChange={handleChange}
+                        autocomplete="off" placeholder="جستجوی بوبو" Type={PropType.Text}
+                        Name="" fullWidth />
+
+                    <InputRenderer
+                        InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <LocationOnIcon color="disabled" />
+                                </InputAdornment>
+                            ),
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="Toggle password visibility"
+                                        onClick={handleRemoveSearchIn}
+                                    >
+                                        <CloseIcon />
+                                    </IconButton>
+                                </InputAdornment>
+                            ),
+                        }}
+                        value={destination}
+                        onChange={handleChangeDest}
+                        autocomplete="off" placeholder="مقصد را وارد کنید" Type={PropType.Text}
+                        Name="" fullWidth />
+                    {
+
+                        loading || loadingSearch ? <CircularProgress /> :
+                            searchingCity ? cityResult && <CitySearchResult onSelect={selectDestination} citys={cityResult} /> : data && data.length > 0 ?
+                                data.map((r, i) => {
+                                    if (isUser(r)) {
+                                        return <UserSearchItem {...r} key={i} />
+                                    }
+                                    return <RestaurantSearchItem place={r} key={i} />
+                                }) :
+                                <RecentSearch handClickRecentSearch={selectDestination} />
+                    }
+
+
+                </Container>
             </SearchDialog>
 
 

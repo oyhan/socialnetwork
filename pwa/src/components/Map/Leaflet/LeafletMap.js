@@ -42,7 +42,7 @@ export default function LeafletMap({ points, point, enableMyLocation }) {
     }
 
     return (
-        <MapContainer zoomControl={false} className={classes.mapContainer} center={JSON.parse(point)} zoom={13}>
+        <MapContainer zoomControl={false} className={classes.mapContainer} center={JSON.parse(point)} zoom={11}>
             <TileLayer
                 // url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 url="http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}"

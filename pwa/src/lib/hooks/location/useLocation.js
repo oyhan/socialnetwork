@@ -3,16 +3,16 @@ import isBrowser from '../../nextjs/utility';
 const defaultLocation = { latitude: 31.888539, longitude: 54.354710 };
 export const getDefault = () => {
     var savedLocation = JSON.parse(localStorage.getItem("location"));
-
+    console.log('savedLocation: ', savedLocation);
     if (!savedLocation) return defaultLocation;
 
     return savedLocation
-    
+
 }
 export default function useLocation() {
-   
-    const [pos, setPos] = useState(getDefault());
 
+    const [pos, setPos] = useState(getDefault());
+    
     var options = {
         enableHighAccuracy: true,
         timeout: 5000,
@@ -20,13 +20,18 @@ export default function useLocation() {
 
     };
     function errors(err) {
-        
+
     }
     const success = (pos) => {
         var crd = pos.coords;
-        
-        localStorage.setItem("location",JSON.stringify({latitude :crd.latitude,longitude:crd.longitude}))
-        setPos(crd);
+        if(process.env.NODE_ENV=='development'){
+            localStorage.setItem("location", JSON.stringify(defaultLocation))
+            setPos(defaultLocation);
+        }else{
+            localStorage.setItem("location", JSON.stringify({ latitude: crd.latitude, longitude: crd.longitude }))
+            setPos(crd);
+        }
+       
 
     }
     useEffect(() => {
@@ -37,7 +42,7 @@ export default function useLocation() {
                 navigator.permissions
                     .query({ name: "geolocation" })
                     .then(function (result) {
-                        
+
                         if (result.state === "granted") {
                             //If granted then you can directly call your function here
                             navigator.geolocation.getCurrentPosition(success, errors, options);
@@ -47,7 +52,7 @@ export default function useLocation() {
                             //If denied then you have to show instructions to enable location
                         }
                         result.onchange = function () {
-                            
+
                         };
                     });
             } else {

@@ -42,7 +42,8 @@ namespace Mahoor.Services.Place.Handlers
                 {
                     Id = p.Id,
                     Name = p.City,
-                    IsCity = true
+                    IsCity = true,
+                    Province = p.Province
                 }, new GetAllCitiesQuery(request.Name));
 
                 var result = response.ToList();

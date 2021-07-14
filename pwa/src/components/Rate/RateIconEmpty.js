@@ -16,6 +16,6 @@ const StyledIcon = withStyles(theme => ({
 
 export default function RateIconEmpty(props) {
     return (
-        <StyledIcon  {...props} />
+        <StyledIcon color='primary' {...props} />
     )
 }

@@ -21,6 +21,7 @@ import { useStateValue } from '../../lib/store/appState';
 import Dialog from '../Dialog/Dialog';
 import PostSlider from './PostSlider';
 import { Divider } from '@material-ui/core'
+import { toHumanReadableDate } from '../../lib/dateHelper';
 require('moment/locale/fa');
 
 var moment = require('moment-jalaali')
@@ -70,7 +71,7 @@ export default function Post({ userName, createdDate, placeName, text, likes, me
     var date = moment(createdDate);
     const [userLiked, setLiked] = useState(liked);
     const [unfollow, setUnfollow] = useState(false);
-    const datephrase = date.fromNow();
+    const datephrase = toHumanReadableDate(createdDate);
     const avatar = avatarUrl;
 
 
@@ -82,7 +83,7 @@ export default function Post({ userName, createdDate, placeName, text, likes, me
         setOpen(!open);
     }
     const selectDialogItem = () => {
-        if (user.userName.toLowerCase() != userName.toLowerCase()) {
+        if (user.userName?.toLowerCase() != userName.toLowerCase()) {
             return btnMoreItems;
         }
         return btnMoreOwnerItems;

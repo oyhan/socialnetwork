@@ -1,4 +1,4 @@
-import { Chip, Grid, IconButton, InputAdornment, List, ListItem, ListItemText, makeStyles, Typography } from '@material-ui/core';
+import { Chip, Container, Grid, IconButton, InputAdornment, List, ListItem, ListItemText, makeStyles, Typography } from '@material-ui/core';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import React, { useState } from 'react';
 import InputRenderer from '../../lib/InputRenderer';
@@ -20,8 +20,8 @@ const useStyles = makeStyles({
     icon: {
         transform: "scaleX(-1)"
     },
- 
-    
+
+
 })
 export default function WhereToGo({ open, handleWindow, handleSelectCity }) {
 
@@ -53,43 +53,44 @@ export default function WhereToGo({ open, handleWindow, handleSelectCity }) {
     const handClickRecentSearch = (city) => () => {
         setHomeCity(city)
     }
-    
+
     const seaching = () => {
         const isSearching = searchResult != undefined && searchResult.length > 0;
         return isSearching;
     }
     return (
         <SearchDialog handleWindow={handleWindow} open={open}>
-            <InputRenderer
-                classes={{ root: classes.customTextField }}
-                InputProps={{
-                    disableUnderline: true,
-                    startAdornment: (
-                        <InputAdornment position="start">
-                            <LocationOnIcon color="disabled" />
-                        </InputAdornment>
-                    ),
-                }}
-                onChange={handleChangeQuery}
-                autoComplete="off" placeholder="کجا می‌روید؟" Type={PropType.Text}
-                Name="currentCity" fullWidth />
+            <Container>
+                <InputRenderer
+                    classes={{ root: classes.customTextField }}
+                    InputProps={{
+                        disableUnderline: true,
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <LocationOnIcon color="disabled" />
+                            </InputAdornment>
+                        ),
+                    }}
+                    onChange={handleChangeQuery}
+                    autoComplete="off" placeholder="کجا می‌روید؟" Type={PropType.Text}
+                    Name="currentCity" fullWidth />
 
-            <IconButton onClick={handleClickNearby} edge='end' >
-                <NearMeIcon fontSize="small" className={classes.icon} color="primary" />
+                <IconButton onClick={handleClickNearby} edge='end' >
+                    <NearMeIcon fontSize="small" className={classes.icon} color="primary" />
                 &nbsp;
                 <Typography>
-                    نزدیک
+                        نزدیک
                 </Typography>
-            </IconButton>
-            {
-                !seaching() ? <RecentSearch handClickRecentSearch={handClickRecentSearch}/> :
-                    <List>
-                        {
-                            searchResult && <CitySearchResult onSelect={selectSearchResult} citys={searchResult} />
-                        }
-                    </List>
-            }
-
+                </IconButton>
+                {
+                    !seaching() ? <RecentSearch handClickRecentSearch={handClickRecentSearch} /> :
+                        <List>
+                            {
+                                searchResult && <CitySearchResult onSelect={selectSearchResult} citys={searchResult} />
+                            }
+                        </List>
+                }
+            </Container>
         </SearchDialog>
     );
 }

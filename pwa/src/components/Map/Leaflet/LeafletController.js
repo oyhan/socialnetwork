@@ -13,10 +13,11 @@ export default function LeafletMapController({ enableMyLocation }) {
     
     useEffect(() => {
         if (enableMyLocation) {
-            const locate = L.control.locate({ flyto: true, position: "bottomright" })
-            
+            const locate = L.control.locate({ flyto: true, position: "bottomright" ,keepCurrentZoomLevel :true })
             if (!locate._map) {
                 map.addControl(locate);
+                locate.start();
+                // map.locate({setView: true, maxZoom: 16});
             }
 
         }
@@ -24,6 +25,6 @@ export default function LeafletMapController({ enableMyLocation }) {
         // map.hasLayer()
         // L.circleMarker([position.latitude, position.longitude]).addTo(map);
         // map.flyTo([position.latitude,position.longitude]);
-    }, [position.latitude])
+    }, [])
     return null;
 }

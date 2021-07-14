@@ -5,7 +5,7 @@ import Slide from '@material-ui/core/Slide';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { AvatarGroup } from '@material-ui/lab';
-import { useFormik } from 'formik';
+import { FormikProvider, useFormik } from 'formik';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { BrowserHttpClient } from '../../lib/BrowserHttpClient';
@@ -19,6 +19,10 @@ import AutoCompleteInput from '../AutoComplete/AutoCompleteInput';
 import ToolbarButton from '../Button/ToolBarButton';
 import { useHistory } from 'react-router-dom'
 import ThinDivider from '../Dividers/ThinDevider';
+import SearchIcon from '@material-ui/icons/Search';
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import {Link} from 'react-router-dom'
+import PostPlaceTag from './PostPlaceTag';
 
 const useStyles = makeStyles((theme) => ({
     toolBar: {
@@ -39,12 +43,24 @@ const useStyles = makeStyles((theme) => ({
     row1: {
         marginBottom: 150,
         marginTop: 35
+    },
+    selectPlaceTag: {
+        color: 'rgba(110, 100, 100, 1)',
+       "& > p" :{
+        fontSize: 15,
+       },
+        width: '75%',
+        textAlign: 'start',
+    },
+    selectTagContainer: {
+        margin: '18.9px 0'
     }
 }));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
+
 
 export default function PostNewDialog({ open, handleWindow, cityId, photos }) {
     const router = useHistory();
@@ -109,8 +125,8 @@ export default function PostNewDialog({ open, handleWindow, cityId, photos }) {
         placeId: "",
         cityId: cityId
     }, schema, onsubmit))
+
     
-    console.log('formik: ', formik);
     const rightIcon = <ToolbarButton color='primary' disabled={formik.isSubmitting} onClick={formik.handleSubmit} >
         <Typography color='primary' >
             پست
@@ -121,14 +137,17 @@ export default function PostNewDialog({ open, handleWindow, cityId, photos }) {
             انصراف
    </Typography>
     </ToolbarButton>]
-
+    const [tag, setTag] = useState();
     const handleSelectPlace = (value) => {
+        setTag(value);
         if (value.isCity) {
             formik.setFieldValue("cityId", value?.id)
         } else {
             formik.setFieldValue("placeId", value?.id)
         }
     }
+
+   
 
     return (
         <div  >
@@ -167,26 +186,46 @@ export default function PostNewDialog({ open, handleWindow, cityId, photos }) {
                         </Grid>
                     </Grid>
                     <Divider className={classes.divider} />
-                    {!cityId && <AutoCompleteInput
-                        renderOption={(option) => <Chip color='primary' label={`${option.name}`} />}
-                        resultSelector={(result) => result.response}
-                        getOptionLabel={(item) => item.name}
-                        inputcomponent={
-                            <InputRenderer
-                                key="placeId"
-                                onChange={formik.handleChange}
-                                error={formik.errors?.placeId}
-                                value={formik.values.placeId}
-                                InputProps={{
-                                    disableUnderline: true,
-                                }}
-                                autoComplete="off" placeholder="یک مکان انتخاب کنید" Type={PropType.Text}
-                                Name="placeId" fullWidth />
-                        }
-                        queryUrl={"/place/search/{query}/undefined"}
-                        onSelected={handleSelectPlace}
-                    />}
-                    {/* <Divider className={classes.divider} /> */}
+                    {!cityId &&
+
+                        <Grid container justify='space-between' className={classes.selectTagContainer} >
+                            <SearchIcon htmlColor='rgba(100, 90, 90, 0.7)' />
+                            <Link to='/searchPlacePost' className={classes.selectPlaceTag}>
+                                <Typography  >
+                                    تگ یک مکان را اضافه کنید
+                                </Typography>
+                            </Link>
+
+                            <KeyboardArrowUpIcon htmlColor='rgba(100, 90, 90, 0.7)' />
+                        </Grid>
+
+
+
+                        // <AutoCompleteInput
+                        //     renderOption={(option) => <Chip color='primary' label={`${option.name}`} />}
+                        //     resultSelector={(result) => result.response}
+                        //     getOptionLabel={(item) => item.name}
+                        //     inputcomponent={
+                        //         <InputRenderer
+                        //             key="placeId"
+                        //             onChange={formik.handleChange}
+                        //             error={formik.errors?.placeId}
+                        //             value={formik.values.placeId}
+                        //             InputProps={{
+                        //                 disableUnderline: true,
+                        //             }}
+                        //             autoComplete="off" placeholder="یک مکان انتخاب کنید" Type={PropType.Text}
+                        //             Name="placeId" fullWidth />
+                        //     }
+                        //     queryUrl={"/place/search/{query}/undefined"}
+                        //     onSelected={handleSelectPlace}
+                        // />
+
+                    }
+                    {
+                        tag && <PostPlaceTag  name={tag.name}  />
+                    }
+                    <Divider className={classes.divider} />
                 </Container>
             </Dialog>
         </div>

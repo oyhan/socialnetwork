@@ -148,7 +148,7 @@ export default function PlacePageAppBar({ photos, place }) {
 
                 </SwipeableViews>
                 <div className={classes.bottomLeftButton}>
-                    <IconButton component={Link} to={`/${"Asd"}/posts/${2}`} aria-label="search" edge='end' color="inherit">
+                    <IconButton  aria-label="search" edge='end' color="inherit">
                         <Typography variant='caption'>
                             {photos?.length}
                         </Typography> &nbsp;<CameraAltIcon fontSize='small' />

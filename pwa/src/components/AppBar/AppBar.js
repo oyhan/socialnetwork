@@ -5,7 +5,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import React from 'react';
 import ToolbarBackButton from '../Button/ToolbarBackButton';
-const useStyles =(headerPic)=> makeStyles((theme) => ({
+const useStyles =(headerPic,titleFontSize)=> makeStyles((theme) => ({
   root: {
     marginBottom: 50
   },
@@ -19,7 +19,7 @@ const useStyles =(headerPic)=> makeStyles((theme) => ({
     flexGrow: 1,
     alignSelf: 'center',
     textAlign: 'center',
-    fontSize:17
+    fontSize:titleFontSize || 17
   },
   avatar: {
     width: theme.spacing(9),
@@ -40,7 +40,7 @@ const useStyles =(headerPic)=> makeStyles((theme) => ({
   },
   appbar: {
     [theme.breakpoints.down('md')]: {
-      width: '100vw',
+      // width: '100vw',
     },
     backgroundImage: `url(${headerPic})`,
     backgroundSize: 'cover',
@@ -51,17 +51,17 @@ const useStyles =(headerPic)=> makeStyles((theme) => ({
   }
 }));
 
-export default function AppBar({ rightIcon, title, leftIcons, middleCenterElement, extera, appBarColor, back, short ,headerPic,height }) {
+export default function AppBar({ rightIcon, title, titleFontSize, paddingTop , paddingLeft,paddingRight, leftIcons, middleCenterElement, extera, appBarColor, back, short ,headerPic,height }) {
 
   
-  const classes = useStyles(headerPic)();
+  const classes = useStyles(headerPic,titleFontSize)();
   const theme = useTheme();
   const toolBarStyle = {
     height: height? height : short ? 91 : 178,
     alignItems: 'flex-start',
-    paddingTop: 30,
-    paddingRight: '2.29%',
-    paddingLeft : 0 ,
+    paddingTop: paddingTop || 30,
+    paddingRight: paddingLeft || '2.29%',
+    paddingLeft :paddingRight || '2.29%',
 
   }
   

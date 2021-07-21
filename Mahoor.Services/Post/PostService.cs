@@ -142,13 +142,7 @@ namespace Mahoor.Services.Post
                     post.City = city;
                     post.CityId = city.Id;
                 }
-
-
                 var postModel = await _postRepository.AddAsync(post);
-
-
-
-
 
                 await _mediator.Publish(new PostCreatedEvent { Post = postModel });
 

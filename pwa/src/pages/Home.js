@@ -11,6 +11,7 @@ import useLocation from '../lib/hooks/location/useLocation';
 import { actions } from '../lib/reducer/actions';
 import { useStateValue } from '../lib/store/appState';
 import AppDivider from '../components/Dividers/AppDivider';
+import HomeSection from '../components/Home/HomeSection';
 
 const useStyles = makeStyles(theme => ({
   mapSymbole: {
@@ -19,12 +20,8 @@ const useStyles = makeStyles(theme => ({
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     height: 105,
-    margin: '5px 7px',
+    margin: '4px 7px 18px 7px',
     cursor: 'pointer'
-  },
-  title: {
-    marginBottom: theme.spacing(1),
-    marginTop: theme.spacing(1),
   },
   nearestRestaurantTitle: {
     marginBottom: theme.spacing(1),
@@ -114,28 +111,8 @@ export default function Home() {
 
   return (
     <>
-
       <HomeAppBar />
-
-      {loading ? <CircularProgress size="1rem" /> :
-        <Box m='0 10px'>
-          <Grid justify='space-between' direction='row' spacing={0} container className={classes.nearestRestaurantTitle} >
-            <Typography component='h4' className='s17'>
-              نزدیکترین کافه ها و رستوران‌ها
-            </Typography>
-
-            <Link to="/seeallclose" >
-              <Typography color='primary' className='s14'>
-                همه را ببین
-              </Typography>
-            </Link>
-
-          </Grid>
-          <HorizontalSlider Component={SliderItem} items={cardPosts} />
-        </Box>
-      }
-      {/* <HomeMap points={cardPosts.map(p => p.latLon)} /> */}
-
+      <HomeSection loading={loading} items={cardPosts} title='نزدیکترین کافه ها و رستوران‌ها' linkTo="/seeallclose" className={classes.nearestRestaurantTitle} />
       <AppDivider />
 
       <Box m='0 7px'>
@@ -156,25 +133,15 @@ export default function Home() {
       </Link>
 
       <AppDivider />
+      <Box m='13px 10px 27px 10px'>
+        <Grid container>
+          <Typography className='s19'>
+            پیشنهاد شده برای شما
+        </Typography>
+        </Grid>
+      </Box>
 
-      {loading ? <CircularProgress size="1rem" /> :
-        <Box m='0 10px'>
-          <Grid justify='space-between' direction='row' spacing={0} container className={classes.title} >
-            <Typography component='h4' className='s17'>
-              رستوران‌های برتر یزد
-            </Typography>
-            <Link to="/seeallbest" >
-              <a>
-                <Typography color='primary' className='s14'>
-                  همه را ببین
-                </Typography>
-              </a>
-            </Link>
-          </Grid>
-          <HorizontalSlider Component={SliderItem} items={recommandedRests} />
-        </Box>
-      }
-
+      <HomeSection loading={loading} items={recommandedRests} title='رستوران‌های برتر یزد' linkTo="/seeallbest" />
       <AppDivider />
 
       <HomePosts posts={timeLine.followingsPosts || []} />

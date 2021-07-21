@@ -64,6 +64,17 @@ button.MuiSpeedDial-fab[aria-expanded="true"] svg {
   font-family:  Titr !important;
   font-size: 1.25rem !important;
 }
+
+.titr22700{
+  font-family:  Titr !important;
+  font-size: 22px !important;
+  font-weight: 700 !important;
+}
+.titr19700{
+  font-family:  Titr !important;
+  font-size: 19px !important;
+  font-weight: 700 !important;
+}
 .titr2 {
   font-family:  Titr !important;
   font-size: .9rem !important;
@@ -86,6 +97,19 @@ a{
   font-size : 19px !important;
   font-weight: 400 !important;
 }
+.s20{
+  font-size : 20px !important;
+  font-weight: 400 !important;
+}
+.s23{
+  font-size : 13px !important;
+  font-weight: 400 !important;
+}
+.s22{
+  font-size : 22px !important;
+  font-weight: 400 !important;
+}
+
 .s17{
   font-size: 17px !important;
   font-weight: 400 !important;
@@ -122,6 +146,24 @@ a{
   font-size: 16px !important;
   font-weight: 400 !important;
 }
+
+.s27400{
+  font-weight: 400 !important;
+  font-size: 27px !important;
+}
+
+.s15700{
+  font-weight: 700 !important;
+  font-size: 15px !important;
+}
+.MuiTab-fullWidth {
+  flex-basis: unset !important;
+}
+
+.mandatory{
+  color: #645A5A;
+}
+
 
 /* .MuiFormControl-marginNormal{
   margin-top : 0;

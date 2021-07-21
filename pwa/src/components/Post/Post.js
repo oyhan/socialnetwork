@@ -46,20 +46,38 @@ const useStyles = makeStyles((theme) => ({
         transform: 'rotate(180deg)',
     },
     avatar: {
-        backgroundColor: red[500],
+        marginRight: '-7px',
+        marginBottom: 14,
+        marginLeft: 10,
+        width: 50,
+        height: 50,
     },
     sharebtn: {
         marginLeft: 'auto'
     },
     text: {
-        padding: theme.spacing(1)
+        padding: 20,
+        background: '#EFEFE3',
+        paddingTop: 0,
+        "& pre" :{
+            color: '#8A8383',
+            fontSize: 15
+        }
     },
     actions: {
         padding: 0
+    },
+    postSubtitle: {
+        color: 'rgba(138, 127, 127, 1)',
+        fontSize: '16px !important',
+
+    },
+    cardHeaderRoot: {
+        padding: 6,
     }
 }));
 
-export default function Post({ userName, createdDate, placeName, text, likes, medias, id, liked, avatarUrl }) {
+export default function Post({ userName, createdDate, placeName, text, likes, medias, id, liked, avatarUrl, displayName }) {
     const router = useHistory();
     const postRef = useRef();
     const [{ user }] = useStateValue();
@@ -171,9 +189,26 @@ export default function Post({ userName, createdDate, placeName, text, likes, me
         }
     }
 
+    const PostTitle = ({ displayName }) => <>
+        <Typography component='span' className='titr19700'>
+            {displayName}
+        </Typography>&nbsp;&nbsp;
+        <Typography component='span' className='s16'>
+            یک عکس اضافه کرد
+        </Typography>
+    </>
+
+    const SubTitle = ({ datephrase, placeName }) => <>
+        <Typography component='span' className={classes.postSubtitle} >
+            {`${datephrase}/${placeName}`}
+        </Typography>&nbsp;
+
+    </>
+
     return (
         <Card ref={postRef} elevation={0} id={id} className={classes.root}>
             <CardHeader
+                classes={{ root: classes.cardHeaderRoot }}
                 avatar={
                     <Avatar aria-label="recipe" src={avatar} onClick={handleGotoProfile} className={classes.avatar}>
                         {userName}
@@ -184,8 +219,8 @@ export default function Post({ userName, createdDate, placeName, text, likes, me
                         <MoreHorizIcon />
                     </IconButton>
                 }
-                title={`${userName} یک عکس اضافه کرد`}
-                subheader={`${datephrase}/${placeName}`}
+                title={<PostTitle displayName={displayName} />}
+                subheader={<SubTitle datephrase={datephrase} placeName={placeName} />}
             />
 
             <PostSlider

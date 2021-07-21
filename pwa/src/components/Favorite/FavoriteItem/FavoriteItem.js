@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     content: {
         flex: '1 0 auto',
         width: '100%',
-        padding: '0 10px',
+        padding: '0 0 0 10px',
         paddingTop: 16,
     },
     cover: {

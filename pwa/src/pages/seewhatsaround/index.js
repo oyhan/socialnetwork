@@ -1,12 +1,11 @@
-import { CircularProgress, Grid, makeStyles, Typography } from '@material-ui/core';
+import { Box, Grid, makeStyles, Typography } from '@material-ui/core';
 import cookieCutter from 'cookie-cutter';
 import { useEffect, useState } from 'react';
-import { Link,useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom';
 import CityPageAppBar from '../../components/CityPage/CityPageAppBar';
 import useHomeCity from '../../components/CityPage/useHomeCity';
-import HomePosts from '../../components/Home/HomePosts';
-import HorizontalSlider from '../../components/Slider/HorizontalSlider/HorizontalSlider';
-import SliderItem from '../../components/Slider/SliderItem/SliderItem';
+import AppDivider from '../../components/Dividers/AppDivider';
+import HomeSection from '../../components/Home/HomeSection';
 import { useHttpClient } from '../../lib/BrowserHttpClient';
 import useGps from '../../lib/hooks/location/useLocation';
 import { actions } from '../../lib/reducer/actions';
@@ -19,7 +18,7 @@ const useStyles = makeStyles(theme => ({
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         height: 105,
-        margin: '5px 10px',
+        margin: '4px 7px 30px 7px',
         cursor: 'pointer'
     }
 }))
@@ -29,14 +28,10 @@ export default function WhatsNearMe() {
     const position = useGps();
     const classes = useStyles();
     const location = useLocation();
-    console.log('location: ', location);
     const [loadingcityHomeData, cityHomeData, errors] = useHomeCity(location.state && location.state.nearby);
-    
     const [loading, timeLine, error] = useHttpClient(`/Timeline/Get?lat=${position.latitude}&lon=${position.longitude}`, "Get");
-
-    
-
     const [cardPosts, setCardPosts] = useState([]);
+    const [recommandedRests, setRecommandedRests] = useState([]);
 
     useEffect(() => {
 
@@ -57,22 +52,33 @@ export default function WhatsNearMe() {
             setCardPosts(restaurants);
         }
 
+        if (timeLine.recommandedRestaurants) {
 
+            const recrestaurants = timeLine.recommandedRestaurants.map(p => ({
+
+                image: '/coffeeshop2.jpg',
+                title: p.name,
+                rate: p.rate,
+                ratesCount: p.noOfReviews,
+                distance: p.distanceString,
+                favorite: p.favorite,
+                latLon: p.latLon,
+                id: p.id
+            }));
+
+            setRecommandedRests(recrestaurants);
+        }
     }, [timeLine])
+
     const [{ user }, dispatch] = useStateValue();
-    // const position = useLocation();
     const getUser = () => {
         const user = JSON.parse(localStorage.getItem("user"));
         return user;
     }
 
-    // useEffect(()=>{
-    //   
-    // })
     useEffect(() => {
 
         if (position) {
-
             cookieCutter.set("latitude", position.latitude);
             cookieCutter.set("longitude", position.longitude);
             document.cookie = `position=lat=${position.latitude}&lon=${position.longitude}`;
@@ -80,20 +86,24 @@ export default function WhatsNearMe() {
         dispatch({ type: actions.USER, payload: { ...user, location: position } });
     }, [position.latitude])
 
-
     useEffect(() => {
         // dispatch({ type: actions.APPBAR, payload: <HomeAppBar /> });
         var user = getUser();
 
         dispatch({ type: actions.USER, payload: { ...user, isAuthenticated: true, location: "" } })
-
-
     }, [])
 
     return (
         <>
-
             {!loadingcityHomeData && <CityPageAppBar nearby={location.state?.nearby} {...cityHomeData} />}
+
+            <Box m='-2px 7px 19px 7px'>
+                <Grid container>
+                    <Typography className='s19'>
+                        مکان های اطراف را جستجو کنید
+                    </Typography>
+                </Grid>
+            </Box>
 
             <Link to={{ state: cardPosts, pathname: "/nearme" }}>
                 <div className={classes.mapSymbole}>
@@ -101,45 +111,10 @@ export default function WhatsNearMe() {
                 </div>
             </Link>
 
-            {loading ? <CircularProgress /> :
-                <>
-                    <Grid justify='space-between' direction='row' spacing={0} container className={classes.title} >
-                        <Typography component='h4'>
-                             نزدیکترین کافه ها و رستوران‌ها {cityHomeData.name}
-              </Typography>
-                        <Link to="/nearme" >
-                            <a>
-                                <Typography color='primary'>
-                                    همه را ببین
-                          </Typography>
-                            </a>
-                        </Link>
-                    </Grid>
-                    <HorizontalSlider Component={SliderItem} items={cardPosts} />
-                </>}
-            {/* <HomeMap points={cardPosts.map(p => p.latLon)} /> */}
-
-
-            {loading ? <CircularProgress /> :
-                <>
-                    <Grid justify='space-between' direction='row' spacing={0} container className={classes.title} >
-                        <Typography component='h4'>
-                            رستوران‌های برتر {cityHomeData.name}
-                        </Typography>
-                        <Link to="/nearme" >
-                            <a>
-                                <Typography color='primary'>
-                                    همه را ببین
-                          </Typography>
-                            </a>
-                        </Link>
-                    </Grid>
-                    <HorizontalSlider Component={SliderItem} items={cardPosts} />
-                </>}
-
-
-
-
+            <AppDivider />
+            <HomeSection loading={loading} items={cardPosts} title={`نزدیکترین کافه ها و رستوران‌ها ${cityHomeData.name}`} linkTo='/nearme' />
+            <AppDivider />
+            <HomeSection loading={loading} items={recommandedRests} title={`رستوران‌های برتر ${cityHomeData.name}`} linkTo='/nearme' />
         </>
     )
 }

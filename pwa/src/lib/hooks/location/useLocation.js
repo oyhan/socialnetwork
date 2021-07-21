@@ -3,7 +3,7 @@ import isBrowser from '../../nextjs/utility';
 const defaultLocation = { latitude: 31.888539, longitude: 54.354710 };
 export const getDefault = () => {
     var savedLocation = JSON.parse(localStorage.getItem("location"));
-    console.log('savedLocation: ', savedLocation);
+    
     if (!savedLocation) return defaultLocation;
 
     return savedLocation

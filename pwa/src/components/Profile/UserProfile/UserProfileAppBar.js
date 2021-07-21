@@ -30,7 +30,7 @@ export default function UserProfileAppBar({ headerPic, userName, handleFollow, f
   ]
 
   return (
-    <AppBar headerPic={headerPic} leftIcons={leftIcon} />
+    <AppBar headerPic={headerPic} paddingTop={10}  paddingLeft='2%' back leftIcons={leftIcon} />
   )
 }
 

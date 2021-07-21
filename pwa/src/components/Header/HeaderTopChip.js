@@ -12,6 +12,7 @@ const useStyles = makeStyles((theme) => ({
         },
         height: 29,
         background :'white',
+        marginLeft: 3,
 
 
     },

@@ -44,7 +44,7 @@ const useStyle = makeStyles((theme) => ({
         margin: '0 27px',
         ' & img': {
             borderRadius: '50%',
-            border: 'white 5px solid',
+            border: 'white 2px solid',
             aspectRatio: 1
         }
     },
@@ -61,8 +61,9 @@ const useStyle = makeStyles((theme) => ({
         "&  svg" :{
             fontSize : '2.1rem'
         },
-        boxShadow : 'unset'
-
+        boxShadow : 'unset',
+        marginTop: '-26px',
+        marginLeft: 4,
     }
 }))
 export function resizeWithPica(image, newWidth) {
@@ -257,7 +258,7 @@ export default function ImageUploader({ name, sizeLimit, noCompression, index, f
                                     <img src={defaultImage}
                                         width={props.thumbnailSize === undefined ? 50 : props.thumbnailSize}
                                         height={props.thumbnailSize === undefined ? 50 : props.thumbnailSize}
-                                        className="thumbnail"
+                                        // className="thumbnail"
                                     />
                                 </Fab>
 

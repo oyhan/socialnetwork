@@ -13,7 +13,7 @@ const noPointerEvents = {
 }
 
 const styles = theme => {
-  
+
   return ({
     root: {
       // direction: theme.direction
@@ -22,7 +22,19 @@ const styles = theme => {
       padding: 2,
       margin: '-3px',
       transform: theme.direction === 'rtl' ? 'scaleX(-1)' : 'none',
-      
+
+    },
+    iconButtonMedium: {
+      padding: 2,
+      margin: '-5px',
+      transform: theme.direction === 'rtl' ? 'scaleX(-1)' : 'none',
+
+    },
+    iconButtonLarg: {
+      padding: 2,
+      margin: '-7px',
+      transform: theme.direction === 'rtl' ? 'scaleX(-1)' : 'none',
+
     },
     icon: {},
     disabled: noPointerEvents,
@@ -125,6 +137,7 @@ class Rating extends Component {
       onChange,
       readOnly,
       value,
+      size,
       ...other
     } = this.props
     const rating = []
@@ -134,7 +147,11 @@ class Rating extends Component {
         <IconButton
           key={i}
           className={classNames(
-            classes.iconButton,
+            {
+              [classes.iconButton]: size == 'small',
+              [classes.iconButtonMedium]: size == 'medium',
+              [classes.iconButtonLarg]: size == 'large',
+            },
             {
               [classes.disabled]: disabled,
               [classes.readOnly]: readOnly

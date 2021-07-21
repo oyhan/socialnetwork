@@ -23,7 +23,7 @@ const useStyles = (showBottomNav) => makeStyles((theme) => ({
         // height: '100%',
         // padding: '5rem 10px',
         padding: '0px',
-        // marginBottom: showBottomNav? 100 : 0,
+        marginBottom: showBottomNav? 50 : 0,
         // background:'#e6e0e0'
         background: 'white',
     }

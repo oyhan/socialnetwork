@@ -1,4 +1,4 @@
-import { CircularProgress, Grid, IconButton, makeStyles, Typography } from '@material-ui/core';
+import { CircularProgress, Container, Grid, IconButton, makeStyles, Typography } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import LanguageIcon from '@material-ui/icons/Language';
@@ -27,7 +27,10 @@ const useStyle = makeStyles((theme) => ({
         marginLeft: '-8px',
     },
     div: {
-        margin: '20px 0'
+        margin: '28px 0px 7px 0px',
+        "&  p": {
+            marginBottom: 15
+        }
     },
     fab: {
         position: 'absolute',
@@ -35,9 +38,26 @@ const useStyle = makeStyles((theme) => ({
         right: theme.spacing(3),
     },
     addBtn: {
+        marginRight: '1px !important',
+        marginLeft: '10px !important',
         "& svg": {
-            fontSize: 24
+            fontSize: '24px !important'
         }
+    },
+    infoWrapper :{
+        marginBottom : 10,
+        "&  p": {
+            marginBottom: 15
+        },
+        "&  button": {
+            marginRight: 10
+        },
+        "&  svg": {
+            fontSize : '1.2rem'
+        },
+        "& > div": {
+            margin : '2px 0'
+        } 
     }
 }))
 
@@ -78,7 +98,7 @@ export default function MyBobo() {
     const handleNewPost = (files) => {
 
         // setPhoto(files);
-        history.push("/newPost", { files : files });
+        history.push("/newPost", { files: files });
 
         // setNewPost(true);
     }
@@ -128,13 +148,13 @@ export default function MyBobo() {
             }
         }
         return (
-            <Grid container style={{ margin: '-8px 0' }} direction='row'>
+            <Grid container style={{ margin: '-6px 0' }} direction='row'>
                 {
                     user[item] ?
                         getIcon(item) :
                         <Link to="/editprofile" >
                             <IconButton disableRipple className={classes.addBtn}>
-                                <Add color='inherit' htmlColor='black' />
+                                <Add fontSize='large' color='inherit' htmlColor='black' />
                             </IconButton>
                         </Link>
                 }
@@ -147,48 +167,50 @@ export default function MyBobo() {
     if (!loading) {
         return <>
             {profileDto && <ProfileAppBar readonly profileDto={profileDto} />}
+            <Container>
             <ButtonBobo component={Link} to="/editprofile" color="primary" fullWidth>
                 ویرایش پروفایل
         </ButtonBobo>
-            <Grid className={classes.div} container direction='row' justify='space-around' >
-                <Grid item direction='column'>
-                    <Typography >
-                        دنبال شوندگان
-            </Typography>
-                    <Link to={`/${user.userName}/followings`}>
-                        <Typography align='center'>
-                            {noOfFollowings}
-                        </Typography>
-                    </Link>
-                </Grid>
-                <Grid item direction='column'>
-                    <Typography>
-                        دنبال کنندگان
-            </Typography>
-                    <Link to={`/${user.userName}/followers`}>
-                        <Typography align='center'>
-                            {noOfFollowers}
-                        </Typography>
-                    </Link>
-                </Grid>
-                <Grid item direction='column' >
-                    <Typography>
-                        پست
-            </Typography>
-                    <Typography align='center'>
-                        {noOfPosts}
+            </Container>
+        <Grid className={classes.div} container direction='row' justify='space-around' >
+            <Grid item direction='column'>
+                <Typography className='s15700'>
+                    دنبال شوندگان
+                </Typography>
+                <Link to={`/${user.userName}/followings`}>
+                    <Typography className='s15700' align='left'>
+                        {noOfFollowings}
                     </Typography>
-                </Grid>
+                </Link>
             </Grid>
-            <Grid container>
+            <Grid item direction='column'>
+                <Typography className='s15700'>
+                    دنبال کنندگان
+                </Typography>
+                <Link to={`/${user.userName}/followers`}>
+                    <Typography className='s15700' align='left'>
+                        {noOfFollowers}
+                    </Typography>
+                </Link>
+            </Grid>
+            <Grid item direction='column' >
+                <Typography className='s15700'>
+                    پست
+                </Typography>
+                <Typography className='s15700' align='left'>
+                    {noOfPosts}
+                </Typography>
+            </Grid>
+        </Grid>
+            <Grid container className={classes.infoWrapper} >
                 <InfoItem title="شهر فعلی خود را اضافه کنید" item="city" user={user} />
                 <InfoItem title="علاقه‌مندی خود را اضافه کنید" item="favorites" user={user} />
                 <InfoItem title="یک وبسایت اضافه کنید" item="website" user={user} />
                 {
-                    user.bio?  <Typography style={{ marginRight: 20 }} variant="caption" className={classes.text}>
-                    {user.bio || "درباره خود جزئیاتی بنویسید"}
-                </Typography> : 
-                <InfoItem title="درباره خود جزئیاتی بنویسید" item="bio" user={user} />
+                    user.bio ? <Typography style={{ marginRight: 20 }} variant="caption" className={classes.text}>
+                        {user.bio || "درباره خود جزئیاتی بنویسید"}
+                    </Typography> :
+                        <InfoItem title="درباره خود جزئیاتی بنویسید" item="bio" user={user} />
                 }
                 {/* <Grid container direction='row'>
                     {
@@ -207,7 +229,7 @@ export default function MyBobo() {
             </Grid>
             <SpeedDials newPostClickHandler={handleNewPost} />
             <PostNewDialog open={newPost} handleWindow={setNewPost} photos={result} />
-            <FullWidthTabs tabs={tabs} tabsContent={[<UserPosts userName={userName} />, "favorites", "photos", "reviews"]} />
+            <FullWidthTabs indicatorHeight={5} tabs={tabs} tabsContent={[<UserPosts userName={userName} />, "favorites", "photos", "reviews"]} />
         </>
     }
     return (

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Typography, makeStyles, Grid, IconButton } from '@material-ui/core';
+import { Typography, makeStyles, Grid, IconButton, Container } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 
@@ -22,13 +22,28 @@ import FollowButton from '../../Button/FollowButton';
 // import ProfileAvatar from '../ProfileAvatar';
 const useStyle = makeStyles(() => ({
     text: {
-        marginTop: 12
+        marginTop: 12,
+        lineHeight: '1.2px',
+        fontSize : 15,
+        fontWeight : 400
     },
     div: {
-        margin: '20px 0'
+        margin: '20px 0',
+        "&  p": {
+            marginBottom: 15
+        },
+        "&  button": {
+            marginRight: 10
+        },
+        "&  svg": {
+            fontSize : '1.2rem'
+        },
+        "& > div": {
+            margin : '2px 0'
+        }
     },
     followerBtn: {
-        margin: '1.5em 0'
+        margin: '2.2em 0'
     }
 }))
 
@@ -56,74 +71,78 @@ export default function UserProfile({ user }) {
         <UserProfileAvatar {...user} />
         <Grid container justify='center' className={classes.followerBtn}>
             {following ? <FollowerButton onClick={handleUnFollow} /> :
-                <FollowButton onClick={handleFollow} />
+                <FollowButton variant='outlined' onClick={handleFollow} />
             }
 
         </Grid>
         <Grid className={classes.div} container direction='row' justify='space-around' >
             <Grid item direction='column'>
-                <Typography>
+                <Typography className='s15700'>
                     دنبال شوندگان
                 </Typography>
                 <Link to={`/${user.userName}/followings`}>
-                    <Typography align='center'>
+                    <Typography className='s15700' align='left'>
                         {noOfFollowings}
                     </Typography>
                 </Link>
             </Grid>
             <Grid item direction='column'>
-                <Typography>
+                <Typography className='s15700'>
                     دنبال کنندگان
                 </Typography>
                 <Link to={`/${user.userName}/followers`}>
-                    <Typography align='center'>
+                    <Typography className='s15700' align='left'>
                         {noOfFollowers}
                     </Typography>
                 </Link>
             </Grid>
             <Grid item direction='column' >
-                <Typography>
+                <Typography className='s15700'>
                     پست
                 </Typography>
-                <Typography align='center'>
+                <Typography className='s15700' align='left'>
                     {noOfPosts}
                 </Typography>
             </Grid>
         </Grid>
-        <Grid className={classes.div} container direction='row' justify='space-around'>
-            <Grid container direction='row'>
-                <IconButton size='small' disableRipple color='inherit'>
-                    <LocationOnIcon />
-                </IconButton>
-                <Typography variant='caption' className={classes.text}>
-                    {city}
-                </Typography>
+        
+        <Container>
+            <Grid className={classes.div} container direction='row' justify='space-around'>
+                <Grid container direction='row'>
+                    <IconButton size='small'  disableRipple color='inherit'>
+                        <LocationOnIcon />
+                    </IconButton>
+                    <Typography variant='caption' className={classes.text}>
+                        {city}
+                    </Typography>
+                </Grid>
+                <Grid container direction='row'>
+                    <IconButton size='small' disableRipple color='inherit'>
+                        <FavoriteIcon />
+                    </IconButton>
+                    <Typography variant='caption' className={classes.text}>
+                        {favorites}
+                    </Typography>
+                </Grid>
+                <Grid container direction='row'>
+                    <IconButton size='small' disableRipple color='inherit'>
+                        <LanguageIcon />
+                    </IconButton>
+                    <Typography variant='caption' className={classes.text}>
+                        {website}
+                    </Typography>
+                </Grid>
+                <Grid container direction='row'>
+                    <Typography variant='caption' className={classes.text}>
+                        {bio}
+                    </Typography>
+                </Grid>
             </Grid>
-            <Grid container direction='row'>
-                <IconButton size='small' disableRipple color='inherit'>
-                    <FavoriteIcon />
-                </IconButton>
-                <Typography variant='caption' className={classes.text}>
-                    {favorites}
-                </Typography>
-            </Grid>
-            <Grid container direction='row'>
-                <IconButton size='small' disableRipple color='inherit'>
-                    <LanguageIcon />
-                </IconButton>
-                <Typography variant='caption' className={classes.text}>
-                    {website}
-                </Typography>
-            </Grid>
-            <Grid container direction='row'>
-                <Typography variant='caption' className={classes.text}>
-                    {bio}
-                </Typography>
-            </Grid>
-        </Grid>
+        </Container>
+
         {
-           userName && <FullWidthTabs tabs={["فعالیت", "عکس"]} tabsContent={[
-                <UserPosts userName={userName} />
+            userName && <FullWidthTabs tabs={["فعالیت", "عکس", "نظرات"]} tabsContent={[
+                <UserPosts userName={userName} />, "عکس", "نظرات"
             ]} />
         }
     </>

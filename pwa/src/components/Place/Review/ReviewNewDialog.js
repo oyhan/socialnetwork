@@ -17,6 +17,8 @@ import ToolbarButton from '../../Button/ToolBarButton';
 import ImageUploader from '../../ImageUploader/ImageUploader';
 import Rate from '../../Rate/Rate';
 import Toast from '../../../lib/toastHelper'
+import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
+
 const useStyles = makeStyles((theme) => ({
     toolBar: {
         direction: 'rtl'
@@ -29,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     large: {
         width: theme.spacing(12),
         height: theme.spacing(12),
-        margin: 'auto' 
+        margin: 'auto'
     },
     divider: {
         margin: theme.spacing(3)
@@ -38,7 +40,41 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: 150
     },
     negetiveMargin: {
-        marginTop: -125
+        // marginTop: -125
+    },
+    titleInput: {
+        border: '1px solid rgba(196, 196, 196, 0.98)',
+        borderRadius: 7,
+        height: 50,
+
+    },
+    textInput: {
+        border: '1px solid rgba(196, 196, 196, 0.98)',
+        borderRadius: 7,
+        height: 100,
+        paddingLeft: 10,
+        "& ::placeholder": {
+            fontSize: 20,
+            fontWeight: 400,
+            color: 'black !important'
+        }
+    }
+    ,
+    counterWrapper: {
+        position: 'relative',
+        textAlign: 'right',
+        marginBottom: 10,
+        color: '#645A5A',
+        width: '100%'
+    },
+    pickerWrapper: {
+        background: '#EFEFE3',
+        width: 100,
+        height: 100,
+        marginLeft: -8,
+        "& svg": {
+            fontSize: 28
+        }
     }
 }));
 
@@ -107,13 +143,13 @@ export default function ReviewNewDialog({ open, handleWindow, placeId, placeName
 
 
     const rightIcon = <ToolbarButton color='primary' disabled={formik.isSubmitting} onClick={formik.handleSubmit} >
-        <Typography color='primary' >
-            ثبت نظر
+        <Typography color='primary' className='s20'  >
+            ارسال
    </Typography>
     </ToolbarButton>
 
     const leftIcon = [<ToolbarButton onClick={handleClose} >
-        <Typography color='primary' >
+        <Typography color='primary' className='s20' >
             انصراف
    </Typography>
     </ToolbarButton>]
@@ -151,64 +187,114 @@ export default function ReviewNewDialog({ open, handleWindow, placeId, placeName
 
     return (
 
-        <div  >
-            <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
-                <AppBar leftIcons={leftIcon} appBarColor='transparent' title={placeName} rightIcon={rightIcon} />
-                <Container>
-                    <Grid container justify='center' className={classes.negetiveMargin}>
-                        <Typography variant='h6'>
-                            <Box m='20px 0'>تجربه‌تان چگونه بوده‌است؟(الزامی)</Box>
+
+        <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
+            <AppBar paddingTop={11} titleFontSize={23} height={56} paddingLeft={0} short leftIcons={leftIcon} appBarColor='transparent' title={placeName} rightIcon={rightIcon} />
+            <Divider />
+            <Container>
+                <Grid container justify='center' className={classes.negetiveMargin}>
+                    <Box m='31px 0px 0 0'>
+                        <Typography className='s20 ' component='span' variant='h6'>
+                            تجربه‌تان چگونه بوده ‌است؟
+                        </Typography>&nbsp;
+                            <Typography className='s20 mandatory' component='span'>
+                            (الزامی)
                         </Typography>
-                    </Grid>
-                    <Box m='20px 0'>
-                        <Grid container justify='center'>
-                            <Rate input size='large' onchange={handleSelecRate} />
-                            <Typography><Box m='0 10px'>{selecteRate}</Box></Typography>
-                        </Grid>
                     </Box>
-                    <Divider />
-                    <Grid container>
-                        <Typography>
-                            <Box>نظرتان را بنویسید(الزامی)</Box>
+                </Grid>
+                <Box m='24px 0px 29px 0'>
+                    <Grid container justify='center'>
+                        <Rate input size='large' onchange={handleSelecRate} />
+                        {/* <Typography><Box m='0 10px'>{selecteRate}</Box></Typography> */}
+                    </Grid>
+                </Box>
+            </Container>
+            <Divider />
+            <Container>
+                <Grid container>
+                    <Box m='16px 0px 0 0'>
+                        <Typography className='s20 ' component='span' variant='h6'>
+                            نظرتان را بنویسید
+                        </Typography>&nbsp;
+                            <Typography className='s20 mandatory' component='span'>
+                            (الزامی)
                         </Typography>
-                        <InputRenderer
-                            key="description"
-                            onChange={formik.handleChange}
-                            error={formik.errors.description}
-                            value={formik.values.description}
-                            autoComplete="off" placeholder={"نظر شما به دیگران برای انتخاب بهتر کمک خواهد کرد"}
-                            Type={PropType.TextArea} Name="description" fullWidth />
+                    </Box>
 
-                    </Grid>
-                    <Grid container>
-                        <Typography>
-                            <Box>یک عنوان اضافه کنید(الزامی)</Box>
+                    <InputRenderer
+                        InputProps={{
+                            disableUnderline: true
+                        }}
+                        classes={{ root: classes.textInput }}
+                        key="description"
+                        onChange={formik.handleChange}
+                        error={formik.errors.description}
+                        value={formik.values.description}
+                        rows={6}
+                        autoComplete="off" placeholder={"نظر شما به دیگران برای انتخاب بهتر کمک خواهد کرد"}
+                        Type={PropType.TextArea} Name="description" fullWidth />
+
+                    <div className={classes.counterWrapper}>
+                        <Typography className='s17'>
+                            حداقل 100 کاراکتر
+                            </Typography>
+
+                    </div>
+                </Grid>
+                <Grid container>
+                    <Box m='11px 0px 0 0'>
+                        <Typography className='s20 ' component='span' variant='h6'>
+                            یک عنوان به نظر خود اضافه کنید
+                        </Typography>&nbsp;
+                            <Typography className='s20 mandatory' component='span'>
+                            (الزامی)
                         </Typography>
-                    </Grid>
-                    <Grid container>
-                        <InputRenderer
-                            key="title"
-                            onChange={formik.handleChange}
-                            error={formik.errors.title}
-                            value={formik.values.title}
-                            autoComplete="off" placeholder={"یک عنوان انتخاب کنید"}
-                            Type={PropType.Text} Name="title" fullWidth />
+                    </Box>
 
-                    </Grid>
-                    <Grid container>
-                        <Typography>
-                            <Box>اضافه کردن عکس</Box>
-                        </Typography>
-                    </Grid>
-                    <Grid container>
-                        <ImageUploader multiple receiveFiles={handleSelectPhoto} />
-                    </Grid>
+                </Grid>
+                <Grid container>
+                    <InputRenderer
+                        InputProps={{
+                            disableUnderline: true
+                        }}
+                        classes={{ root: classes.titleInput }}
+                        key="title"
+                        onChange={formik.handleChange}
+                        error={formik.errors.title}
+                        value={formik.values.title}
+                        autoComplete="off"
+                        Type={PropType.Text} Name="title" fullWidth />
 
-                </Container>
+                </Grid>
+                <Grid container>
+                    <Box marginTop={'100px'} marginLeft={'10px'}>
+                        <Typography className='s20'>
+                            اضافه کردن عکس
+                            </Typography>
+                        <ImageUploader pickerComponent={<PhotoPicker />} multiple receiveFiles={handleSelectPhoto} />
+                    </Box>
+
+                </Grid>
+                {/* <Grid container>
+                </Grid> */}
+
+            </Container>
 
 
-            </Dialog>
-        </div>
+        </Dialog>
+
     );
 }
 
+const PhotoPicker = (props) => {
+    const classes = useStyles();
+
+    return (
+        <label {...props}>
+            <Grid container justify='center' alignItems='center' className={classes.pickerWrapper}>
+                <PhotoCameraIcon  color='primary' />
+            </Grid>
+        </label>
+
+    )
+}

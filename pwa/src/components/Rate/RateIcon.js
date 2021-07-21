@@ -10,7 +10,7 @@ const StyledIcon = withStyles(theme => ({
         fontSize : "1.3rem"
     } ,
     fontSizeLarge:{
-        fontSize : "1.6rem"
+        fontSize : "3.6rem"
     } 
 }))(RadioButtonCheckedTwoToneIcon);
 

@@ -5,11 +5,15 @@ import AppBar from "../AppBar/AppBar";
 import clsx from 'clsx'
 const useStyle = makeStyles(theme => ({
     photo: {
-        width: (window.visualViewport.width-30) /3,
-        height: (window.visualViewport.width-30) /3,
+        // width: (window.visualViewport.width - 30) / 3,
+        // height: (window.visualViewport.width - 30) / 3,
+         width:121,
+        height: 121,
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
     },
     item: {
-        margin: theme.spacing(.2)
+        margin: 2
     }
 }))
 
@@ -22,19 +26,23 @@ export default function PlaceSeeAllPhotos() {
         <>
             <AppBar back title="عکس ها" short />
 
-            <Grid container>
-                {
-                    data && data.map((p, i) => {
+            {/* <Grid container> */}
+                <Grid container justify='center'>
+                    {
+                        data && data.map((p, i) => {
 
-                        return (
-                            // <Grid className={classes.item} key={i} item>
-                                <img className={clsx(classes.photo,classes.item)} src={p.path} />
-                            // </Grid>
-                        )
+                            return (
+                                // <Grid className={classes.item} key={i} item>
+                                    <div className={clsx(classes.photo, classes.item)}
+                                        style={{ backgroundImage: `url(${p.path})` }} />
+                                // </Grid>
+                            )
 
-                    })
-                }
-            </Grid>
+                        })
+                    }
+                </Grid>
+
+            {/* </Grid> */}
         </>
     )
 

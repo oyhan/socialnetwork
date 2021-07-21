@@ -16,9 +16,18 @@ import CloseIcon from '@material-ui/icons/Close';
 const useStyles = makeStyles({
     customTextField: {
         "& input::placeholder": {
-            fontSize: "20px"
+            fontSize: 27,
+            fontWeight: 400,
+            color: 'rgba(159, 156, 156, 1)'
         }
-    }
+    },
+    customTextField2: {
+        "& input::placeholder": {
+            fontSize: 19,
+            fontWeight: 400,
+            color: 'rgba(159, 156, 156, 1)'
+        }
+    },
 })
 export default function SearchBobo(props) {
     const classes = useStyles();
@@ -71,11 +80,12 @@ export default function SearchBobo(props) {
 
 
                     <InputRenderer
+                        autoFocus
                         classes={{ root: classes.customTextField }}
                         InputProps={{
                             startAdornment: (
                                 <InputAdornment position="start">
-                                    <Search color="disabled" />
+                                    <Search htmlColor='rgba(133, 125, 125, 1)' />
                                 </InputAdornment>
                             ),
                         }}
@@ -84,22 +94,23 @@ export default function SearchBobo(props) {
                         Name="" fullWidth />
 
                     <InputRenderer
+                        classes={{ root: classes.customTextField2 }}
                         InputProps={{
                             startAdornment: (
                                 <InputAdornment position="start">
-                                    <LocationOnIcon color="disabled" />
+                                    <LocationOnIcon htmlColor='rgba(133, 125, 125, 1)' />
                                 </InputAdornment>
                             ),
-                            endAdornment: (
-                                <InputAdornment position="end">
-                                    <IconButton
-                                        aria-label="Toggle password visibility"
-                                        onClick={handleRemoveSearchIn}
-                                    >
-                                        <CloseIcon />
-                                    </IconButton>
-                                </InputAdornment>
-                            ),
+                            // endAdornment: (
+                            //     <InputAdornment position="end">
+                            //         <IconButton
+                            //             aria-label="Toggle password visibility"
+                            //             onClick={handleRemoveSearchIn}
+                            //         >
+                            //             <CloseIcon />
+                            //         </IconButton>
+                            //     </InputAdornment>
+                            // ),
                         }}
                         value={destination}
                         onChange={handleChangeDest}

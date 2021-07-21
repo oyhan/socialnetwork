@@ -59,7 +59,7 @@ export default function ShowOnMap({ places }) {
                 ref={slider}
                 header={
                     <>
-                        <Box m='4px 0 10px 0' >
+                        <Box m='4px 0 0 0' >
                             <Typography className='s15' align='center'>
                                 رستوران های نزدیک
                 </Typography>

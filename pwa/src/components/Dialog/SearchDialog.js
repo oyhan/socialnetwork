@@ -15,6 +15,12 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: theme.spacing(2),
         flex: 1,
     },
+    closeBtn:{
+        "& svg" :{
+            fontSize : '2.0rem'
+        },
+        marginLeft: 'auto',
+    }
 }));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -39,7 +45,7 @@ export default function SearchDialog({ open, handleWindow, toolbar, ...props }) 
                 {
                     toolbar ? toolbar :
                         <Toolbar className={classes.toolBar}>
-                            <IconButton edge="start" color="primary" onClick={handleClose} aria-label="close">
+                            <IconButton edge="end" color="primary"  className={classes.closeBtn} onClick={handleClose} aria-label="close">
                                 <CloseIcon />
                             </IconButton>
 

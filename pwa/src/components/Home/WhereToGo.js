@@ -18,8 +18,19 @@ const useStyles = makeStyles({
         }
     },
     icon: {
-        transform: "scaleX(-1)"
+        transform: "scaleX(-1)",
+        marginLeft:5
+    }, 
+    customTextField: {
+        "& input::placeholder": {
+            fontSize: 27,
+            fontWeight: 400,
+            color: 'rgba(159, 156, 156, 1)'
+        }
     },
+    closeWord:{
+
+    }
 
 
 })
@@ -67,7 +78,7 @@ export default function WhereToGo({ open, handleWindow, handleSelectCity }) {
                         disableUnderline: true,
                         startAdornment: (
                             <InputAdornment position="start">
-                                <LocationOnIcon color="disabled" />
+                                <LocationOnIcon htmlColor='rgba(133, 125, 125, 1)' />
                             </InputAdornment>
                         ),
                     }}
@@ -75,10 +86,10 @@ export default function WhereToGo({ open, handleWindow, handleSelectCity }) {
                     autoComplete="off" placeholder="کجا می‌روید؟" Type={PropType.Text}
                     Name="currentCity" fullWidth />
 
-                <IconButton onClick={handleClickNearby} edge='end' >
+                <IconButton onClick={handleClickNearby} edge='start' >
                     <NearMeIcon fontSize="small" className={classes.icon} color="primary" />
                 &nbsp;
-                <Typography>
+                <Typography color='textPrimary'>
                         نزدیک
                 </Typography>
                 </IconButton>

@@ -9,9 +9,9 @@ namespace Mahoor.Data.Queries.Timeline
 {
     public sealed class GetUserTimelinePosts:BaseSpecification<PostModel,Guid>
     {
-        public GetUserTimelinePosts(IReadOnlyList<string> usersid, int from , int to)
+        public GetUserTimelinePosts(List<string> usersid, int from , int to)
         {
-//            AddInclude(p=>p.User);
+            AddInclude(p=>p.User);
             AddInclude(p=>p.Place);
             ApplyPaging(from, to);
             AddCriteria(p=> usersid.Contains(p.UserId));

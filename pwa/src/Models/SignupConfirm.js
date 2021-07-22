@@ -13,6 +13,6 @@ export default SignupConfirmModel;
 export function useSignupConfirmModelValidationSchema() {
     // const { t } = useTranslation('common');
     return (Yup.object({
-        token: Yup.string().required("اجباری").min(6).max(6)
+        token: Yup.string().required("اجباری").min(6,"کد باید شش رقمی باشد").max(6,"کد باید شش رقمی باشد")
     }))
 }

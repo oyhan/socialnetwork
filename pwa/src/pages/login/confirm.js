@@ -142,7 +142,7 @@ export default function Confirm() {
                     {formik.isSubmitting ? <CircularProgress /> : "تایید"}
                 </ButtonBobo>
             </form>
-            <OtpTimer callback={retry} initial={timer} />
+            {/* <OtpTimer callback={retry} initial={timer} /> */}
         </Grid>
     )
 }

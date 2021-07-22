@@ -66,7 +66,6 @@ export function useHttpClient(url, method, getResult, body) {
 }
 
 async function MultiPartFormData(url, data) {
-    url = "https://heyyy.ir" + url;
 
 
     const formData = new FormData();
@@ -93,8 +92,6 @@ async function MultiPartFormData(url, data) {
 
 
 async function Post(url, model) {
-    url = "https://heyyy.ir" + url;
-
     const request = {
         method: "POST",
         headers: {
@@ -106,13 +103,12 @@ async function Post(url, model) {
     try {
         const response = await fetch(url, request);
         return handleResponse(response);
-    } catch (error) {
+    }
+    catch (error) {
         return handleError(error);
     }
 }
 async function Put(url, model) {
-    url = "https://heyyy.ir" + url;
-
     const request = {
         method: "PUT",
         headers: {
@@ -124,14 +120,12 @@ async function Put(url, model) {
     try {
         const response = await fetch(url, request);
         return handleResponse(response);
-    } catch (error) {
+    }
+    catch (error) {
         return handleError(error);
     }
 }
-
 function Get(url) {
-    url = "https://heyyy.ir" + url;
-
 
     const request = {
         method: "GET",
@@ -143,10 +137,7 @@ function Get(url) {
 
     return fetch(url, request).then(handleResponse, handleError);
 }
-
 function GetAll(url) {
-    url = "https://heyyy.ir" + url;
-
     const request = {
         method: "GET",
         headers: {
@@ -156,7 +147,6 @@ function GetAll(url) {
     }
     return fetch(url, request).then(handleResponse, handleError);
 }
-
 function handleResponse(response) {
 
     if (response.status == 401) {
@@ -173,11 +163,13 @@ function handleResponse(response) {
             if (contentType && contentType.includes("application/json")) {
                 try {
                     response.json().then(json => resolve(json));
-                } catch (error) { }
+                } catch (error) {
+                }
             } else {
                 resolve();
             }
-        } else {
+        }
+        else {
             // return error message from response body
             response.text().then(text => {
                 try {
@@ -196,7 +188,6 @@ function handleResponse(response) {
         }
     });
 }
-
 function handleError(error) {
 
     return Promise.reject(error && error.message);

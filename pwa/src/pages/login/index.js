@@ -66,7 +66,7 @@ export default function Login() {
             mobilenumber: "",
         },
         validationSchema: Yup.object({
-            mobilenumber: Yup.string().length(11, "شماره موبایل به صورت 11 رقمی و با 0 شروع می شود").mobileNumber("موبایل معتبر وارد کنید")
+            // mobilenumber: Yup.string().length(11, "شماره موبایل به صورت 11 رقمی و با 0 شروع می شود").mobileNumber("موبایل معتبر وارد کنید")
         }),
         validateOnMount: false,
         initialErrors: true,

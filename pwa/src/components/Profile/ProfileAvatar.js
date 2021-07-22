@@ -6,9 +6,9 @@ import ImageUploader from "../ImageUploader/ImageUploader";
 const useStyles = makeStyles((theme) => ({
   root: {
     position: 'absolute',
-    top: 127,
-    width: 200,
-    left: '5%',
+    top: 154,
+    width: 'calc(100vw - 12%)',
+    left: '3vw',
     zIndex: 499,
 
     // [theme.breakpoints.up('md')]: {
@@ -36,9 +36,7 @@ const useStyles = makeStyles((theme) => ({
     // marginLeft: '43px',
   },
   avatarTxt: {
-    top: 46,
-    position: 'relative',
-    fontSize: 15,
+    marginTop: 19,
   },
   username: {
     fontSize: 15,
@@ -49,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function ProfileAvatar({ userName, displayName, avatarURl, onAvatarSelected, readonly }) {
+export default function ProfileAvatar({ userName, displayName, avatarURl, onAvatarSelected, readonly, noTitle }) {
 
   const classes = useStyles();
   return (
@@ -66,14 +64,17 @@ export default function ProfileAvatar({ userName, displayName, avatarURl, onAvat
 
 
       </IconButton>
-      <Grid item direction='column' className={classes.avatarTxt}>
-        <Typography color='primary' color='textPrimary' resource className='titr' variant='subtitle1'>
-          {displayName}
-        </Typography>
-        <Typography color='textPrimary' variant='caption' className={classes.username}>
-          {userName && `@${userName}` || '@نام کاربری'}
-        </Typography>
-      </Grid>
+      {
+        !noTitle && <Grid item direction='column' className={classes.avatarTxt}>
+          <Typography color='primary' color='textPrimary' resource className='titr' variant='subtitle1'>
+            {displayName}
+          </Typography>
+          <Typography color='textPrimary' variant='caption' className='s15'>
+            {userName && `@${userName}` || '@نام کاربری'}
+          </Typography>
+        </Grid>
+      }
+
 
     </Grid>
   )

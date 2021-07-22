@@ -1,20 +1,42 @@
-import { CircularProgress, Grid, makeStyles } from '@material-ui/core';
+import { CircularProgress, Grid, makeStyles, Typography } from '@material-ui/core';
 import { useFormik } from 'formik';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import ButtonBobo from '../../components/Button/ButtonBobo';
+import SimpleInput from '../../components/Input/SimpleInput';
 import { BrowserHttpClient } from '../../lib/BrowserHttpClient';
-import InputRenderer from '../../lib/InputRenderer';
-import { PropType } from '../../lib/proptypes';
-import UserManagerBuilder from '../../lib/userManager';
 
 
 const useStyles = makeStyles({
     root: {
         height: 450,
-        alignItems: 'center'
+        alignItems: 'center',
+        marginTop: '48px'
+    },
+    btn: {
+        height: '55px',
+        backgroundColor: 'black !important',
+        width: '100%',
+        color: 'white !important',
+        borderRadius: 8,
+    },
+    stepContainer: {
+        width: '90%',
+    },
+    input: {
+        height: '53px',
+        width: '100%',
+        marginBottom: '10px',
+    },
+    error: {
+        marginBottom: '10px',
+        marginTop: '-9px'
+    },
+    labelContainer: {
+        fontSize: '30px',
+        marginBottom: '18px',
     }
 })
 
@@ -32,7 +54,7 @@ export default function Login() {
                 formik.setSubmitting(false);
                 history.push("/login/confirm", { mobileNumber: formik.values.mobilenumber });
                 toast.success("کد تایید برای شما پیامک شد");
-                
+
             }).catch(error => {
 
                 formik.setSubmitting(false);
@@ -44,7 +66,7 @@ export default function Login() {
             mobilenumber: "",
         },
         validationSchema: Yup.object({
-            mobilenumber: Yup.string().length(11, "شماره موبایل به صورت 11 رقمی و با 0 شروع می شود").mobileNumber("موبایل معتبر وارد کنید")
+            // mobilenumber: Yup.string().length(11, "شماره موبایل به صورت 11 رقمی و با 0 شروع می شود").mobileNumber("موبایل معتبر وارد کنید")
         }),
         validateOnMount: false,
         initialErrors: true,
@@ -54,14 +76,20 @@ export default function Login() {
         <Grid justify='space-evenly' direction='column' container className={classes.root} >
 
 
-            <form onSubmit={formik.handleSubmit}>
-                <InputRenderer fullWidth autoComplete="off" disabled={formik.isSubmitting}
+            <form onSubmit={formik.handleSubmit} className={classes.stepContainer}>
+                <Typography className={classes.labelContainer}>
+                    ورود
+                </Typography>
+                <SimpleInput
+                    inputClassName={classes.input}
+                    errorClassName={classes.error}
+                    autoComplete="off"
+                    disabled={formik.isSubmitting}
                     onChange={formik.handleChange}
                     error={formik.errors.mobilenumber}
-                    Type={PropType.Number} Name="mobilenumber"
-                    DisplayName="شماره موبایل"
+                    type={'text'} name="mobilenumber"
                     placeholder="شماره موبایل" />
-                <ButtonBobo color='primary' variant='contained' type="submit" disabled={formik.isSubmitting}>
+                <ButtonBobo className={classes.btn} color='primary' variant='contained' type="submit" disabled={formik.isSubmitting}>
                     {formik.isSubmitting ? <CircularProgress /> : "ورود"}
                 </ButtonBobo>
             </form>

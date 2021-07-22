@@ -32,6 +32,7 @@ namespace Mahoor.Services.Graph.Handlers
                 notification.Post.Text,
                 notification.Post.User.UserName,
                 notification.Post.CreatedDate,
+                notification.Post.User.DisplayName
             }.ToJsonDocument());
             await _graphService.AddObject(obj);
 

@@ -14,6 +14,7 @@ import SearchInput from "../../components/Input/SearchInput";
 import { useEffect, useState } from "react";
 import ReviewNewDialog from "../../components/Place/Review/ReviewNewDialog";
 import CreateIcon from '@material-ui/icons/Create';
+import WriteNewReviewIcon from "../../components/Icons/WriteNewReviewIcon";
 
 const useStyle = makeStyles(theme => ({
     reviewBtn: {
@@ -29,23 +30,26 @@ const useStyle = makeStyles(theme => ({
     },
     ratingBox: {
         padding: '0 10px',
-        borderColor: theme.palette.primary.main,
+        borderColor: 'rgba(196, 196, 196, 1)',
         borderWidth: 1,
         borderStyle: 'solid',
         borderTop: `29px solid ${theme.palette.primary.main} !important`,
     },
     rateHeader: {
-        marginTop: '-22px',
+        marginTop: '-26px',
         color: 'white',
 
     },
     searchBox: {
-        background: '#efedd4',
-        margin: '11px 0',
+        background: 'rgba(229, 225, 183, 0.6)',
+        margin: '19px 0 -3px 0',
         padding: 14,
         "& p": {
             textIndent: 10
         }
+    },
+    roomIcon: {
+        fontSize: '1.1rem'
     }
 }))
 
@@ -101,13 +105,13 @@ export default function AllReviews() {
 
     return (
         <>
-            <AppBar title="نظرات" short back leftIcons={icons} />
+            <AppBar paddingTop={23} height={77} title="نظرات" short back leftIcons={icons} />
 
             <Box m='20px 0' >
                 <Grid container className={classes.row2} justify='space-between'>
                     <Grid item>
                         <Grid container direction='column' >
-                            <Typography variant='h6' className="titr" >
+                            <Typography variant='h6' className="titr23700" >
                                 <Box fontWeight='fontWeightBold'>
                                     {name}
 
@@ -127,13 +131,16 @@ export default function AllReviews() {
                         </Grid>
                     </Grid>
 
-                    <Grid item style={{ alignSelf: 'center' }}>
+                    <Grid item style={{ alignSelf: 'center', marginTop: 49 }}>
                         <Grid container direction='column' alignItems='center'>
                             <Grid container >
-                                <RoomIcon fontSize='small' />
-                                <Typography color='textSecondary' component='div' variant='caption'>
-                                    {distanceToUser}
-                                </Typography>
+                                <RoomIcon className={classes.roomIcon} />
+                                <Box color='##645A5A'>
+                                    <Typography className='s11' component='div' variant='caption'>
+                                        {distanceToUser}
+                                    </Typography>
+                                </Box>
+
                             </Grid>
 
                         </Grid>
@@ -141,18 +148,23 @@ export default function AllReviews() {
                 </Grid>
 
                 <Grid container className={classes.row2}>
-                    <Typography variant='body2' color='textSecondary'>
-                        {cuisine}ایرانی،بین المللی،خاورمیانه
+                    <Box color='#6B6565'>
+                        <Typography className='s15' variant='body2' >
+                            {cuisine}ایرانی،بین المللی،خاورمیانه
                 </Typography>
+                    </Box>
                 </Grid>
             </Box>
 
             <Box padding='0 10px'  >
                 <Grid container className={clsx(classes.row, classes.ratingBox)}>
                     <Grid container className={classes.rateHeader}>
-                        <Typography>
+                        <Typography className='s20'>
                             همه نظرات
-                           </Typography>&nbsp;({noOfReviews})
+                           </Typography>&nbsp;
+                           <Typography className='s20'>
+                            ({noOfReviews})
+                           </Typography>
                     </Grid>
 
                     {
@@ -182,7 +194,7 @@ export default function AllReviews() {
 
             <Box className={classes.searchBox}>
                 <Grid container>
-                    <Typography >
+                    <Typography className='s19' >
                         نظر مشتریان:
                     </Typography>
                 </Grid>
@@ -196,7 +208,7 @@ export default function AllReviews() {
                 </Grid>
             </Box>
             <Box>
-                <Container className={classes.row}>
+                <div className={classes.row}>
                     {
                         reviewsSearched.length === 0 ?
                             <Typography color='textSecondary' variant='caption'>چیزی پیدا نشد...</Typography> :
@@ -208,19 +220,23 @@ export default function AllReviews() {
 
 
                     }
-                </Container>
+                </div>
             </Box>
 
-            <Grid container className={classes.row}>
-                <Grid item xs={10} className={classes.alignCenter}>
-                    <Grid container>
-                        <ButtonBase onClick={handleNewReview}>
-                            <CreateIcon color='primary' />
-                            <Typography variant='caption' color='primary'><Box margin='0 10px'>نظرتان را بنویسید</Box></Typography>
-                        </ButtonBase>
+            <Container>
+                <Box m='10px 0'>
+                    <Grid container className={classes.row}>
+                        <Grid item xs={10} className={classes.alignCenter}>
+                            <Grid container>
+                                <ButtonBase onClick={handleNewReview}>
+                                    <WriteNewReviewIcon color='primary' />
+                                    <Typography variant='caption' color='primary'><Box margin='0 10px'>نظرتان را بنویسید</Box></Typography>
+                                </ButtonBase>
+                            </Grid>
+                        </Grid>
                     </Grid>
-                </Grid>
-            </Grid>
+                </Box>
+            </Container>
 
             <Divider />
 

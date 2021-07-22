@@ -13,7 +13,7 @@ export default function Followers() {
     const [loading , followers , error] = useHttpClient(`/${userName}/followers`,"Get",r=>r.response);
 
     return <>
-        <AppBar short title="دنبال کنندگان"  back/>
+        <AppBar short title="دنبال کنندگان" paddingRight='10%'  back/>
         <VerticalSlider items={followers} Component={FollowerItem} />
     </>
 }

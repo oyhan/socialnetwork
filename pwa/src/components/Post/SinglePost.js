@@ -19,22 +19,26 @@ const useStyle = makeStyles(theme => ({
         height: '15%'
     },
     postdiv: {
+        top: 'auto',
         height: '50%',
-        maxHeight: '50vh',
+        position: 'absolute',
         flexWrap: 'nowrap !important',
         "& img": {
-            objectFit: 'contain',
             width: '100%',
-            height: 200,
-
+            margin: 'auto',
+            height: 'auto',
+            objectFit: 'contain',
         }
 
     },
     postText: {
-        margin: '20px 8px',
+        top: '-78%',
+        left: 9,
+        position: 'absolute',
     },
     footer: {
-        height: '25%',
+        top: '80%',
+        position: 'absolute',
     },
     avatar: {
         width: 28,
@@ -55,20 +59,23 @@ const useStyle = makeStyles(theme => ({
         margin: 10,
     },
     personInfo: {
-        height: 50
     },
     divider: {
-        backgroundColor: 'rgb(255 255 255)',
+        backgroundColor: 'rgba(159, 156, 156, 0.8)',
         width: '100%'
     },
     likes: {
         alignSelf: 'center',
+    },
+    likesWrapper: {
+        paddingLeft: 6
     }
 
 }));
 
-export default function SinglePost({ userName, likes, liked, id, createdDate, text, medias,avatarUrl }) {
-    const avatar =avatarUrl;
+export default function SinglePost({ userName, likes, liked, id, createdDate, text, medias, avatarUrl }) {
+    console.log('createdDate: ', createdDate);
+    const avatar = avatarUrl;
     const history = useHistory();
     const [likesCount, userLiked, toggleLike] = usePostLike(liked, likes, id)
     const classes = useStyle();
@@ -88,15 +95,13 @@ export default function SinglePost({ userName, likes, liked, id, createdDate, te
                 </Grid>
                 <Grid container direction="column" className={classes.postdiv}>
 
-                    <img  src={medias[0].url} />
-
-                    <div className={classes.postText}>
-                        {text}
-                    </div>
+                    <img src={medias[0].url} />
 
                 </Grid>
                 <Grid container direction='column' className={classes.footer}>
-
+                    <div className={classes.postText}>
+                        {text}
+                    </div>
                     <Grid container className={classes.personInfo} >
                         <Grid xs={2} item>
                             <Avatar aria-label="user avatar" src={avatar} component={Link} to={`/profile/${userName}`} className={classes.avatar} />
@@ -120,13 +125,13 @@ export default function SinglePost({ userName, likes, liked, id, createdDate, te
                     <Grid container>
                         <Divider className={classes.divider} />
                     </Grid>
-                    <Grid container>
+                    <Grid container className={classes.likesWrapper}>
                         <motion.div
                             whileTap={{ scale: 1.5 }}
                         >
                             <IconButton onClick={toggleLike} aria-label="add to favorites">
                                 {
-                                    userLiked ? <FavoriteIcon color='primary' /> : <FavoriteIcon htmlColor="white" />
+                                    userLiked ? <FavoriteIcon color='secondary' /> : <FavoriteIcon htmlColor="white" />
                                 }
                             </IconButton>
                         </motion.div>

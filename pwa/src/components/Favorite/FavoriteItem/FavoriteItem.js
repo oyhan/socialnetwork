@@ -12,12 +12,14 @@ import BoboChip from '../../Chip/Chip';
 import Rate from '../../Rate/Rate';
 import clsx from 'clsx';
 import RoomIcon from '@material-ui/icons/Room';
+import { Divider } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
         alignItems: 'center',
         width: '100%',
-        margin : '0 10px'
+        margin : '0 10px',
+        background : 'rgba(245, 243, 243, 1)'
     },
     details: {
         width: '73%',
@@ -28,12 +30,12 @@ const useStyles = makeStyles((theme) => ({
     content: {
         flex: '1 0 auto',
         width: '100%',
-        padding: '0 10px',
+        padding: '0 0 0 10px',
         paddingTop: 16,
     },
     cover: {
-        width: 100,
-        height: 100
+        width: 86,
+        height: 86
     },
     controls: {
         display: 'flex',
@@ -58,21 +60,25 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: 900
     },
     titleRow: {
-        marginBottom: -16
+        marginBottom: -21
     },
     openStatus: {
         marginLeft: 7
     },
     noOfReviews: {
-        marginLeft: 10
+        marginLeft: 4
     },
     ratesCount: {
         fontSize: 10,
-        lineHeight: 2.5,
-        letterSpacing: '.5px',
+        lineHeight: 2.4,
+        // letterSpacing: '.5px',
     },
     firstRow:{
-        marginTop:10
+        marginTop:17
+    },
+    distance: {
+        fontSize : 9,
+        lineHeight: 2.5,
     }
 }));
 
@@ -122,7 +128,7 @@ export default function FavoriteItem({ rate, placeType, name, noOfReviews, dista
                             <span>
                                 <IconButton size='small' onClick={handlFave} aria-label="add to favorites">
                                     {
-                                        faved ? <FavoriteIcon fontSize='small' color='primary' /> : <FavoriteBorderIcon fontSize='small' />
+                                        faved ? <FavoriteIcon fontSize='small' color='secondary' /> : <FavoriteBorderIcon fontSize='small' />
                                     }
                                 </IconButton>
                             </span>
@@ -139,8 +145,8 @@ export default function FavoriteItem({ rate, placeType, name, noOfReviews, dista
                         </Typography>
                         {
                             iconic ? <div className={clsx(classes.inline,)}>
-                                <RoomIcon fontSize="small" />
-                                <Typography className={classes.ratesCount} color='disabled'>
+                                <RoomIcon fontSize="small" classes={{fontSizeSmall : 'f1rem '}}/>
+                                <Typography className={classes.distance} color='disabled'>
                                     {distanceString}
                                 </Typography>
                             </div> :
@@ -160,6 +166,8 @@ export default function FavoriteItem({ rate, placeType, name, noOfReviews, dista
                 </div>
 
             </Card>
+            <Divider style={{ width: '100%' }} />
+
         </>
 
     );

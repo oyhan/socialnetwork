@@ -9,6 +9,7 @@ import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import SwipeableViews from 'react-swipeable-views';
 import { useScrollData } from 'scroll-data-hook';
+const headerHeight = 190;
 
 const useStyles = (position) => makeStyles((theme) => ({
     root: {
@@ -19,7 +20,7 @@ const useStyles = (position) => makeStyles((theme) => ({
     },
     toolbar: {
         background: `url(/home/header/bg.jpg)`,
-        minHeight: 150,
+        minHeight: headerHeight,
         alignItems: 'flex-start',
         paddingTop: theme.spacing(1),
         display: 'flex',
@@ -33,7 +34,7 @@ const useStyles = (position) => makeStyles((theme) => ({
         alignSelf: 'flex-end',
     },
     offset: {
-        minHeight: 160
+        minHeight: 180
     },
     btnHolder: {
         justifySelf: 'center',
@@ -46,22 +47,30 @@ const useStyles = (position) => makeStyles((theme) => ({
         top: 10,
         left: 10,
         zIndex: 10,
+        "& svg" : {
+            fontSize : 33
+        }
     },
     bottomLeftButton: {
         position: 'fixed',
-        top: 100,
+        top: 140,
         right: 10,
         zIndex: 10,
-        display: position.y > 150 ? 'none' : 'block'
+        display: position.y > headerHeight ? 'none' : 'block'
     },
     sharebtn: {
         position: 'fixed',
         top: 10,
-        right: 10,
+        right: 0,
         zIndex: 10,
+        
+    },
+    backBtn : {
+        "& svg" : {
+            fontSize : 33
+        }
     }
 }));
-
 
 export default function PlacePageAppBar({ photos, place }) {
     const [open, setOpen] = useState();
@@ -81,7 +90,8 @@ export default function PlacePageAppBar({ photos, place }) {
 
         var style = {
             backgroundImage: url,
-            height: 150,
+            height: headerHeight,
+            maxHeight:headerHeight,
             alignItems: 'flex-start',
             paddingTop: theme.spacing(1),
             display: 'grid',
@@ -91,8 +101,8 @@ export default function PlacePageAppBar({ photos, place }) {
             backgroundPosition: 'center',
         }
 
-        if ((150 - position.y) >= 70) {
-            style.height = 150 - position.y;
+        if ((headerHeight - position.y) >= 70) {
+            style.height = headerHeight - position.y;
             style.backgroundImage = url;
         } else {
             style.height = 70;
@@ -147,7 +157,7 @@ export default function PlacePageAppBar({ photos, place }) {
 
                 </SwipeableViews>
                 <div className={classes.bottomLeftButton}>
-                    <IconButton component={Link} to={`/${"Asd"}/posts/${2}`} aria-label="search" edge='end' color="inherit">
+                    <IconButton  aria-label="search" edge='end' color="inherit">
                         <Typography variant='caption'>
                             {photos?.length}
                         </Typography> &nbsp;<CameraAltIcon fontSize='small' />

@@ -39,26 +39,30 @@ function a11yProps(index) {
   };
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles=(indicatorHeight) => makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.default,
     height: '100%',
-    position:'sticky',
-    top:150,
-    
+    position: 'sticky',
+    top: 150,
+
     // width: 500,
   },
-  sticky : {
-    position :'sticky',
+  sticky: {
+    position: 'sticky',
+    background : 'white'
     // top : 150
+  },
+  indicator:{
+    height : indicatorHeight || 1
   }
   //   tabRoot : {
   //       width : 
   //   }
 }));
 
-export default function FullWidthTabs({ tabs, tabsContent }) {
-  const classes = useStyles();
+export default function FullWidthTabs({ tabs, tabsContent , indicatorHeight }) {
+  const classes = useStyles(indicatorHeight)();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
 
@@ -78,19 +82,21 @@ export default function FullWidthTabs({ tabs, tabsContent }) {
         value={value}
         onChange={handleChange}
         indicatorColor="primary"
-        textColor="primary"
+        textColor="inherit"
         centered
         variant="fullWidth"
         aria-label="full width tabs example"
         classes={
           {
-            root : classes.sticky
+            root: classes.sticky,
+            indicator: classes.indicator,
+            
           }
         }
       >
         {
           tabs && tabs.map((tab, i) =>
-            <Tab  label={tab} key={i} {...a11yProps(i)} />
+            <Tab textColor='' label={tab} key={i} {...a11yProps(i)} />
 
           )
         }
@@ -102,13 +108,13 @@ export default function FullWidthTabs({ tabs, tabsContent }) {
         index={value}
         onChangeIndex={handleChangeIndex}
       > */}
-        {
-          tabsContent && tabsContent.map((content, i) =>
-            <TabPanel value={value} key={i} index={i} dir={theme.direction}>
-              {content}
-            </TabPanel>
-          )
-        }
+      {
+        tabsContent && tabsContent.map((content, i) =>
+          <TabPanel value={value} key={i} index={i} dir={theme.direction}>
+            {content}
+          </TabPanel>
+        )
+      }
       {/* </SwipeableViews> */}
     </div>
   );

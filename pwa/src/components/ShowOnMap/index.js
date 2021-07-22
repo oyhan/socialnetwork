@@ -1,4 +1,4 @@
-import { IconButton, makeStyles } from '@material-ui/core';
+import { Box, Divider, IconButton, makeStyles, Typography } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import { useRef, useState } from 'react';
 import { BottomSheet } from 'react-spring-bottom-sheet';
@@ -57,14 +57,23 @@ export default function ShowOnMap({ places }) {
             </div>
             <BottomSheet
                 ref={slider}
+                header={
+                    <>
+                        <Box m='4px 0 0 0' >
+                            <Typography className='s15' align='center'>
+                                رستوران های نزدیک
+                </Typography>
+                        </Box>
+
+                    </>
+                }
                 onSpringEnd={handleAnimation}
                 open={true}
                 onDismiss={() => setOpen(false)}
                 blocking={false}
-
                 snapPoints={({ maxHeight }) => {
 
-                    return [maxHeight * 0.50, maxHeight - 100]
+                    return [maxHeight * 0.60, maxHeight - 100]
                 }}
             >
 

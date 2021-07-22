@@ -1,10 +1,10 @@
 import { Container, Grid, makeStyles } from '@material-ui/core';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import AppBottomNav from '../components/Navigation/AppBottomNav';
 import { useStateValue } from '../lib/store/appState';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = (showBottomNav) => makeStyles((theme) => ({
     root: {
         padding: '50px',
         marginTop: '50px'
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
         // height: '100%',
         // padding: '5rem 10px',
         padding: '0px',
-        marginBottom: 100,
+        marginBottom: showBottomNav? 50 : 0,
         // background:'#e6e0e0'
         background: 'white',
     }
@@ -33,20 +33,13 @@ const noBottomNavPaths = ["/nearme", "/login", "/signup", "/start", "/post"]
 export default function BaseLayout(props) {
 
     const [state, dispatch] = useStateValue();
-
+    const [showBottom, setShowBottom] = useState(true);
 
     const getUser = () => {
         const user = JSON.parse(localStorage.getItem("user"));
         return user;
     }
-    useEffect(() => {
-        var user = getUser();
-        document.body.dir = "rtl";
-        // dispatch({ type: actions.USER, payload: { ...user, isAuthenticated: true, location: "" } })
 
-
-    }, [])
-    const classes = useStyles();
     const showBottomNav = () => {
         const loc = window.location.pathname;
 
@@ -56,6 +49,12 @@ export default function BaseLayout(props) {
         });
         return !anyMatch;
     }
+    useEffect(() => {
+        showBottomNav() ? setShowBottom(true) : setShowBottom(false);
+
+    }, [])
+    const classes = useStyles(showBottomNav())();
+
 
     return (
 

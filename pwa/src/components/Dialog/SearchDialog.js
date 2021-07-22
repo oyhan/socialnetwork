@@ -15,13 +15,19 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: theme.spacing(2),
         flex: 1,
     },
+    closeBtn:{
+        "& svg" :{
+            fontSize : '2.0rem'
+        },
+        marginLeft: 'auto',
+    }
 }));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function SearchDialog({ open, handleWindow,...props }) {
+export default function SearchDialog({ open, handleWindow, toolbar, ...props }) {
     const classes = useStyles();
 
     const handleClickOpen = () => {
@@ -36,17 +42,21 @@ export default function SearchDialog({ open, handleWindow,...props }) {
 
         <div  >
             <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
-                <Toolbar className={classes.toolBar}>
-                    <IconButton edge="start" color="primary" onClick={handleClose} aria-label="close">
-                        <CloseIcon />
-                    </IconButton>
+                {
+                    toolbar ? toolbar :
+                        <Toolbar className={classes.toolBar}>
+                            <IconButton edge="end" color="primary"  className={classes.closeBtn} onClick={handleClose} aria-label="close">
+                                <CloseIcon />
+                            </IconButton>
 
-                </Toolbar>
-                <Container>
+                        </Toolbar>
+                }
+
+                {/* <Container> */}
                     {
                         props.children
                     }
-                </Container>
+                {/* </Container> */}
 
             </Dialog>
         </div>

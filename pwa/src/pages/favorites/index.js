@@ -28,7 +28,7 @@ export default function Favorites() {
         <AppBar back leftIcons={leftIcons} rightIcon={<div></div>} short  title="مورد علاقه ها" />
 
         {loading ? <CircularProgress /> :
-            <VerticalSlider items={data} Component={FavoriteItem} />
+            <VerticalSlider items={data} Component={FavoriteItem} componentProps={{iconic: true}} />
         }
         <SearchBobo open={openSeachBobo} handleWindow={setOpenSeachBobo} />
 

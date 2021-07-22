@@ -31,9 +31,14 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     zIndex: 10,
     transform: 'rotateY(180deg)',
+    "& svg": {
+      fontSize: '1.7rem',
+    }
   },
   inputRoot: {
     color: 'inherit',
+    backgroundColor: '#EFEFE3',
+    border: '1px solid #8A7F7F'
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
@@ -44,16 +49,21 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('md')]: {
       width: '20ch',
     },
+
   },
   second: {
     boxShadow: '2px 4px 5px 0px #bbb7b7',
     height: 51,
     background: 'white',
+    "& input::placeholder": {
+      color: 'rgba(159, 156, 156, 0.68)',
+      fontSize: 17
+    }
   }
 
 }));
 
-export default function SearchInput({ onSearchSubmit, second, placeholder,containerClassName,searchIconClassName,svgClassName,inputClassName,onChnage, ...props }) {
+export default function SearchInput({ onSearchSubmit, second, placeholder, containerClassName, searchIconClassName, svgClassName, inputClassName, onChnage, ...props }) {
   const classes = useStyles();
   const getplaceHolder = () => {
     if (placeholder)
@@ -65,19 +75,26 @@ export default function SearchInput({ onSearchSubmit, second, placeholder,contai
   return (
     <div className={classes.search + " " + containerClassName}>
       <div onClick={onSearchSubmit} className={classes.searchIcon + " " + searchIconClassName}>
-        <SearchIcon color='disabled' className={svgClassName} />
+        <div onClick={onSearchSubmit} className={classes.searchIcon}>
+          {
+            second ? <SearchIcon style={{ color: 'rgba(138, 127, 127, 1)' }} fontSize='large' />
+              :
+              <SearchIcon color='primary' />
+          }
+
+        </div>
+        <InputBase
+          fullWidth
+          {...props}
+          placeholder={getplaceHolder()}
+          classes={{
+            root: second ? classes.second : classes.inputRoot,
+            input: classes.inputInput + " " + inputClassName,
+          }}
+          inputProps={{ 'aria-label': 'search' }}
+          onChange={onChnage}
+        />
       </div>
-      <InputBase
-        fullWidth
-        {...props}
-        placeholder={getplaceHolder()}
-        classes={{
-          root: second ? classes.second : classes.inputRoot,
-          input: classes.inputInput + " " + inputClassName,
-        }}
-        inputProps={{ 'aria-label': 'search' }}
-        onChange={onChnage}
-      />
     </div>
   )
 

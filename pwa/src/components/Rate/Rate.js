@@ -15,14 +15,14 @@ const StyledRating = withStyles(theme => ({
   //     margin : -1
   //   }
   // }
- 
-  icon : {
-    margin : 0
+
+  icon: {
+    margin: 0
   }
 }))(Rating);
 
-export default function Rate({ value, size, onchange, input, ...other }) {
-  
+export default function Rate({ value, size, fontSize, onchange, input, ...other }) {
+
   const [privateValue, setValue] = useState(value);
   const theme = useTheme();
 
@@ -34,17 +34,17 @@ export default function Rate({ value, size, onchange, input, ...other }) {
       size={size || 'medium'}
       readOnly={!input}
       classes={{
-        icon :"margin:5px"
+        icon: "margin:5px"
       }}
       // classes={{
       //     iconFilled: "color: yellow;"
       // }}
 
-      iconHovered ={<RateIcon  fontSize={size || 'medium'} htmlColor={theme.palette.secondary.dark}  />}
-      iconFilled={<RateIcon fontSize={size || 'medium'}  color='primary'  />}
-      iconNormal={<RateIconEmpty  fontSize={size || 'medium'} />}
+      iconHovered={<RateIcon customSize={fontSize} fontSize={size || 'medium'} htmlColor={theme.palette.secondary.dark} />}
+      iconFilled={<RateIcon customSize={fontSize} fontSize={size || 'medium'} color='primary' />}
+      iconNormal={<RateIconEmpty customSize={fontSize} fontSize={size || 'medium'} color='primary' />}
       onChange={newValue => {
-        
+
         if (input) {
           setValue(newValue);
           onchange(newValue);

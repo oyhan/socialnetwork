@@ -53,10 +53,11 @@ namespace Mahoor.Services.Timeline
            
             var followingsIds = (await _graphService.GetAssociationsFrom(userId, AType.Following));
             followingsIds.Add(userId);
-            //            var posts =await _postRepository.ListAsync(s=>s.ToTimelinePostDto(),new GetUserTimelinePosts(followingsIds,from , to));
+            var followingIdList = followingsIds.Select(s => s.ToString()).ToList();
+            var posts =await _postRepository.ListAsync(s=>s.ToTimelinePostDto(),new GetUserTimelinePosts(followingIdList,from , to));
             var followingGuids = followingsIds.Select(d=>d.ToString());
-            var posts = await _associationRepository.ListAsync(s => s.Data.ToTimelinePostDto(),
-                new GetUserFollowingsPosts( followingsIds));
+            // var posts = await _associationRepository.ListAsync(s => s.Data.ToTimelinePostDto(),
+            //     new GetUserFollowingsPosts( followingsIds));
             var usersFollowing = _userManager.UserManager.Users.Where(u => followingGuids.Contains(u.Id)).Select(u=>new { u.Id,u.UserName,u.AvatarUrl });
             foreach (var post in posts)
             {

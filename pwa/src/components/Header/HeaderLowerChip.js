@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
         fontSize:13,
         borderRadius: 5,
         height: 22,
-        padding : '4.64px 10px'
+        padding : '4.64px 6px'
         // display :200-position.y<=70? 'none' :'',
     },
     chipIcon: {

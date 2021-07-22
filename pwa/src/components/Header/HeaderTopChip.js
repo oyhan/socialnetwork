@@ -12,15 +12,21 @@ const useStyles = makeStyles((theme) => ({
         },
         height: 29,
         background :'white',
+        marginLeft: 3,
 
 
     },
     chipSecondary :{
         background : theme.palette.secondary.main,
+        width: 90 ,
+        height :30 ,
         color: 'white',
         '& svg': {
             color: 'white'
         },
+    },
+    deleteIcon:{
+        marginLeft : 10
     }
 }))
 
@@ -31,6 +37,7 @@ export default function HeaderTopChip({ title, variant, handleClick, ...other })
         return (
             <Chip
                 {...other}
+                classes={{deletable:classes.deleteIcon}}
                 deleteIcon={<KeyboardArrowDownOutlinedIcon color='primary' />}
                 onClick={handleClick}
                 label={title}

@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { BrowserHttpClient } from '../../../lib/BrowserHttpClient';
 import Rate from '../../Rate/Rate';
+import HeartIcon from '../../Icons/HeartIcon';
 const useStyles = makeStyles(theme => ({
     root: {
         position: 'relative',
@@ -121,7 +122,7 @@ export default function SliderItem({ image, title, rate, ratesCount, distance, f
                 <IconButton size='small' onClick={handlFave} aria-label="favorite" className={classes.btn}>
                     {
                         faved ? <FavoriteIcon fontSize='small' color='primary' /> :
-                            <FavoriteTwoToneIcon fontSize="small" />
+                            <HeartIcon fontSize="small" />
                     }
                 </IconButton>
 

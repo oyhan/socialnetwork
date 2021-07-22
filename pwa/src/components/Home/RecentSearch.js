@@ -20,6 +20,11 @@ const useStyles = makeStyles({
     },
     locationIcon: {
         marginTop: 6
+    },
+    recentSearchWord: {
+        color: 'rgba(159, 156, 156, 1)',
+        fontSize: ': 19px !important',
+        fontWeight: '400 !important',
     }
 })
 
@@ -28,7 +33,7 @@ export default function RecentSearch({ handClickRecentSearch }) {
     const classes = useStyles();
     return (
         <div className={classes.search}>
-            <Typography color="textSecondary">
+            <Typography className={classes.recentSearchWord}>
                 جستجوهای اخیر
             </Typography>
             <Grid container justify='space-between'>

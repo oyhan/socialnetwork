@@ -3,6 +3,7 @@ import throttle from "lodash/throttle";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
+import { Divider } from "@material-ui/core";
 
 const tabHeight = 69;
 const StyledTabs = withStyles(theme => ({
@@ -212,7 +213,7 @@ function ScrollSpyTabs(props) {
         </StyledTabs>
         <div className={classes.indicator} />
       </nav>
-
+       <Divider/>     
       <div className="container">
         {itemsServer.map(item1 => (
           <article id={item1.hash} key={item1.text}>

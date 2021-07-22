@@ -122,6 +122,7 @@ export default function InputRenderer(props) {
                     margin="normal"
                     //variant="outlined"
                     // value={other.value}
+                    
                     name={name}
                     required={required}
                     disabled={Disabled}

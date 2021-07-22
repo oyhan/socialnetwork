@@ -46,7 +46,7 @@ namespace Mahoor.Services.Timeline.Handlers
                 dto.ClosestRestaurants =await  _placeService.GetClosestRestaurants(request.Lat, request.Lon, radius: 5, 0, 5,request.UserId);
                 //todo change the recommendation 
                 dto.RecommandedRestaurants = await _placeService.GetBestRestaurants(request.Lat, request.Lon, radius: 5, 0, 5, request.UserId);
-                dto.FollowingsPosts = await _timelineService.ListFollowingsPosts(request.UserId, 0, 20);
+                dto.FollowingsPosts = await _timelineService.ListFollowingsPosts(request.UserId, 0, 100);
                 dto.FollowRequests = await _userManager.GetUserFollowRequests(
                     (await _graphService.GetAssociationsTo(request.UserId, AType.FollowRequest))
                     .Select(s => s.ToString()).ToList());

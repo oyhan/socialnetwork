@@ -10,14 +10,15 @@ import ReviewItem from "./Review/ReviewItem";
 import ReviewNewDialog from "./Review/ReviewNewDialog";
 import { Link } from 'react-router-dom';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import WriteNewReviewIcon from "../Icons/WriteNewReviewIcon";
 
 export default function PlaceReviews({ restaurantDetail, placeId }) {
     const classes = usePlacePageStyles();
 
     const { reviews, name, noOfReviews, cuisine, distanceToUser, website, telephone, rate, isOpenNow, services,
         address, location } = restaurantDetail;
-        
-    
+
+
 
     const [reviewSearchText, setSearchText] = useState("");
     const [loading, data, error] = useHttpClient(`/place/rate/${placeId}`, "Get", r => r.response);
@@ -45,10 +46,10 @@ export default function PlaceReviews({ restaurantDetail, placeId }) {
     }
 
     return (
-        <>
-            <div className={classes.row}>
+        <Box m='0 10px'>
+            <div >
                 <Grid container className={classes.caption}>
-                    <Typography component='h4'>
+                    <Typography className='s17' component='h4'>
                         نظرات
                     </Typography>
 
@@ -68,14 +69,13 @@ export default function PlaceReviews({ restaurantDetail, placeId }) {
 
                 <Grid container className={classes.row}>
                     <Typography >
-                        <Box fontWeight='fontWeightBold'>
+                        <Box marginBottom='11px' marginLeft='3px' fontWeight='fontWeightBold'>
                             امتیاز مشتریان
                     </Box>
                     </Typography>
                 </Grid>
 
                 <Grid container className={classes.row}>
-
                     {
                         loading ? <CircularProgress /> :
                             <Container>
@@ -86,19 +86,17 @@ export default function PlaceReviews({ restaurantDetail, placeId }) {
                                 <ReviewBarChartItem total={total} title="وحشتناک" count={horrible} />
                             </Container>
                     }
-
                 </Grid>
-
-
-
-
-                <Grid container className={classes.row}>
-                    <form style={{ width: '100%' }} onSubmit={onSearchSubmit}>
-                        <SearchInput onClick={onSearchSubmit} onChange={(event) => {
-                            setSearchText(event.target.value)
-                        }} />
-                    </form>
-                </Grid>
+                <Box m='15px 10px'>
+                    <Grid container className={classes.row}>
+                        <form style={{ width: '100%' }} onSubmit={onSearchSubmit}>
+                            <SearchInput onClick={onSearchSubmit} onChange={(event) => {
+                                setSearchText(event.target.value)
+                            }} />
+                        </form>
+                    </Grid>
+                </Box>
+                <Divider />
                 <Grid className={classes.row}>
                     {
                         reviewsSearched ?
@@ -122,43 +120,48 @@ export default function PlaceReviews({ restaurantDetail, placeId }) {
                     }
                 </Grid>
 
-                <Grid container className={classes.row} >
-                    <Grid item xs={11} className={classes.alignCenter}>
-                        <Link to={`allreviews/${placeId}`}>
-                            <Grid container>
-                                <Typography variant='caption'><Box margin='0 10px'>دیدن نظرات بیشتر</Box></Typography>
-                            </Grid>
-                        </Link>
+                <Box >
+                    <Grid container className={classes.row} >
+                        <Grid item xs={11} className={classes.alignCenter}>
+                            <Link to={`allreviews/${placeId}`}>
+                                <Grid container>
+                                    <Typography className='s12' variant='caption'><Box margin='0 0px' color='#534C4C'>دیدن نظرات بیشتر</Box></Typography>
+                                </Grid>
+                            </Link>
 
-                    </Grid>
-                    <Grid item xs={1}>
-                        <Link to={`allreviews/${placeId}`}>
-                            <IconButton size='small' ><ArrowBackIosIcon style={{ fontSize: '12px', marginRight: 11 }} fontSize='small' /></IconButton>
-                        </Link>
-                    </Grid>
-                </Grid>
-
-                <Divider />
-
-                <Grid container className={classes.row}>
-                    <Grid item xs={10} className={classes.alignCenter}>
-                        <Grid container>
-                            <ButtonBase onClick={handleNewReview}>
-                                <CreateIcon color='primary' />
-                                <Typography variant='caption' color='primary'><Box margin='0 10px'>نظرتان را بنویسید</Box></Typography>
-                            </ButtonBase>
+                        </Grid>
+                        <Grid item xs={1}>
+                            <Link to={`allreviews/${placeId}`}>
+                                <IconButton size='small' ><ArrowBackIosIcon style={{ fontSize: '12px', marginRight: 11 }} fontSize='small' /></IconButton>
+                            </Link>
                         </Grid>
                     </Grid>
-                </Grid>
+                </Box>
+
+                <Divider />
+                <Box marginTop='10px' >
+                    <Grid container className={classes.row}>
+                        <Grid item xs={10} className={classes.alignCenter}>
+                            <Grid container>
+                                <ButtonBase onClick={handleNewReview}>
+                                    <WriteNewReviewIcon color='primary' />
+                                    <Typography variant='caption' color='primary'><Box margin='0 10px'>نظرتان را بنویسید</Box></Typography>
+                                </ButtonBase>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Box>
 
                 <Divider />
 
-                <Grid justify='space-between' direction='row' spacing={0}
-                    container className={classes.title} >
-                    <Typography >
-                        مکان های نزدیک
+                <Box marginTop='7px' marginLeft='10px'>
+                    <Grid justify='space-between' direction='row' spacing={0}
+                        container className={classes.title} >
+                        <Typography className='s17' >
+                            مکان های نزدیک
                     </Typography>
-                </Grid>
+                    </Grid>
+                </Box>
                 <Link to={{ pathname: "/nearme" }}>
                     <div className={classes.mapSymbole}>
 
@@ -166,6 +169,6 @@ export default function PlaceReviews({ restaurantDetail, placeId }) {
                 </Link>
             </div>
             <ReviewNewDialog placeId={placeId} handleWindow={openDialog} placeName={restaurantDetail.name} open={openNewReviewDialog} />
-        </>
+        </Box>
     )
 }

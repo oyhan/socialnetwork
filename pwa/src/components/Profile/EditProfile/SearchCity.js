@@ -1,4 +1,4 @@
-import { Divider, Grid, makeStyles, Typography } from "@material-ui/core"
+import { Box, Container, Divider, Grid, makeStyles, Typography } from "@material-ui/core"
 import SearchInput from "../../Input/SearchInput";
 import ToolbarButton from "../../Button/ToolBarButton";
 import { BrowserHttpClient } from "../../../lib/BrowserHttpClient";
@@ -20,7 +20,7 @@ const useStyle = makeStyles((theme) => ({
     },
     searchInput: {
         backgroundColor: "#EAEAD8 !important",
-        borderRadius: "11px",
+        borderRadius: "11px !important",
         marginTop: "13px"
     },
     searchIcon: {
@@ -30,9 +30,14 @@ const useStyle = makeStyles((theme) => ({
     svg: {
         width: "1.25em !important",
         height: "1.25em !important",
+        color: 'rgba(159, 156, 156, 1)'
     },
     input: {
-        marginLeft: "-10px"
+        marginLeft: "-10px",
+    },
+    inputRoot: {
+        border: "0 !important",
+        borderRadius: "inherit"
     },
     cansel: {
         textAlign: "center",
@@ -42,18 +47,28 @@ const useStyle = makeStyles((theme) => ({
     canselText: {
         fontSize: "19px",
         color: "#802143"
+    },
+    searchResult :{
+        "& div" : {
+            margin : '8px 0'
+        }
     }
 }));
-export default function SearchCity({ handleSelectedCity }) {
+export default function SearchCity({ handleSelectedCity, handleClose }) {
     const [city, setCity] = useState([]);
+
     const onChnage = (event) => {
         BrowserHttpClient.Get("/Location/Citys/" + event.target.value)
             .then(result => {
+
                 setCity(result);
             })
             .catch(error => {
 
             })
+    }
+    const closeDialogHandle = () => {
+        handleClose(false);
     }
     const classes = useStyle();
     return (
@@ -67,18 +82,34 @@ export default function SearchCity({ handleSelectedCity }) {
                             containerClassName={classes.searchInput}
                             searchIconClassName={classes.searchIcon}
                             svgClassName={classes.svg}
+                            inputRootClassName={classes.inputRoot}
                             inputClassName={classes.input}
                             onChnage={onChnage}
                         ></SearchInput>
                     </Grid>
                     <Grid item xs={3} sm={3} className={classes.cansel}>
-                        <ToolbarButton>
+                        <ToolbarButton onClick={closeDialogHandle}>
                             <Typography className={classes.canselText}>انصراف</Typography>
                         </ToolbarButton>
                     </Grid>
                 </Grid>
                 <Divider style={{ margin: "5px 11px 5px 11px", paddingTop: "2px" }} />
+                <Container>
+                    <Box marginTop='18px' className={classes.searchResult}>
+                        {city && city.map((c, i) => {
+                            return (<Grid onClick={()=>handleSelectedCity(c)} container  >
+                                <Typography className='s15'>
+                                    {`${c.province}/${c.city}`}
+                                </Typography>
+                            </Grid>)
+                        })}
+                    </Box>
+                </Container>
+
             </div>
+
+
+
         </div>
     )
 }

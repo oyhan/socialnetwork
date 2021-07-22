@@ -63,7 +63,8 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-export default function SearchInput({ onSearchSubmit, second, placeholder, containerClassName, searchIconClassName, svgClassName, inputClassName, onChnage, ...props }) {
+export default function SearchInput({ onSearchSubmit, second, placeholder, containerClassName, 
+  searchIconClassName, svgClassName, inputClassName, inputRootClassName, onChnage, ...props }) {
   const classes = useStyles();
   const getplaceHolder = () => {
     if (placeholder)
@@ -75,26 +76,24 @@ export default function SearchInput({ onSearchSubmit, second, placeholder, conta
   return (
     <div className={classes.search + " " + containerClassName}>
       <div onClick={onSearchSubmit} className={classes.searchIcon + " " + searchIconClassName}>
-        <div onClick={onSearchSubmit} className={classes.searchIcon}>
-          {
-            second ? <SearchIcon style={{ color: 'rgba(138, 127, 127, 1)' }} fontSize='large' />
-              :
-              <SearchIcon color='primary' />
-          }
+        {
+          second ? <SearchIcon style={{ color: 'rgba(138, 127, 127, 1)' }} fontSize='large' />
+            :
+            <SearchIcon color='primary' className={svgClassName} />
+        }
 
-        </div>
-        <InputBase
-          fullWidth
-          {...props}
-          placeholder={getplaceHolder()}
-          classes={{
-            root: second ? classes.second : classes.inputRoot,
-            input: classes.inputInput + " " + inputClassName,
-          }}
-          inputProps={{ 'aria-label': 'search' }}
-          onChange={onChnage}
-        />
       </div>
+      <InputBase
+        fullWidth
+        {...props}
+        placeholder={getplaceHolder()}
+        classes={{
+          root: second ? classes.second : classes.inputRoot + " " + inputRootClassName,
+          input: classes.inputInput + " " + inputClassName,
+        }}
+        inputProps={{ 'aria-label': 'search' }}
+        onChange={onChnage}
+      />
     </div>
   )
 

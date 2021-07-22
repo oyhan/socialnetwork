@@ -40,7 +40,7 @@ const useStyle = makeStyles((theme) => ({
 export default function EditProfile() {
     const [, dispatch] = useStateValue();
     const classes = useStyle();
-    const [openSearch,setOpenSearch] = useState(false);
+    const [openSearch, setOpenSearch] = useState(false);
     const [loading, user, error] = useHttpClient("/profile/me", "Get", r => r.response);
     const router = useHistory();
     const { avatarURl, bio, city, favorites, noOfFollowers,
@@ -95,9 +95,9 @@ export default function EditProfile() {
 
         formik.setFieldValue("header", headerFile)
     }
-    const selectCity = (citySelected)=> {
+    const selectCity = (citySelected) => {
         formik.setFieldValue("cityId", citySelected.id)
-        formik.setFieldValue("city", citySelected.name);
+        formik.setFieldValue("city",`${citySelected.province},${citySelected.city}`);
         setOpenSearch(false);
     }
     return <>
@@ -153,7 +153,7 @@ export default function EditProfile() {
                         </InputAdornment>
                     ),
                 }}
-                onClick={()=>setOpenSearch(true)}
+                onClick={() => setOpenSearch(true)}
                 error={formik.errors.cityId}
                 key="city"
                 value={formik.values.city}
@@ -220,11 +220,11 @@ export default function EditProfile() {
 
             <Typography>
                 حداکثر 160 کاراکتر
-         </Typography>
+            </Typography>
 
-         <SearchDialog handleWindow={setOpenSearch} open={openSearch} >
-             <SearchCity handleSelectedCity={selectCity} />
-         </SearchDialog>
+            <SearchDialog handleWindow={setOpenSearch} open={openSearch} toolbar={() => {}} >
+                <SearchCity handleSelectedCity={selectCity} handleClose={setOpenSearch} />
+            </SearchDialog>
         </Container>
     </>
 

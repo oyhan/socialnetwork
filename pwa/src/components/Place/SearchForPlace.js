@@ -108,7 +108,7 @@ export default function SearchForPlace() {
     }
 
     return (
-        <>
+        <div className='customInput'>
             <Toolbar className={classes.toolBar}>
                 <IconButton  color="primary" edge='end' className={classes.closeBtn} onClick={handleClose} aria-label="close">
                     <CloseIcon />
@@ -165,6 +165,6 @@ export default function SearchForPlace() {
                 <ReviewNewDialog open={review.open} handleWindow={closeReviewPage} placeName={review.placeName} placeId={review.placeId} />
             </Container>
 
-        </>
+        </div>
     )
 }

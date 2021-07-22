@@ -1,18 +1,18 @@
-.MuiInput-underline:after {
+.customInput .MuiInput-underline:after {
    
     border-bottom: 1px solid #802143 !important;
     width: calc(100vw - 22%);
     margin: 0 auto;
    }
 
-.MuiInput-underline:after {
+   .customInput .MuiInput-underline:after {
    
     border-bottom: 1px solid #802143 !important;
     width: calc(100vw - 22%);
     margin: 0 auto;
 }
 
-.MuiInput-underline:before {
+.customInput .MuiInput-underline:before {
    color: #802143;
     width: calc(100vw - 22%);
     margin: 0 auto;

@@ -67,7 +67,7 @@ export function useHttpClient(url, method, getResult, body) {
 
 async function MultiPartFormData(url, data) {
 
-    url = "https://heyyy.ir" + url;
+    
     const formData = new FormData();
 
     for (const name in data) {
@@ -92,7 +92,7 @@ async function MultiPartFormData(url, data) {
 
 
 async function Post(url, model) {
-    url = "https://heyyy.ir" + url;
+    
     const request = {
         method: "POST",
         headers: {
@@ -110,7 +110,7 @@ async function Post(url, model) {
     }
 }
 async function Put(url, model) {
-    url = "https://heyyy.ir" + url;
+    
     const request = {
         method: "PUT",
         headers: {
@@ -128,7 +128,7 @@ async function Put(url, model) {
     }
 }
 function Get(url) {
-    url = "https://heyyy.ir" + url;
+    
     const request = {
         method: "GET",
         headers: {
@@ -140,7 +140,7 @@ function Get(url) {
     return fetch(url, request).then(handleResponse, handleError);
 }
 function GetAll(url) {
-    url = "https://heyyy.ir" + url;
+    
     const request = {
         method: "GET",
         headers: {

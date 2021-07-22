@@ -97,7 +97,7 @@ export default function EditProfile() {
     }
     const selectCity = (citySelected) => {
         formik.setFieldValue("cityId", citySelected.id)
-        formik.setFieldValue("city",`${citySelected.province},${citySelected.city}`);
+        formik.setFieldValue("city", `${citySelected.province},${citySelected.city}`);
         setOpenSearch(false);
     }
     return <>
@@ -222,7 +222,7 @@ export default function EditProfile() {
                 حداکثر 160 کاراکتر
             </Typography>
 
-            <SearchDialog handleWindow={setOpenSearch} open={openSearch} toolbar={() => {}} >
+            <SearchDialog handleWindow={setOpenSearch} open={openSearch} toolbar={() => { }} >
                 <SearchCity handleSelectedCity={selectCity} handleClose={setOpenSearch} />
             </SearchDialog>
         </Container>

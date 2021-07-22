@@ -1,26 +1,36 @@
 import { makeStyles } from '@material-ui/core';
-import React from 'react';
+import React, { useState } from 'react';
 import ZoomSlider from 'react-instagram-zoom-slider';
 import ImageEditor from '../ImageEditor/ImageEditor';
 
 const useStyle = makeStyles({
     image: {
         objectFit: 'contain',
-            width: '100%',
-            // height: 335,
+        width: '100%',
+       
+        // height: 335,
     },
     root: {
         direction: "rtl",
         background: '#EFEFE3',
-
-    }
+        "& div" : {
+            marginTop : 0,
+            marginBottom : 0
+        }
+    },
+    divImage: {
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
+    height: 0,
+}
 })
 
 export default function PostSlider({ medias }) {
     const classes = useStyle();
-    const slides = medias.map(m =>
-        <img layout='fill' src={`${m.url}`} draggable="false"  className={classes.image} />
-   )
+
+       const slides = medias.map(m =>
+            <img layout='fill' src={`${m.url}`} draggable="false"  className={classes.image} />
+       )
 
     return (
         <div className={classes.root}>

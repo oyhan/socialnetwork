@@ -37,7 +37,13 @@ export default function SearchPlacePost({ onSelectPlace, open, handleWindow }) {
     const handleInput = (e) => {
         BrowserHttpClient.Get(`/place/search/${e.target.value}/undefined`)
             .then(result => {
-                setPlaces(result.response);
+                if (result) {
+                    setPlaces(result?.response);
+                }
+                else {
+                    setPlaces([]); 
+                }
+
             })
     }
 
@@ -52,7 +58,7 @@ export default function SearchPlacePost({ onSelectPlace, open, handleWindow }) {
             <SearchDialog
                 toolbar={toolbar}
                 open={open} handleWindow={handleWindow} TransitionComponent={Transition}>
-             
+
                 <Container>
                     <InputRenderer
                         onChange={handleInput}

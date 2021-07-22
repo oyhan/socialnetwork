@@ -26,7 +26,7 @@ const styles = theme => {
     },
     iconButtonMedium: {
       padding: 2,
-      margin: '-5px',
+      margin: '-4px',
       transform: theme.direction === 'rtl' ? 'scaleX(-1)' : 'none',
 
     },

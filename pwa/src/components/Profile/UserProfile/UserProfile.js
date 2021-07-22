@@ -67,7 +67,7 @@ export default function UserProfile({ user }) {
     }
 
     return <>
-        <UserProfileAppBar handleFollow={handleFollow} following={following} {...user} />
+        <UserProfileAppBar handleFollow={handleFollow} following={following} back={following} {...user} />
         <UserProfileAvatar {...user} />
         <Grid container justify='center' className={classes.followerBtn}>
             {following ? <FollowerButton onClick={handleUnFollow} /> :

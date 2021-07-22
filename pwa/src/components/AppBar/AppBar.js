@@ -76,7 +76,7 @@ export default function AppBar({ rightIcon, title, titleFontSize, paddingTop , p
           <Grid container>
             <div className={classes.rightIcon}>
               {back ?
-                <ToolbarBackButton /> :
+                <ToolbarBackButton  /> :
                 rightIcon
               }
 

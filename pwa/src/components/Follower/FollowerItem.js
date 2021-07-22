@@ -1,3 +1,4 @@
+import { Box, Divider, Grid } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -13,6 +14,7 @@ import { BrowserHttpClient } from '../../lib/BrowserHttpClient';
 import { useStateValue } from '../../lib/store/appState';
 import FollowButton from '../Button/FollowButton';
 import FollowerButton from '../Button/FollowerButton';
+import AppDivider from '../Dividers/AppDivider';
 const useStyles = makeStyles((theme) => ({
   root: {
     width: 345,
@@ -32,15 +34,28 @@ const useStyles = makeStyles((theme) => ({
     transform: 'rotate(180deg)',
   },
   avatar: {
-    backgroundColor: red[500],
+    width: 47,
+    height: 47,
   },
   indented: {
-    marginLeft: 60
+    marginLeft: 40,
+    padding: '5px 0',
+  },
+  cardHeaderRoot: {
+    padding: '16px 0 '
+  },
+  cardHeaderContent: {
+    marginLeft: -5
+  },
+  indented2: {
+    marginLeft: 48,
+    padding: '10px 0',
   }
+
 }));
 
 export default function FollowerItem({ fullName, userName, id, location, avatarUrl, isFollowingBack }) {
-  
+
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   const [following, setFollowing] = React.useState(isFollowingBack);
@@ -58,32 +73,54 @@ export default function FollowerItem({ fullName, userName, id, location, avatarU
       setFollowing(true);
     })
   }
+
+  const UserTitle = ({ displayName }) => <>
+    <Typography component='span' className='titr19700'>
+      {displayName}
+    </Typography>
+
+  </>
+
+  const Username = ({ userName }) => <>
+    <Typography component='span' color='textPrimary' className='s15' >
+      {userName}
+    </Typography>
+
+  </>
   const mySelf = user.userName == userName;
   return (
-    <Card elevation={0} className={classes.root}>
+    <>
+      <Card elevation={0} className={classes.root}>
 
-      <CardHeader
-        avatar={
-          <Link to={`/profile/${userName}`}>
-            <Avatar src={avatarUrl} aria-label="avatar" className={classes.avatar} />
-          </Link>
-        }
-        title={`${fullName}`}
-        subheader={"@" + userName}
-      />
+        <CardHeader
+          classes={{ root: classes.cardHeaderRoot, content: classes.cardHeaderContent }}
+          avatar={
+            <Link to={`/profile/${userName}`}>
+              <Avatar src={avatarUrl} aria-label="avatar" className={classes.avatar} />
+            </Link>
+          }
+          title={<UserTitle displayName={fullName} />}
+          subheader={<Username userName={`@${userName}`} />}
+        />
 
-      <CardContent className={classes.indented}>
-        <Typography variant="body2" color="textSecondary" component="p">
-          <LocationOn />
-          {location}
-        </Typography>
-      </CardContent>
-      <CardActions className={classes.indented} disableSpacing>
-        {mySelf ? "" : following ? <FollowerButton onClick={handleUnFollow} /> :
-          <FollowButton onClick={handleFollow} />
-        }
-      </CardActions>
+        <CardContent className={classes.indented}>
+          <Grid container>
+            <LocationOn htmlColor='black' />
+            <Box m='2px'>
+              <Typography variant="body2" color="textPrimary" className='s15' component="p">
+                {location}
+              </Typography>
+            </Box>
+          </Grid>
+        </CardContent>
+        <CardActions className={classes.indented2} disableSpacing>
+          {mySelf ? "" : following ? <FollowerButton onClick={handleUnFollow} /> :
+            <FollowButton onClick={handleFollow} />
+          }
+        </CardActions>
 
-    </Card>
+      </Card>
+      <AppDivider/>
+    </>
   );
 }

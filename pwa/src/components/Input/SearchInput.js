@@ -31,9 +31,14 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     zIndex: 10,
     transform: 'rotateY(180deg)',
+    "& svg" : {
+      fontSize: '1.7rem',
+    }
   },
   inputRoot: {
     color: 'inherit',
+    backgroundColor: '#EFEFE3',
+    border: '1px solid #8A7F7F'
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
@@ -44,11 +49,16 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('md')]: {
       width: '20ch',
     },
+   
   },
-  second : {
+  second: {
     boxShadow: '2px 4px 5px 0px #bbb7b7',
     height: 51,
     background: 'white',
+    "& input::placeholder" :{
+      color : 'rgba(159, 156, 156, 0.68)',
+      fontSize : 17
+    }
   }
 
 }));
@@ -59,14 +69,19 @@ export default function SearchInput({ onSearchSubmit, second, ...props }) {
   return (
     <div className={classes.search}>
       <div onClick={onSearchSubmit} className={classes.searchIcon}>
-        <SearchIcon color='disabled' />
+        {
+          second ? <SearchIcon style={{color : 'rgba(138, 127, 127, 1)'}} fontSize='large'/>
+            :
+            <SearchIcon color='primary' />
+        }
+
       </div>
       <InputBase
         fullWidth
         {...props}
         placeholder="جستجوی نظرات"
         classes={{
-          root: second? classes.second : classes.inputRoot,
+          root: second ? classes.second : classes.inputRoot,
           input: classes.inputInput,
         }}
         inputProps={{ 'aria-label': 'search' }}

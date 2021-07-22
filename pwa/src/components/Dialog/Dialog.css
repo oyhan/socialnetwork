@@ -1,10 +1,11 @@
 :root {
     --ion-color-primary: #ee3e3e;
     --md-primary-color : #802143;
+    /* --ion-backdrop-color :rgb(207, 205, 205); */
   }
 
   .sc-ion-action-sheet-ios-h {
-    --button-background : #e4dedd;
+    --button-background : #e4deddad;
     --background : #e4deddb7;
 
   }

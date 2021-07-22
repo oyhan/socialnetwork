@@ -1,6 +1,7 @@
 import { Grid, Typography } from '@material-ui/core';
 import React from 'react';
 import { useHttpClient } from '../../../lib/BrowserHttpClient';
+import AppDivider from '../../Dividers/AppDivider';
 import Post from '../../Post/Post';
 
 export default function UserPosts({ userName }) {
@@ -8,10 +9,13 @@ export default function UserPosts({ userName }) {
     return (
         <Grid container direction='column' justify='center' alignContent='center' >
             {
-                loading  ? <Typography>loading</Typography> : error ? <Typography>{error}</Typography> :
-                data &&data.map((p, index) => {
+                loading ? <Typography>loading</Typography> : error ? <Typography>{error}</Typography> :
+                    data && data.map((p, index) => {
                         return (
-                            <Post key={index} {...p} />
+                            <>
+                                <Post key={index} {...p} />
+                                <AppDivider />
+                            </>
                         )
                     })
             }

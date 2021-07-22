@@ -19,11 +19,11 @@ const useStyle = makeStyles(theme => ({
     },
     btn: {
         border: '1px solid',
-        height : 44,
-        fontSize : 20
+        height: 44,
+        fontSize: 20
     },
-    btnWrapper : {
-        width :'167px',
+    btnWrapper: {
+        width: '160px',
     }
 }))
 
@@ -48,7 +48,7 @@ export default function Start() {
                         <Grid item className={classes.btnWrapper} >
                             <Link to="/login">
                                 <ButtonBobo className={classes.btn} fullWidth>
-                                        ورود
+                                    ورود
                                 </ButtonBobo>
                             </Link>
                         </Grid>

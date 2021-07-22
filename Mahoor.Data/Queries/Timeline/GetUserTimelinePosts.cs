@@ -14,6 +14,7 @@ namespace Mahoor.Data.Queries.Timeline
             AddInclude(p=>p.User);
             AddInclude(p=>p.Place);
             ApplyPaging(from, to);
+            ApplyOrderByDescending(c=>c.CreatedDate);
             AddCriteria(p=> usersid.Contains(p.UserId));
         }
     }

@@ -31,6 +31,9 @@ const useStyles = makeStyles((theme) => ({
     root: {
         maxWidth: '100%',
     },
+    headerAction: {
+        marginTop : -2
+    },
     media: {
         height: 250,
         // paddingTop: '56.25%', // 16:9
@@ -208,7 +211,7 @@ export default function Post({ userName, createdDate, placeName, text, likes, me
     return (
         <Card ref={postRef} elevation={0} id={id} className={classes.root}>
             <CardHeader
-                classes={{ root: classes.cardHeaderRoot }}
+                classes={{ root: classes.cardHeaderRoot , action: classes.headerAction }}
                 avatar={
                     <Avatar aria-label="recipe" src={avatar} onClick={handleGotoProfile} className={classes.avatar}>
                         {userName}

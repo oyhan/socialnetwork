@@ -10,6 +10,7 @@ import PlaceReviews from "./PlaceReviews";
 
 
 export default function PlacePage({ placeDetail, placeId, photos, loadingPhotos }) {
+    
 
 
     const classes = usePlacePageStyles();
@@ -22,7 +23,7 @@ export default function PlacePage({ placeDetail, placeId, photos, loadingPhotos 
                 tabsInScroll={[
                     {
                         text: "overview",
-                        component: <PlaceOverview {...placeDetail} />
+                        component: <PlaceOverview placeId={placeId} {...placeDetail} />
                     },
 
                     {

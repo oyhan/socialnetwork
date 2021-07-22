@@ -1,21 +1,29 @@
-import { withStyles } from '@material-ui/core';
+import { makeStyles, withStyles } from '@material-ui/core';
 import React from 'react';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 
 const StyledIcon = withStyles(theme => ({
-    fontSizeSmall : {
-        fontSize : "0.60rem"
-    } ,
-    fontSizeMedium:{
-        fontSize : "1.3rem"
+    fontSizeSmall: {
+        fontSize: "0.60rem"
     },
-    fontSizeLarge:{
-        fontSize : "3.6rem"
-    } 
+    fontSizeMedium: {
+        fontSize: "1.3rem"
+    },
+    fontSizeLarge: {
+        fontSize: "3.6rem"
+    }
 }))(RadioButtonUncheckedIcon);
 
-export default function RateIconEmpty(props) {
+const useStyle = (customeSize) => makeStyles({
+    root: {
+        fontSize: customeSize || 'unset'
+    }
+})
+
+export default function RateIconEmpty({ customSize, ...props }) {
+    const classes = useStyle(customSize)();
+
     return (
-        <StyledIcon color='primary' {...props} />
+        <StyledIcon classes={{ root: customSize ? classes.root : "" }} color='primary' {...props} />
     )
 }

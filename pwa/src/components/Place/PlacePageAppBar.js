@@ -47,6 +47,9 @@ const useStyles = (position) => makeStyles((theme) => ({
         top: 10,
         left: 10,
         zIndex: 10,
+        "& svg" : {
+            fontSize : 33
+        }
     },
     bottomLeftButton: {
         position: 'fixed',
@@ -58,8 +61,14 @@ const useStyles = (position) => makeStyles((theme) => ({
     sharebtn: {
         position: 'fixed',
         top: 10,
-        right: 10,
+        right: 0,
         zIndex: 10,
+        
+    },
+    backBtn : {
+        "& svg" : {
+            fontSize : 33
+        }
     }
 }));
 

@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
       width: '20ch',
     },
   },
-  second : {
+  second: {
     boxShadow: '2px 4px 5px 0px #bbb7b7',
     height: 51,
     background: 'white',
@@ -53,23 +53,30 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-export default function SearchInput({ onSearchSubmit, second, ...props }) {
+export default function SearchInput({ onSearchSubmit, second, placeholder,containerClassName,searchIconClassName,svgClassName,inputClassName,onChnage, ...props }) {
   const classes = useStyles();
+  const getplaceHolder = () => {
+    if (placeholder)
+      return placeholder;
+    else
+      return "جستجوی نظرات";
+  }
 
   return (
-    <div className={classes.search}>
-      <div onClick={onSearchSubmit} className={classes.searchIcon}>
-        <SearchIcon color='disabled' />
+    <div className={classes.search + " " + containerClassName}>
+      <div onClick={onSearchSubmit} className={classes.searchIcon + " " + searchIconClassName}>
+        <SearchIcon color='disabled' className={svgClassName} />
       </div>
       <InputBase
         fullWidth
         {...props}
-        placeholder="جستجوی نظرات"
+        placeholder={getplaceHolder()}
         classes={{
-          root: second? classes.second : classes.inputRoot,
-          input: classes.inputInput,
+          root: second ? classes.second : classes.inputRoot,
+          input: classes.inputInput + " " + inputClassName,
         }}
         inputProps={{ 'aria-label': 'search' }}
+        onChange={onChnage}
       />
     </div>
   )

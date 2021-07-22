@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 const useStyle = makeStyles(theme => ({
     root: {
-        height: '100vh',
+        height: '100vh'
     },
     body: {
         flex: .98
@@ -19,19 +19,6 @@ const useStyle = makeStyles(theme => ({
     },
     btn: {
         border: '1px solid',
-        width: '48%',
-        height: '44px',
-        fontSize: '20px',
-    },
-    loginBtn: {
-        marginLeft: '1%',
-    },
-    signupBtn: {
-        marginRight: '1%',
-    },
-    footer: {
-        marginBlockStart: "auto",
-        marginBottom: "10px",
         height: 44,
         fontSize: 20
     },
@@ -52,21 +39,11 @@ export default function Start() {
                         <Grid container justify='center' alignItems='center' className={classes.logoHolder}>
                             <Box color="purple" fontWeight="900">
                                 logo
-                            </Box>
+                           </Box>
                         </Grid>
                     </Grid>
                 </Grid>
                 <Grid className={classes.footer} item>
-                    <Link to="/signup">
-                        <ButtonBobo className={`${classes.btn} ${classes.signupBtn}`} fullWidth>
-                            ثبت نام
-                        </ButtonBobo>
-                    </Link>
-                    <Link to="/login">
-                        <ButtonBobo className={`${classes.btn} ${classes.loginBtn}`} fullWidth>
-                            ورود
-                        </ButtonBobo>
-                    </Link>
                     <Grid container justify='space-around'>
                         <Grid item className={classes.btnWrapper} >
                             <Link to="/login">

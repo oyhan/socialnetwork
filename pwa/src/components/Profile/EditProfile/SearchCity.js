@@ -2,6 +2,7 @@ import { Divider, Grid, makeStyles, Typography } from "@material-ui/core"
 import SearchInput from "../../Input/SearchInput";
 import ToolbarButton from "../../Button/ToolBarButton";
 import { BrowserHttpClient } from "../../../lib/BrowserHttpClient";
+import { useState } from "react";
 
 const useStyle = makeStyles((theme) => ({
     header: {

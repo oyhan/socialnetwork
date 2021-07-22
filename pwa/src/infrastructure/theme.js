@@ -34,7 +34,7 @@ const AppTheme = {
         primary: {
             dark: '#5C142E',
             light: '#b3506e',
-            main: '#802143',
+            main: '#650F3C',
         },
         secondary: {
             dark: '#ab4680',

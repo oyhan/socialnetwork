@@ -6,7 +6,7 @@ import { useState } from "react";
 
 const useStyle = makeStyles((theme) => ({
     header: {
-        backgroundColor: "#802143",
+        backgroundColor: theme.palette.primary.main,
         width: "100%",
         height: "60px"
     },

@@ -17,13 +17,18 @@ import clsx from 'clsx';
 import CloseIcon from '@material-ui/icons/Close';
 import CancelOutlinedIcon from '@material-ui/icons/CancelOutlined';
 
+const headerHeight = 190;
+
 const useStyles = makeStyles((theme) => ({
     closeBtn: {
         background: 'white',
         '& span': {
 
-            width: 10,
-            height: 8,
+            width: 13,
+            height: 13,
+        },
+        "& svg " : {
+            fontSize : '1.5rem'
         }
 
     },
@@ -34,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
         marginRight: theme.spacing(2),
     },
     toolbar: {
-        minHeight: 150,
+        minHeight: headerHeight,
         alignItems: 'flex-start',
         paddingTop: theme.spacing(1),
         display: 'flex',
@@ -53,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
     btnHolder: {
         position: 'fixed',
         alignSelf: 'center',
-        top: 56,
+        top: 72,
     },
     searchIcon: {
         position: 'fixed',
@@ -63,8 +68,8 @@ const useStyles = makeStyles((theme) => ({
     },
     bottomLeftButton: {
         position: 'fixed',
-        top: 100,
-        right: 10,
+        top: 140,
+        right: 12,
         zIndex: 10,
     }
 
@@ -94,7 +99,7 @@ export default function CityPageAppBar({ photosCount, lastPhoto, id, name, nearb
         height: '60px',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        height: 150,
+        height: headerHeight,
     };
     return (
         <div className={classes.root}>

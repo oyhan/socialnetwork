@@ -26,7 +26,7 @@ var myIcon = L.icon({
     shadowSize: [50, 64],
     shadowAnchor: [22, 94]
 });
-export default function LeafletMap({ points, point, enableMyLocation }) {
+export default function LeafletMap({ points, point, enableMyLocation ,...options }) {
 
 
     // var points = useContext(MapContext);
@@ -40,9 +40,19 @@ export default function LeafletMap({ points, point, enableMyLocation }) {
         return user.position ? [user.position?.latitude, user.position?.longitude] :
             [31.834989, 54.374296]
     }
+    const optionsAvailable = {
+        doubleClickZoom: false,
+        closePopupOnClick: false,
+        dragging: false,
+        zoomSnap: false,
+        zoomDelta: false,
+        trackResize: false,
+        touchZoom: false,
+        scrollWheelZoom: false
+    }
 
     return (
-        <MapContainer zoomControl={false} className={classes.mapContainer} center={JSON.parse(point)} zoom={13}>
+        <MapContainer  zoomControl={false} className={classes.mapContainer} center={JSON.parse(point)} zoom={11} {...options} >
             <TileLayer
                 // url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 url="http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}"

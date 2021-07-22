@@ -43,7 +43,7 @@ export default function EditProfileAppBar({ save, submiting, onSelectHeaderPictu
             </IconButton>} />
 
     return (
-        <AppBar  leftIcons={leftIcon} headerPic={headerBg||headerPic} rightIcon={rightIcon} middleCenterElement={setHeaderBtn} title="ویرایش پروفایل" />
+        <AppBar  leftIcons={leftIcon} paddingTop={40} paddingLeft={'0.29%'}  headerPic={headerBg||headerPic} rightIcon={rightIcon} middleCenterElement={setHeaderBtn} title="ویرایش پروفایل" />
     )
 }
 

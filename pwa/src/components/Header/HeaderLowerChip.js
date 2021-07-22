@@ -9,11 +9,12 @@ const useStyles = makeStyles((theme) => ({
     chip: {
         alignSelf: 'center',
         marginTop: 6,
-        background: '#00000094',
+        backgroundColor: 'rgba(0, 0, 0, 0.75)',
         color: 'white',
-        fontSize:10,
-        borderRadius: 8,
+        fontSize:13,
+        borderRadius: 5,
         height: 22,
+        padding : '4.64px 6px'
         // display :200-position.y<=70? 'none' :'',
     },
     chipIcon: {

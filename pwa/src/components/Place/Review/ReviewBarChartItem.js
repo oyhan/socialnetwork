@@ -3,13 +3,14 @@ import { Box, Grid, LinearProgress, makeStyles, Typography } from "@material-ui/
 const useStyle = makeStyles(theme => ({
     bar: {
         height: theme.spacing(1.2),
-        backgroundColor: theme.palette.background.default
+        backgroundColor: '#EFEFE3'
     },
     root: {
         margin: '1px 0'
     },
     barRow: {
-        alignSelf: 'center'
+        alignSelf: 'center',
+        marginLeft:10
     },
     bar2: {
         height: theme.spacing(2.7),
@@ -19,6 +20,9 @@ const useStyle = makeStyles(theme => ({
         borderStyle: 'solid',
         marginBottom: 10
 
+    },
+    barRowBig : {
+        alignSelf: 'center',
     }
 }))
 export default function ReviewBarChartItem({ count, total, title, size, ...props }) {
@@ -28,8 +32,8 @@ export default function ReviewBarChartItem({ count, total, title, size, ...props
 
     return (
         <Grid container className={classes.root}>
-            <Grid item xs={size == 'large' ? 3 : 2}><Typography variant={size == 'large' ? '' : 'subtitle2'} color='textSecondary'>{title}</Typography></Grid>
-            <Grid item xs={8} className={classes.barRow}>
+            <Grid item xs={size == 'large' ? 3 : 2}><Typography variant={size == 'large' ? '' : 'subtitle2'} className={size == 'large' ? 's15' : 's11'} color='textSecondary'>{title}</Typography></Grid>
+            <Grid item xs={8} className={size=='large' ? classes.barRowBig : classes.barRow}>
                 {
                     size === 'large' ? <LinearProgress {...props} classes={{ root: classes.bar2 }} variant="determinate" value={value} /> :
                         <LinearProgress {...props} classes={{ root: classes.bar }} variant="determinate" value={value} />
@@ -37,10 +41,10 @@ export default function ReviewBarChartItem({ count, total, title, size, ...props
             </Grid>
             <Grid item xs={1}>
                 {
-                    size === 'large' ? <Box m='0 15px'>
+                    size === 'large' ? <Box color='black' m='0 15px'>
                         {count}
                     </Box> :
-                        <Box m='0 5px'>
+                        <Box color='#6E6464' className='s12' m='1px 5px'>
                             {count}
                         </Box>
                 }

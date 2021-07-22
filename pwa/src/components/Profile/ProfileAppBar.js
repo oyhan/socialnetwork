@@ -40,7 +40,7 @@ export default function ProfileAppBar({ profileDto, readonly }) {
   )
 
   return (
-    <AppBar headerPic={profileDto.headerPic} leftIcons={leftIcon} extera={extera} />
+    <AppBar paddingTop={9} headerPic={profileDto.headerPic} leftIcons={leftIcon} extera={extera} />
   )
 }
 

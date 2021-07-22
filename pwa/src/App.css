@@ -64,11 +64,137 @@ button.MuiSpeedDial-fab[aria-expanded="true"] svg {
   font-family:  Titr !important;
   font-size: 1.25rem !important;
 }
+
+.titr22700{
+  font-family:  Titr !important;
+  font-size: 22px !important;
+  font-weight: 700 !important;
+}
+.titr14700{
+  font-family:  Titr !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+}
+.titr16700{
+  font-family:  Titr !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+}
+.titr19700{
+  font-family:  Titr !important;
+  font-size: 19px !important;
+  font-weight: 700 !important;
+}
 .titr2 {
   font-family:  Titr !important;
   font-size: .9rem !important;
+}
+.titr15 {
+  font-family:  Titr !important;
+  font-size: 15 !important;
+  font-weight: 700;
+}
+.titr15400 {
+  font-family:  Titr !important;
+  font-size: 15 !important;
+  font-weight: 400;
 }
 
 a{
   color : unset
 }
+.s19{
+  font-size : 19px !important;
+  font-weight: 400 !important;
+}
+.s20{
+  font-size : 20px !important;
+  font-weight: 400 !important;
+}
+.s23{
+  font-size : 13px !important;
+  font-weight: 400 !important;
+}
+.s22{
+  font-size : 22px !important;
+  font-weight: 400 !important;
+}
+
+.s17{
+  font-size: 17px !important;
+  font-weight: 400 !important;
+}
+.s14{
+  font-size: 14px !important;
+  font-weight: 400 !important;
+}
+.s13{
+  font-size: 13px !important;
+  font-weight: 400 !important;
+}
+.s12{
+  font-size: 12px !important;
+  font-weight: 400 !important;
+}
+.s11{
+  font-size: 11px !important;
+  font-weight: 400 !important;
+}
+
+
+.f1rem {
+  font-size: 1rem !important;
+}
+.action-sheet-group.sc-ion-action-sheet-ios > button:not(:last-child) {
+  border-bottom: 2px solid rgba(159, 156, 156, 1);
+}
+
+[data-rsbs-overlay], [data-rsbs-backdrop], [data-rsbs-root]:after {
+  background: rgba(245, 243, 243, 1) !important;
+}
+
+.s10{
+  font-size: 10px !important;
+  font-weight: 400 !important;
+}
+.s15{
+  font-size: 15px !important;
+  font-weight: 400 !important;
+}
+.placeTag{
+  color:  rgba(86, 79, 79, 1);
+  
+}
+.s16{
+  font-size: 16px !important;
+  font-weight: 400 !important;
+}
+
+.s27400{
+  font-weight: 400 !important;
+  font-size: 27px !important;
+}
+
+.titr23700{
+  font-weight: 700 !important;
+  font-family:  Titr !important;
+  font-size: 23px !important;
+}
+.s15700{
+  font-weight: 700 !important;
+  font-size: 15px !important;
+}
+.MuiTab-fullWidth {
+  flex-basis: unset !important;
+}
+
+.mandatory{
+  color: #645A5A;
+}
+.placePageTxt{
+  color :#5D5757
+}
+
+/* .MuiFormControl-marginNormal{
+  margin-top : 0;
+} */

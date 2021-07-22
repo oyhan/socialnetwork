@@ -23,14 +23,14 @@ export default function UserProfileAppBar({ headerPic, userName, handleFollow, f
     following ? "" : <IconButton className="z-index-510" onClick={handleFollow} aria-label="display follow actions" edge="end" color="inherit">
       <PersonAddIcon />
     </IconButton>,
-    <IconButton className="z-index-510" onClick={shareProfile} aria-label="display more actions" edge="end" color="inherit">
+    <IconButton className="z-index-510" onClick={shareProfile} aria-label="display more actions" color="inherit">
       <IosShareIcon />
     </IconButton>
 
   ]
 
   return (
-    <AppBar headerPic={headerPic} leftIcons={leftIcon} />
+    <AppBar headerPic={headerPic} paddingTop={10}  paddingLeft='2%' back leftIcons={leftIcon} />
   )
 }
 

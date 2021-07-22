@@ -15,17 +15,41 @@ import { useHistory } from 'react-router-dom'
 import CloseIcon from '@material-ui/icons/Close';
 import CallMadeIcon from '@material-ui/icons/CallMade';
 import ReviewNewDialog from "./Review/ReviewNewDialog";
+import "../../SearchBobo.css"
 const useStyles = makeStyles({
     customTextField: {
         "& input::placeholder": {
-            fontSize: "20px"
+            fontSize: 27,
+            fontWeight : 400,
+            color: 'rgba(159, 156, 156, 1)'
         }
-    },
+    } ,
+    customTextField2: {
+        "& input::placeholder": {
+            fontSize: 19,
+            fontWeight : 400,
+            color: 'rgba(159, 156, 156, 1)'
+        }
+    } ,
     arrowUpward: {
         transform: 'rotate(45deg)',
         fontSize: 53,
         margin: '30px 0'
 
+    },
+    arrowText:{
+        fontSize:19,
+        fontWeight:400,
+        color:'rgba(52, 48, 48, 0.84)'
+    },
+    container:{
+        height : '100vh'
+    },
+    closeBtn:{
+        "& svg" :{
+            fontSize : '2.0rem'
+        },
+        marginLeft: 'auto',
     }
 })
 export default function SearchForPlace() {
@@ -66,7 +90,7 @@ export default function SearchForPlace() {
         setTerm(event.target.value);
     }
     useEffect(() => {
-        console.log('searchInCity: ', searchInCity);
+        
 
         setDestination(destination)
 
@@ -86,17 +110,18 @@ export default function SearchForPlace() {
     return (
         <>
             <Toolbar className={classes.toolBar}>
-                <IconButton edge="start" color="primary" onClick={handleClose} aria-label="close">
+                <IconButton  color="primary" edge='end' className={classes.closeBtn} onClick={handleClose} aria-label="close">
                     <CloseIcon />
                 </IconButton>
             </Toolbar>
-            <Container>
+            <Container className={classes.container}>
                 <InputRenderer
+                    autoFocus
                     classes={{ root: classes.customTextField }}
                     InputProps={{
                         startAdornment: (
                             <InputAdornment position="start">
-                                <Search color="disabled" />
+                                <Search htmlColor='rgba(133, 125, 125, 1)'  />
                             </InputAdornment>
                         ),
                     }}
@@ -105,22 +130,14 @@ export default function SearchForPlace() {
                     Name="" fullWidth />
 
                 <InputRenderer
+                    classes={{ root: classes.customTextField2 }}
                     InputProps={{
                         startAdornment: (
                             <InputAdornment position="start">
-                                <LocationOnIcon color="disabled" />
+                                <LocationOnIcon htmlColor='rgba(133, 125, 125, 1)'  />
                             </InputAdornment>
                         ),
-                        endAdornment: (
-                            <InputAdornment position="end">
-                                <IconButton
-                                    aria-label="Toggle password visibility"
-                                    onClick={handleRemoveSearchIn}
-                                >
-                                    <CloseIcon />
-                                </IconButton>
-                            </InputAdornment>
-                        ),
+                       
                     }}
                     value={destination}
                     onChange={handleChangeDest}
@@ -132,7 +149,7 @@ export default function SearchForPlace() {
                         <CallMadeIcon color='primary' className={classes.arrowUpward} />
                     </Grid>
                     <Grid item >
-                        <Typography color='textSecondary'>
+                        <Typography className={classes.arrowText} >
                             مکان مورد نظر را برای نوشتن نظر را جستجو کنید
                         </Typography>
                     </Grid>

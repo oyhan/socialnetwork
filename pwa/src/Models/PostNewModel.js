@@ -21,7 +21,7 @@ export function usePostNewModelValidationSchema() {
         placeId: Yup.string().when('cityId', {
             is: value=> value!=="" && value !==undefined,
             then: Yup.string(),
-            otherwise: Yup.string().required("اجباری")
+            // otherwise: Yup.string().required("اجباری")
         }),
         cityId: Yup.string()
     }))

@@ -1,4 +1,4 @@
-import { CircularProgress, Grid, makeStyles, Typography } from '@material-ui/core';
+import { Box, CircularProgress, Grid, makeStyles, Typography } from '@material-ui/core';
 import cookieCutter from 'cookie-cutter';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -11,20 +11,21 @@ import useLocation from '../lib/hooks/location/useLocation';
 import { actions } from '../lib/reducer/actions';
 import { useStateValue } from '../lib/store/appState';
 import AppDivider from '../components/Dividers/AppDivider';
+import HomeSection from '../components/Home/HomeSection';
 
 const useStyles = makeStyles(theme => ({
   mapSymbole: {
     background: 'url(/mapsymbole.png)',
-    borderRadius: 15,
+    borderRadius: 9,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     height: 105,
-    margin: '5px 10px',
+    margin: '4px 7px 18px 7px',
     cursor: 'pointer'
   },
-  title: {
+  nearestRestaurantTitle: {
     marginBottom: theme.spacing(1),
-    marginTop: theme.spacing(1),
+    marginTop: '30px',
   }
 }))
 
@@ -103,43 +104,28 @@ export default function Home() {
   useEffect(() => {
     // dispatch({ type: actions.APPBAR, payload: <HomeAppBar /> });
     var user = getUser();
-    
+
 
     dispatch({ type: actions.USER, payload: { ...user, isAuthenticated: true, location: "" } })
   }, [])
 
   return (
     <>
-
       <HomeAppBar />
-
-      {loading ? <CircularProgress size="1rem" /> :
-        <>
-          <Grid justify='space-between' direction='row' spacing={0} container className={classes.title} >
-            <Typography component='h4'>
-              نزدیکترین کافه ها و رستوران‌ها
-            </Typography>
-
-            <Link to="/seeallclose" >
-              <Typography color='primary'>
-                همه را ببین
-              </Typography>
-            </Link>
-
-          </Grid>
-          <HorizontalSlider Component={SliderItem} items={cardPosts} />
-        </>
-      }
-      {/* <HomeMap points={cardPosts.map(p => p.latLon)} /> */}
-
+      <HomeSection loading={loading} items={cardPosts} title='نزدیکترین کافه ها و رستوران‌ها' linkTo="/seeallclose" className={classes.nearestRestaurantTitle} />
       <AppDivider />
 
-      <Grid justify='space-between' direction='row' spacing={0}
-        container className={classes.title} >
-        <Typography variant='h6'>
-          مکان‌های اطراف  را جستجو کنید
+      <Box m='0 7px'>
+        <Grid justify='space-between' direction='row' spacing={0}
+          container >
+          <Box m='12px 0 9px 0'>
+            <Typography variant='h6' className='s19'>
+              مکان‌های اطراف  را جستجو کنید
         </Typography>
-      </Grid>
+          </Box>
+        </Grid>
+      </Box>
+
       <Link to={{ state: cardPosts, pathname: "/nearme" }}>
         <div className={classes.mapSymbole}>
 
@@ -147,25 +133,15 @@ export default function Home() {
       </Link>
 
       <AppDivider />
+      <Box m='13px 10px 27px 10px'>
+        <Grid container>
+          <Typography className='s19'>
+            پیشنهاد شده برای شما
+        </Typography>
+        </Grid>
+      </Box>
 
-      {loading ? <CircularProgress size="1rem" /> :
-        <>
-          <Grid justify='space-between' direction='row' spacing={0} container className={classes.title} >
-            <Typography component='h4'>
-              رستوران‌های برتر یزد
-            </Typography>
-            <Link to="/seeallbest" >
-              <a>
-                <Typography color='primary'>
-                  همه را ببین
-                </Typography>
-              </a>
-            </Link>
-          </Grid>
-          <HorizontalSlider Component={SliderItem} items={recommandedRests} />
-        </>
-      }
-
+      <HomeSection loading={loading} items={recommandedRests} title='رستوران‌های برتر یزد' linkTo="/seeallbest" />
       <AppDivider />
 
       <HomePosts posts={timeLine.followingsPosts || []} />

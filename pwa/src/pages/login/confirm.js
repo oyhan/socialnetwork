@@ -106,6 +106,24 @@ export default function Confirm() {
     const retry = () => {
         setTimer(120);
     }
+    const onkeydown=(e)=>{
+        console.log('e: ', e);
+            if (e.shiftKey === true ) {
+                if (e.which == 9) {
+                    return true;
+                }
+                e.preventDefault();
+            }
+            if (e.which > 57 && e.which < 96 && e.which > 105) {
+                e.preventDefault();
+
+            }
+            if (e.which==32) {
+                e.preventDefault();
+
+            }
+            return true;
+    }
 
     return (
         <Grid justify='space-evenly' direction='column' container className={classes.root} >
@@ -129,3 +147,4 @@ export default function Confirm() {
     )
 }
 
+ 

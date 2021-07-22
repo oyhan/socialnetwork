@@ -8,8 +8,8 @@ import MoreDialog from "../../Dialog/Dialog";
 const useStyles = makeStyles((theme) => ({
     root: {
         position: 'absolute',
-        top: 104,
-        width: 320,
+        top: 154,
+        width: 'calc(100vw - 12%)',
         left: '10vw',
         zIndex: 10000,
 
@@ -25,11 +25,14 @@ const useStyles = makeStyles((theme) => ({
 
     },
     avatar: {
-        width: 90,
-        height: 90,
+        width: 100,
+        height: 100,
         // color: theme.palette.secondary.light,
-        border: '5px solid',
+        border: '4px solid',
         backgroundColor: theme.palette.tertiary.main,
+        "& svg" : {
+            fontSize : '2.1rem'
+        }
     },
     avatorBtn: {
         width: theme.spacing(9),
@@ -41,11 +44,11 @@ const useStyles = makeStyles((theme) => ({
     avatarTxt: {
         marginTop: 19,
         marginRight: 3,
-        marginLeft: 9,
+        marginLeft:18,
 
     },
     more: {
-        lineHeight: 4.5,
+        lineHeight: 6,
         marginLeft: 'auto',
         marginRight: 11,
     }
@@ -82,10 +85,10 @@ export default function UserProfileAvatar({ userName, displayName, avatarURl }) 
                 </Avatar>
             </IconButton>
             <Grid item direction='column' className={classes.avatarTxt}>
-                <Typography color='textPrimary' className='titr'>
+                <Typography color='textPrimary' className='titr22700'>
                     {displayName}
                 </Typography>
-                <Typography color='primary' variant='caption'>
+                <Typography color='textPrimary' className='s15'>
                     {userName && `@${userName}` || '@نام کاربری'}
                 </Typography>
             </Grid>

@@ -8,29 +8,39 @@ const usePlacePageStyles = makeStyles(theme => ({
         alignSelf: 'center'
     },
     row: {
-        margin: '5px 0',
-        width : '100%',
+        margin: '7px 0',
+        width: '100%',
     },
     map: {
-        height: 100
+        height: 100,
+        margin : '10px 0',
+        "& > div" :{
+            borderRadius : 9
+        }
     },
-    row2 : {
-        padding : '0 10px'
+    row2: {
+        padding: '0 10px'
 
     },
-    endingBlock  :{
-        marginBottom : 50
+    endingBlock: {
+        marginBottom: 30
     },
     mapSymbole: {
         background: 'url(/mapsymbole.png)',
-        borderRadius: 15,
+        borderRadius: 9,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         height: 105,
-        margin: '5px 10px',
+        margin: '4px 0px 18px 0px',
         cursor: 'pointer'
-      },
-   
+    },
+    infoWrapper: {
+        "& svg": {
+            fontSize: 20,
+            marginRight: 5,
+            marginLeft:5
+        }
+    }
 }))
 
 

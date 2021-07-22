@@ -8,7 +8,7 @@ const useStyle = makeStyles(theme => ({
         height: '100vh',
     },
     body: {
-        flex: .95,
+        flex: .98
     },
     logoHolder: {
         width: 90,
@@ -32,6 +32,11 @@ const useStyle = makeStyles(theme => ({
     footer: {
         marginBlockStart: "auto",
         marginBottom: "10px",
+        height: 44,
+        fontSize: 20
+    },
+    btnWrapper: {
+        width: '160px',
     }
 }))
 
@@ -62,6 +67,23 @@ export default function Start() {
                             ورود
                         </ButtonBobo>
                     </Link>
+                    <Grid container justify='space-around'>
+                        <Grid item className={classes.btnWrapper} >
+                            <Link to="/login">
+                                <ButtonBobo className={classes.btn} fullWidth>
+                                    ورود
+                                </ButtonBobo>
+                            </Link>
+                        </Grid>
+
+                        <Grid item className={classes.btnWrapper} >
+                            <Link to="/signup">
+                                <ButtonBobo className={classes.btn} fullWidth>
+                                    ثبت نام
+                                </ButtonBobo>
+                            </Link>
+                        </Grid>
+                    </Grid>
                 </Grid>
             </Grid>
         </Container>

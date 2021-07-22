@@ -1,4 +1,6 @@
 import { lazy } from 'react';
+import PostNewPage from '../components/Post/PostNewPage';
+import SearchPlacePost from '../components/Post/SearchPlacePost';
 import AllReviews from '../pages/allreviews';
 import Home from '../pages/Home';
 import ConfirmLogin from '../pages/login/confirm';
@@ -27,6 +29,8 @@ const MyBobo = lazy(() => import('../pages/mybobo'));
 const Routes = {
     
     user: [
+        { path: "/newPost",  private: true, component: <PostNewPage />},
+        { path: "/searchPlacePost",  private: true, component: <SearchPlacePost />},
         { path: "/place/allreviews/:placeId",  private: true, component: <AllReviews />},
         { path: "/seeallclose",  private: true, component: <SeeAllClose />},
         { path: "/seeallbest",  private: true, component: <SeeAllBest />},
@@ -47,8 +51,8 @@ const Routes = {
         { path: "/mybobo",  private: true, component: <MyBobo /> },
         { path: "/editprofile",  private: true, component: <EditProfile /> },
         { path: "/profile/:userName",  private: false, component: <Profile /> },
-        { path: "/place/:placeId",  private: false, component: <Place /> },
-        { path: "/favorites",  private: false, component: <Favorites /> },
+        { path: "/place/:placeId",  private: true, component: <Place /> },
+        { path: "/favorites",  private: true, component: <Favorites /> },
         { path: "/",  private: true, component: <Home /> },
     ]
 };

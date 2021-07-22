@@ -1,4 +1,4 @@
-import { Card, CardActions, CardContent, CardMedia, IconButton, makeStyles, Typography } from '@material-ui/core';
+import { Card, CardActions, CardContent, CardMedia, Grid, IconButton, makeStyles, Typography } from '@material-ui/core';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteTwoToneIcon from '@material-ui/icons/FavoriteTwoTone';
 import RoomIcon from '@material-ui/icons/Room';
@@ -6,55 +6,56 @@ import { Link } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { BrowserHttpClient } from '../../../lib/BrowserHttpClient';
 import Rate from '../../Rate/Rate';
+import HeartIcon from '../../Icons/HeartIcon';
 const useStyles = makeStyles(theme => ({
     root: {
         position: 'relative',
         maxWidth: 150,
-        minWidth: 122,
+        minWidth: 130,
         height: 124
     },
     media: {
-        height: 88,
+        height: 80,
+        width: 130,
     },
     btn: {
         position: 'absolute',
-        top: 10,
-        right: 5,
-        background: '#ffffff7d',
+        top: 8.88,
+        right: 11.25,
+        // background: '#ffffff7d',
         "&:hover": {
             // background :theme.palette.secondary.light
         }
 
-        // display:'flex',
-        // flexDirection  : 'column',
-        // alignItems : 'center',
     },
     ratesCount: {
-        fontSize: "10px",
-        lineHeight: "16px",
-        paddingLeft: 4,
+        fontSize: 10,
+        lineHeight: '18px',
+        paddingLeft: 6,
     },
-    inline: {
-        display: 'flex'
-    },
+    
     distance: {
-        fontSize: 9,
+        fontSize: 8,
         marginRight: 0,
         lineHeight: 1.5,
     },
-    content: {
-        "& div": {
-            marginBottom: -2
-        },
-        padding: 1
-    },
+   
     placeTitle: {
-        fontSize: 11,
-        marginBottom: '-4px',
-        marginTop: '-5px',
+        fontSize: 10,
+        margin: '-3px 0px',
     },
-    smalIcon :{
-        fontSize : '.7rem'
+    smalIcon: {
+        fontSize: '.6rem'
+    },
+   
+    placeIcon:{
+        marginLeft :-1
+    },
+    rateContainer :{
+        margin: '-2px 0',
+    },
+    specsContainer: {
+        marginTop : 2
     }
 
 }));
@@ -93,37 +94,39 @@ export default function SliderItem({ image, title, rate, ratesCount, distance, f
                     title=""
                 />
             </Link>
-            <CardContent className={classes.content} >
-                <Typography className={classes.placeTitle} variant="caption" component="h6">
-                    {title}
-                </Typography>
-                <div className={classes.inline}>
+
+            <Grid container className={classes.specsContainer}>
+                <Grid container>
+                    <Typography variant="caption" className={classes.placeTitle} component="h6">
+                        {title}
+                    </Typography>
+                </Grid>
+
+                <Grid  container direction='row'>
                     <Rate size='small' value={rate} />
                     <Typography className={classes.ratesCount} color='textSecondary'>
-                        <span>({ratesCount})</span>
-
+                       ({ratesCount})
                     </Typography>
-                </div>
-                <div className={classes.inline}>
-                    <RoomIcon classes={{fontSizeSmall : classes.smalIcon}} fontSize="small" />
+                </Grid>
+                <Grid container direction='row'>
+                    <RoomIcon classes={{ fontSizeSmall: classes.smalIcon }} className={classes.placeIcon} fontSize="small" />
                     <Typography className={classes.distance} color='disabled'>
                         {distance}
                     </Typography>
-                </div>
+                </Grid>
 
-            </CardContent>
+            </Grid>
 
-
-            <CardActions>
+           
 
                 <IconButton size='small' onClick={handlFave} aria-label="favorite" className={classes.btn}>
                     {
                         faved ? <FavoriteIcon fontSize='small' color='primary' /> :
-                            <FavoriteTwoToneIcon fontSize="small" />
+                            <HeartIcon fontSize="small" />
                     }
                 </IconButton>
 
-            </CardActions>
+          
         </Card>
 
     )

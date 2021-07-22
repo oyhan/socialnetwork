@@ -17,6 +17,13 @@ import {
           borderLeftWidth: 6,
           padding: '4px !important', // override inline-style
         },
+        '& ::placeholder': {
+          // textOverflow: 'ellipsis !important',
+          color: 'rgba(159, 156, 156, 0.51)',
+          fontSize : 15,
+          fontWeight:400
+        }
+        
       },
     })(TextField);
   

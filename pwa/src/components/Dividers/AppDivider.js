@@ -2,9 +2,9 @@ import { Divider, makeStyles } from "@material-ui/core";
 
 const useStyle = makeStyles(theme => ({
     divider: {
-        height: 8,
+        height: 9,
         background: '#e6e0e0',
-        margin: '10px 0px',
+        margin: '4px 0px',
         [theme.breakpoints.down("sm")]: {
             width: ' 100vw'
         },

@@ -59,6 +59,7 @@ namespace Mahoor.Services.ExtentionMethods
                 Id = post.Id,
                 CreatedDate = post.CreatedDate,
                 UserName = post.User.UserName,
+                DisplayName = post.User.DisplayName
 
             };
         }

@@ -21,18 +21,18 @@ export default ProfileModel;
 export function useProfileModelValidationSchema() {
     const [{ user }] = useStateValue();
     return (Yup.object({
-        displayName: Yup.string().required("اجباری").typeError("").min(6, "حداقل 6  کاراکتر").max(20, "حداکثر 20 کاراکتر"),
-        userName: Yup.string().required("اجباری").min(6, "حداقل 6  کاراکتر").max(20, "حداکثر 20 کاراکتر")
-            .test('Unique Email', "نام کاربری تکراریست",
-                (value) => {
-                    if (user.userName == value)
-                        return true;
-                    else return BrowserHttpClient.Get(`/user/UsernameAvailable/${value}`)
-                        .then(() => true).catch(() => false)
-                })
+        // displayName: Yup.string().required("اجباری").typeError("").min(6, "حداقل 6  کاراکتر").max(20, "حداکثر 20 کاراکتر"),
+        // userName: Yup.string().required("اجباری").min(6, "حداقل 6  کاراکتر").max(20, "حداکثر 20 کاراکتر")
+        //     .test('Unique Email', "نام کاربری تکراریست",
+        //         (value) => {
+        //             if (user.userName == value)
+        //                 return true;
+        //             else return BrowserHttpClient.Get(`/user/UsernameAvailable/${value}`)
+        //                 .then(() => true).catch(() => false)
+        //         })
 
-        ,
-        cityId: Yup.string().typeError("اجباری").required("اجباری"),
+        // ,
+        // cityId: Yup.string().typeError("اجباری").required("اجباری"),
         favorites: "",
         website: "",
         bio: ""

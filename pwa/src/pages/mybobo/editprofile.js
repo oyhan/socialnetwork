@@ -6,11 +6,13 @@ import InfoIcon from '@material-ui/icons/Info';
 import LanguageIcon from '@material-ui/icons/Language';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import { useFormik } from 'formik';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from "react-router-dom";
 import { toast } from 'react-toastify';
 import AutoCompleteInput from '../../components/AutoComplete/AutoCompleteInput';
+import SearchDialog from '../../components/Dialog/SearchDialog';
 import EditProfileAppBar from '../../components/Profile/EditProfile/EditProfileAppBar';
+import SearchCity from '../../components/Profile/EditProfile/SearchCity';
 import ProfileAvatar from '../../components/Profile/ProfileAvatar';
 import { BrowserHttpClient, useHttpClient } from '../../lib/BrowserHttpClient';
 import formikObjectBuilder from '../../lib/formik/formikObjectBuilder';
@@ -25,19 +27,20 @@ const useStyle = makeStyles((theme) => ({
     text: {
         color: theme.palette.primary.main
     },
-    inputs : {
-        "&  svg" :{
-            color : '#857D7D'
+    inputs: {
+        "&  svg": {
+            color: '#857D7D'
         },
-        "& input::placeholder" :{
-            fontSize : 16,
+        "& input::placeholder": {
+            fontSize: 16,
             color: '#8A7F7F',
         }
     }
 }))
 export default function EditProfile() {
     const [, dispatch] = useStateValue();
-    const classes= useStyle();
+    const classes = useStyle();
+    const [openSearch,setOpenSearch] = useState(false);
     const [loading, user, error] = useHttpClient("/profile/me", "Get", r => r.response);
     const router = useHistory();
     const { avatarURl, bio, city, favorites, noOfFollowers,
@@ -92,7 +95,11 @@ export default function EditProfile() {
 
         formik.setFieldValue("header", headerFile)
     }
-
+    const selectCity = (citySelected)=> {
+        formik.setFieldValue("cityId", citySelected.id)
+        formik.setFieldValue("city", citySelected.name);
+        setOpenSearch(false);
+    }
     return <>
         <EditProfileAppBar headerPic={user.headerPic} submiting={formik.isSubmitting} save={onsubmit(formik)} onSelectHeaderPicture={handleSelectHeaderPicture} />
 
@@ -103,7 +110,7 @@ export default function EditProfile() {
                 key="displayName"
                 error={formik.errors.displayName}
                 onChange={formik.handleChange}
-               
+
                 Name="displayName"
                 // Hint={formik.errors.displayName}
                 value={formik.values.displayName}
@@ -146,6 +153,7 @@ export default function EditProfile() {
                         </InputAdornment>
                     ),
                 }}
+                onClick={()=>setOpenSearch(true)}
                 error={formik.errors.cityId}
                 key="city"
                 value={formik.values.city}
@@ -213,6 +221,10 @@ export default function EditProfile() {
             <Typography>
                 حداکثر 160 کاراکتر
          </Typography>
+
+         <SearchDialog handleWindow={setOpenSearch} open={openSearch} >
+             <SearchCity handleSelectedCity={selectCity} />
+         </SearchDialog>
         </Container>
     </>
 

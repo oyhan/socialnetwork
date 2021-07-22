@@ -133,8 +133,9 @@ export default function Confirm() {
                     ورود
                 </Typography>
                 <SimpleInput autoComplete="off" disabled={formik.isSubmitting} onChange={formik.handleChange}
-                    error={formik.errors.otp}
-                    type={'text'} name="otp"
+                    // error={formik.errors.otp}
+                    onKeyDown={onkeydown}
+                     type={'text'} name="otp"
                     inputClassName={classes.input}
                     errorClassName={classes.error}
                     placeholder="――――――" />

@@ -21,7 +21,7 @@ export default function PlaceOverview(props) {
 
     const { name, noOfReviews, cuisine, distanceToUser, website, telephone, rate, isOpenNow, services, favorite,
         address, location, placeId } = props;
-        console.log('id: ', placeId);
+    console.log('id: ', placeId);
     const [faved, setFaved] = useState(false);
 
     useEffect(() => {
@@ -74,7 +74,7 @@ export default function PlaceOverview(props) {
                 <Grid item>
                     <Grid container direction='column' alignItems='center'>
                         <Grid item>
-                            <IconButton onClick={handlFave}  aria-label="add to favorites" >
+                            <IconButton onClick={handlFave} aria-label="add to favorites" >
                                 {
                                     faved ? <FavoriteIcon color='primary' fontSize='small' /> : <FavoriteBorderIcon fontSize='small' htmlColor='black' />
                                 }
@@ -92,11 +92,13 @@ export default function PlaceOverview(props) {
                 </Grid>
             </Grid>
 
-            <Grid container className={classes.row2}>
-                <Typography variant='body2' className='placePageTxt'>
-                    {cuisine}ایرانی،بین المللی،خاورمیانه
+            <Box marginTop='12px'>
+                <Grid container className={classes.row2}>
+                    <Typography variant='body2' className='placePageTxt'>
+                        {cuisine}ایرانی،بین المللی،خاورمیانه
                 </Typography>
-            </Grid>
+                </Grid>
+            </Box>
 
 
             <Box m='0 10px' className={classes.infoWrapper}>

@@ -5,8 +5,10 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Mahoor.Data;
+using Mahoor.Data.Queries.Post;
 using Mahoor.Data.Queries.Review;
 using Mahoor.DomainObjects.Place;
+using Mahoor.DomainObjects.Post;
 using Mahoor.DomainObjects.Review;
 using Mahoor.Services.Dtos;
 using Mahoor.Services.ExtentionMethods;
@@ -21,25 +23,29 @@ namespace Mahoor.Services.Place.Handlers
     {
         private readonly IAppRepository<BasePlaceModel, Guid> _placeRepository;
         private readonly IAppRepository<ReviewModel, Guid> _reviewRepository;
+        private readonly IAppRepository<PostModel, Guid> _postRepository;
 
-        public PlaceGetPhotosCommandHandler(IAppRepository<BasePlaceModel,Guid> placeRepository, IAppRepository<ReviewModel,Guid> _reviewRepository)
+        public PlaceGetPhotosCommandHandler(IAppRepository<BasePlaceModel,Guid> placeRepository, IAppRepository<ReviewModel,Guid> _reviewRepository,IAppRepository<PostModel,Guid> postRepository)
         {
             _placeRepository = placeRepository;
             this._reviewRepository = _reviewRepository;
+            _postRepository = postRepository;
         }
         public async Task<BaseServiceResponse<List<MediaDto>>> Handle(PlaceGetPhotosCommand request, CancellationToken cancellationToken)
         {
             try
             {
                 var place =await _placeRepository.GetByIdAsync(request.PlaceId,p=>p.Medias);
-
+                var postsPhotosForThisPlace =await _postRepository.ListAsync(p=>p.Medias,new GetPostsByPlaceIdQuery(request.PlaceId));
+                
                 var placeReviewsMedias = await _reviewRepository.ListAsync(r=>r.Medias,
                     new GetRestaurantReviewsOrderedByDateVisitedDescQuery(request.PlaceId, request.From, request.To));
-
+                
                 var placePhotos = new List<MediaDto>();
 
                 placePhotos.AddRange(place.Medias.Select(m=>m.ToMediaDto()));
                 placePhotos.AddRange(placeReviewsMedias.SelectMany(m=>m).Select(m=>m.ToMediaDto()));
+                placePhotos.AddRange(postsPhotosForThisPlace.SelectMany(m=>m).Select(m=>m.ToMediaDto()));
 
                 return BaseServiceResponse<List<MediaDto>>.SuccessFullResponse(placePhotos);
             }

@@ -17,7 +17,7 @@ export default function PlacePage({ placeDetail, placeId, photos, loadingPhotos 
 
     return (
         <>
-            <PlacePageAppBar place={placeDetail} photos={photos} />
+            <PlacePageAppBar placeId={placeId} place={placeDetail} photos={photos} />
             <ScrollSpyTabs
                 offset={140}
                 tabsInScroll={[

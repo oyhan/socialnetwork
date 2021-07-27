@@ -10,6 +10,7 @@ import useFormikObjectBuilder from '../../lib/formik/formikObjectBuilder';
 import { useSignUpModelValidationSchema } from '../../Models/SignupModel';
 import { Input } from '@material-ui/icons';
 import SimpleInput from '../../components/Input/SimpleInput';
+import { normalizenumber } from '../../lib/normalizations';
 
 const useStyle = makeStyles((theme) => ({
     text: {
@@ -59,7 +60,7 @@ export default function Signup() {
             BrowserHttpClient.Post("/User/Register", JSON.stringify(formik.values))
                 .then(response => {
                     formik.setSubmitting(false);
-                    history.push("/signup/confirm", { phoneNumber: formik.values.phoneNumber });
+                    history.push("/signup/confirm", { phoneNumber: normalizenumber(formik.values.phoneNumber) });
                     toast.success("کد تایید برای شما پیامک شد");
                 }).catch(error => {
                     formik.setSubmitting(false);

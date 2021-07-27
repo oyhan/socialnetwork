@@ -117,15 +117,17 @@ export default function AllReviews() {
 
                                 </Box>
                             </Typography>
-                            <Grid container>
-                                {
-                                    rate != undefined && <Rate value={rate} />
-                                }
+                            <Box m='5px 0'>
+                                <Grid container>
+                                    {
+                                        rate != undefined && <Rate value={rate} />
+                                    }
                               &nbsp;
                     <Typography color='textSecondary' >
-                                    {noOfReviews} نظر
+                                        {noOfReviews} نظر
                     </Typography>
-                            </Grid>
+                                </Grid>
+                            </Box>
                             <Typography variant='caption'>{cuisine}</Typography>
 
                         </Grid>

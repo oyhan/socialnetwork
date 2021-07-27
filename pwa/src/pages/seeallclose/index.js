@@ -1,4 +1,4 @@
-import { Grid, IconButton, Typography } from "@material-ui/core";
+import { Container, Divider, Grid, IconButton, Typography } from "@material-ui/core";
 import SearchIcon from '@material-ui/icons/Search';
 import { useState } from "react";
 import AppBar from "../../components/AppBar/AppBar";
@@ -29,10 +29,12 @@ export default function SeeAllClose() {
     return (
         <>
             <AppBar back leftIcons={leftIcons} short title={<HeaderTopChip variant='secondary' handleClick={() => { }} title="نزدیک" />} />
-            <Typography>
-                رستوران ها
+            <Container>
+                <Typography>
+                    رستوران ها
             </Typography>
-            <ThinDivider />
+            </Container>
+            <Divider />
             {
                 loading ? <AppLoader /> : <VerticalSlider items={nearRestaurants} Component={SliderItem1} />
             }
@@ -41,6 +43,8 @@ export default function SeeAllClose() {
             </Grid>
 
             <SearchBobo open={openSeachBobo} handleWindow={setOpenSeachBobo} />
+
+
 
         </>
     )

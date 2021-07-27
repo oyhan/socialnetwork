@@ -72,7 +72,8 @@ const useStyles = (position) => makeStyles((theme) => ({
     }
 }));
 
-export default function PlacePageAppBar({ photos, place }) {
+export default function PlacePageAppBar({ photos, place,placeId }) {
+    
     const [open, setOpen] = useState();
     const handleClick = () => {
         setOpen(true);
@@ -122,7 +123,7 @@ export default function PlacePageAppBar({ photos, place }) {
         const shareData = {
             title: `رستوران ${place.name} را ببینید`,
             // text: text,
-            url: `/place/${place.id}`,
+            url: `/place/${placeId}`,
         }
         try {
             await navigator.share(shareData)

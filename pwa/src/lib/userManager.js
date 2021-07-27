@@ -19,7 +19,12 @@ const UserManager = {
     Login: function (httpContext, httpClient) {
 
     },
-
+    Jwt : function(){
+        var jwt = localStorage.getItem("jwt");
+        if(jwt){
+            return JSON.parse(jwt);
+        }
+    },
     IsAuthenticated: function () {
         const result = this.Load() != null;
 

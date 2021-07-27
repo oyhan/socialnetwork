@@ -39,7 +39,7 @@ function a11yProps(index) {
   };
 }
 
-const useStyles=(indicatorHeight) => makeStyles((theme) => ({
+const useStyles = (indicatorHeight) => makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.default,
     height: '100%',
@@ -50,18 +50,27 @@ const useStyles=(indicatorHeight) => makeStyles((theme) => ({
   },
   sticky: {
     position: 'sticky',
-    background : 'white'
+    background: 'white',
+    borderBottom: '9px solid rgba(231, 224, 224, 1)'
     // top : 150
   },
-  indicator:{
-    height : indicatorHeight || 1
+  indicator: {
+    height: indicatorHeight || 1
+  },
+  inactivTab: {
+    color: 'rgba(159, 156, 156, 1)'
+  },
+  activeTab: {
+    "& span": {
+      color: 'black !important'
+    }
   }
   //   tabRoot : {
   //       width : 
   //   }
 }));
 
-export default function FullWidthTabs({ tabs, tabsContent , indicatorHeight }) {
+export default function FullWidthTabs({ tabs, tabsContent, indicatorHeight }) {
   const classes = useStyles(indicatorHeight)();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
@@ -90,13 +99,13 @@ export default function FullWidthTabs({ tabs, tabsContent , indicatorHeight }) {
           {
             root: classes.sticky,
             indicator: classes.indicator,
-            
+
           }
         }
       >
         {
           tabs && tabs.map((tab, i) =>
-            <Tab textColor='' label={tab} key={i} {...a11yProps(i)} />
+            <Tab classes={{ wrapper: classes.inactivTab, selected: classes.activeTab }} textColor='' label={tab} key={i} {...a11yProps(i)} />
 
           )
         }

@@ -10,6 +10,7 @@ import SimpleInput from '../../components/Input/SimpleInput';
 import OtpTimer from '../../components/OtpTimer/OtpTimer';
 import { setCredentials } from '../../helper/cookieHelper';
 import { BrowserHttpClient } from '../../lib/BrowserHttpClient';
+import { normalizenumber } from '../../lib/normalizations';
 import { actions } from '../../lib/reducer/actions';
 import { useStateValue } from '../../lib/store/appState';
 
@@ -60,8 +61,8 @@ export default function Confirm() {
 
         formik.setSubmitting(true);
         const baseUrl = "";
-        const otp = formik.values.otp;
-        BrowserHttpClient.Post(`${baseUrl}/User/ConfirmPhoneNumber/${location.state.mobileNumber}/${otp}`).
+        const otp = normalizenumber(formik.values.otp);
+        BrowserHttpClient.Post(`${baseUrl}/User/ConfirmPhoneNumber/${normalizenumber(location.state.mobileNumber)}/${otp}`).
             then((response) => {
 
                 setCredentials(response);

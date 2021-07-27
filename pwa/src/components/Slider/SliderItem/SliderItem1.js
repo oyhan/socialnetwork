@@ -1,4 +1,4 @@
-import { Divider, Grid, makeStyles, Typography } from "@material-ui/core";
+import { Container, Divider, Grid, makeStyles, Typography } from "@material-ui/core";
 import BoboChip from "../../Chip/Chip";
 import ThinDivider from "../../Dividers/ThinDevider";
 import Rate from "../../Rate/Rate";
@@ -41,37 +41,39 @@ export default function SliderItem1({ rate, placeType, name, noOfReviews, distan
     const classes = useStyles();
     return (
         <>
-            <Grid container className={classes.root}>
-                <Grid item xs={3} className={classes.imagediv}>
-                    <img className={classes.image} src="/coffeeshop2.jpg" />
-                </Grid>
-                <Grid item xs={9} className={classes.contentDiv}>
-                    <Grid container direction='column'>
-                        <Typography className={classes.title} >
-                            {name}
-                        </Typography>
-                        <div className={classes.rate} >
-                            <Rate size='small' value={rate} /> &nbsp;
-                            <Typography variant='subtitle2' color='textSecondary'>
-                                <span >{noOfReviews} نظر</span>
+            <Container>
+                <Grid container className={classes.root}>
+                    <Grid item xs={3} className={classes.imagediv}>
+                        <img className={classes.image} src="/coffeeshop2.jpg" />
+                    </Grid>
+                    <Grid item xs={9} className={classes.contentDiv}>
+                        <Grid container direction='column'>
+                            <Typography className={classes.title} >
+                                {name}
                             </Typography>
-                        </div>
+                            <div className={classes.rate} >
+                                <Rate size='small' value={rate} /> &nbsp;
+                            <Typography variant='subtitle2' color='textSecondary'>
+                                    <span >{noOfReviews} نظر</span>
+                                </Typography>
+                            </div>
 
 
-                        <Typography variant="caption" color="textSecondary" className={classes.inline}>
-                            <BoboChip size="small" label={`${distanceString}`} />
+                            <Typography variant="caption" color="textSecondary" className={classes.inline}>
+                                <BoboChip size="small" label={`${distanceString}`} />
                                 &nbsp;
                                 <Typography variant='subtitle2'>
-                                فاصله از موقعیت کنونی
+                                    فاصله از موقعیت کنونی
                                     </Typography>
-                        </Typography>
+                            </Typography>
 
-                        <Typography variant='subtitle2' color='textSecondary'>
-                            {placeType || "ایرانی،بین‌المللی"}
-                        </Typography>
+                            <Typography variant='subtitle2' color='textSecondary'>
+                                {placeType || "ایرانی،بین‌المللی"}
+                            </Typography>
+                        </Grid>
                     </Grid>
                 </Grid>
-            </Grid>
+            </Container>
             <Divider style={{ width: '100%' }} />
             {/* <ThinDivider /> */}
         </>

@@ -62,7 +62,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 
-export default function PostNewDialog({ open, handleWindow, cityId, photos }) {
+export default function PostNewDialog({ open, handleWindow, cityId,placeId, photos }) {
     const router = useHistory();
     const classes = useStyles();
     const [urls, setUrls] = useState([]);
@@ -122,7 +122,7 @@ export default function PostNewDialog({ open, handleWindow, cityId, photos }) {
     var formik = useFormik(useFormikObjectBuilder({
         text: "",
         files: photos[0],
-        placeId: "",
+        placeId: placeId,
         cityId: cityId
     }, schema, onsubmit))
 
@@ -147,7 +147,9 @@ export default function PostNewDialog({ open, handleWindow, cityId, photos }) {
         }
     }
 
-   
+   const shouldShowAddLocation = ()=>{
+     return !cityId && !placeId 
+   }
 
     return (
         <div  >
@@ -186,7 +188,7 @@ export default function PostNewDialog({ open, handleWindow, cityId, photos }) {
                         </Grid>
                     </Grid>
                     <Divider className={classes.divider} />
-                    {!cityId &&
+                    {shouldShowAddLocation() &&
 
                         <Grid container justify='space-between' className={classes.selectTagContainer} >
                             <SearchIcon htmlColor='rgba(100, 90, 90, 0.7)' />

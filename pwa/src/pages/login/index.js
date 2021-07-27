@@ -7,6 +7,7 @@ import * as Yup from 'yup';
 import ButtonBobo from '../../components/Button/ButtonBobo';
 import SimpleInput from '../../components/Input/SimpleInput';
 import { BrowserHttpClient } from '../../lib/BrowserHttpClient';
+import { normalizenumber } from '../../lib/normalizations';
 
 
 const useStyles = makeStyles({
@@ -48,11 +49,11 @@ export default function Login() {
     const onSubmit = () => {
 
         formik.setSubmitting(true);
-        BrowserHttpClient.Post(`${baseUrl}/user/login/${formik.values.mobilenumber}`).
+        BrowserHttpClient.Post(`${baseUrl}/user/login/${ normalizenumber(formik.values.mobilenumber)}`).
             then((respons) => {
 
                 formik.setSubmitting(false);
-                history.push("/login/confirm", { mobileNumber: formik.values.mobilenumber });
+                history.push("/login/confirm", { mobileNumber: normalizenumber(formik.values.mobilenumber) });
                 toast.success("کد تایید برای شما پیامک شد");
 
             }).catch(error => {

@@ -6,13 +6,14 @@ using System.Text;
 
 namespace Mahoor.Data.Queries.Post
 {
-   public sealed class GetPostsByCityIdQuery : BaseSpecification<PostModel,Guid>
+   public sealed class GetPostsByPlaceIdQuery : BaseSpecification<PostModel,Guid>
     {
-        public GetPostsByCityIdQuery(Guid cityId)
+        public GetPostsByPlaceIdQuery(Guid placeId)
         {
-            AddCriteria(p => p.CityId == cityId);
+            AddCriteria(p => p.PlaceId == placeId);
             ApplyOrderByDescending(p => p.CreatedDate);
-            ApplyPaging(0, 1);
+            AddInclude(r=>r.Medias);
+
         }
     }
 }

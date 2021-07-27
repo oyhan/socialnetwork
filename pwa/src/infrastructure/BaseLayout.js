@@ -1,5 +1,6 @@
 import { Container, Grid, makeStyles } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import AppBottomNav from '../components/Navigation/AppBottomNav';
 import { useStateValue } from '../lib/store/appState';
@@ -31,8 +32,10 @@ const useStyles = (showBottomNav) => makeStyles((theme) => ({
 
 const noBottomNavPaths = ["/nearme", "/login", "/signup", "/start", "/post"]
 export default function BaseLayout(props) {
-
     const [state, dispatch] = useStateValue();
+    const location = useLocation()
+
+    
     const [showBottom, setShowBottom] = useState(true);
 
     const getUser = () => {
@@ -52,7 +55,7 @@ export default function BaseLayout(props) {
     useEffect(() => {
         showBottomNav() ? setShowBottom(true) : setShowBottom(false);
 
-    }, [])
+    }, [location])
     const classes = useStyles(showBottomNav())();
 
 

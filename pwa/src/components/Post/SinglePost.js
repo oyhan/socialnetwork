@@ -74,7 +74,7 @@ const useStyle = makeStyles(theme => ({
 }));
 
 export default function SinglePost({ userName, likes, liked, id, createdDate, text, medias, avatarUrl }) {
-    console.log('createdDate: ', createdDate);
+    
     const avatar = avatarUrl;
     const history = useHistory();
     const [likesCount, userLiked, toggleLike] = usePostLike(liked, likes, id)

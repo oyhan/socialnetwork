@@ -79,6 +79,7 @@ const useStyles = makeStyles((theme) => ({
     distance: {
         fontSize : 9,
         lineHeight: 2.5,
+        color : '#645A5A'
     }
 }));
 

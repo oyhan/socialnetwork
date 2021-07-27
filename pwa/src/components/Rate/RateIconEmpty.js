@@ -6,9 +6,9 @@ const StyledIcon = withStyles(theme => ({
     fontSizeSmall: {
         fontSize: "0.60rem"
     },
-    fontSizeMedium: {
-        fontSize: "1.3rem"
-    },
+    // fontSizeMedium: {
+    //     fontSize: "1.3rem"
+    // },
     fontSizeLarge: {
         fontSize: "3.6rem"
     }

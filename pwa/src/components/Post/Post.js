@@ -163,11 +163,16 @@ export default function Post({ userName, createdDate, placeName, text, likes, me
     const handleLike = () => {
         if (!userLiked) {
             BrowserHttpClient.Post(`/like/${id}`).then(() => {
-                setLikes(innerLikes + 1);
+                // setLikes(likes=>likes+1);
+            }).finally(()=>{
+                setLikes(likes=>likes+1);
             })
         } else {
             BrowserHttpClient.Post(`/unlike/${id}`).then(() => {
-                setLikes(innerLikes - 1);
+                // setLikes(likes=>likes-1);
+            }).finally(()=>{
+                setLikes(likes=>likes-1);
+
             })
         }
         setLiked(!userLiked);

@@ -10,11 +10,15 @@ export default function usePostLike(userLiked, initialLikes, id) {
     const toggleLike = () => {
         if (!liked) {
             BrowserHttpClient.Post(`/like/${id}`).then(() => {
-                setLikes(likes + 1);
+                
+            }).finally(()=>{
+                setLikes(likes=>likes+1);
             })
         } else {
             BrowserHttpClient.Post(`/unlike/${id}`).then(() => {
-                setLikes(likes - 1);
+                // setLikes(likes=>likes-1);
+            }).finally(()=>{
+                setLikes(likes=>likes-1);
             })
         }
         setLiked(!liked);

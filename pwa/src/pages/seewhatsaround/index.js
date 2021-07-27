@@ -112,9 +112,13 @@ export default function WhatsNearMe() {
             </Link>
 
             <AppDivider />
-            <HomeSection loading={loading} items={cardPosts} title={`نزدیکترین کافه ها و رستوران‌ها ${cityHomeData.name}`} linkTo='/nearme' />
+            <Box m='17px 0'>
+                <HomeSection loading={loading} items={cardPosts} title={`نزدیکترین کافه ها و رستوران‌ها ${cityHomeData.name}`} linkTo='/seeallclose' />
+            </Box>
             <AppDivider />
-            <HomeSection loading={loading} items={recommandedRests} title={`رستوران‌های برتر ${cityHomeData.name}`} linkTo='/nearme' />
+            <Box m='17px 0'>
+                <HomeSection loading={loading} items={recommandedRests} title={`رستوران‌های برتر ${cityHomeData.name}`} linkTo='/seeallbest' />
+            </Box>
         </>
     )
 }

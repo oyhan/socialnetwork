@@ -22,6 +22,6 @@ export function useSignUpModelValidationSchema() {
                 })
 
         ,
-        phoneNumber: Yup.string().mobileNumber("شماره موبایل معتبر نیست").required("اجباری")
+        // phoneNumber: Yup.string().mobileNumber("شماره موبایل معتبر نیست").required("اجباری")
     }))
 }

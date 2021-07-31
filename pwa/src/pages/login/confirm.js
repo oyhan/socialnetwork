@@ -7,7 +7,6 @@ import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import ButtonBobo from '../../components/Button/ButtonBobo';
 import SimpleInput from '../../components/Input/SimpleInput';
-import OtpTimer from '../../components/OtpTimer/OtpTimer';
 import { setCredentials } from '../../helper/cookieHelper';
 import { BrowserHttpClient } from '../../lib/BrowserHttpClient';
 import { normalizenumber } from '../../lib/normalizations';
@@ -84,10 +83,10 @@ export default function Confirm() {
 
     const formik = useFormik({
         initialValues: {
-            otp: "",
         },
         validationSchema: Yup.object({
-            otp: Yup.string().required("لطفا کد تایید را وارد کنید").matches("^[0-9]+$", "فقط مقدار عددی وارد کنید").min(6, "کد تایید باید 6 رقم باشد")
+            otp: Yup.string().min(6, "کدتایید باید 6 رقم باشد")
+
         }),
         validateOnMount: false,
         // initialErrors: {
@@ -96,7 +95,6 @@ export default function Confirm() {
         isInitialValid: false,
         onSubmit: onSubmit,
     });
-
 
     useEffect(() => {
         if (formik.isValid)
@@ -107,24 +105,7 @@ export default function Confirm() {
     const retry = () => {
         setTimer(120);
     }
-    const onkeydown=(e)=>{
-        console.log('e: ', e);
-            if (e.shiftKey === true ) {
-                if (e.which == 9) {
-                    return true;
-                }
-                e.preventDefault();
-            }
-            if (e.which > 57 && e.which < 96 && e.which > 105) {
-                e.preventDefault();
 
-            }
-            if (e.which==32) {
-                e.preventDefault();
-
-            }
-            return true;
-    }
 
     return (
         <Grid justify='space-evenly' direction='column' container className={classes.root} >
@@ -133,10 +114,10 @@ export default function Confirm() {
                 <Typography className={classes.labelContainer}>
                     ورود
                 </Typography>
-                <SimpleInput autoComplete="off" disabled={formik.isSubmitting} onChange={formik.handleChange}
+                <SimpleInput autoComplete="off" onChange={formik.handleChange}
                     // error={formik.errors.otp}
-                    onKeyDown={onkeydown}
-                     type={'text'} name="otp"
+                        
+                    name="otp"
                     inputClassName={classes.input}
                     errorClassName={classes.error}
                     placeholder="――――――" />
@@ -149,4 +130,3 @@ export default function Confirm() {
     )
 }
 
- 

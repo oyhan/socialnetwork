@@ -81,7 +81,7 @@ export default function SpeedDials({ newPostClickHandler }) {
     const ref = useRef();
 
     const actions = [
-        { icon: <EditIcon />, name: 'نوشتن review', FabProps: { component: Link, to: "/searchforplace" } },
+        { icon: <EditIcon />, name: 'نوشتن نظر', FabProps: { component: Link, to: "/searchforplace" } },
         { icon: <PhotoCameraIcon />, name: 'پست کردن عکس', htmlFor: "postinput", handleClick: () => { ref.current.click(); } },
 
     ];

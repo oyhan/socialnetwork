@@ -1,15 +1,16 @@
 import { CircularProgress } from '@material-ui/core';
 import { Suspense } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch,Redirect } from 'react-router-dom';
 import PrivateRoute from '../components/PrivateRoute';
+import NotFoundPage from '../pages/404/NotFound';
 import BaseLayout from './BaseLayout';
 import Routes from './Routes';
 
 
-export const AppLoader = ()=>{
-    return <CircularProgress style={{position : 'fixed' , top:'50%' ,left : '50%'}}/>
+export const AppLoader = () => {
+    return <CircularProgress style={{ position: 'fixed', top: '50%', left: '50%' }} />
 }
- 
+
 
 export default function useUserLayout() {
 
@@ -28,6 +29,9 @@ export default function useUserLayout() {
                             </Route>
                     }
                     )}
+
+                    <Route path="/404" component={NotFoundPage} />
+                    <Redirect to="/404" />
                 </Switch>
             </Suspense>
         </BaseLayout >

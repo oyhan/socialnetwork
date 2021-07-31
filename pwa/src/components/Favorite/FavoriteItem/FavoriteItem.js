@@ -1,25 +1,27 @@
+import { Divider } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import IconButton from '@material-ui/core/IconButton';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import RoomIcon from '@material-ui/icons/Room';
+import clsx from 'clsx';
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { BrowserHttpClient } from '../../../lib/BrowserHttpClient';
 import BoboChip from '../../Chip/Chip';
 import Rate from '../../Rate/Rate';
-import clsx from 'clsx';
-import RoomIcon from '@material-ui/icons/Room';
-import { Divider } from '@material-ui/core';
+
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
         alignItems: 'center',
         width: '100%',
-        margin : '0 10px',
-        background : 'rgba(245, 243, 243, 1)'
+        margin: '0 10px',
+        background: 'rgba(245, 243, 243, 1)'
     },
     details: {
         width: '73%',
@@ -73,23 +75,23 @@ const useStyles = makeStyles((theme) => ({
         lineHeight: 2.4,
         // letterSpacing: '.5px',
     },
-    firstRow:{
-        marginTop:17
+    firstRow: {
+        marginTop: 17
     },
     distance: {
-        fontSize : 9,
+        fontSize: 9,
         lineHeight: 2.5,
-        color : '#645A5A'
+        color: '#645A5A'
     }
 }));
 
-export default function FavoriteItem({ rate, placeType, name, noOfReviews, distanceString, isOpen, id, iconic ,favorite }) {
+export default function FavoriteItem({ rate, placeType, name, noOfReviews, distanceString, isOpen, id, iconic, favorite }) {
     const classes = useStyles();
     const [faved, setFaved] = useState(true);
 
     useEffect(() => {
         setFaved(favorite);
-       
+
     }, [favorite])
 
 
@@ -114,11 +116,14 @@ export default function FavoriteItem({ rate, placeType, name, noOfReviews, dista
     return (
         <>
             <Card elevation={0} className={classes.root}>
-                <CardMedia
-                    className={classes.cover}
-                    image="/coffeeshop2.jpg"
-                    title="علاقه‌مندی"
-                />
+                <Link to={`place/${id}`} >
+                    <CardMedia
+                        className={classes.cover}
+                        image="/coffeeshop2.jpg"
+                        title="علاقه‌مندی"
+                    />
+                </Link>
+
                 <div className={classes.details}>
 
                     <CardContent className={classes.content}>
@@ -146,7 +151,7 @@ export default function FavoriteItem({ rate, placeType, name, noOfReviews, dista
                         </Typography>
                         {
                             iconic ? <div className={clsx(classes.inline,)}>
-                                <RoomIcon fontSize="small" classes={{fontSizeSmall : 'f1rem '}}/>
+                                <RoomIcon fontSize="small" classes={{ fontSizeSmall: 'f1rem ' }} />
                                 <Typography className={classes.distance} color='disabled'>
                                     {distanceString}
                                 </Typography>

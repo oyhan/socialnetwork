@@ -1,6 +1,6 @@
 import { Container, Divider, Grid, makeStyles, Typography } from "@material-ui/core";
+import { Link } from 'react-router-dom';
 import BoboChip from "../../Chip/Chip";
-import ThinDivider from "../../Dividers/ThinDevider";
 import Rate from "../../Rate/Rate";
 
 
@@ -43,9 +43,14 @@ export default function SliderItem1({ rate, placeType, name, noOfReviews, distan
         <>
             <Container>
                 <Grid container className={classes.root}>
+
+
                     <Grid item xs={3} className={classes.imagediv}>
-                        <img className={classes.image} src="/coffeeshop2.jpg" />
+                        <Link to={`place/${id}`} >
+                            <img className={classes.image} src="/coffeeshop2.jpg" />
+                        </Link>
                     </Grid>
+
                     <Grid item xs={9} className={classes.contentDiv}>
                         <Grid container direction='column'>
                             <Typography className={classes.title} >

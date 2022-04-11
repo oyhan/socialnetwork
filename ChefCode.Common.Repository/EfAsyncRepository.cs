@@ -13,6 +13,7 @@ namespace ChefCode.Common.Repository
     public class EfAsyncRepository<T, TId> : IAsyncRepository<T, TId> where T : BaseModel<TId>
     {
         public DbContext _dbContext { get; set; }
+        public DbSet<T> Table { get => _dbContext.Set<T>(); }
 
         public EfAsyncRepository(DbContext dbContext)
         {

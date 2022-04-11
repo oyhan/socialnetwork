@@ -28,7 +28,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using StackExchange.Redis;
 
@@ -149,13 +148,12 @@ namespace Mahoor.Api.Helper
                     //                    opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")
                     //                        ,
                     //                        x => x.UseNetTopologySuite());
-                    opt.UseNpgsql(Configuration.GetConnectionString("PostgreSQL")
+                    opt.UseSqlServer(Configuration.GetConnectionString("PostgreSQL")
                         ,
                         op =>
                         {
                             op.MigrationsAssembly("Mahoor.Data");
                             op.UseNetTopologySuite();
-                            op.UsePGroonga();
                         });
 //                        .AddInterceptors(sp.GetRequiredService<SecondLevelCacheInterceptor>()
 //                             );

@@ -86,7 +86,7 @@ export default function ReviewNewDialog({ open, handleWindow, placeId, placeName
 
     const classes = useStyles();
     const [urls, setUrls] = useState([]);
-    const [selecteRate, setSelectedRate] = useState("")
+    const [selecteRate, setSelectedRate] = useState("");
     const [photos, setPhotos] = useState([])
 
 

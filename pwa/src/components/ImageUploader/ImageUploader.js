@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Fab, makeStyles, Tooltip } from '@material-ui/core';
 import { green } from '@material-ui/core/colors';
-import { PhotoCamera } from '@material-ui/icons';
 import useWebp, { ResizeFiles } from '../../lib/hooks/ImageCompress/useWebp';
-import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
-const pica = require('pica')();
+import AddAPhotoIcon from '@material-ui/icons/AddAPhotoIcon';
 
 const useStyle = makeStyles((theme) => ({
     root: {

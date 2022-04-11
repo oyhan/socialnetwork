@@ -145,9 +145,6 @@ export default function Home() {
       <AppDivider />
 
       <HomePosts posts={timeLine.followingsPosts || []} />
-
-
-
     </>
   )
 }
